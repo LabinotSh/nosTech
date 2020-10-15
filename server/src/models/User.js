@@ -1,5 +1,5 @@
 const moongose = require('mongoose');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 const userSchema = new moongose.Schema({
     name: {
@@ -51,6 +51,7 @@ userSchema.methods.comparePassword = async function (password) {
     }
 };
 
-const User = moongose.model('User', userSchema)
+
+const User = moongose.model('User', userSchema);
 
 module.exports = User;
