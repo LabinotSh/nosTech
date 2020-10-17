@@ -4,7 +4,7 @@ import '../css/forum.css'
 function Forum() {
     return (
         <div>
-            
+           <p>Forum Content</p>
         </div>
     )
 }

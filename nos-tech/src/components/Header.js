@@ -12,26 +12,26 @@ function Header() {
     <Nav.Link href="/" className="navigation">Home</Nav.Link>
   </Nav.Item>
   <Nav.Item as="li">
-    <Nav.Link href="/" className="navigation">Courses</Nav.Link>
+    <Nav.Link href="/courses" className="navigation">Courses</Nav.Link>
   </Nav.Item>
   <Nav.Item as="li">
-    <Nav.Link href="/" className="navigation">Articles</Nav.Link>
+    <Nav.Link href="/articles" className="navigation">Articles</Nav.Link>
   </Nav.Item>
   <Nav.Item as="li">
-    <Nav.Link href="/" className="navigation">Forum</Nav.Link>
+    <Nav.Link href="/forum" className="navigation">Forum</Nav.Link>
   </Nav.Item>
   <Nav.Item as="li">
-    <Nav.Link href="/" className="navigation">About Us</Nav.Link>
+    <Nav.Link href="/about-us" className="navigation">About Us</Nav.Link>
   </Nav.Item>
   <Nav.Item as="li">
-    <Nav.Link href="/" className="navigation">Contact</Nav.Link>
+    <Nav.Link href="/contact" className="navigation">Contact</Nav.Link>
   </Nav.Item>
  
 </Nav>
 </div>
 <div className="auth-buttons">  
-<Button className="auth-button mar" variant="link">Login</Button>
-<Button className="auth-button mar" variant="link">Register</Button>
+<Button className="auth-button mar" variant="link" href="/login">Login</Button>
+<Button className="auth-button mar" variant="link" href="/registration">Register</Button>
 </div>
     </div>
   )

@@ -5,7 +5,7 @@ import '../css/aboutus.css'
 function AboutUs() {
     return (
         <div>
-            
+          <p>About Us Content</p>
         </div>
     )
 }

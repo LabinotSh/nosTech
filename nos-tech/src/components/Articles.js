@@ -5,7 +5,7 @@ import '../css/articles.css'
 function Articles() {
     return (
         <div>
-            
+            <p>Articles Content</p>
         </div>
     )
 }
