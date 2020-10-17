@@ -1,6 +1,6 @@
 import React from 'react'
 import { Nav, Button } from 'react-bootstrap';
-import './header.css';
+import '../css/header.css'
 
 function Header() {
   return (
