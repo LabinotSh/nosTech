@@ -1,0 +1,61 @@
+.Content {
+  width: 75%;
+  margin: 0 auto;
+  padding: 25px 10px;
+}
+.left {
+  background-color: #d1d1d1;
+  padding: 50px;
+
+  width: 50%;
+  float: left;
+  color: red;
+  font-size: 12px;
+}
+.right {
+  padding: 50px;
+  text-align: center;
+  float: right;
+  background-color: #f4f3f3;
+  width: 50%;
+  color: blue;
+  font-size: 12px;
+}
+.custom-field {
+  position: relative;
+  font-size: 14px;
+  padding-top: 20px;
+  margin-bottom: 5px;
+}
+
+.custom-field input {
+  border: none;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  background: white;
+  padding: 12px;
+  border-radius: 3px;
+  width: 350px;
+  outline: none;
+}
+
+.custom-field .placeholder {
+  position: absolute;
+  left: 12px;
+  top: calc(50% + 10px);
+  transform: translateY(-50%);
+  color: #aaa;
+  transition: top 0.3s ease, font-size 0.3s ease, color 0.3s ease;
+  resize: none;
+  border: none;
+  outline: none;
+}
+
+.custom-field input:valid + .placeholder,
+.custom-field input:focus + .placeholder {
+  top: 10px;
+  font-size: 10px;
+  color: #222;
+}
