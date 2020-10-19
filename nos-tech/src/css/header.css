@@ -1,0 +1,41 @@
+.all {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.mar {
+    background-color: transparent;
+    outline: none;
+    color: black;
+    margin: 10px;
+    min-width: 90px;
+}
+
+.auth-button:hover {
+    color: black;
+}
+
+.navigation {
+    color: black;
+    margin-top: 15px;
+}
+
+.navigation:hover {
+    color: black;
+}
+
+.nav-link::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 2px;
+    background: black;
+    transition: width .3s;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+    transition: width .5s;
+}
+

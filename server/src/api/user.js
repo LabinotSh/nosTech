@@ -43,7 +43,7 @@ router.post('/newUser', async (req,res) => {
 router.get('/:userId', async(req,res) => {
     try {
         const id = req.params.userId;
-        const user = await User.findByPk(id);
+        const user = await User.findOne({_id:id});
         res.json(user);
         
     } catch (error) {
