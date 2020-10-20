@@ -1,0 +1,41 @@
+.about-us-card{
+    border:none;
+}
+.what-we-do-pic1{
+    width: 250px;
+}
+.what-we-do-pic2{
+    margin-top: -150px;
+    margin-left: 180px;
+    width: 250px;
+}
+.what-we-do-pic3{
+    margin-top: -150px;
+    margin-left: 350px;
+    width: 250px;
+}
+.carousel-pic{
+    width: 250px;
+    border-radius: 50%;
+    height: 100%;
+}
+.carousel-div{
+    height: 200px;
+    margin-top: 50px;
+}
+.react-multiple-carousel__arrow--left{
+    background: transparent !important;
+    top: 0;
+    left: 0;
+}
+.react-multiple-carousel__arrow--right{
+    background: transparent !important;
+    top: 0;
+    left: 80px;
+}
+.react-multiple-carousel__arrow--left::before{
+    color: grey !important;
+}
+.react-multiple-carousel__arrow--right::before{
+    color: grey !important;
+}
