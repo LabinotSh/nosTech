@@ -1,0 +1,50 @@
+.Content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 75%;
+  margin: 0 auto;
+  padding: 25px 10px;
+}
+h1,
+h2 {
+  margin: 10px auto;
+  color: #aaa;
+}
+.left {
+  background-color: #d1d1d1;
+  padding: 50px;
+  width: 50%;
+  float: left;
+  color: red;
+  font-size: 12px;
+}
+.right {
+  padding: 50px;
+  float: right;
+  background-color: #f4f3f3;
+  width: 50%;
+  font-size: 12px;
+}
+
+input {
+  background: white;
+  padding: 12px;
+  border-radius: 3px;
+  width: 350px;
+  outline: none;
+}
+
+input::placeholder {
+  color: #aaa;
+}
+.form-group {
+  margin: 10px auto;
+  align-items: center;
+  width: 77%;
+  align-content: center;
+}
+
+.btn {
+  margin-top: 20px;
+}
