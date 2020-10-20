@@ -9,6 +9,7 @@ import two from '../assets/2.jpg'
 import three from '../assets/3.jpg'
 import four from '../assets/4.jpg'
 import five from '../assets/5.jpg'
+import background from '../assets/background.png'
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 
@@ -41,7 +42,7 @@ function AboutUs() {
       <div className="row my-5">
         <div className="row col-md-12">
         <div className="card col-md-7 about-us-card">
-        <img  className="card-img-top " src={pic1} ></img>
+        <img  className="card-img-top " src={background} ></img>
         </div>
         <div className="card col-md-5 about-us-card">
         <h2 className="text-center mb-5 my-5">Who are we?</h2>
@@ -60,9 +61,9 @@ function AboutUs() {
        {/* What we do ? -- Section */}
       <div className=" col-md-12 row">
       <div className="card about-us-card  col-md-7 my-5">
-        <img  className="card-img-top  what-we-do-pic1" src={whatwedo1} ></img>
-        <img  className="card-img-top  what-we-do-pic2" src={whatwedo2} ></img>
-        <img  className="card-img-top  what-we-do-pic3" src={whatwedo3} ></img>
+        <img  className="card-img-top  what-we-do-pic1" src={background} ></img>
+        <img  className="card-img-top  what-we-do-pic2" src={background} ></img>
+        <img  className="card-img-top  what-we-do-pic3" src={background} ></img>
       </div>
         <div className="card col-md-5 about-us-card my-5">
         <h2 className="text-center mb-5 my-5">What we do!</h2>
@@ -89,13 +90,12 @@ function AboutUs() {
       autoPlay= {true}
       autoPlaySpeed={5000}
       >
-    <div className="carousel-div"><img  className="card-img-top  carousel-pic" src={one} ></img></div>
-    <div className="carousel-div"><img  className="card-img-top  carousel-pic" src={two} ></img></div>
-    <div className="carousel-div"><img  className="card-img-top  carousel-pic" src={three} ></img></div>
-    <div className="carousel-div"><img  className="card-img-top  carousel-pic" src={four} ></img></div>
-    <div className="carousel-div"><img  className="card-img-top  carousel-pic" src={five} ></img></div>
+    <div className="carousel-div"><img  className="card-img-top  carousel-pic" src={background} ></img></div>
+    <div className="carousel-div"><img  className="card-img-top  carousel-pic" src={background} ></img></div>
+    <div className="carousel-div"><img  className="card-img-top  carousel-pic" src={background} ></img></div>
+    <div className="carousel-div"><img  className="card-img-top  carousel-pic" src={background} ></img></div>
+    <div className="carousel-div"><img  className="card-img-top  carousel-pic" src={background} ></img></div>
   </Carousel>
-
     </div>
 
     )}
