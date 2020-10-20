@@ -1,13 +1,14 @@
 import React from 'react'
-import '../css/contact.css'
+import './contact.css'
 
 function Contact() {
-    const { handleSubmit } = this.props;
+    // const { handleSubmit } = this.props;
     return (
         <div className="Content">
            <div className="left"></div>
            <div className="right">
-               <form autoComplete="off" onSubmit={handleSubmit}>
+               {/* ma poshte qekjo onSubmit={handleSubmit} */}
+               <form autoComplete="off" >
                    <h1>Got any concern?</h1>
                    <h2>Feel free to contact us!</h2>
                    <div class="form-group">
@@ -65,8 +66,8 @@ function Contact() {
         </div>
     )
 }
-export default reduxForm({
-    form: 'contact'
- })(Contact);
+// export default reduxForm({
+//     form: 'contact'
+//  })(Contact);
 
 export default Contact

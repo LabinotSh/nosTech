@@ -1,18 +1,18 @@
 import React from 'react';
-import './css/App.css'
+import './App.css'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
-import Header from './components/Header'
-import Footer from './components/Footer'
+import Header from './components/header/Header'
+import Footer from './components/footer/Footer'
 
 // screens
-import Home from './components/Home'
-import Courses from './components/Courses'
-import Articles from './components/Articles'
-import Forum from './components/Forum'
-import AboutUs from './components/AboutUs'
-import Contact from './components/Contact'
-import Login from './components/Login'
-import Registration from './components/Registration'
+import Home from './screens/home/Home'
+import Courses from './screens/courses/Courses'
+import Articles from './screens/articles/Articles'
+import Forum from './screens/forum/Forum'
+import AboutUs from './screens/aboutUs/AboutUs'
+import Contact from './screens/contact/Contact'
+import Login from './screens/login/Login'
+import Registration from './screens/registration/Registration'
 
 
 const App = () => {
@@ -31,5 +31,7 @@ const App = () => {
     </Router>
   );
 }
+
+
 
 export default App;
