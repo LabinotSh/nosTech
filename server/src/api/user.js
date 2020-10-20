@@ -12,7 +12,7 @@ const User = require('../models/User');
 //Get All the users
 router.get('/', async (req,res) =>{
     try{
-        const users = await User.findAll();
+        const users = await User.find();
         res.json(users);
     }catch(err){
         console.log({
@@ -51,6 +51,19 @@ router.get('/:userId', async(req,res) => {
     }
 });
 
+//Get courses by category
+router.get('/:userId', async(req,res) => {
+    try {
+        const id = req.params.userId;
+        const user = await User.findByPk(id);
+        res.json(user);
+        
+    } catch (error) {
+        console.error(error);
+    }
+});
+
+
 //Delete a user by id
 router.delete('/:userId', async (req,res) => {
     const id = req.params.userId;
@@ -58,7 +71,6 @@ router.delete('/:userId', async (req,res) => {
         const deletedUser = await User.deleteOne({
             _id: id
         })
-     
         res.send(deletedUser);
     } catch (error) {
         console.error(error);
