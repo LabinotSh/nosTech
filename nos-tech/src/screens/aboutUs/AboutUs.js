@@ -1,15 +1,10 @@
 import React from 'react'
-import '../css/aboutus.css'
-import pic1 from '../assets/aboutUs.jpg'
-import whatwedo1 from '../assets/whatwedo1.jpg'
-import whatwedo2 from '../assets/whatwedo2.jpg'
-import whatwedo3 from '../assets/whatwedo3.jpg'
-import one from '../assets/1.jpg'
-import two from '../assets/2.jpg'
-import three from '../assets/3.jpg'
-import four from '../assets/4.jpg'
-import five from '../assets/5.jpg'
-import background from '../assets/background.png'
+import './aboutus.css'
+import one from '../../assets/images/1.jpg'
+import two from '../../assets/images/2.jpg'
+import three from '../../assets/images/3.jpg'
+import four from '../../assets/images/4.jpg'
+import five from '../../assets/images/5.jpg'
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 
@@ -42,7 +37,7 @@ function AboutUs() {
       <div className="row my-5">
         <div className="row col-md-12">
         <div className="card col-md-7 about-us-card">
-        <img  className="card-img-top " src={background} ></img>
+        <img  className="card-img-top " src={1} ></img>
         </div>
         <div className="card col-md-5 about-us-card">
         <h2 className="text-center mb-5 my-5">Who are we?</h2>
@@ -61,9 +56,9 @@ function AboutUs() {
        {/* What we do ? -- Section */}
       <div className=" col-md-12 row">
       <div className="card about-us-card  col-md-7 my-5">
-        <img  className="card-img-top  what-we-do-pic1" src={background} ></img>
-        <img  className="card-img-top  what-we-do-pic2" src={background} ></img>
-        <img  className="card-img-top  what-we-do-pic3" src={background} ></img>
+        <img  className="card-img-top  what-we-do-pic1" src={1} ></img>
+        <img  className="card-img-top  what-we-do-pic2" src={2} ></img>
+        <img  className="card-img-top  what-we-do-pic3" src={3} ></img>
       </div>
         <div className="card col-md-5 about-us-card my-5">
         <h2 className="text-center mb-5 my-5">What we do!</h2>
@@ -90,11 +85,11 @@ function AboutUs() {
       autoPlay= {true}
       autoPlaySpeed={5000}
       >
-    <div className="carousel-div"><img  className="card-img-top  carousel-pic" src={background} ></img></div>
-    <div className="carousel-div"><img  className="card-img-top  carousel-pic" src={background} ></img></div>
-    <div className="carousel-div"><img  className="card-img-top  carousel-pic" src={background} ></img></div>
-    <div className="carousel-div"><img  className="card-img-top  carousel-pic" src={background} ></img></div>
-    <div className="carousel-div"><img  className="card-img-top  carousel-pic" src={background} ></img></div>
+    <div className="carousel-div"><img  className="card-img-top  carousel-pic" src={1} ></img></div>
+    <div className="carousel-div"><img  className="card-img-top  carousel-pic" src={2} ></img></div>
+    <div className="carousel-div"><img  className="card-img-top  carousel-pic" src={3} ></img></div>
+    <div className="carousel-div"><img  className="card-img-top  carousel-pic" src={4} ></img></div>
+    <div className="carousel-div"><img  className="card-img-top  carousel-pic" src={5} ></img></div>
   </Carousel>
     </div>
 
