@@ -1,6 +1,7 @@
 import React from "react";
 import "./login.css";
 import { Container, Row, Col, Card, Button, Form } from "react-bootstrap";
+import loginBackground from "../../assets/images/loginBackground.png";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import Error from "../../components/error/Error.js";
@@ -98,10 +99,7 @@ function Login() {
               {" "}
               <Card className="text-center cards one">
                 {/* Background Image goes here */}
-                <Card.Img
-                  src="../../assets/images/loginBackground.png"
-                  alt="test"
-                ></Card.Img>
+                <Card.Img src={loginBackground} alt="test"></Card.Img>
               </Card>
             </Col>
           </Row>
