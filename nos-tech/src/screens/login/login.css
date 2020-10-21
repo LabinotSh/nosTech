@@ -1,0 +1,72 @@
+* {
+    font-family: 'Roboto', sans-serif;
+}
+
+.cards {
+    height: 500px;
+    width: 400;
+    margin-top: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    border: none;
+}
+
+.title {
+    font-family: 'Roboto' sans-serif;
+    font-weight: 400;
+    font-style: italic;
+    font-size: 30px;
+}
+
+.form-control {
+    height: 50px;
+    border-radius: 0;
+    width: 300px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+  }
+
+.logInBtn {
+    background-color: #00132A !important;
+    outline-color: #00132A !important;
+    border-color:#00132A !important;
+    margin: 35px 10px;
+    width: 150px;
+    border-radius: 20px;
+    padding: 10px 5px;
+}
+
+.registerBtn {
+    background-color: white;
+    color: #00132A;
+    outline-color:#00132A;
+    border-color:white;
+    margin: 35px 10px;
+    width: 150px;
+    border-radius: 20px;
+    padding: 10px 5px;
+    box-shadow: 3px 5px 14px #bebcbc;
+}
+
+.registerBtn:hover{
+    background-color: #F7A366 !important;
+    outline-color: #F7A366 !important;
+    border-color:#F7A366 !important;
+}
+
+.two:before {
+    content: "";
+    display: block;
+    width: 70%;
+    padding-top: 30px;
+    border-top: 2px solid red;
+  }
+  
+  .registerBtn:focus {
+    background-color: #F7A366 !important;
+    outline-color: #F7A366 !important;
+    border-color:#F7A366 !important;
+}
