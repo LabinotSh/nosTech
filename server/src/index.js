@@ -17,6 +17,7 @@ const app = express();
 app.use(morgan('common'));
 app.use(helmet());
 app.use(express.json());
+app.use(cors());
 app.use('/api/user', userRoutes);
 app.use('/api/course', courseRoutes);
 app.use('/api/order', orderRoutes);
@@ -38,6 +39,7 @@ app.use((err, req, res, next) => {
     })
 }
 )
+
 
 const port = process.env.PORT || 3001;
 
