@@ -1,35 +1,12 @@
 import React from 'react'
 import './aboutus.css'
-import one from '../../assets/images/1.jpg'
-import two from '../../assets/images/2.jpg'
-import three from '../../assets/images/3.jpg'
-import four from '../../assets/images/4.jpg'
-import five from '../../assets/images/5.jpg'
-import Carousel from 'react-multi-carousel';
-import 'react-multi-carousel/lib/styles.css';
+import team from '../../assets/images/aboutUs.svg'
+import team2 from '../../assets/images/aboutUs2.svg'
+import team3 from '../../assets/images/aboutUs3.svg'
+import team4 from '../../assets/images/aboutUs4.svg'
+import Carousel from '../../components/carousel/Carousel'
 
 function AboutUs() {
-  const responsive = {
-    superLargeDesktop: {
-
-      breakpoint: { max: 4000, min: 3000 },
-      items: 5
-    },
-    desktop: {
-      breakpoint: { max: 3000, min: 1024 },
-      items: 3
-    },
-    tablet: {
-      breakpoint: { max: 1024, min: 464 },
-      items: 1
-    },
-    mobile: {
-      breakpoint: { max: 464, min: 0 },
-      items: 1
-    }
-  };
-
-  
 
     return (
       <div className="container">
@@ -37,7 +14,7 @@ function AboutUs() {
       <div className="row my-5">
         <div className="row col-md-12">
         <div className="card col-md-7 about-us-card">
-        <img  className="card-img-top " src={1} ></img>
+        <img  className="card-img-top " src={team} ></img>
         </div>
         <div className="card col-md-5 about-us-card">
         <h2 className="text-center mb-5 my-5">Who are we?</h2>
@@ -54,14 +31,9 @@ function AboutUs() {
       </div>
 
        {/* What we do ? -- Section */}
-      <div className=" col-md-12 row">
+       <div className=" col-md-12 row">
       <div className="card about-us-card  col-md-7 my-5">
-        <img  className="card-img-top  what-we-do-pic1" src={1} ></img>
-        <img  className="card-img-top  what-we-do-pic2" src={2} ></img>
-        <img  className="card-img-top  what-we-do-pic3" src={3} ></img>
-      </div>
-        <div className="card col-md-5 about-us-card my-5">
-        <h2 className="text-center mb-5 my-5">What we do!</h2>
+      <h2 className="text-center mb-5 my-5">What we do!</h2>
         <p >Lorem Ipsum is simply dummy text of the printing and typesetting industry.
            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
           when an unknown printer took a galley of type and scrambled it to make a type
@@ -70,6 +42,12 @@ function AboutUs() {
           the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, 
           and more recently with desktop publishing software like Aldus PageMaker including 
           versions of Lorem</p>
+      </div>
+        <div className="card col-md-5 about-us-card my-5">
+      
+          <img  className="card-img-top  what-we-do-pic1" src={team4} ></img>
+        <img  className="card-img-top  what-we-do-pic2" src={team2} ></img>
+        <img  className="card-img-top  what-we-do-pic3" src={team3} ></img>
         </div>
       </div>
 
@@ -77,20 +55,10 @@ function AboutUs() {
       {/* Meet our team ? -- Section */}
       <h4 className="container">Meet our team</h4>
       <hr></hr>
-      <Carousel 
-      className="my-3" 
-      responsive={responsive} 
-      infinite={true}
-      removeArrowOnDeviceType={["tablet", "mobile"]}
-      autoPlay= {true}
-      autoPlaySpeed={5000}
-      >
-    <div className="carousel-div"><img  className="card-img-top  carousel-pic" src={1} ></img></div>
-    <div className="carousel-div"><img  className="card-img-top  carousel-pic" src={2} ></img></div>
-    <div className="carousel-div"><img  className="card-img-top  carousel-pic" src={3} ></img></div>
-    <div className="carousel-div"><img  className="card-img-top  carousel-pic" src={4} ></img></div>
-    <div className="carousel-div"><img  className="card-img-top  carousel-pic" src={5} ></img></div>
-  </Carousel>
+      <div>
+      <Carousel />
+     
+        </div>
     </div>
 
     )}

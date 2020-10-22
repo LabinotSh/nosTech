@@ -1,24 +1,10 @@
-.all {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
+@media screen and (max-width: 760px) {#c{
+    margin: 0 auto;
+  }}
 
-.mar {
-    background-color: transparent;
-    outline: none;
-    color: black;
-    margin: 10px;
-    min-width: 90px;
-}
 
 .auth-button:hover {
     color: black;
-}
-
-.navigation {
-    color: black;
-    margin-top: 15px;
 }
 
 .navigation:hover {
@@ -38,4 +24,13 @@
     width: 100%;
     transition: width .5s;
 }
-
+.navigation{
+    color: black !important;
+    text-decoration: none !important;
+}
+.navbar-dark .navbar-toggler {
+    border-color:grey;
+}
+.navbar-dark .navbar-toggler-icon{
+    background-image: url(../../assets/images/collapse.png);
+}
