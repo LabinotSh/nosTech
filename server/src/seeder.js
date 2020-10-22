@@ -1,41 +1,41 @@
-const mongoose = require('mongoose');
-const doteenv = require('dotenv');
-const users = require('./data/users');
-const User = require('./models/User.js');
-const connectDB =  require('./config/db.js');
+// const mongoose = require('mongoose');
+// const doteenv = require('dotenv');
+// const users = require('./data/users');
+// const User = require('./models/User.js');
+// const connectDB =  require('./config/db.js');
 
-doteenv.config()
-connectDB()
+// doteenv.config()
+// connectDB()
 
-const importData = async () => {
-    try{
-        await User.deleteMany()
+// const importData = async () => {
+//     try{
+//         await User.deleteMany()
 
-        await User.insertMany(users)
+//         await User.insertMany(users)
 
-        console.log('Data imported')
-        process.exit()
-    } catch(error) {
-        console.error(`${error}`)
-        process.exit(1)
-    }
-}
+//         console.log('Data imported')
+//         process.exit()
+//     } catch(error) {
+//         console.error(`${error}`)
+//         process.exit(1)
+//     }
+// }
 
-const destroyData = async () => {
-    try{
-        await User.deleteMany()
+// const destroyData = async () => {
+//     try{
+//         await User.deleteMany()
 
 
-        console.log('Data Destroyed')
-        process.exit()
-    } catch(error) {
-        console.error(`${error}`)
-        process.exit(1)
-    }
-}
+//         console.log('Data Destroyed')
+//         process.exit()
+//     } catch(error) {
+//         console.error(`${error}`)
+//         process.exit(1)
+//     }
+// }
 
-if (process.argv[2] === '-d') {
-    destroyData()
-}else{
-    importData()
-}
+// if (process.argv[2] === '-d') {
+//     destroyData()
+// }else{
+//     importData()
+// }
