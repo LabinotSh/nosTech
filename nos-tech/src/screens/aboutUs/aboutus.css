@@ -3,16 +3,21 @@
 }
 .what-we-do-pic1{
     width: 250px;
+
+    margin-left: 200px;
+    margin-top: -120px;
 }
 .what-we-do-pic2{
-    margin-top: -150px;
-    margin-left: 180px;
+    margin-top: -80px;
+    margin-left: 100px;
     width: 250px;
+
 }
 .what-we-do-pic3{
-    margin-top: -150px;
-    margin-left: 350px;
+    margin-top: -80px;
+    margin-left: 20px;
     width: 250px;
+
 }
 .carousel-pic{
     width: 250px;
@@ -38,4 +43,11 @@
 }
 .react-multiple-carousel__arrow--right::before{
     color: grey !important;
+}
+.c{
+    margin-left:50px;
+    margin-top:50px;
+    width: 50%;
+    height: 50%;
+    border-radius: 50%;
 }
