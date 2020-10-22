@@ -14,11 +14,11 @@ const courseSchema = new moongose.Schema({
     price: {
         type: Number,
         lowercase: true,
-        required: true
+        required: true       
     },
     image: {
         type: String,
-        required: true
+        required: false
     },
     _instructor: {
         type: moongose.Schema.Types.ObjectId,
