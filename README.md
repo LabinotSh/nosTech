@@ -1,4 +1,4 @@
-# nosTech Project
+# nosTech
 
 A MERN Fullstack application
 
