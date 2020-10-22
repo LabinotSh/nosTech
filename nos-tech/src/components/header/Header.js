@@ -1,40 +1,67 @@
 import React from 'react'
 import { Nav, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom'; 
 import './header.css'
 
 function Header() {
   return (
-    <div className="all">
-      <div className="logo mar">nosTech</div>
-      <div className="navi">
-       <Nav defaultActiveKey="/home" as="ul" className="navigation-menu justify-content-center">
-  <Nav.Item as="li">
-    <Nav.Link href="/" className="navigation">Home</Nav.Link>
-  </Nav.Item>
-  <Nav.Item as="li">
-    <Nav.Link href="/courses" className="navigation">Courses</Nav.Link>
-  </Nav.Item>
-  <Nav.Item as="li">
-    <Nav.Link href="/articles" className="navigation">Articles</Nav.Link>
-  </Nav.Item>
-  <Nav.Item as="li">
-    <Nav.Link href="/forum" className="navigation">Forum</Nav.Link>
-  </Nav.Item>
-  <Nav.Item as="li">
-    <Nav.Link href="/about-us" className="navigation">About Us</Nav.Link>
-  </Nav.Item>
-  <Nav.Item as="li">
-    <Nav.Link href="/contact" className="navigation">Contact</Nav.Link>
-  </Nav.Item>
- 
-</Nav>
-</div>
-<div className="auth-buttons">  
-<Button className="auth-button mar" variant="link" href="/login">Login</Button>
-<Button className="auth-button mar" variant="link" href="/registration">Register</Button>
-</div>
-    </div>
-  )
+    <div>
+	
+      <nav className="navbar navbar-expand-lg navbar-dark static-top font header">
+      <div className="container">
+      <a className="logo mar" style={{fontSize:"24px" , padding:"0"}}>nosTech </a>
+      <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span className="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+<div className="col-md-12 mx-auto">
+
+
+
+          <div className="d-flex float-left col-md-10">
+          <div className="mx-auto">
+          <ul class="navbar-nav ml-auto">
+          <li className="nav-item">
+      <Link to="/" tag="li" active-class="active" className="navigation" exact><a className="nav-link navigation">Home</a></Link>
+      </li>
+      <li className="nav-item">
+      <Link to="/courses" tag="li" active-class="active" className="navigation" exact ><a className="nav-link navigation">Courses</a></Link>
+      </li>
+	    <li className="nav-item">
+      <Link to="/articles" tag="li" active-class="active" className="navigation" exact><a className="nav-link navigation">Articles</a></Link>
+      </li>
+      <li className="nav-item">
+      <Link to="/forum" tag="li" active-class="active" className="navigation" exact><a className="nav-link navigation">Forum</a></Link>
+      </li>
+      <li className="nav-item">
+      <Link to="/about-us" tag="li" active-class="active" className="navigation" exact><a className="nav-link navigation">About Us</a></Link>
+      </li>
+      <li className="nav-item">
+      <Link to="/contact" tag="li" active-class="active" className="navigation" exact><a className="nav-link navigation">Contact</a></Link>
+      </li>
+      </ul>
+      </div>
+      </div>
+
+      <div className="float-left d-flex col-md-2">
+      <div id="c">
+          <ul class="navbar-nav ml-auto">
+      <li className="nav-item">
+      <Link to="/login" tag="li" active-class="active" exact style={{textDecoration:"none"}}><a className="nav-link navigation">login</a></Link>
+      </li>
+      <li className="nav-item">
+      <Link to="/register" tag="li" active-class="active" exact style={{textDecoration:"none"}}><a className="nav-link navigation">signup</a></Link>
+      </li>
+      </ul>
+      </div>
+      </div>
+      </div>   
+      </div>
+      </div>
+      </nav>
+      </div>
+    
+  );
 }
 
 export default Header

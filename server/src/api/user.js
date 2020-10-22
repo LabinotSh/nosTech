@@ -1,18 +1,20 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
-//const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
+const schema = require('../middleware/validation');
+const {authorize} = require('../middleware/authorize');
+const {generateAccessToken, generateRefreshToken, verify} = require('../middleware/authToken');
 
+const {refreshTokens} = require('../data/refreshTokens');
 const User = require('../models/User');
-
-//Validation
-//const schema = require('../validation');
 
 
 //Get All the users
 router.get('/', async (req,res) =>{
     try{
         const users = await User.find();
+        res.header('Content-Range', `course 0-10/${users.length}`);
         res.json(users);
     }catch(err){
         console.log({
@@ -21,7 +23,18 @@ router.get('/', async (req,res) =>{
     }
 });
 
-router.post('/newUser', async (req,res) => {
+router.post('/register', async (req,res) => {
+
+    const {error} = schema.registrationValidate(req.body);
+    if(error) return res.status(400).send(error.details[0].message);
+
+    //Check if that email already exists
+    const emailExists = await User.findOne({
+        where: {
+            email: req.body.email
+        }
+    });
+    if(emailExists) return res.status(400).send('Email already exists!');
 
     //Hash the password
     const salt = await bcrypt.genSalt(10);
@@ -32,11 +45,46 @@ router.post('/newUser', async (req,res) => {
             name: req.body.name,
             surname: req.body.surname,
             email: req.body.email,
-            password: hashedPassword
+            password: hashedPassword,
+            role: req.body.role
         })
+
+        const savedUser = await newUser.save();
+        res.json(savedUser);
     } catch (error) {
         console.log(error);
     }
+});
+
+//login
+router.post('/login', async (req,res) => {
+
+    // const {error} = schema.loginValidate(req.body);
+    //  if(error) return res.status(400).send(error.details[0].message);
+
+    const user = await User.findOne({
+           email: req.body.email
+   });
+   
+   if(!user) return res.status(400).send('Email or password wrong!');
+
+   const validPassword = await bcrypt.compare(req.body.password, user.password);
+   if(!validPassword) return res.status(400).send('Invalid Password!');
+
+   const accessToken = generateAccessToken(user);
+   const refreshToken = generateRefreshToken(user);
+   user.refreshTokens = refreshTokens; 
+   user.refreshTokens.push(refreshToken);
+   
+   console.log('dd : ' + user.refreshTokens);
+
+   res.cookie("jwt", accessToken, {secure: false, httpOnly: false})
+
+   res.header('auth-token', accessToken).send(accessToken);
+   console.log('REFFF ' + refreshToken);
+//    res.json('Token ' + accessToken)
+
+//    res.send("Logged In!");
 });
 
 //Get one user by id
@@ -44,18 +92,6 @@ router.get('/:userId', async(req,res) => {
     try {
         const id = req.params.userId;
         const user = await User.findOne({_id:id});
-        res.json(user);
-        
-    } catch (error) {
-        console.error(error);
-    }
-});
-
-//Get courses by category
-router.get('/:userId', async(req,res) => {
-    try {
-        const id = req.params.userId;
-        const user = await User.findByPk(id);
         res.json(user);
         
     } catch (error) {
@@ -76,6 +112,7 @@ router.delete('/:userId', async (req,res) => {
         console.error(error);
     }
 });
+
 
 //Update a user by id
 router.patch('/:userId', async (req,res) => {

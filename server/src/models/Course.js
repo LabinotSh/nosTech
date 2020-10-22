@@ -13,23 +13,23 @@ const courseSchema = new moongose.Schema({
     },
     price: {
         type: Number,
+        lowercase: true,
+        required: true       
     },
     image: {
         type: String,
         required: false
     },
-    instructor: {
+    _instructor: {
         type: moongose.Schema.Types.ObjectId,
         required:false,
-        ref: 'Instructor'
+        ref: 'User'
     },
-
-    students: [{
+    users: [{
         type: moongose.Schema.Types.ObjectId,
         required:false,
         ref: 'User'
     }],
-
     category: {
         type: String,
         required: false
@@ -38,10 +38,10 @@ const courseSchema = new moongose.Schema({
         type: String,
         required: false
     }]
-
 },{
     timestamps: true
 })
 
 const Course = moongose.model('Course', courseSchema);
+
 module.exports = Course;
