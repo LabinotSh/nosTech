@@ -1,22 +1,26 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
-import * as serviceWorker from "./serviceWorker";
 
 //Redux store
-// import { Provider } from 'react-redux';
-// import { createStore } from 'redux';
-// import { rootReducer } from './store/rootReducer'
+import Provider from 'react-redux';
+import store from './store';
+import { createStore } from 'redux';
 
-// const store = createStore(rootReducer);
+import { Provider } from 'react-redux';
 
-// ReactDOM.render((
-// 	<Provider store={store}>
-// 		    <App />
-// 	</Provider>
-//   ), document.getElementById('root'))
-// // registerServiceWorker()
-// //Redux render end
+import { store } from './store'
+
+const store = createStore(store);
+
+ReactDOM.render(
+	<Provider store={store}>
+		    <App />
+  </Provider>, 
+  document.getElementById('root')
+)
+//Redux store end
+
 
 ReactDOM.render(
   <React.StrictMode>
