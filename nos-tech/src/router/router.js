@@ -11,7 +11,6 @@ import AboutUs from "../screens/aboutUs/AboutUs";
 import Contact from "../screens/contact/Contact";
 import Login from "../screens/login/Login";
 import Registration from "../screens/registration/Registration";
-import Admin from "../screens/admin/Admin";
 
 function Router() {
   return (
@@ -25,7 +24,6 @@ function Router() {
       <Route path="/contact" component={Contact} />
       <Route path="/login" component={Login} />
       <Route path="/registration" component={Registration} />
-      <Route path="/admin" component={Admin} />
       <Footer />
     </BrowserRouter>
   );

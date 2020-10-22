@@ -6,6 +6,7 @@ const User = require('../models/User');
 const {verify} = require('../middleware/authToken');
 const {authorize} = require('../middleware/authorize');
 
+
 // find all courses
 // router.get('/', asyncHandler(async (req, res) => {
 //     const courses = await Course.find().populate('users');
@@ -65,21 +66,14 @@ router.get('/cat/:category', asyncHandler(async(req,res) => {
 //find courses by user
 
 //Create a new course
-router.post('/', asyncHandler(async(req, res) => {
+router.post('/newCourse', asyncHandler(async(req, res) => {
     const newCourse = new Course(req.body);
     const course = await newCourse.save();
     res.send('Course added');
 }))
 
 //Update a course by id
-// router.patch('/:courseId', asyncHandler(async (req,res) => {
-//     const id = req.params.courseId;
-//     const updated = await Course.findByIdAndUpdate(id, req.body)
-//     res.json(updated);
-// }));
-
-//Update a course by id
-router.put('/:courseId', asyncHandler(async (req,res) => {
+router.patch('/:courseId', asyncHandler(async (req,res) => {
     const id = req.params.courseId;
     const updated = await Course.findByIdAndUpdate(id, req.body)
     res.json(updated);

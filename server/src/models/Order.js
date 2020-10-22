@@ -24,6 +24,7 @@ const orderSchema = new moongose.Schema({
     },
     paymentOption: String,
     paymentStatus: String,
+
 }, {
     timestamps: true
 })
