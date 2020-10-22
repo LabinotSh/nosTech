@@ -17,9 +17,11 @@ const app = express();
 app.use(morgan('common'));
 app.use(helmet());
 app.use(express.json());
+
 app.use('/api/user', userRoutes);
 app.use('/api/course', courseRoutes);
 app.use('/api/order', orderRoutes);
+
 
 //Throws when a non-existent route is visited
 app.use((req, res, next) => {
@@ -36,8 +38,17 @@ app.use((err, req, res, next) => {
     res.json({
         message: err.message,  
     })
+    next()
 }
 )
+
+
+
+
+
+
+
+
 
 const port = process.env.PORT || 3001;
 

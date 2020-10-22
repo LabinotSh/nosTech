@@ -13,12 +13,10 @@ const courseSchema = new moongose.Schema({
     },
     price: {
         type: Number,
-        
-        
     },
     image: {
         type: String,
-        required: true
+        required: false
     },
     instructor: {
         type: moongose.Schema.Types.ObjectId,
@@ -32,10 +30,10 @@ const courseSchema = new moongose.Schema({
         ref: 'User'
     }],
 
-    category: [{
+    category: {
         type: String,
         required: false
-    }],
+    },
     videos: [{
         type: String,
         required: false
