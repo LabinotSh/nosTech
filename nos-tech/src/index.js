@@ -13,12 +13,12 @@ import { Provider } from 'react-redux';
 
 // const store = createStore(store);
 
-ReactDOM.render(
-	<Provider store={store}>
-		    <App />
-  </Provider>, 
-  document.getElementById('root')
-)
+// ReactDOM.render(
+// 	<Provider store={store}>
+// 		    <App />
+//   </Provider>, 
+//   document.getElementById('root')
+// )
 //Redux store end
 
 
@@ -30,4 +30,3 @@ ReactDOM.render(
 );
 
 // serviceWorker.unregister();
-export default Provider
