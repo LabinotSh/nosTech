@@ -1,0 +1,66 @@
+html {
+  scroll-behavior: smooth;
+}
+
+.mainContent {
+  background-color: #232324;
+  color: white !important;
+  padding-left: 5rem;
+}
+
+.mainContent a {
+  color: white;
+  text-decoration: underline;
+}
+
+.videoDiv {
+  width: 90%;
+  display: flex;
+}
+
+.video {
+  width: 80%;
+}
+
+#enrBtn {
+  width: 100px;
+  background-color: #ffbb32;
+  border: none;
+  color: #232324;
+  width: 150px;
+  padding: 15px;
+}
+
+.right-main {
+  width: 20%;
+  margin-left: 4rem;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+}
+
+.course-nav {
+}
+.course-nav li {
+  font-size: 20px;
+  display: inline;
+  list-style-type: none;
+  margin-right: 20px;
+}
+.about {
+  display: flex;
+}
+
+.about-left {
+  width: 80%;
+  margin-left: 3%;
+  margin-right: 2%;
+}
+
+.about-right {
+  width: 15%;
+  word-wrap: break-word;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

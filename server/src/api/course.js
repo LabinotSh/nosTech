@@ -15,7 +15,7 @@ const {authorize} = require('../middleware/authorize');
 // }));
 
 //Authenticate before you get all the courses
-router.get('/', verify, authorize('user'), asyncHandler(async (req, res) => {
+router.get('/', asyncHandler(async (req, res) => {
     const courses = await Course.find().populate('users');
     res.header('Content-Range', `course 0-2/${courses.length}`)
     res.json(courses);
