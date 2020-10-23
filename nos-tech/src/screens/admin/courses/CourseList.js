@@ -10,6 +10,14 @@ const CourseList = (props) => {
                 <TextField source="name"/>
                 <TextField source="description"/>
                 <NumberField source="price"></NumberField>
+                <ArrayField source="users">
+                  <Datagrid className="users" className="users">
+                   <TextField source="_id"/>
+                    <TextField source="name" />
+                    <TextField source="surname" />
+                    <TextField source="email" />
+                  </Datagrid>
+                </ArrayField>
                 <TextField source="image"></TextField>
                 <DateField source="createdAt"></DateField>
                 <DateField source="updatedAt"></DateField>
