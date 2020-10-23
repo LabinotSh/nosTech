@@ -4,6 +4,7 @@ import restProvider from 'ra-data-rest-client'
 import CourseList from './courses/CourseList'
 import CourseCreate from './courses/CourseCreate'
 import PostEdit from './courses/PostEdit'
+import './admin.css';
 
 
 const Adm = () => {
