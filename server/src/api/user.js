@@ -10,6 +10,7 @@ const {refreshTokens} = require('../data/refreshTokens');
 const User = require('../models/User');
 
 
+
 //Get All the users
 router.get('/', async (req,res) =>{
     try{
@@ -59,8 +60,8 @@ router.post('/register', async (req,res) => {
 //login
 router.post('/login', async (req,res) => {
 
-    // const {error} = schema.loginValidate(req.body);
-    //  if(error) return res.status(400).send(error.details[0].message);
+    const {error} = schema.loginValidate(req.body);
+     if(error) return res.status(400).send(error.details[0].message);
 
     const user = await User.findOne({
            email: req.body.email
@@ -73,18 +74,33 @@ router.post('/login', async (req,res) => {
 
    const accessToken = generateAccessToken(user);
    const refreshToken = generateRefreshToken(user);
-   user.refreshTokens = refreshTokens; 
-   user.refreshTokens.push(refreshToken);
+   user.tokens = refreshTokens; 
+   user.tokens.push(refreshToken);
    
-   console.log('dd : ' + user.refreshTokens);
+//    console.log('dd : ' + user.tokens);
+//    console.log('REFFF ' + refreshToken);
 
    res.cookie("jwt", accessToken, {secure: false, httpOnly: false})
 
-   res.header('auth-token', accessToken).send(accessToken);
-   console.log('REFFF ' + refreshToken);
-//    res.json('Token ' + accessToken)
+   res.header('auth-token', accessToken).send( {
+       refreshToken: refreshToken
+   });
+   
+});
 
-//    res.send("Logged In!");
+//Get the new token from the generated refresh token
+router.post('/token', async (req,res) => {
+    const refreshToken = req.body.token;
+    if(refreshToken == null) return res.sendStatus(401)
+    if(!tokens.includes(refreshToken)) return res.sendStatus(403)
+    jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
+       if(err) return res.sendStatus(403)
+       const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
+
+       res.cookie("jwt", accessToken, {secure: false, httpOnly: false})
+
+       res.json({ accessToken: accessToken })
+    })
 });
 
 //Get one user by id
