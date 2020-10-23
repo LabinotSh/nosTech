@@ -1,11 +1,12 @@
 import React from 'react'
 import './articles.css'
+import Banner from '../../components/banner/Banner'
 
 
 function Articles() {
     return (
         <div>
-            <p>Articles Content</p>
+            <Banner></Banner>
         </div>
     )
 }
