@@ -1,0 +1,128 @@
+/* --------------------DEFAULTS-------------------- */
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+.col-1 {width: 8.33%;}
+.col-2 {width: 16.66%;}
+.col-3 {width: 25%;}
+.col-4 {width: 33.33%;}
+.col-5 {width: 41.66%;}
+.col-6 {width: 50%;}
+.col-7 {width: 58.33%;}
+.col-8 {width: 66.66%;}
+.col-9 {width: 75%;}
+.col-10 {width: 83.33%;}
+.col-11 {width: 91.66%;}
+.col-12 {width: 100%;}
+
+.row {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.footeri {
+    width: 100vw;
+    display: flex;
+    overflow: hidden;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: whitesmoke;
+}
+
+.container-1, .container-2 {
+    display: flex;
+}
+
+.vl {
+    border-left: 1px solid red;
+    height: 153px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+/* --------------------CONTENT------------------- */
+
+.col-2 .resources, 
+.col-2 .services,
+.col-2 .contact {
+    margin: 10px;
+}
+
+.col-5 .subscription {
+    margin-left: 20%;
+}
+
+.col-2 .resources h1, 
+.col-2 .services h1,
+.col-2 .contact h1 {
+    font-size: 18px;
+    font-style: italic;
+    text-align: center;
+    color: black;
+    padding: 0;
+}
+
+.col-2 .resources p {
+    font-size: 13px;
+    font-style: italic;
+    text-align: center;
+    color: black;
+    padding: 2px;
+}
+
+.col-2 ul {
+    text-align: center;
+    font-size: 13px;
+}
+
+.col-6 .subscription {
+    text-align: center;
+    align-items: center;
+}
+
+
+.col-6 .subscription p {
+    font-size: 12px;
+    font-style: italic;
+    color: brown;
+    margin-top: 40px;
+}
+
+.col-6 .subscription input[type = "text"] {
+    font-size: 16px;
+    width: 300px;
+    min-width: 100px;
+    padding: 6px;
+    border-radius: 5px;
+}
+
+/* .col-6 .subscription input[type = "submit"] {
+    display: block;
+    font-size: 13;
+    width: 100px;
+    min-width: 100px;
+    padding: 7px;
+    border-radius: 3px;
+    margin: 8px;
+} */
+
+.col-6 .subscription button {
+    display: block;
+    padding: 4px, 6px;
+    height: 40px;
+    width: 120px;
+}
+
+.col-6 .subscription .submit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 13px;
+}
