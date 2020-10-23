@@ -1,3 +1,6 @@
+//Ex..your order = actions
+
+//krejt actions 
 
 
 export const SIGNIN = "SIGN_IN";
