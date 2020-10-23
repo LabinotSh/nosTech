@@ -1,0 +1,17 @@
+.Banner{
+    background-color: black;
+    display: block;
+}
+.banner-button{
+    border: none;
+    border-radius: 0;
+    color:white;
+    background-color:#454545;
+    margin-right: 10px;
+    font-size: 15px;
+    font-weight: 500;
+}
+.banner-button:hover{
+    color: black;
+    background-color: whitesmoke
+}

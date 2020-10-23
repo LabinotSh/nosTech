@@ -28,23 +28,7 @@
     height: 200px;
     margin-top: 50px;
 }
-.react-multiple-carousel__arrow--left{
-    background: transparent !important;
-    top: 0;
-    left: 0;
-}
-.react-multiple-carousel__arrow--right{
-    background: transparent !important;
-    top: 0;
-    left: 80px;
-}
-.react-multiple-carousel__arrow--left::before{
-    color: grey !important;
-}
-.react-multiple-carousel__arrow--right::before{
-    color: grey !important;
-}
-.c{
+.aboutUs-Carousel{
     margin-left:50px;
     margin-top:50px;
     width: 50%;

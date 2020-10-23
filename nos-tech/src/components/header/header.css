@@ -28,9 +28,10 @@
     color: black !important;
     text-decoration: none !important;
 }
-.navbar-dark .navbar-toggler {
-    border-color:grey;
-}
 .navbar-dark .navbar-toggler-icon{
-    background-image: url(../../assets/images/collapse.png);
+    background-image: url(../../assets/images/collapse.svg);
+}
+.test:focus{
+    outline: none !important;
+    border: none !important;
 }

@@ -1,50 +1,49 @@
 import React from 'react'
 import './courses.css'
+import Carousel from '../../components/carousel/Carousel'
+
 
 function Courses() {
-   
+
+    const CourseCarousel = () =>{
+        return courses.map(courses => {
+          return (
+            <div>
+            <div className="carousel-div col pt-5">
+            <button className="btn btn-outline-success">{courses}</button>
+            </div>
+            </div>
+          )
+      })
+    }
+    
+    const courses = [
+         'HTML','PHP', 'Css','Python','Vue js','React Js'  
+    ];
+
+    const responsive = {
+        0: { items: 1 },
+        568: { items: 3 },
+        1024: { items: 4 },
+    };
+
     return (
+
         <div >
-           <p className="container my-5 text-center text-info">Courses we offer!</p>
-           <hr></hr>
-          
-    <div className="carousel-div col pt-5">
-        <button className="btn btn-outline-dark">HTML&CSS</button>
-    <div className="my-5">
-        <button className="btn btn-outline-success">Python</button>
-    </div>
-    </div>
 
-    <div className="carousel-div col pt-5">
-        <button className="btn btn-outline-primary">PHP</button>
-    <div className="my-5">
-        <button className="btn btn-outline-warning">Laravel</button>
-    </div>
-    </div>
-
-    <div className="carousel-div col pt-5">
-        <button className="btn btn-outline-secondary">Angular</button>
-    <div className="my-5">
-        <button className="btn btn-outline-info">Wordpress</button>
-    </div>
-    </div>
-
-    <div className="carousel-div col pt-5">
-        <button className="btn btn-outline-danger">Vue Js</button>
-    <div className="my-5">
-        <button className="btn btn-outline-success">Node Js</button>
-    </div>
-    </div>
-
-    <div className="carousel-div col pt-5">
-        <button className="btn btn-outline-primary">React Js</button>
-    <div className="my-5">
-        <button className="btn btn-outline-warning">Java</button>
-    </div>
-    </div>
-
-
-  <hr></hr>
+            <p className="container my-5 text-center text-info">Courses we offer!</p>
+            <hr></hr>
+            <Carousel
+                responsive={responsive}
+                autoPlay = {true}
+                autoPlayInterval = {2000}
+                paddingLeft = {100}
+                infinite={true}
+                disableDotsControls={true}
+            >
+                {CourseCarousel()}
+            </Carousel>
+            <hr></hr>
         </div>
     )
 }
