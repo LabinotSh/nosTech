@@ -1,3 +1,4 @@
+//qitu bohen combine krejt reducers mes veti
 //importimi i krejt reducers
 import loggedReducer from './loggedIn'
 
