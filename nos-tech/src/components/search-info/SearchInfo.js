@@ -1,5 +1,6 @@
 import React from "react";
 import "./searchinfo.css";
+import { Button } from "react-bootstrap";
 
 const SearchInfo = () => {
   return (
@@ -14,6 +15,7 @@ const SearchInfo = () => {
           Aliquam in velit ut metus condimentum blandit vitae quis metus. Etiam
           pulvinar nisi tincidunt metus rhoncus, et tincidunt sem porttitor.
         </p>
+        <Button className="availableCourses">Available Courses</Button>
       </div>
       <div className="src">
         <img src={require("../../assets/images/search-illustration.jpg")} />
