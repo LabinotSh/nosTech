@@ -1,0 +1,30 @@
+.mission-header {
+    color: black;
+    width: 210px;
+    border-bottom: 2px solid #646369;
+    padding-bottom: 8px;
+    margin-bottom: 35px;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-style: italic;
+    margin-bottom: 50px;
+}
+
+.p-one {
+    width: 470px;
+}
+
+.p-two {
+    width: 560px;
+}
+
+.programming {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

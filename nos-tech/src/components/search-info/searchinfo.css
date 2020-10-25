@@ -1,0 +1,32 @@
+.search-info {
+    margin-top: 75px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 150px;
+}
+
+.search-information {
+  max-width: 450px;
+}
+
+
+.availableCourses {
+    background-color: white;
+    color: #00132A;
+    outline-color:#00132A;
+    border-color:white;
+    margin: 35px 10px;
+    width: 200px;
+    border-radius: 20px;
+    padding: 10px 5px;
+    box-shadow: 3px 5px 14px #bebcbc; 
+    }
+
+.availableCourses:hover{
+    background-color: #F7A366 !important;
+    outline-color: #F7A366 !important;
+    border-color:#F7A366 !important;
+
+}
