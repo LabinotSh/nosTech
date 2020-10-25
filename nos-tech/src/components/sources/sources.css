@@ -1,0 +1,10 @@
+.our-ways {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.sources-info {
+  max-width: 450px;
+}
