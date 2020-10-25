@@ -1,0 +1,11 @@
+.search-info {
+    margin-top: 75px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-information {
+  max-width: 450px;
+}
