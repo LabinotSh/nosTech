@@ -8,10 +8,6 @@ import { createStore } from 'redux';
 
 import { Provider } from 'react-redux';
 
-import { store } from './store'
-
-const store = createStore(store);
-
 ReactDOM.render(
 	<Provider store={store}>
 		    <App />
