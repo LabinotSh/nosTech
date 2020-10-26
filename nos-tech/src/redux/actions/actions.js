@@ -2,7 +2,7 @@
 
 //krejt actions 
 
-
+export const REGISTER = "REGISTER"
 export const SIGNIN = "SIGN_IN";
 
 export const Signin = (username, password) => (
@@ -12,3 +12,11 @@ export const Signin = (username, password) => (
         password : password
     
 })
+
+export const Register = (email, password) => (
+    {
+        payload : REGISTER,
+        email : email,
+        password : password
+    }
+)

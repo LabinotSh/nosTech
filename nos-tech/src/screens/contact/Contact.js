@@ -2,16 +2,14 @@ import React from 'react'
 import './contact.css'
 
 function Contact() {
-    // const { handleSubmit } = this.props;
     return (
-        <div className="Content">
+        <div className="Content container">
            <div className="left"></div>
            <div className="right">
-               {/* ma poshte qekjo onSubmit={handleSubmit} */}
                <form autoComplete="off" >
                    <h1>Got any concern?</h1>
                    <h2>Feel free to contact us!</h2>
-                   <div class="form-group">
+                   <div class="form-group col-sm">
                         <label for="exampleInputName">Name </label>
                         <input 
                             type="text" 
@@ -20,7 +18,7 @@ function Contact() {
                             placeholder="First Name"/>
                     </div>
                     
-                    <div class="form-group">
+                    <div class="form-group col-sm">
                         <label for="exampleInputName">Surame </label>
                         <input 
                             type="text" 
@@ -29,7 +27,7 @@ function Contact() {
                             placeholder="Surname"/>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group col-sm">
                         <label for="exampleInputEmail1">Email address</label>
                         <input 
                             type="email" 
@@ -39,7 +37,7 @@ function Contact() {
                             placeholder="Enter email"/>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group col-sm">
                         <label for="exampleInputSubject">Subject </label>
                         <input 
                             type="text" 
@@ -48,7 +46,7 @@ function Contact() {
                             placeholder="Subject"/>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group col-sm">
                         <label for="exampleInputName">Your Message/Question </label>
                         <textarea 
                             type="text" 
@@ -66,8 +64,5 @@ function Contact() {
         </div>
     )
 }
-// export default reduxForm({
-//     form: 'contact'
-//  })(Contact);
 
 export default Contact
