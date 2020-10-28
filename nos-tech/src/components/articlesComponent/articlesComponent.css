@@ -1,0 +1,19 @@
+.articles-latest{
+    height: 25rem;
+}
+.articles-img{
+    height: 100px;
+    height: 180px;
+    transition: ease-in-out;
+    transition-timing-function: ease-in-out;
+    transition-duration: 0.5s;
+}
+.articles-img:hover{   
+    transform: scale(1.1,1.1);
+    z-index: 1;
+    cursor: pointer;
+}
+.articles-title{
+    text-decoration: none;
+    color:black
+}
