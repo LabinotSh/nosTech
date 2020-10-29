@@ -5,8 +5,10 @@ import registerBackground from "../../assets/images/registerBackground.png";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import Error from "../../components/error/Error.js";
+// import SelectComp from "../../components/select/SelectComp.js";
 
 const validationSchema = Yup.object().shape({
+  name: Yup.string().required("Full name is required"),
   username: Yup.string()
     .min(4, "Must have at least 4 characters")
     .max(255, "Must be shorter than 255 characters")
@@ -19,12 +21,21 @@ const validationSchema = Yup.object().shape({
     .min(5, "Must have at least 5 characters")
     .max(255, "Must be shorter than 255 characters")
     .required("Password is required"),
+  roles: Yup.string().required("Please select an account type"),
+  // role: Yup.string().required("Please select an account type"),
+  // .oneOf(["Student", "Teacher"], "Please select an account type")
 });
 
 function Registration() {
   return (
     <Formik
-      initialValues={{ username: "", email: "", password: "" }}
+      initialValues={{
+        name: "",
+        username: "",
+        email: "",
+        password: "",
+        roles: "",
+      }}
       validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting, resetForm }) => {
         setSubmitting(true);
@@ -46,10 +57,9 @@ function Registration() {
         handleSubmit,
         isSubmitting,
       }) => (
-        <Container>
+        <Container style={{ marginBottom: "150px" }}>
           <Row noGutters={true}>
             <Col sm={12} md={12} lg={6}>
-              {" "}
               <Card className="text-center cards">
                 <Card.Img src={registerBackground} alt="test"></Card.Img>
               </Card>
@@ -61,6 +71,22 @@ function Registration() {
                   Please enter your credentials to set up an account with us
                 </Card.Text>
                 <Form onSubmit={handleSubmit}>
+                  <Form.Group controlId="formBasicName">
+                    <Form.Control
+                      type="text"
+                      name="name"
+                      id="name"
+                      placeholder="Full Name"
+                      onChange={handleChange}
+                      value={values.name}
+                      onBlur={handleBlur}
+                      className={
+                        touched.name && errors.name ? "has-error" : null
+                      }
+                    />
+                    <Error touched={touched.name} message={errors.name} />
+                  </Form.Group>
+
                   <Form.Group controlId="formBasicUsername">
                     <Form.Control
                       type="text"
@@ -112,6 +138,13 @@ function Registration() {
                       message={errors.password}
                     />
                   </Form.Group>
+                  <Form.Group controlId="exampleForm.SelectCustom">
+                    <Form.Label style={{ fontSize: "14px" }}>
+                      You are registering as a:
+                    </Form.Label>
+                    {/* <SelectComp /> */}
+                  </Form.Group>
+
                   <Button
                     className="register"
                     type="submit"

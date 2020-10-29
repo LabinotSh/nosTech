@@ -11,6 +11,7 @@
     "@testing-library/user-event": "^7.2.1",
     "file-selector": "^0.2.2",
     "formik": "^2.2.0",
+    "formik-field": "^1.6.0",
     "ra-data-rest-client": "^1.1.1",
     "ra-data-simple-rest": "^3.9.3",
     "react": "^16.13.1",
@@ -23,10 +24,12 @@
     "react-router-bootstrap": "^0.25.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^3.4.4",
+    "react-select": "^3.1.0",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
     "redux-form": "^8.3.6",
     "redux-thunk": "^2.3.0",
+    "typeface-roboto": "^1.1.13",
     "yup": "^0.29.3"
   },
   "scripts": {
