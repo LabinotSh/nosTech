@@ -90,7 +90,7 @@ function Contact() {
                   </div>
                 </div>
                 <div className='row row-fields row-2'>
-                  <div className='form-group mobile-col col-6'>
+                  <div className='form-group mobile-col col-sm-12 col-md-6 col-lg-6'>
                     <input
                       name='email'
                       type='email'
@@ -108,7 +108,7 @@ function Contact() {
                     <Error touched={touched.email} message={errors.email} />
                   </div>
 
-                  <div className='form-group mobile-col col-6'>
+                  <div className='form-group mobile-col col-sm-12 col-md-6 col-lg-6'>
                     <input
                       name='subject'
                       type='text'
@@ -126,7 +126,10 @@ function Contact() {
                   </div>
                 </div>
                 <div className='row row-fields row-3'>
-                  <div id='exampleInputMesage1' className='form-group col-12'>
+                  <div
+                    id='exampleInputMesage1'
+                    className='form-group col-sm-12 col-md-6 col-lg-12'
+                  >
                     <textarea
                       name='message'
                       type='text'
