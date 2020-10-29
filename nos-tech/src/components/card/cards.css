@@ -48,16 +48,16 @@
   transition: 0.5s;
 }
 
-.crd span {
+.crd .spans {
   transition: 0.5s;
   opacity: 0;
 }
 
-.crd:hover span {
+.crd:hover .spans {
   opacity: 1;
 }
 
-span:nth-child(1) {
+.spans:nth-child(1) {
   position: absolute;
   top: 0;
   left: 0;
@@ -65,7 +65,7 @@ span:nth-child(1) {
   height: 3px;
   background: linear-gradient(to right, transparent,#c95765);
   animation: animate1 2s linear infinite;
-  animation-delay: 0.1s;
+  animation-delay: 0.2s;
 }
 
 @keyframes animate1 {
@@ -77,7 +77,7 @@ span:nth-child(1) {
 }
 }
 
-span:nth-child(2) {
+.spans:nth-child(2) {
   position: absolute;
   top: 0;
   right: 0;
@@ -85,7 +85,7 @@ span:nth-child(2) {
   height: 100%;
   background: linear-gradient(to bottom, transparent,  #c95765);
   animation: animate2 2s linear infinite;
-  animation-delay: 0.9s;
+  animation-delay: 1.2s;
 }
 
 @keyframes animate2 {
@@ -98,7 +98,7 @@ span:nth-child(2) {
 }
 
 
-span:nth-child(3) {
+.spans:nth-child(3) {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -106,6 +106,7 @@ span:nth-child(3) {
   height: 3px;
   background: linear-gradient(to left, transparent, #c95765);
   animation: animate3 2s linear infinite;
+  animation-delay: 0.2s;
 }
 
 @keyframes animate3 {
@@ -118,7 +119,7 @@ span:nth-child(3) {
 }
 
 
-span:nth-child(4){
+.spans:nth-child(4){
   position: absolute;
   top: 0;
   left: 0;
@@ -126,7 +127,7 @@ span:nth-child(4){
   height: 100%;
   background: linear-gradient(to top, transparent,#c95765);
   animation: animate4 2s linear infinite;
-  animation-delay: 1.5s;
+  animation-delay: 1.2s;
 }
 
 @keyframes animate4 {

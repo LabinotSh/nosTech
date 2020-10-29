@@ -27,10 +27,10 @@ const Cards = () => {
   const renderCards = (card, index) => {
     return (
       <Card key={index} className="box crd">
-        <span />
-        <span />
-        <span />
-        <span />
+        <span className="spans" />
+        <span className="spans" />
+        <span className="spans" />
+        <span className="spans" />
         <Card.Img
           style={{ width: "50px", height: "50px" }}
           className="icons"
