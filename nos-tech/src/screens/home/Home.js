@@ -3,11 +3,21 @@ import "./home.css";
 import Cards from "../../components/card/Cards";
 import Sources from "../../components/sources/Sources";
 import Info from "../../components/search-info/SearchInfo";
+import { Button } from "react-bootstrap";
 
 function Home() {
   return (
     <>
       <div className="programming">
+        <div className="programming-content">
+          <h3 className="text-center">Become Job-Ready in No Time</h3>
+          <p className="text-center res">
+            Start using our resources for developing the necessary skills to
+            land your dream job!
+          </p>
+          <Button className="get-started-btn">Get Started</Button>
+        </div>
+
         <img
           src={require("../../assets/images/programming.png")}
           className="text-center"

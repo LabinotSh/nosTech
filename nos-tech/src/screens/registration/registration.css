@@ -79,3 +79,18 @@
 .register:hover::after {
     right: 80%;
 }
+
+/* .nombres {
+    display: flex;
+    max-width: 400px;
+}
+
+#name {
+    width: 170px;
+} */
+
+
+#fc {
+    margin-top: 15px;
+    max-width: inherit;
+ }

@@ -24,7 +24,11 @@
     box-shadow: 3px 5px 14px #bebcbc; 
     }
 
-.availableCourses:hover{
+.availableCourses:hover,
+.availableCourses:focus,
+.availableCourses:active,
+.availableCourses:visited,
+.availableCourses:active:hover{
     background-color: #F7A366 !important;
     outline-color: #F7A366 !important;
     border-color:#F7A366 !important;

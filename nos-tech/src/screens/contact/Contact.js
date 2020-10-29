@@ -39,7 +39,7 @@ function Contact() {
           <img src={test} alt='test' />
         </div>
         {/*  right col */}
-        <div className='right col'>
+        <div className=' right col'>
           <Formik
             initialValues={{
               fname: '',
@@ -54,8 +54,8 @@ function Contact() {
               <form autoComplete='off'>
                 <h1>Got any concern?</h1>
                 <h2>Feel free to contact us!</h2>
-                <div className='row row-fields row-1'>
-                  <div div className='form-group mobile-col col-6'>
+                <div className='row mx-auto row-fields row-1'>
+                  <div className='form-group mobile-col col-sm-12 col-md-6 col-lg-6'>
                     <input
                       name='fname'
                       type='text'
@@ -72,7 +72,7 @@ function Contact() {
                     <Error touched={touched.fname} message={errors.fname} />
                   </div>
 
-                  <div className='form-group mobile-col col-6'>
+                  <div className='form-group mobile-col col-sm-12 col-md-6 col-lg-6'>
                     <input
                       name='lname'
                       type='text'
