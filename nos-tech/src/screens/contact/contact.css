@@ -1,50 +1,37 @@
-.Content {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 75%;
-  margin: 0 auto;
-  padding: 25px 10px;
-}
 h1,
 h2 {
-  margin: 10px auto;
+  padding: 16px 0;
+  margin: 20px auto;
   color: #aaa;
 }
-.left {
-  background-color: #d1d1d1;
-  padding: 50px;
-  width: 50%;
-  float: left;
-  color: red;
-  font-size: 12px;
-}
+.left,
 .right {
-  padding: 50px;
-  float: right;
-  background-color: #f4f3f3;
-  width: 50%;
-  font-size: 12px;
+  text-align: center;
+  margin: 0 auto;
 }
-
-input {
-  background: white;
-  padding: 12px;
-  border-radius: 3px;
-  width: 350px;
-  outline: none;
+.row-fields {
+  margin: 15px auto;
+  padding: 15px 0;
 }
-
-input::placeholder {
-  color: #aaa;
+.form-control {
+  width: 85% !important;
 }
 .form-group {
-  margin: 10px auto;
-  align-items: center;
-  width: 77%;
-  align-content: center;
+  width: 45% !important;
 }
-
-.btn {
-  margin-top: 20px;
+.submit-btn {
+  align-self: center;
+  vertical-align: middle;
+}
+@media only screen and (max-width: 992px) {
+  [class*='form-group'] {
+    width: 100%;
+    text-align: center;
+  }
+  [class*='right'] {
+    margin: auto auto;
+  }
+  [class*='left'] {
+    display: none;
+  }
 }

@@ -4,11 +4,11 @@ import App from "./App";
 
 //Redux store
 import store from './store';
-import { createStore } from 'redux';
-
 import { Provider } from 'react-redux';
 
 ReactDOM.render(
+
+  // Inject the store into react components, in our case <App /> component
 	<Provider store={store}>
 		    <App />
   </Provider>, 
