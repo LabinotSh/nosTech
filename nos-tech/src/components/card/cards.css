@@ -27,3 +27,114 @@
   justify-content: center;
   align-items: center;
 }
+
+.crd {
+  position: relative;
+  box-shadow: 0 3px 4px rgb(187, 187, 187);
+}
+
+.crd::before {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  bottom: 2px;
+  background-color: #222;
+  pointer-events: none;
+}
+
+.card-title {
+  z-index: 1;
+  transition: 0.5s;
+}
+
+.crd .spans {
+  transition: 0.5s;
+  opacity: 0;
+}
+
+.crd:hover .spans {
+  opacity: 1;
+}
+
+.spans:nth-child(1) {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(to right, transparent,#c95765);
+  animation: animate1 2s linear infinite;
+  animation-delay: 0.2s;
+}
+
+@keyframes animate1 {
+ 0% {
+   transform: translateX(-100%);
+ }
+ 100% {
+  transform: translateX(100%);
+}
+}
+
+.spans:nth-child(2) {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 3px;
+  height: 100%;
+  background: linear-gradient(to bottom, transparent,  #c95765);
+  animation: animate2 2s linear infinite;
+  animation-delay: 1.2s;
+}
+
+@keyframes animate2 {
+ 0% {
+   transform: translateY(-100%);
+ }
+ 100% {
+  transform: translateY(100%);
+}
+}
+
+
+.spans:nth-child(3) {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(to left, transparent, #c95765);
+  animation: animate3 2s linear infinite;
+  animation-delay: 0.2s;
+}
+
+@keyframes animate3 {
+ 0% {
+   transform: translateX(100%);
+ }
+ 100% {
+  transform: translateX(-100%);
+}
+}
+
+
+.spans:nth-child(4){
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 100%;
+  background: linear-gradient(to top, transparent,#c95765);
+  animation: animate4 2s linear infinite;
+  animation-delay: 1.2s;
+}
+
+@keyframes animate4 {
+ 0% {
+   transform: translateY(100%);
+ }
+ 100% {
+  transform: translateY(-100%);
+}
+}
