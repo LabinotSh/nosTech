@@ -49,9 +49,29 @@ function Contact() {
               message: '',
             }}
             validationSchema={validationSchema}
+            onSubmit={(values, { setSubmitting, resetForm }) => {
+              setSubmitting(true)
+              //test
+              setTimeout(() => {
+                alert(JSON.stringify(values, null, 2))
+                resetForm()
+                setSubmitting(false)
+              }, 500)
+            }}
           >
-            {({ values, errors, touched, handleChange, handleBlur }) => (
-              <form autoComplete='off'>
+            {/* form inside a render props function that receives 
+                "values" and functions
+                which then returns the form*/}
+            {({
+              values,
+              errors,
+              touched,
+              handleChange,
+              handleBlur,
+              handleSubmit,
+              isSubmitting,
+            }) => (
+              <form onSubmit={handleSubmit}>
                 <h1>Got any concern?</h1>
                 <h2>Feel free to contact us!</h2>
                 <div className='row mx-auto row-fields row-1'>
@@ -151,6 +171,7 @@ function Contact() {
                 </small>
                 <div className='row row-fields row-4'>
                   <button
+                    disabled={isSubmitting}
                     type='submit'
                     label='send'
                     className='btn submit-btn btn-outline-dark btn-block pseudoBtn'
