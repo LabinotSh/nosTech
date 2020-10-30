@@ -8,11 +8,11 @@ import {composeWithDevTools} from 'redux-devtools-extension';
 
  const initialState = {}
 
- const middleWare = [thunk]
+ const middleware = [thunk];
 
- const store = createStore( 
-    allReducers, 
-    composeWithDevTools(applyMiddleware(...middleWare))
- ) 
-
+ const store = createStore(
+   allReducers,
+   composeWithDevTools(applyMiddleware(...middleware))
+ );
+ 
  export default store;

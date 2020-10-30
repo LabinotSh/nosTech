@@ -6,33 +6,35 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import Error from "../../components/error/Error.js";
 import store from '../../store';
-import { login } from "../../redux/actions/auth";
+import { login } from '../../redux/actions/auth';
 import {history} from '../../helpers/history';
+import {connect} from 'react-redux';
 
 const validationSchema = Yup.object().shape({
   username: Yup.string().required("(Username is required)"),
   password: Yup.string().required("(Password is required)"),
 });
 
-function Login(props) {
+const Login = ({auth}) => {
 
-  const [username, setUsername] = useState("");
+  const [email, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const onChangeUsername = (e) => {
-    username = e.target.value;
-    setUsername(username);
+    const email = e.target.value;
+    setUsername(email);
   }
 
   const onChangePassword = (e) => {
-    password = e.target.value;
+    const password = e.target.value;
     setPassword(password);
+    console.log('Password: ' + password);
   }
 
   const handleSubmitt = (e) => {
     e.preventDefault();
     if (email && password) {
-    store.dispatch(login(username, password))
+    store.dispatch(login(email, password))
     .then(res => {
       const user = JSON.stringify(res.data.user);
       console.log('User: ' + user);
@@ -41,7 +43,7 @@ function Login(props) {
       window.location.reload();
 
     }).catch(error => {
-      const erro = JSON.stringify(store.getState().auth.error);
+      const erro = JSON.stringify(store.getState().login.error);
       console.log('ErrRRrr   ' + erro);
       console.log('ERRor ' + error);
 
@@ -91,7 +93,7 @@ function Login(props) {
                       id="name"
                       placeholder="Username"
                       onChange={onChangeUsername}
-                      value={username}
+                      value={email}
                       onBlur={handleBlur}
                       className={
                         touched.username && errors.username ? "has-error" : null
@@ -124,7 +126,6 @@ function Login(props) {
                   <Button
                     className="logInBtn"
                     type="submit"
-                    // disabled={isSubmitting}
                     onClick={handleSubmitt}
                   >
                     Login Now
@@ -148,4 +149,9 @@ function Login(props) {
   );
 }
 
-export default Login;
+const mapStateToProps = state => ({
+  auth: state.login
+
+});
+
+export default connect(mapStateToProps)(Login);
