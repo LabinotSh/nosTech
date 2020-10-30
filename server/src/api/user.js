@@ -47,7 +47,8 @@ router.post('/register', async (req,res) => {
             surname: req.body.surname,
             email: req.body.email,
             password: hashedPassword,
-            role: req.body.role
+            role: req.body.role,
+            username: req.body.username
         })
 
         const savedUser = await newUser.save();
@@ -64,10 +65,10 @@ router.post('/login', async (req,res) => {
      if(error) return res.status(400).send(error.details[0].message);
 
     const user = await User.findOne({
-           email: req.body.email
+           username: req.body.username
    });
    
-   if(!user) return res.status(400).send('Email or password wrong!');
+   if(!user) return res.status(400).send('Username or password wrong!');
 
    const validPassword = await bcrypt.compare(req.body.password, user.password);
    if(!validPassword) return res.status(400).send('Invalid Password!');
@@ -82,9 +83,16 @@ router.post('/login', async (req,res) => {
 
    res.cookie("jwt", accessToken, {secure: false, httpOnly: false})
 
-   res.header('auth-token', accessToken).send( {
-       refreshToken: refreshToken
-   });
+//    res.header('auth-token', accessToken).send( {
+//        refreshToken: refreshToken
+//    });
+
+   res.send({
+    message: 'authentication done ',
+    token: accessToken,
+    refreshToken: refreshToken,
+    user: user
+  });
    
 });
 
