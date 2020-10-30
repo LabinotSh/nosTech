@@ -1,11 +1,12 @@
-//importimi i krejt reducers
-import {loginReducer} from './auth';
-import {combineReducers} from 'redux';
+// import loggedReducer from './loggedIn'
+// import registerReducer from './REGISTER'
+// import { loginReducer } from './auth'
 
-//krijimi i konstantes combineReducers, ne menyre qe me i perfshi krejt reducers
+// import { combineReducers } from 'redux'
 
-const allReducers = combineReducers({
-    login: loginReducer
-})
+// const allReducers = combineReducers({
+//   loggedIn: loggedReducer,
+//   register: registerReducer,
+// })
 
-export default allReducers;
+// export default allReducers

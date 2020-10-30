@@ -1,18 +1,25 @@
-import  thunk from 'redux-thunk'
-import {reducer as formReducer } from 'redux-form';
-import allReducers from './redux/reducers/index';
-import { createStore, compose, applyMiddleware } from 'redux';
-import {composeWithDevTools} from 'redux-devtools-extension';
+// import thunk from 'redux-thunk'
+// import { reducer as formReducer } from 'redux-form'
+// import { combineReducers } from 'redux'
+// import { middleWare } from 'react-redux'
+// import allReducers from './redux/reducers/index'
+// import { createStore, compose, applyMiddleware } from 'redux'
+// import { composeWithDevTools } from 'redux-devtools-extension'
 
-// const rootReducer = combineReducers
+// export const rootReducer = combineReducers({
+//   form: formReducer,
+// })
+// // const rootReducer = combineReducers
 
- const initialState = {}
+// const initialState = {}
 
- const middleware = [thunk];
+// const middleware = [thunk]
 
- const store = createStore(
-   allReducers,
-   composeWithDevTools(applyMiddleware(...middleware))
- );
- 
- export default store;
+// const store = createStore(
+//   allReducers,
+//   formReducer,
+//   initialState,
+//   composeWithDevTools(applyMiddleware(...middleWare))
+// )
+
+// export default store
