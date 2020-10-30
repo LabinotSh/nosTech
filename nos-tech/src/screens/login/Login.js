@@ -17,12 +17,12 @@ const validationSchema = Yup.object().shape({
 
 const Login = ({auth}) => {
 
-  const [email, setUsername] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const onChangeUsername = (e) => {
-    const email = e.target.value;
-    setUsername(email);
+    const username = e.target.value;
+    setUsername(username);
   }
 
   const onChangePassword = (e) => {
@@ -33,8 +33,8 @@ const Login = ({auth}) => {
 
   const handleSubmitt = (e) => {
     e.preventDefault();
-    if (email && password) {
-    store.dispatch(login(email, password))
+    if (username && password) {
+    store.dispatch(login(username, password))
     .then(res => {
       const user = JSON.stringify(res.data.user);
       console.log('User: ' + user);
@@ -93,7 +93,7 @@ const Login = ({auth}) => {
                       id="name"
                       placeholder="Username"
                       onChange={onChangeUsername}
-                      value={email}
+                      value={username}
                       onBlur={handleBlur}
                       className={
                         touched.username && errors.username ? "has-error" : null
