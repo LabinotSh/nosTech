@@ -1,5 +1,6 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { Nav, Button } from "react-bootstrap";
+import { Link,NavLink } from "react-router-dom";
 import "./header.css";
 import nosTech from "../../assets/images/nostech.png";
 import store from '../../store';
@@ -7,12 +8,10 @@ import {logout} from '../../redux/actions/auth';
 import {history} from '../../helpers/history';
 
 const user = localStorage.getItem('user');
-
 const ActiveLinks = {
   color: "#f06470",
   fontWeight: "500"
 }
-
 const LogOut = (e) => {
   e.preventDefault();
   store.dispatch(logout());
@@ -26,7 +25,7 @@ function Header() {
       <nav className="navbar navbar-expand-lg navbar-dark static-top font header">
         <div className="container">
           <a className="logo mar" style={{ fontSize: "24px", padding: "0" }}>
-            <img src={nosTech} style={{ width: "60px" }}/>
+            <img src={nosTech} style={{ width: "60px" }}></img>{" "}
           </a>
           <button
             className="navbar-toggler test"
@@ -122,7 +121,7 @@ function Header() {
 
               <div className="float-left d-flex col-md-2">
                 <div id="c">
-                  <ul className="navbar-nav ml-auto">
+                  <ul class="navbar-nav ml-auto">
                   {!user && (
                     <li className="nav-item">
                       <NavLink
@@ -153,16 +152,15 @@ function Header() {
                       )}
                     {user && (
                      <li className="nav-item">
-                      <NavLink 
+                      <Link 
                       tag="li" 
                       active-class="active" 
                       onClick={LogOut} 
                       exact 
                       style={{textDecoration:"none"}}
-                      activeStyle={ActiveLinks}
                       >
-                        LogOut
-                      </NavLink>
+                      Logout
+                      </Link>
                      </li>
                     )}
                   </ul>
