@@ -23,7 +23,7 @@ function BannerComponent(){
         <p className="text-light text-center pb-3">
             TOPICS
             {category.map(item => (
-                <span className="btn banner-button text-center ml-2 mb-4">{item}</span>
+                <span className="btn banner-button text-center ml-2 mb-2">{item}</span>
             ))
             }
         </p> 

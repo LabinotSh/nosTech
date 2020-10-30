@@ -142,7 +142,14 @@ function Registration() {
                     <Form.Label style={{ fontSize: "14px" }}>
                       You are registering as a:
                     </Form.Label>
-                    {/* <SelectComp /> */}
+                    <Form.Group controlId="exampleForm.SelectCustom">
+                    <Form.Control 
+                    as="select" 
+                    custom>
+                      <option>Student</option>
+                      <option>Teacher</option>
+                    </Form.Control>
+                  </Form.Group>
                   </Form.Group>
 
                   <Button
