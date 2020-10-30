@@ -1,15 +1,12 @@
-const {combineReducers, createrStore} 
-import redux from './redu'
+// import loggedReducer from './loggedIn'
+// import registerReducer from './REGISTER'
+// import { loginReducer } from './auth'
 
-import loggedReducer from './loggedIn'
-import registerReducer from './REGISTER'
+// import { combineReducers } from 'redux'
 
-//krijimi i konstantes combineReducers, ne menyre qe me i perfshi krejt reducers
-const allReducers = combineReducers ({
-    loggedIn = loggedReducer,
-    register = registerReducer
-})
+// const allReducers = combineReducers({
+//   loggedIn: loggedReducer,
+//   register: registerReducer,
+// })
 
-const store = createrStore(allReducers)
-
-export default store
+// export default allReducers

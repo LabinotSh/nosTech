@@ -3,6 +3,18 @@ import { Nav, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "./header.css";
 import nosTech from "../../assets/images/nostech.png";
+import store from '../../store';
+import {logout} from '../../redux/actions/auth';
+import {history} from '../../helpers/history';
+
+const user = localStorage.getItem('user');
+
+const LogOut = (e) => {
+  e.preventDefault();
+  store.dispatch(logout());
+  history.push('/login');
+  window.location.reload();
+}
 
 function Header() {
   return (
@@ -23,11 +35,11 @@ function Header() {
           >
             <span className="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse" id="navbarResponsive">
+          <div className="collapse navbar-collapse" id="navbarResponsive">
             <div className="col-md-12 mx-auto">
               <div className="d-flex float-left col-md-10">
                 <div className="mx-auto">
-                  <ul class="navbar-nav ml-auto">
+                  <ul className="navbar-nav ml-auto">
                     <li className="nav-item">
                       <Link
                         to="/"
@@ -112,6 +124,7 @@ function Header() {
                         <a className="nav-link navigation">Login</a>
                       </Link>
                     </li>
+                    {!user && (
                     <li className="nav-item">
                       <Link
                         to="/registration"
@@ -123,6 +136,13 @@ function Header() {
                         <a className="nav-link navigation">Register</a>
                       </Link>
                     </li>
+                      )}
+                    {user && (
+                     <li className="nav-item">
+                      <Link tag="li" active-class="active" onClick={LogOut} 
+                        exact style={{textDecoration:"none"}}><a className="nav-link navigation">LogOut</a></Link>
+                     </li>
+                    )}
                   </ul>
                 </div>
               </div>

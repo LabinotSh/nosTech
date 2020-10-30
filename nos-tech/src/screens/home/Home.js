@@ -4,6 +4,7 @@ import Cards from "../../components/card/Cards";
 import Sources from "../../components/sources/Sources";
 import Info from "../../components/search-info/SearchInfo";
 import { Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 function Home() {
   return (
@@ -15,7 +16,9 @@ function Home() {
             Start using our resources for developing the necessary skills to
             land your dream job!
           </p>
-          <Button className="get-started-btn">Get Started</Button>
+          <Link to="/registration">
+            <Button className="get-started-btn">Get Started</Button>
+          </Link>
         </div>
 
         <img
@@ -38,9 +41,9 @@ function Home() {
         </p>
       </div>
       <Cards />
+      <Info />
       <h2 className="text-center mission-header">Our Ways</h2>
       <Sources />
-      <Info />
     </>
   );
 }

@@ -3,8 +3,18 @@
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    margin-bottom: 150px;
+}
+
+.head {
+  margin-bottom: 20px;
+}
+
+.rel {
+  max-width: 520px;
+  margin: 10px 25px;
 }
 
 .sources-info {
-  max-width: 450px;
+  max-width: 300px;
 }

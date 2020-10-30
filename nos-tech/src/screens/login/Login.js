@@ -1,17 +1,57 @@
-import React from "react";
+import React, { useState } from "react";
 import "./login.css";
 import { Container, Row, Col, Card, Button, Form } from "react-bootstrap";
 import loginBackground from "../../assets/images/loginBackground.png";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import Error from "../../components/error/Error.js";
+import store from '../../store';
+import { login } from '../../redux/actions/auth';
+import {history} from '../../helpers/history';
+import {connect} from 'react-redux';
 
 const validationSchema = Yup.object().shape({
   username: Yup.string().required("(Username is required)"),
   password: Yup.string().required("(Password is required)"),
 });
 
-function Login() {
+const Login = ({auth}) => {
+
+  const [email, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const onChangeUsername = (e) => {
+    const email = e.target.value;
+    setUsername(email);
+  }
+
+  const onChangePassword = (e) => {
+    const password = e.target.value;
+    setPassword(password);
+    console.log('Password: ' + password);
+  }
+
+  const handleSubmitt = (e) => {
+    e.preventDefault();
+    if (email && password) {
+    store.dispatch(login(email, password))
+    .then(res => {
+      const user = JSON.stringify(res.data.user);
+      console.log('User: ' + user);
+
+      history.push('/');
+      window.location.reload();
+
+    }).catch(error => {
+      const erro = JSON.stringify(store.getState().login.error);
+      console.log('ErrRRrr   ' + erro);
+      console.log('ERRor ' + error);
+
+    });
+    }
+
+  }
+
   return (
     <Formik
       initialValues={{ username: "", password: "" }}
@@ -52,8 +92,8 @@ function Login() {
                       name="username"
                       id="name"
                       placeholder="Username"
-                      onChange={handleChange}
-                      value={values.username}
+                      onChange={onChangeUsername}
+                      value={email}
                       onBlur={handleBlur}
                       className={
                         touched.username && errors.username ? "has-error" : null
@@ -70,8 +110,8 @@ function Login() {
                       name="password"
                       id="password"
                       placeholder="Password"
-                      onChange={handleChange}
-                      value={values.password}
+                      onChange={onChangePassword}
+                      value={password}
                       onBlur={handleBlur}
                       className={
                         touched.password && errors.password ? "has-error" : null
@@ -86,7 +126,7 @@ function Login() {
                   <Button
                     className="logInBtn"
                     type="submit"
-                    disabled={isSubmitting}
+                    onClick={handleSubmitt}
                   >
                     Login Now
                   </Button>
@@ -109,4 +149,9 @@ function Login() {
   );
 }
 
-export default Login;
+const mapStateToProps = state => ({
+  auth: state.login
+
+});
+
+export default connect(mapStateToProps)(Login);

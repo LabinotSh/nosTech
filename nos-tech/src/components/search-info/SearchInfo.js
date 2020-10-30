@@ -1,11 +1,12 @@
 import React from "react";
 import "./searchinfo.css";
 import { Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const SearchInfo = () => {
   return (
-    <div className="search-info">
-      <div className="text-center search-information">
+    <div className="wrap">
+      <div className="search-info text-center">
         <h2 style={{ color: "black" }}>Easily Obtainable Information</h2>
         <p>
           Sed vel magna mollis, molestie nunc id, porttitor nibh. Proin justo
@@ -15,10 +16,10 @@ const SearchInfo = () => {
           Aliquam in velit ut metus condimentum blandit vitae quis metus. Etiam
           pulvinar nisi tincidunt metus rhoncus, et tincidunt sem porttitor.
         </p>
-        <Button className="availableCourses">Available Courses</Button>
-      </div>
-      <div className="src">
-        <img src={require("../../assets/images/search-illustration.jpg")} />
+
+        <Link to="/courses" className="link">
+          <Button className="availableCourses">Available Courses</Button>
+        </Link>
       </div>
     </div>
   );

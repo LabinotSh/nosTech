@@ -26,14 +26,20 @@ const Cards = () => {
 
   const renderCards = (card, index) => {
     return (
-      <Card key={index} className="box">
+      <Card key={index} className="box crd">
+        <span className="spans" />
+        <span className="spans" />
+        <span className="spans" />
+        <span className="spans" />
         <Card.Img
           style={{ width: "50px", height: "50px" }}
           className="icons"
           src={card.image}
         />
         <Card.Body>
-          <Card.Title className="text-center">{card.title}</Card.Title>
+          <Card.Title className="text-center card-title">
+            {card.title}
+          </Card.Title>
           <Card.Text className="text-center txt">{card.text}</Card.Text>
         </Card.Body>
       </Card>

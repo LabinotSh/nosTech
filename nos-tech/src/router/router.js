@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Route, Router as R } from "react-router-dom";
 
 import Header from "../components/header/Header";
 import Footer from "../components/footer/Footer";
@@ -13,10 +13,11 @@ import Login from "../screens/login/Login";
 import Registration from "../screens/registration/Registration";
 import Admin from "../screens/admin/Admin";
 import Course from "../screens/course/Course";
+import { history } from "../helpers/history";
 
 function Router() {
   return (
-    <BrowserRouter>
+    <R history={history}>
       <Header />
       <Route path="/" component={Home} exact />
       <Route path="/courses" component={Courses} />
@@ -29,7 +30,7 @@ function Router() {
       <Route path="/admin" component={Admin} />
       <Route path="/course/:id" component={Course}></Route>
       <Footer />
-    </BrowserRouter>
+    </R>
   );
 }
 
