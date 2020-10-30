@@ -8,7 +8,7 @@ function WhoAreWe(){
       <div className="row my-5">
       <div className="row col-md-12">
       <div className="card col-md-7 about-us-card">
-      <img  className="card-img-top " src={team} ></img>
+      <img  className="card-img-top " src={team} alt="..not found"></img>
       </div>
       <div className="card col-md-5 about-us-card">
       <h2 className="text-center text-dark mb-5 my-5">Who are we?</h2>

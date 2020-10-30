@@ -19,9 +19,9 @@ function WhatWeDo(){
             versions of Lorem</p>
         </div>
           <div className="card col-md-5 about-us-card my-5">
-          <img  className="card-img-top  what-we-do-pic1" src={team4} ></img>
-          <img  className="card-img-top  what-we-do-pic2" src={team2} ></img>
-          <img  className="card-img-top  what-we-do-pic3" src={team3} ></img>
+          <img  className="card-img-top  what-we-do-pic1" src={team4} alt="...not found" />
+          <img  className="card-img-top  what-we-do-pic2" src={team2} alt="...not found" />
+          <img  className="card-img-top  what-we-do-pic3" src={team3} alt="...not found"/>
           </div>
         </div>
     )

@@ -1,6 +1,5 @@
 import React from "react";
-import { Nav, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import "./header.css";
 import nosTech from "../../assets/images/nostech.png";
 import store from '../../store';
@@ -8,6 +7,11 @@ import {logout} from '../../redux/actions/auth';
 import {history} from '../../helpers/history';
 
 const user = localStorage.getItem('user');
+
+const ActiveLinks = {
+  color: "#f06470",
+  fontWeight: "500"
+}
 
 const LogOut = (e) => {
   e.preventDefault();
@@ -22,7 +26,7 @@ function Header() {
       <nav className="navbar navbar-expand-lg navbar-dark static-top font header">
         <div className="container">
           <a className="logo mar" style={{ fontSize: "24px", padding: "0" }}>
-            <img src={nosTech} style={{ width: "60px" }}></img>{" "}
+            <img src={nosTech} style={{ width: "60px" }}/>
           </a>
           <button
             className="navbar-toggler test"
@@ -41,70 +45,76 @@ function Header() {
                 <div className="mx-auto">
                   <ul className="navbar-nav ml-auto">
                     <li className="nav-item">
-                      <Link
+                      <NavLink
                         to="/"
                         tag="li"
                         active-class="active"
                         className="navigation"
+                        activeStyle={ActiveLinks}
                         exact
                       >
-                        <a className="nav-link navigation">Home</a>
-                      </Link>
+                        Home
+                      </NavLink>
                     </li>
                     <li className="nav-item ">
-                      <Link
+                      <NavLink
                         to="/courses"
                         tag="li"
                         active-class="active"
                         className="navigation"
+                        activeStyle={ActiveLinks}
                         exact
                       >
-                        <a className="nav-link navigation">Courses</a>
-                      </Link>
+                        Courses
+                      </NavLink>
                     </li>
                     <li className="nav-item">
-                      <Link
+                      <NavLink
                         to="/articles"
                         tag="li"
                         active-class="active"
                         className="navigation"
+                        activeStyle={ActiveLinks}
                         exact
                       >
-                        <a className="nav-link navigation">Articles</a>
-                      </Link>
+                        Articles
+                      </NavLink>
                     </li>
                     <li className="nav-item">
-                      <Link
+                      <NavLink
                         to="/forum"
                         tag="li"
                         active-class="active"
                         className="navigation"
+                        activeStyle={ActiveLinks}
                         exact
                       >
-                        <a className="nav-link navigation">Forum</a>
-                      </Link>
+                        Forum
+                      </NavLink>
                     </li>
                     <li className="nav-item">
-                      <Link
+                      <NavLink
                         to="/about-us"
                         tag="li"
                         active-class="active"
                         className="navigation"
+                        activeStyle={ActiveLinks}
                         exact
                       >
-                        <a className="nav-link navigation">About Us</a>
-                      </Link>
+                        About Us
+                      </NavLink>
                     </li>
                     <li className="nav-item">
-                      <Link
+                      <NavLink
                         to="/contact"
                         tag="li"
                         active-class="active"
                         className="navigation"
+                        activeStyle={ActiveLinks}
                         exact
                       >
-                        <a className="nav-link navigation">Contact</a>
-                      </Link>
+                        Contact
+                      </NavLink>
                     </li>
                   </ul>
                 </div>
@@ -112,35 +122,47 @@ function Header() {
 
               <div className="float-left d-flex col-md-2">
                 <div id="c">
-                  <ul class="navbar-nav ml-auto">
+                  <ul className="navbar-nav ml-auto">
+                  {!user && (
                     <li className="nav-item">
-                      <Link
+                      <NavLink
                         to="/login"
                         tag="li"
                         active-class="active"
                         className="navigation"
+                        activeStyle={ActiveLinks}
                         exact
                       >
-                        <a className="nav-link navigation">Login</a>
-                      </Link>
+                        Login
+                      </NavLink>
                     </li>
+                  )}
                     {!user && (
                     <li className="nav-item">
-                      <Link
+                      <NavLink
                         to="/registration"
                         tag="li"
                         active-class="active"
                         className="navigation"
+                        activeStyle={ActiveLinks}
                         exact
                       >
-                        <a className="nav-link navigation">Register</a>
-                      </Link>
+                        Register
+                      </NavLink>
                     </li>
                       )}
                     {user && (
                      <li className="nav-item">
-                      <Link tag="li" active-class="active" onClick={LogOut} 
-                        exact style={{textDecoration:"none"}}><a className="nav-link navigation">LogOut</a></Link>
+                      <NavLink 
+                      tag="li" 
+                      active-class="active" 
+                      onClick={LogOut} 
+                      exact 
+                      style={{textDecoration:"none"}}
+                      activeStyle={ActiveLinks}
+                      >
+                        LogOut
+                      </NavLink>
                      </li>
                     )}
                   </ul>

@@ -30,6 +30,10 @@ const userSchema = new moongose.Schema({
         default: ROLE.USER,
         enum: [ROLE.USER,ROLE.ADMIN]
     },
+    username: {
+        type: String,
+        required: true,
+    },
     courses:[{
         type: moongose.Schema.Types.ObjectId,
         ref: 'Course'
