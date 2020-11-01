@@ -9,14 +9,11 @@ const SearchInfo = () => {
       <div className="search-info text-center">
         <h2 style={{ color: "black" }}>Easily Obtainable Information</h2>
         <p>
-          Sed vel magna mollis, molestie nunc id, porttitor nibh. Proin justo
-          sem, aliquet eget semper elementum, cursus non tortor. Pellentesque
-          vitae fringilla elit. Duis ultrices odio sapien, non placerat lacus
-          mattis at. In ultrices euismod quam, eget posuere odio vestibulum et.
-          Aliquam in velit ut metus condimentum blandit vitae quis metus. Etiam
-          pulvinar nisi tincidunt metus rhoncus, et tincidunt sem porttitor.
+          A majority of people learning for professional development report
+          career benefits like getting a promotion, a raise, or starting a new
+          career. Apply what you learn with self-paced quizzes and hands-on
+          projects. Get feedback from a global community of learners.
         </p>
-
         <Link to="/courses" className="link">
           <Button className="availableCourses">Available Courses</Button>
         </Link>

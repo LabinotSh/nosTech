@@ -9,10 +9,10 @@ const Sources = () => {
           Credible Information
         </h3>
         <p className="par">
-          Sed vel magna mollis, molestie nunc id, porttitor nibh. Proin justo
-          sem, aliquet eget semper elementum, cursus non tortor. Pellentesque
-          vitae fringilla elit. Duis ultrices odio sapien, non placerat lacus
-          mattis at. In ultrices euismod quam, eget posuere odio vestibulum et.
+          Udacity's mission is to train the world's workforce in the careers of
+          the future. Every industry is being impacted by modern technology. Our
+          mission includes providing the latest, most credible information there
+          is out there, to help our students in their career path.
         </p>
       </div>
       {/* <div className="src rel"> */}
@@ -27,10 +27,10 @@ const Sources = () => {
           Reliable Sources
         </h3>
         <p className="par">
-          Sed vel magna mollis, molestie nunc id, porttitor nibh. Proin justo
-          sem, aliquet eget semper elementum, cursus non tortor. Pellentesque
-          vitae fringilla elit. Duis ultrices odio sapien, non placerat lacus
-          mattis at. In ultrices euismod quam, eget posuere odio vestibulum et.
+          Our platform serves as a bridge between students who are eager to
+          study using the latest technologies and their usage, and the teachers
+          who are the ones to provide reliable sources with top notch, quality
+          information.
         </p>
       </div>
     </div>
