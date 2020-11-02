@@ -1,35 +1,38 @@
 h1,
 h2 {
-  padding: 16px 0;
-  margin: 20px auto;
+  padding: 0 2%;
+  margin: 0 auto;
   color: #aaa;
 }
 .left,
 .right {
   text-align: center;
-  margin: 0 auto;
 }
 .row-fields {
   margin: 15px auto;
   padding: 15px 0;
 }
-.form-control {
+.row-1 {
+  margin-top: 4% !important;
+}
+.frm-control {
+  margin: 0 auto;
   width: 85% !important;
 }
-.form-group {
+.frm-group {
   width: 45% !important;
+}
+.row-fields {
+  margin: 0 auto;
 }
 .submit-btn {
   align-self: center;
   vertical-align: middle;
 }
+
 @media only screen and (max-width: 992px) {
-  [class*='form-group'] {
-    width: 100%;
-    text-align: center;
-  }
-  [class*='right'] {
-    margin: auto auto;
+  [class*='main-row'] {
+    margin-left: 0 !important;
   }
   [class*='left'] {
     display: none;
