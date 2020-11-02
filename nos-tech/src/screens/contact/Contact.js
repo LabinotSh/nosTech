@@ -1,6 +1,6 @@
 import React from 'react'
 import './contact.css'
-import test from '../../assets/images/test.jpg'
+import test from '../../assets/images/test.png'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 import Error from '../../components/error/Error.js'
@@ -9,15 +9,15 @@ const validationSchema = Yup.object().shape({
   fname: Yup.string()
     .min(3, 'Must have more characters')
     .max(30, 'Must have less characters')
-    .required('Must enter a name'),
+    .required('Must enter your first name'),
   lname: Yup.string()
     .min(3, 'Must have more characters')
     .max(30, 'Must have less characters')
-    .required('Must enter a name'),
+    .required('Must enter your last name'),
   email: Yup.string()
     .email('Must be a valid email address')
     .max(100, 'Must have less characters')
-    .required('Must enter a name'),
+    .required('Must enter your valid e-mail'),
   subject: Yup.string()
     .min(5, 'Must have more characters')
     .max(50, 'Must have less characters'),
@@ -34,12 +34,12 @@ function Contact() {
                 please fill out the information below and we’ll make sure to reply as soon as possible
             </p> */}
       {/* left col */}
-      <div className='row'>
-        <div className='left col'>
+      <div className='row main-row'>
+        <div className='left col col-sm-12 col-md-12 col-lg-6'>
           <img src={test} alt='test' />
         </div>
         {/*  right col */}
-        <div className=' right col'>
+        <div className=' right col col-sm-12 col-md-12 col-lg-6'>
           <Formik
             initialValues={{
               fname: '',
@@ -74,14 +74,16 @@ function Contact() {
               <form onSubmit={handleSubmit}>
                 <h1>Got any concern?</h1>
                 <h2>Feel free to contact us!</h2>
-                <div className='row mx-auto row-fields row-1'>
-                  <div className='form-group mobile-col col-sm-12 col-md-6 col-lg-6'>
+
+                <div className='row row-fields row-1'>
+                  <div className='form-group frm-group mobile-col col-sm-12 col-md-6 col-lg-6'>
                     <input
                       name='fname'
                       type='text'
-                      class='form-control'
                       className={
-                        touched.fname && errors.fname ? 'has-error' : null
+                        touched.fname && errors.fname
+                          ? 'form-control form-group frm-control'
+                          : 'form-control form-group frm-control'
                       }
                       id='exampleInputName'
                       placeholder='First Name'
@@ -92,13 +94,15 @@ function Contact() {
                     <Error touched={touched.fname} message={errors.fname} />
                   </div>
 
-                  <div className='form-group mobile-col col-sm-12 col-md-6 col-lg-6'>
+                  <div className='form-group frm-group mobile-col col-sm-12 col-md-6 col-lg-6'>
                     <input
                       name='lname'
                       type='text'
-                      class='form-control'
+                      class='form-group form-control frm-control'
                       className={
-                        touched.lname && errors.lname ? 'has-error' : null
+                        touched.lname && errors.lname
+                          ? 'form-control form-group frm-control'
+                          : 'form-control form-group frm-control'
                       }
                       id='exampleInputName'
                       placeholder='Last name'
@@ -110,13 +114,15 @@ function Contact() {
                   </div>
                 </div>
                 <div className='row row-fields row-2'>
-                  <div className='form-group mobile-col col-sm-12 col-md-6 col-lg-6'>
+                  <div className='form-group frm-group mobile-col col-sm-12 col-md-6 col-lg-6'>
                     <input
                       name='email'
                       type='email'
-                      class='form-control'
+                      class='form-group form-control frm-control'
                       className={
-                        touched.email && errors.email ? 'has-error' : null
+                        touched.email && errors.email
+                          ? 'form-control form-group frm-control'
+                          : 'form-control form-group frm-control'
                       }
                       id='exampleInputEmail1'
                       aria-describedby='emailHelp'
@@ -128,13 +134,15 @@ function Contact() {
                     <Error touched={touched.email} message={errors.email} />
                   </div>
 
-                  <div className='form-group mobile-col col-sm-12 col-md-6 col-lg-6'>
+                  <div className='form-group frm-group mobile-col col-sm-12 col-md-6 col-lg-6'>
                     <input
                       name='subject'
                       type='text'
-                      class='form-control'
+                      class='form-group form-control frm-control'
                       className={
-                        touched.subject && errors.subject ? 'has-error' : null
+                        touched.subject && errors.subject
+                          ? 'form-control form-group frm-control'
+                          : 'form-control form-group frm-control'
                       }
                       id='exampleInputSubject'
                       placeholder='Subject'
@@ -148,14 +156,16 @@ function Contact() {
                 <div className='row row-fields row-3'>
                   <div
                     id='exampleInputMesage1'
-                    className='form-group col-sm-12 col-md-6 col-lg-12'
+                    className='form-group frm-group col-sm-12 col-md-6 col-lg-12'
                   >
                     <textarea
                       name='message'
                       type='text'
-                      class='form-control'
+                      class='form-group form-control frm-control'
                       className={
-                        touched.message && errors.message ? 'has-error' : null
+                        touched.message && errors.message
+                          ? 'form-control form-group frm-control'
+                          : 'form-control form-group frm-control'
                       }
                       id='exampleInputMesage'
                       placeholder='Your Message/Question'
