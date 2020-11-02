@@ -1,6 +1,6 @@
 import React from 'react'
 import './contact.css'
-import test from '../../assets/images/test.jpg'
+import test from '../../assets/images/test.png'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 import Error from '../../components/error/Error.js'

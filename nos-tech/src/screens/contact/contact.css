@@ -4,6 +4,9 @@ h2 {
   margin: 0 auto;
   color: #aaa;
 }
+.Content.container-md {
+  margin: 3% auto;
+}
 .left,
 .right {
   text-align: center;
