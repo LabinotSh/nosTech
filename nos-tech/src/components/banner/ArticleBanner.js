@@ -1,12 +1,12 @@
 import React from 'react';
 import './Banner.css'
 
-function BannerComponent(){
+function ArticleBannerComponent(){
     const category = [
         'Iphone', 'Samsung', 'VR' , 'Amazon', 'Google'
     ]   
     return(
-        <div className="Banner">
+        <div className="ArticleBanner">
            <div className="container">
 
         <h1 className="text-white text-center pt-5 banner-title">
@@ -23,7 +23,7 @@ function BannerComponent(){
         <p className="text-light text-center pb-3">
             TOPICS
             {category.map(item => (
-                <span className="btn banner-button text-center ml-2 mb-2">{item}</span>
+                <span className="btn Articlebanner-button text-center ml-2 mb-2">{item}</span>
             ))
             }
         </p> 
@@ -32,4 +32,4 @@ function BannerComponent(){
     )
 }
 
-export default BannerComponent
+export default ArticleBannerComponent
