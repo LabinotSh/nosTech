@@ -159,7 +159,7 @@ function Header() {
                       exact 
                       style={{textDecoration:"none"}}
                       >
-                      Logout
+                      <span className="text-dark"> Logout </span>
                       </Link>
                      </li>
                     )}

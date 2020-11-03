@@ -1,8 +1,10 @@
+
 import {
   FETCH_COURSES_ERROR,
   FETCH_COURSES_PENDING,
   FETCH_COURSES_SUCCESS,
 } from "../actions/types";
+
 
 const initialState = {
   pending: false,

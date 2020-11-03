@@ -4,12 +4,13 @@ import Carousel from '../../components/carousel/Carousel';
 import {connect, useDispatch} from 'react-redux';
 import {fetchAllCourses} from '../../redux/actions/courses';
 import {withRouter} from 'react-router-dom';
+import responsive from '../../constants/carouselResponsive';
+import Banner from '../../components/banner/CourseBanner'
 
 
 const Courses = ({list}) => {
 
     const dispatch = useDispatch();
-
     const [courses, setCourses] = useState([]);
 
     const retrieveCourses = () => {
@@ -27,41 +28,46 @@ const Courses = ({list}) => {
     }, []);
 
     const CourseCarousel = () =>{
+        
         return courses.map(course => {
           return (
-            <div key={course._id}>
-            <div className="carousel-div col pt-5">
-            <button className="btn btn-outline-success">{course.name}</button>
-             <p>Description: {course.description}</p>
+            <div className="card courses-card" key={course._id} >
+            <img src={course.image} className="card-img-top courseImg" alt="..."/>
+            <div >
+                <h6 className="card-title courses-title">{course.name}</h6>
+                <p className="card-text courses-desc">{course.description}</p>
+                <div className="courses-footer">
+                <button className="btn btn-sm btn-outline-dark float-left">{course.category}</button>
+                <span className="float-right">
+                <i className="fa fa-eur pb-2 " style={{fontSize:"15px"}}/> 
+                <strong>{course.price}</strong>
+                </span>
+                </div>
             </div>
             </div>
           )
       })
     }
 
-    const responsive = {
-        0: { items: 1 },
-        568: { items: 3 },
-        1024: { items: 4 },
-    };
-
     return (
 
-        <div >
-
-            <p className="container my-5 text-center text-info">Courses we offer!</p>
-            <hr></hr>
+        <div>
+            <Banner />
+            <div className="top-content">
+            <p className="courses-headline">Courses we offer!</p>
             <Carousel
                 responsive={responsive}
-                autoPlay = {true}
-                autoPlayInterval = {2000}
-                paddingLeft = {100}
-                infinite={true}
+                paddingLeft = {50}
                 disableDotsControls={true}
             >
-                {CourseCarousel()}
+            {CourseCarousel()}
             </Carousel>
             <hr></hr>
+            </div>
+            <div className="middle-content">
+            <p className="courses-headline">Recent NosTech Courses</p>
+            </div>
+
         </div>
     )
 }

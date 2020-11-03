@@ -1,8 +1,8 @@
-.Banner{
+.ArticleBanner{
     background-color: black;
     display: block;
 }
-.banner-button{
+.Articlebanner-button{
     border: none;
     border-radius: 0;
     color:white;
@@ -11,7 +11,38 @@
     font-size: 15px;
     font-weight: 500;
 }
-.banner-button:hover{
+.Articlebanner-button:hover{
     color: black;
     background-color: whitesmoke
+}
+.CourseBanner{
+    background-image: url('https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/https://s3.amazonaws.com/coursera_assets/browse/domain-banner/computer_science.png?auto=format%2Ccompress&amp;dpr=1');
+    background-size: cover;
+}
+.Coursebanner-title{
+    position: relative;
+    color: white;
+    font-weight: 300;
+}
+.courseBanner-button{
+    border: none;
+    padding: 10px;
+    border-radius: 0;
+    color:rgb(0, 0, 0);
+    background-color:#ffffff;
+    margin-right: 10px;
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 2;
+    margin-left: 25px;
+    transition: ease-in-out;
+    transition-timing-function: ease-in-out;
+    transition-duration: 0.5s;
+    margin-bottom: 20px;
+}
+.courseBanner-button:hover{
+    transform: scale(1.1,1.1);
+    z-index: 1;
+    background-color: black;
+    color: white;
 }

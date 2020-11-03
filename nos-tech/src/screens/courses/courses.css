@@ -1,0 +1,43 @@
+.courseImg{
+    width: 300px;
+    height: 150px;
+}
+.courses-card{
+    width: 300px;
+    border: none;
+    height: 300px;
+    margin-bottom: 30px;
+  
+}
+.courses-title{
+    font-size: 18px;
+    height: 40%;
+    width: 100%;
+    margin: 5% 0 0 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden; 
+}
+.courses-desc{
+    font-size: 15px;
+    color:rgb(105, 105, 105);
+    height: 40%;
+    margin: 1% 0 1% 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.courses-footer{
+    height: 50%;
+    padding-top: 3%;
+}
+.courses-headline{
+    font-size: 20px;
+    color: rgb(109, 120, 156);
+    margin: 5% 0 2% 3.5%;
+}
+.courses-headline-recently{
+    font-size: 20px;
+    color: rgb(109, 120, 156);
+    margin: 5% 0 2% 3.5%;
+}
