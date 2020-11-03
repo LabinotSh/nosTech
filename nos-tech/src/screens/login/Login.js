@@ -15,7 +15,7 @@ const validationSchema = Yup.object().shape({
   password: Yup.string().required("(Password is required)"),
 });
 
-const Login = ({auth}) => {
+const Login = (auth) => {
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");

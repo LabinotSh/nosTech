@@ -14,6 +14,7 @@ export const login = (username, password) => (dispatch) => {
             console.log('USER ' + JSON.stringify(response.data.token));
             const user = response.data.token;
             localStorage.setItem('user', JSON.stringify(user));
+            localStorage.setItem('refresh', JSON.stringify(response.data.refreshToken));
         }
 
         dispatch({
@@ -36,6 +37,7 @@ export const login = (username, password) => (dispatch) => {
 
 export const logout = () => (dispatch) => {
  localStorage.removeItem('user');
+ localStorage.removeItem('refresh');
 
  dispatch({
      type:LOGOUT
