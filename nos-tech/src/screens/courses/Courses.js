@@ -1,25 +1,43 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import './courses.css'
-import Carousel from '../../components/carousel/Carousel'
+import Carousel from '../../components/carousel/Carousel';
+import {connect, useDispatch} from 'react-redux';
+import {fetchAllCourses} from '../../redux/actions/courses';
+import {withRouter} from 'react-router-dom';
 
 
-function Courses() {
+const Courses = ({list}) => {
+
+    const dispatch = useDispatch();
+
+    const [courses, setCourses] = useState([]);
+
+    const retrieveCourses = () => {
+        dispatch(fetchAllCourses()).then(response =>{
+            setCourses(response.courses);
+            console.log('COURSES: ' + JSON.stringify(response));
+        }).catch(e => {
+            console.error('Error: ' + e);
+        })      
+    };
+
+    //Load courses on render
+    useEffect(() => {
+        retrieveCourses();
+    }, []);
 
     const CourseCarousel = () =>{
-        return courses.map(courses => {
+        return courses.map(course => {
           return (
-            <div>
+            <div key={course._id}>
             <div className="carousel-div col pt-5">
-            <button className="btn btn-outline-success">{courses}</button>
+            <button className="btn btn-outline-success">{course.name}</button>
+             <p>Description: {course.description}</p>
             </div>
             </div>
           )
       })
     }
-    
-    const courses = [
-         'HTML','PHP', 'Css','Python','Vue js','React Js'  
-    ];
 
     const responsive = {
         0: { items: 1 },
@@ -48,4 +66,10 @@ function Courses() {
     )
 }
 
-export default Courses
+function mapStateToProps(state) {
+    return {
+        list:state.courses.courses
+    }
+}
+
+export default connect(mapStateToProps, {fetchAllCourses})(withRouter(Courses));
