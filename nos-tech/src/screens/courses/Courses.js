@@ -74,7 +74,7 @@ const Courses = ({list}) => {
 
 function mapStateToProps(state) {
     return {
-        list:state.courses.courses
+        list: state.courses.courses
     }
 }
 

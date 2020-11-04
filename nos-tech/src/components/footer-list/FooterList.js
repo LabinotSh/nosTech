@@ -29,22 +29,22 @@ function FooterList() {
       <ul key={index}>
         <Media className="footer-list">{li.title}</Media>
         <Media className="footer-list">
-          <Link>{li.one}</Link>
+          <Link to=''>{li.one}</Link>
         </Media>
         <Media className="footer-list">
-          <Link>{li.two}</Link>
+          <Link to=''>{li.two}</Link>
         </Media>
         <Media className="footer-list">
-          <Link>{li.three}</Link>
+          <Link to=''>{li.three}</Link>
         </Media>
         <Media className="footer-list">
-          <Link>{li.four}</Link>
+          <Link to=''>{li.four}</Link>
         </Media>
         <Media className="footer-list">
-          <Link>{li.five}</Link>
+          <Link to=''>{li.five}</Link>
         </Media>
         <Media className="footer-list">
-          <Link>{li.six}</Link>
+          <Link to=''>{li.six}</Link>
         </Media>
       </ul>
     );

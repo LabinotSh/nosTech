@@ -3,6 +3,7 @@ import "./footer.css";
 import FooterList from "../footer-list/FooterList";
 
 const Footer = () => {
+  if (window.location.pathname === '/login' || window.location.pathname === '/registration') return null;
   return (
     <div className="footeri">
       <FooterList />
