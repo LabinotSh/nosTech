@@ -7,102 +7,52 @@
     box-sizing: border-box;
 }
 
-.col-1 {width: 8.33%;}
-.col-2 {width: 16.66%;}
-.col-3 {width: 25%;}
-.col-4 {width: 33.33%;}
-.col-5 {width: 41.66%;}
-.col-6 {width: 50%;}
-.col-7 {width: 58.33%;}
-.col-8 {width: 66.66%;}
-.col-9 {width: 75%;}
-.col-10 {width: 83.33%;}
-.col-11 {width: 91.66%;}
-.col-12 {width: 100%;}
-
-.row {
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-}
-
 .footeri {
-    width: 100vw;
-    display: flex;
-    overflow: hidden;
-    padding: 0;
-    box-sizing: border-box;
     background-color: whitesmoke;
+    width: 100%;
 }
 
-.container-1, .container-2 {
-    display: flex;
-}
-
-.vl {
-    border-left: 1px solid red;
-    height: 153px;
-    margin-top: auto;
-    margin-bottom: auto;
-}
 
 /* --------------------CONTENT------------------- */
 
-.col-2 .resources, 
-.col-2 .services,
-.col-2 .contact {
-    margin: 10px;
+.footer-content {
+    justify-content: space-between;
+    width: 100%;
+    display: flex;
+    overflow: hidden;
+    padding: 24px 0px;
+    box-sizing: border-box;
 }
-
-.col-5 .subscription {
-    margin-left: 20%;
-}
-
-.col-2 .resources h1, 
-.col-2 .services h1,
-.col-2 .contact h1 {
-    font-size: 18px;
-    font-style: italic;
+.subscription {
     text-align: center;
-    color: black;
-    padding: 0;
 }
 
-.col-2 .resources p {
-    font-size: 13px;
-    font-style: italic;
-    text-align: center;
-    color: black;
-    padding: 2px;
+.submit-btn {
+    background-color: white;
+    color: #00132A;
+    outline-color:#00132A;
+    border-color:white;
+    margin: 20px 10px;
+    width: 150px;
+    border-radius: 20px;
+    padding: 9px 5px;
+    box-shadow: 3px 5px 14px #bebcbc;
+}
+.submit-btn:hover{
+    background-color: #F7A366 !important;
+    outline-color: #F7A366 !important;
+    border-color:#F7A366 !important;
 }
 
-.col-2 ul {
-    text-align: center;
-    font-size: 13px;
-}
-
-.col-6 .subscription {
-    text-align: center;
-    align-items: center;
-}
-
-
-.col-6 .subscription p {
-    font-size: 12px;
-    font-style: italic;
-    color: brown;
-    margin-top: 40px;
-}
-
-.col-6 .subscription input[type = "text"] {
-    font-size: 16px;
+.text-box{
+    background-color: white;
+    padding: 10px 15px;
+    border-radius: 7px;
     width: 300px;
-    min-width: 100px;
-    padding: 6px;
-    border-radius: 5px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
 }
-
 /* .col-6 .subscription input[type = "submit"] {
     display: block;
     font-size: 13;
@@ -113,16 +63,27 @@
     margin: 8px;
 } */
 
-.col-6 .subscription button {
-    display: block;
-    padding: 4px, 6px;
-    height: 40px;
-    width: 120px;
+/* -----------------RESPONSIVE------------------- */
+
+@media screen and (max-width: 991px) {
+    
+.footer-content {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    text-align: center;
 }
 
-.col-6 .subscription .submit {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 13px;
+/* .the-list {
+    border-bottom: 1px solid red;
+} */
+
+ul{
+    border: none;
+}
+
+.subscription {
+    margin-top: 20px;
+}
+
 }
