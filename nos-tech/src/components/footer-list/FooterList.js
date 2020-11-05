@@ -38,6 +38,27 @@ function FooterList() {
   const renderFooterList = (li, index) => {
     return (
       <ul key={index}>
+<<<<<<< HEAD
+        <Media className="footer-list">{li.title}</Media>
+        <Media className="footer-list">
+          <Link to=''>{li.one}</Link>
+        </Media>
+        <Media className="footer-list">
+          <Link to=''>{li.two}</Link>
+        </Media>
+        <Media className="footer-list">
+          <Link to=''>{li.three}</Link>
+        </Media>
+        <Media className="footer-list">
+          <Link to=''>{li.four}</Link>
+        </Media>
+        <Media className="footer-list">
+          <Link to=''>{li.five}</Link>
+        </Media>
+        <Media className="footer-list">
+          <Link to=''>{li.six}</Link>
+        </Media>
+=======
         <Media className="list-title">{li.title}</Media>
 
         <div className="list-item-container">
@@ -61,6 +82,7 @@ function FooterList() {
           </Media>
         </div>
 
+>>>>>>> 40d30b4f35539219ccd63112b8648d6b91d1499c
       </ul>
     );
   };

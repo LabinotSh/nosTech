@@ -1,18 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Nav, Button } from "react-bootstrap";
-import { Link, NavLink } from "react-router-dom";
+import { Link,NavLink, Redirect, withRouter } from "react-router-dom"
 import "./header.css";
 import nosTech from "../../assets/images/nostech.png";
-import store from "../../store";
-import { logout } from "../../redux/actions/auth";
-import { history } from "../../helpers/history";
+import store from '../../store';
+import {logout} from '../../redux/actions/auth';
+import {history} from '../../helpers/history';
+import {connect, useDispatch} from 'react-redux';
 import DropdownItems from "../dropdown-items/DropdownItems";
 
 const user = localStorage.getItem("user");
 const ActiveLinks = {
   color: "#f06470",
-  fontWeight: "500",
-};
+  fontWeight: "500"
+}
+
+
 const LogOut = (e) => {
   e.preventDefault();
   store.dispatch(logout());
@@ -21,6 +24,20 @@ const LogOut = (e) => {
 };
 
 function Header() {
+
+    const  dispatch = useDispatch();
+  
+    const LogOut = (e) => {
+      e.preventDefault();
+      dispatch(logout());
+    }
+    
+    useEffect(() => {
+      if(!user){
+        history.push('/login');
+      }
+    },[]);
+  
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-dark static-top font header">
@@ -163,4 +180,4 @@ function Header() {
   );
 }
 
-export default Header;
+export default connect(null, {logout})(withRouter(Header));

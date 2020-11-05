@@ -4,6 +4,7 @@ import FooterList from "../footer-list/FooterList";
 import { Container, Row, Col, Card, Button, Form } from "react-bootstrap";
 
 const Footer = () => {
+  if (window.location.pathname === '/login' || window.location.pathname === '/registration') return null;
     return (
         <div className="footeri">
             <div className="container">

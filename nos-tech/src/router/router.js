@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter, Route, Router as R } from "react-router-dom";
+import {ConnectedRouter} from 'connected-react-router';
 
 import Header from "../components/header/Header";
 import Footer from "../components/footer/Footer";
@@ -17,7 +18,7 @@ import { history } from "../helpers/history";
 
 function Router() {
   return (
-    <R history={history}>
+    <ConnectedRouter history={history}>
       <Header />
       <Route path="/" component={Home} exact />
       <Route path="/courses" component={Courses} />
@@ -30,7 +31,7 @@ function Router() {
       <Route path="/admin" component={Admin} />
       <Route path="/course/:id" component={Course}></Route>
       <Footer />
-    </R>
+    </ConnectedRouter>
   );
 }
 
