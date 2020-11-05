@@ -2,14 +2,14 @@
 
 A MERN Fullstack application
 
-#Front-End (Created with create-react-app) => /nos-tech
+## Front-End (Created with create-react-app) => /nos-tech
  
    ##To run:
    -$npm start
    
 1.##Before running please make sure you install all packages required, by running:
   - npm install
-## on both back and front folders.
+##on both back and front folders.
 
 2.## Also create .env file in your back end folder, where you will be putting 
      the constants for database connection and for access/refresh token.
@@ -19,7 +19,7 @@ A MERN Fullstack application
      3.REFRESH_TOKEN_SECRET
      4.PORT -> the running port for back end is 3001, but you can create yours based on your requirements.
  
-#Back-End => /server
+## Back-End => /server
 
    ##To run:
    -$npm run dev
