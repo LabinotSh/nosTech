@@ -7,12 +7,21 @@ import store from '../../store';
 import {logout} from '../../redux/actions/auth';
 import {history} from '../../helpers/history';
 import {connect, useDispatch} from 'react-redux';
+import DropdownItems from "../dropdown-items/DropdownItems";
 
-const user = localStorage.getItem('user');
+const user = localStorage.getItem("user");
 const ActiveLinks = {
   color: "#f06470",
   fontWeight: "500"
 }
+
+
+const LogOut = (e) => {
+  e.preventDefault();
+  store.dispatch(logout());
+  history.push("/login");
+  window.location.reload();
+};
 
 function Header() {
 
@@ -130,49 +139,36 @@ function Header() {
 
               <div className="float-left d-flex col-md-2">
                 <div id="c">
-                  <ul className="navbar-nav ml-auto">
-                  {!user && (
-                    <li className="nav-item">
-                      <NavLink
-                        to="/login"
-                        tag="li"
-                        active-class="active"
-                        className="navigation"
-                        activeStyle={ActiveLinks}
-                        exact
-                      >
-                        Login
-                      </NavLink>
-                    </li>
-                  )}
+                  <ul class="navbar-nav ml-auto">
                     {!user && (
-                    <li className="nav-item">
-                      <NavLink
-                        to="/registration"
-                        tag="li"
-                        active-class="active"
-                        className="navigation"
-                        activeStyle={ActiveLinks}
-                        exact
-                      >
-                        Register
-                      </NavLink>
-                    </li>
-                      )}
-                    {user && (
-                     <li className="nav-item">
-                      <NavLink 
-                      to='/login'
-                      tag="li" 
-                      active-class="active" 
-                      onClick={LogOut} 
-                      exact 
-                      style={{textDecoration:"none"}}
-                      >
-                      <span className="text-dark"> Logout </span>
-                      </NavLink>
-                     </li>
+                      <li className="nav-item">
+                        <NavLink
+                          to="/login"
+                          tag="li"
+                          active-class="active"
+                          className="navigation"
+                          activeStyle={ActiveLinks}
+                          exact
+                        >
+                          Login
+                        </NavLink>
+                      </li>
                     )}
+                    {!user && (
+                      <li className="nav-item">
+                        <NavLink
+                          to="/registration"
+                          tag="li"
+                          active-class="active"
+                          className="navigation"
+                          activeStyle={ActiveLinks}
+                          exact
+                        >
+                          Register
+                        </NavLink>
+                      </li>
+                    )}
+                    {user && <DropdownItems />}
                   </ul>
                 </div>
               </div>
