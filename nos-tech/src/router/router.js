@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, Router as R } from "react-router-dom";
+import { BrowserRouter, Route, Router as R , withRouter} from "react-router-dom";
 import {ConnectedRouter} from 'connected-react-router';
 
 import Header from "../components/header/Header";
@@ -16,6 +16,7 @@ import Admin from "../screens/admin/Admin";
 import Course from "../screens/course/Course";
 import { history } from "../helpers/history";
 
+
 function Router() {
   return (
     <ConnectedRouter history={history}>
@@ -30,9 +31,13 @@ function Router() {
       <Route path="/registration" component={Registration} />
       <Route path="/admin" component={Admin} />
       <Route path="/course/:id" component={Course}></Route>
-      <Footer />
+      {
+      (history.location.pathname!=='/login' && history.location.pathname!=='/registration') ? <Footer/>:null
+      }
+      {/* <Footer /> */}
     </ConnectedRouter>
   );
 }
 
-export default Router;
+//pa ja shtu qeto withRouter sbojke opsioni per me e hjek footer prej login edhe register
+export default withRouter(Router);
