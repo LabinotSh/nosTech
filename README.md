@@ -7,9 +7,9 @@ A MERN Fullstack application
    ##To run:
    -$npm start
    
-1.##Before running please make sure you install all packages required, by running:
-  - npm install
-##on both back and front folders.
+1.##Before running please make sure you install all packages required, 
+  on both back and front folders, by running:
+  - npm install.
 
 2.## Also create .env file in your back end folder, where you will be putting 
      the constants for database connection and for access/refresh token.
