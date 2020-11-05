@@ -13,6 +13,10 @@ const API_URL = 'http://localhost:3001/api/user';
 
 export const register = (name, surname, email, password, role, username) => (dispatch) => {
 
+    dispatch({
+        type:REGISTER_REQUEST
+    });
+    
     return axios.post(API_URL+'/register', {name, surname, email, password, role, username})
     .then(response => {
         if(response.error){
@@ -90,6 +94,7 @@ export const logout = () => (dispatch) => {
      type:LOGOUT
  })
 
+ history.push('/login');
  window.location.reload(false);
 };
 

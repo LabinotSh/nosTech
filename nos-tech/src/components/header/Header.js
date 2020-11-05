@@ -16,27 +16,14 @@ const ActiveLinks = {
 }
 
 
-const LogOut = (e) => {
-  e.preventDefault();
-  store.dispatch(logout());
-  history.push("/login");
-  window.location.reload();
-};
-
 function Header() {
 
-    const  dispatch = useDispatch();
-  
-    const LogOut = (e) => {
-      e.preventDefault();
-      dispatch(logout());
-    }
-    
-    useEffect(() => {
-      if(!user){
-        history.push('/login');
-      }
-    },[]);
+  //QEKJO I KA PAS FAJETTTTTTTTTTTT
+    // useEffect(() => {
+    //   if(!user){
+    //     history.push('/login');
+    //   }
+    // },[]);
   
   return (
     <div>
@@ -180,4 +167,4 @@ function Header() {
   );
 }
 
-export default connect(null, {logout})(withRouter(Header));
+export default (withRouter(Header));
