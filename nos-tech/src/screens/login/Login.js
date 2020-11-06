@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./login.css";
 import { Container, Row, Col, Card, Button, Form } from "react-bootstrap";
 import loginBackground from "../../assets/images/loginBackground.png";
@@ -8,49 +8,29 @@ import Error from "../../components/error/Error.js";
 import store from '../../store';
 import { login } from '../../redux/actions/auth';
 import {history} from '../../helpers/history';
-import {connect} from 'react-redux';
+import {connect, useSelector, useDispatch} from 'react-redux';
+import {withRouter} from 'react-router-dom';
+import jwt_decode from 'jwt-decode';
 
 const validationSchema = Yup.object().shape({
   username: Yup.string().required("(Username is required)"),
   password: Yup.string().required("(Password is required)"),
 });
 
-const Login = (auth) => {
+const Login = ({authenticated, err}) => {
 
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [role, setRole] = useState("");
 
-  const onChangeUsername = (e) => {
-    const username = e.target.value;
-    setUsername(username);
-  }
+  //const loggingIn = useSelector(state => state.login.isLoggedIn);
 
-  const onChangePassword = (e) => {
-    const password = e.target.value;
-    setPassword(password);
-    console.log('Password: ' + password);
-  }
+  const dispatch = useDispatch();
 
-  const handleSubmitt = (e) => {
-    e.preventDefault();
-    if (username && password) {
-    store.dispatch(login(username, password))
-    .then(res => {
-      const user = JSON.stringify(res.data.user);
-      console.log('User: ' + user);
-
-      history.push('/');
-      window.location.reload();
-
-    }).catch(error => {
-      const erro = JSON.stringify(store.getState().login.error);
-      console.log('ErrRRrr   ' + erro);
-      console.log('ERRor ' + error);
-
-    });
+  useEffect(() => {
+    if(authenticated){
+      dispatch(login());
     }
-
-  }
+  },[dispatch, authenticated])
 
   return (
     <Formik
@@ -58,13 +38,31 @@ const Login = (auth) => {
       validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting, resetForm }) => {
         setSubmitting(true);
+        setLoading(true);
         //down below is where the data should be sent to the server
-        setTimeout(() => {
-          //will put a spinner instead of the alert for logging in kur t'shtohet auth
-          alert(JSON.stringify(values, null, 2));
-          resetForm();
-          setSubmitting(false);
-        }, 500);
+        dispatch(login(values.username, values.password))
+        .then(response => {
+          setLoading(true);
+          const userRole = JSON.stringify(response.data.user['role']);
+          setRole(response.data.user['role']);
+          console.log('User: ' + userRole);
+
+          setTimeout(() => {
+            resetForm();
+            setSubmitting(false);
+          }, 1000);
+
+        }).catch(error => {
+          setLoading(false);
+          // console.log('ERRor ' + error);
+  
+        });
+        // setTimeout(() => {
+        //   //will put a spinner instead of the alert for logging in kur t'shtohet auth
+        //   //alert(JSON.stringify(values, null, 2));
+        //   resetForm();
+        //   setSubmitting(false);
+        // }, 1000);
       }}
     >
       {({
@@ -86,14 +84,19 @@ const Login = (auth) => {
                 </Card.Text>
                 <Form onSubmit={handleSubmit}>
                   {/* {JSON.stringify(values)} */}
+                  {err && (
+                    <div className="text-danger">
+                      {err}
+                    </div>
+                  )}
                   <Form.Group controlId="formBasicUsername">
                     <Form.Control
                       type="text"
                       name="username"
-                      id="name"
+                      // id="name"
                       placeholder="Username"
-                      onChange={onChangeUsername}
-                      value={username}
+                      onChange={handleChange}
+                      value={values.username}
                       onBlur={handleBlur}
                       className={
                         touched.username && errors.username ? "has-error" : null
@@ -108,10 +111,10 @@ const Login = (auth) => {
                     <Form.Control
                       type="password"
                       name="password"
-                      id="password"
+                      // id="password"
                       placeholder="Password"
-                      onChange={onChangePassword}
-                      value={password}
+                      onChange={handleChange}
+                      value={values.password}
                       onBlur={handleBlur}
                       className={
                         touched.password && errors.password ? "has-error" : null
@@ -122,11 +125,13 @@ const Login = (auth) => {
                       message={errors.password}
                     />
                   </Form.Group>
-
+                  {loading && (
+                    <span className="spinner-border spinner-border-sm"></span>
+                  )}
                   <Button
                     className="logInBtn"
                     type="submit"
-                    onClick={handleSubmitt}
+                    disabled={isSubmitting}
                   >
                     Login Now
                   </Button>
@@ -150,8 +155,8 @@ const Login = (auth) => {
 }
 
 const mapStateToProps = state => ({
-  auth: state.login
-
+  authenticated: state.login.isLoggedIn,
+  err: state.login.error
 });
 
-export default connect(mapStateToProps)(Login);
+export default connect(mapStateToProps ,{login})(withRouter(Login));

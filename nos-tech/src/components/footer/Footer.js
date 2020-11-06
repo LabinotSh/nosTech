@@ -4,7 +4,8 @@ import FooterList from "../footer-list/FooterList";
 import { Container, Row, Col, Card, Button, Form } from "react-bootstrap";
 
 const Footer = () => {
-    return (
+  // if (window.location.pathname === '/login') return null;
+  return(
         <div className="footeri">
             <div className="container">
                 <div className="footer-content">
@@ -31,7 +32,7 @@ const Footer = () => {
                 </div>
             </div>
         </div>
-    );
+  );
 };
 
 export default Footer;

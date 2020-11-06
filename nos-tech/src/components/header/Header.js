@@ -1,25 +1,30 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Nav, Button } from "react-bootstrap";
-import { Link,NavLink } from "react-router-dom";
+import { Link,NavLink, Redirect, withRouter } from "react-router-dom"
 import "./header.css";
 import nosTech from "../../assets/images/nostech.png";
 import store from '../../store';
 import {logout} from '../../redux/actions/auth';
 import {history} from '../../helpers/history';
+import {connect, useDispatch} from 'react-redux';
+import DropdownItems from "../dropdown-items/DropdownItems";
 
-const user = localStorage.getItem('user');
+const user = localStorage.getItem("user");
 const ActiveLinks = {
   color: "#f06470",
   fontWeight: "500"
 }
-const LogOut = (e) => {
-  e.preventDefault();
-  store.dispatch(logout());
-  history.push('/login');
-  window.location.reload();
-}
+
 
 function Header() {
+
+  //QEKJO I KA PAS FAJETTTTTTTTTTTT
+    // useEffect(() => {
+    //   if(!user){
+    //     history.push('/login');
+    //   }
+    // },[]);
+  
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-dark static-top font header">
@@ -122,47 +127,35 @@ function Header() {
               <div className="float-left d-flex col-md-2">
                 <div id="c">
                   <ul class="navbar-nav ml-auto">
-                  {!user && (
-                    <li className="nav-item">
-                      <NavLink
-                        to="/login"
-                        tag="li"
-                        active-class="active"
-                        className="navigation"
-                        activeStyle={ActiveLinks}
-                        exact
-                      >
-                        Login
-                      </NavLink>
-                    </li>
-                  )}
                     {!user && (
-                    <li className="nav-item">
-                      <NavLink
-                        to="/registration"
-                        tag="li"
-                        active-class="active"
-                        className="navigation"
-                        activeStyle={ActiveLinks}
-                        exact
-                      >
-                        Register
-                      </NavLink>
-                    </li>
-                      )}
-                    {user && (
-                     <li className="nav-item">
-                      <Link 
-                      tag="li" 
-                      active-class="active" 
-                      onClick={LogOut} 
-                      exact 
-                      style={{textDecoration:"none"}}
-                      >
-                      <span className="text-dark"> Logout </span>
-                      </Link>
-                     </li>
+                      <li className="nav-item">
+                        <NavLink
+                          to="/login"
+                          tag="li"
+                          active-class="active"
+                          className="navigation"
+                          activeStyle={ActiveLinks}
+                          exact
+                        >
+                          Login
+                        </NavLink>
+                      </li>
                     )}
+                    {!user && (
+                      <li className="nav-item">
+                        <NavLink
+                          to="/registration"
+                          tag="li"
+                          active-class="active"
+                          className="navigation"
+                          activeStyle={ActiveLinks}
+                          exact
+                        >
+                          Register
+                        </NavLink>
+                      </li>
+                    )}
+                    {user && <DropdownItems />}
                   </ul>
                 </div>
               </div>
@@ -174,4 +167,4 @@ function Header() {
   );
 }
 
-export default Header;
+export default (withRouter(Header));

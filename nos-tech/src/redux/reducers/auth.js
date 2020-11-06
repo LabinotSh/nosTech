@@ -2,7 +2,7 @@ import {LOGIN_SUCCESS,
     LOGIN_FAIL, 
     LOGOUT, 
     REGISTER_FAIL, 
-    REGISTER_SUCCESS} from '../actions/types';
+    REGISTER_SUCCESS,REGISTER_REQUEST} from '../actions/types';
 
 let user = JSON.parse(localStorage.getItem('user'));
 const initialState = user
@@ -14,7 +14,26 @@ export const loginReducer = ( state = initialState, action) => {
     //"old version" of state equals with an initialState
     const {type, payload} = action;
     switch(action.type){
-        //new state based on the incoming action.type 
+        //new state based on the incoming action.type
+        case REGISTER_REQUEST:
+            return {
+                ...state,
+                isLoggedIn:false,
+                registering: true
+            };
+        case REGISTER_SUCCESS:
+            return {
+                ...state,
+                registered:true,
+                isLoggedIn:false
+            };
+        case REGISTER_FAIL:
+            return {
+                ...state,
+                registered:false,
+                isLoggedIn:false,
+                error: action.payload
+            }; 
         case LOGIN_SUCCESS:
             return {
                 ...state,
