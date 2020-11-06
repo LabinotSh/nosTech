@@ -17,29 +17,18 @@ function FooterList() {
       eight: "Register",
     },
     {
-      title: "Content",
-      one: "Home",
-      two: "Courses",
-      three: "Articles",
-      four: "Forum",
-      five: "About Us",
-      six: "Contact",
-      seven: "Login",
-      eight: "Register",
+      title: "Get in Touch",
+      one: "232 Lovatt Crescent",
+      two: "(022) 2967-261",
+      three: "nostech@contact.info",
+      four: "babloki hahahaksaodund",
     },
-    // {
-    //   title: "Get in Touch",
-    //   one: "232 Lovatt Crescent, Kensington",
-    //   two: "(022) 2967-261",
-    //   three: "nostech@contact.info",
-    // },
   ];
 
   const renderFooterList = (li, index) => {
     return (
       <ul key={index}>
         <Media className="list-title">{li.title}</Media>
-
         <div className="list-item-container">
           <Media className="list-item">
             <Link to="/home" className="list-item-link">{li.one}</Link>
@@ -60,11 +49,15 @@ function FooterList() {
             <Link to="/contact" className="list-item-link">{li.six}</Link>
           </Media>
         </div>
-
       </ul>
     );
   };
-  return <div className="listProperties">{list.map(renderFooterList)}</div>;
+
+  return <div className="listProperties">
+    <div className="testim">
+      {list.map(renderFooterList)}
+    </div>
+  </div>;
 }
 
 export default FooterList;
