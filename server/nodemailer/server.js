@@ -13,10 +13,10 @@ app.use(
   )
 )
 
-const transporter = nodemailer.createTransport({
-  host: 'smtp.gmail.com',
-  port: 465,
-  secure: false,
+const smtpTransporter = nodemailer.createTransport({
+  service: 'smtp.gmail.com',
+  port: 587, //465
+  secure: true,
   auth: {
     user: 'ismailinarent@gmail.com',
     pass: 'windowS88****',
@@ -24,7 +24,7 @@ const transporter = nodemailer.createTransport({
 })
 
 // verifying the connection configuration
-transporter.verify(function (error, success) {
+smtpTransporter.verify(function (error, success) {
   if (error) {
     console.log(error)
   } else {
@@ -47,7 +47,7 @@ router.post('/access', (req, res, next) => {
     text: content,
   }
 
-  transporter.sendMail(mail, (err, data) => {
+  smtpTransporter.sendMail(mail, (err, data) => {
     if (err) {
       res.json({
         status: 'fail',

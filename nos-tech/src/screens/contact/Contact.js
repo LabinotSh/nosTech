@@ -79,6 +79,7 @@ function Contact() {
               setSubmitting(true)
               //axios
               setTimeout(() => {
+                alert(JSON.stringify(values, null, 2))
                 resetForm()
                 setSubmitting(false)
               }, 500)
