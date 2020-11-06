@@ -18,8 +18,8 @@ const smtpTransporter = nodemailer.createTransport({
   port: 587, //465
   secure: true,
   auth: {
-    user: 'ismailinarent@gmail.com',
-    pass: 'windowS88****',
+    user: 'nosTech.info@gmail.com',
+    pass: 'nostech123',
   },
 })
 
