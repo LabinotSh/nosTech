@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './contact.css'
 import test from '../../assets/images/test.png'
 import { Formik } from 'formik'
@@ -27,6 +27,32 @@ const validationSchema = Yup.object().shape({
     .required('Must type a message'),
 })
 
+// const FormRequest = () => {
+//     const [fname, setFname] = useState('');
+//     const [lname, setLname] = useState('');
+//     const [subject, setSubject] = useState('');
+//     const [email, setEmail] = useState('');
+//     const [message, setMessage] = useState('');
+
+//     const submitRequest = async (e) => {
+//       e.preventDefault();
+//       console.log({ fname, lname, subject, email, message });
+//       const response = await fetch("/access", {
+//         method: 'POST',
+//         headers: {
+//             'Content-type': 'application/json'
+//         },
+//         body: JSON.stringify({fname, lname, subject, email, message})
+//     });
+//       const resData = await response.json();
+//       if (resData.status === 'success'){
+//         alert("Message Sent.");
+//         this.resetForm()
+//     }else if(resData.status === 'fail'){
+//         alert("Message failed to send.")
+//     }
+//     };
+
 function Contact() {
   return (
     <div className='Content container-md'>
@@ -51,7 +77,7 @@ function Contact() {
             validationSchema={validationSchema}
             onSubmit={(values, { setSubmitting, resetForm }) => {
               setSubmitting(true)
-              //test
+              //axios
               setTimeout(() => {
                 alert(JSON.stringify(values, null, 2))
                 resetForm()
