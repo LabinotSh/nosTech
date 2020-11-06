@@ -10,7 +10,7 @@ html {
 
 .mainContent a {
   color: white;
-  text-decoration: underline;
+  /* text-decoration: underline; */
 }
 
 .videoDiv {
@@ -60,7 +60,7 @@ html {
 }
 
 .course-list li:active {
-  background-color: ;
+  background-color: #232324;
 }
 
 .course-nav {

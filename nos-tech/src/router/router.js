@@ -14,6 +14,7 @@ import Login from "../screens/login/Login";
 import Registration from "../screens/registration/Registration";
 import Admin from "../screens/admin/Admin";
 import Course from "../screens/course/Course";
+import MyCourses from "../screens/myCourses/MyCourses";
 import { history } from "../helpers/history";
 
 
@@ -30,6 +31,7 @@ function Router() {
       <Route path="/login" component={Login} />
       <Route path="/registration" component={Registration} />
       <Route path="/admin" component={Admin} />
+      <Route path="/myCourses" component={MyCourses} />
       <Route path="/course/:id" component={Course}></Route>
       {
       (history.location.pathname!=='/login' && history.location.pathname!=='/registration') ? <Footer/>:null
