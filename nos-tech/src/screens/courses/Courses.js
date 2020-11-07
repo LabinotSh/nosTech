@@ -36,6 +36,7 @@ const Courses = ({list}) => {
     useEffect(() => {
         retrieveCourses();
     },[]);
+    
 
    
     const CourseCarousel = () =>{
@@ -55,7 +56,7 @@ const Courses = ({list}) => {
                 {/* <button className="btn btn-sm btn-outline-dark float-left">{course.category}</button> */}
                  
                  <div className="justify-content-center">
-                 <span class="hover" data-tip={favorite ? 'Remove from favorites' : 'Add to favorites'}>
+                 <span className="hover" data-tip={favorite ? 'Remove from favorites' : 'Add to favorites'}>
                  <FontAwesomeIcon 
                  icon={ favorite ? faHeart : farHeart } 
                  size='2x' 

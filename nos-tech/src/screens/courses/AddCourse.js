@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import LeftContent from '../../components/courseComponents/postform'
 
 function AddCourse() {
   /** start states */
+  const [category, setCategory] = useState([]); //Category State
   const [formData, setFormData] = useState('');
   const [info, setInfo] = useState({
     name: '',
@@ -74,33 +75,65 @@ function AddCourse() {
       });
       document.getElementById("create-course-form").reset();
   };
-  
+
+      // Get Category
+      useEffect(() => {
+        const fetchData = async () => {
+        const response = await axios.get('/api/category');
+          setCategory(response.data);
+        }
+        fetchData();
+      }, [category]);
+
+
   return (
-    <div
-      className='d-flex justify-content-center'
-    >
+    <div className='d-flex justify-content-center'>
      
       <div className="main-add-course d-flex my-5 justify-content-center align-items-center flex-row">
       <LeftContent />
         
       <div className="add-course-right-content">
       <form id="create-course-form" className="add-course-form" onSubmit={handleSubmit} style={{ width: '359px' }}>
+        
         <div className="form-group">
             <label>Name</label>
             <input type="text" id="name" name="name" className="form-control w-100"/>
         </div>
+
         <div className="form-group">
             <label>Description</label>
             <input type="text" id="description" name="description" className="form-control w-100"/>
         </div>
+
         <div className="form-group">
             <label>Price</label>
             <input type="number" id="price" name="price" className="form-control w-100"/>
         </div>
+
         <div className="form-group">
-            <label>Category</label>
-            <input type="text" id="category"  name="category" className="form-control w-100"/>
+        <label>Category</label>    
+        <div>
+        <div className="form-group">
+            <select
+            id="category"
+            name="category"
+            className="form-control w-100"
+            >
+        {category.map((item,index) => {
+            return(
+            <option
+              value={item._id}
+              key={index}
+              className="w-100"
+            >
+              {item.name}
+            </option>
+          )})}
+            </select>
         </div>
+        </div>
+        </div>
+
         {error.found && (
         <div
           className='alert alert-danger file-error'
@@ -110,16 +143,16 @@ function AddCourse() {
         </div>
       )}
         <div className='progress mb-3 w-100'>
-          <div
+        <div
             className='progress-bar'
             role='progressbar'
             style={{ width: `${progressPercent}%` }}
             aria-valuenow={progressPercent}
             aria-valuemin={0}
             aria-valuemax={100}
-          >
+        >
             {progressPercent}
-          </div>
+        </div>
         </div>
         <div className='custom-file mb-3'>
           <input
