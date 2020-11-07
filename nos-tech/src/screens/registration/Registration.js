@@ -1,16 +1,18 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import "./registration.css";
 import { Container, Row, Col, Card, Button, Form } from "react-bootstrap";
 import registerBackground from "../../assets/images/registerBackground.png";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import Error from "../../components/error/Error.js";
-import {register} from '../../redux/actions/auth';
+import { register } from "../../redux/actions/auth";
 import { connect, useDispatch } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { history } from "../../helpers/history";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Notifications, { notify } from "react-notify-toast";
+import Spinner from "../../components/icons/Spinner";
 // import SelectComp from "../../components/select/SelectComp.js";
 
 const validationSchema = Yup.object().shape({
@@ -27,37 +29,25 @@ const validationSchema = Yup.object().shape({
     .min(5, "Must have at least 5 characters")
     .max(255, "Must be shorter than 255 characters")
     .required("Password is required"),
- // roles: Yup.string().required("Please select an account type"),
+  // roles: Yup.string().required("Please select an account type"),
   // role: Yup.string().required("Please select an account type"),
   // .oneOf(["Student", "Teacher"], "Please select an account type")
 });
 
-const Registration = ({successRegister, err}) => {
-
+const Registration = ({ successRegister, err }) => {
   const dispatch = useDispatch();
 
-  const [registered, setRegister]  = useState(false);
-  const [role, setRole] = useState('');
+  const [registered, setRegister] = useState(false);
+  const [emailSent, setEmailSent] = useState(false);
+  const [role, setRole] = useState("");
 
-  const notify = () => toast.success("You are signed up now!",  {
-    position: "top-center",
-    autoClose: 7000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-  });
+  let toastColor = { background: "#6279AB", text: "#FFFFFF" };
 
   useEffect(() => {
-    if(successRegister){
-      //history.push('/login')
-      //notify();
-      //history.push('/login');
-     
+    if (successRegister) {
+
     }
-  },[notify])
-  
+  }, [notify]);
 
   return (
     <Formik
@@ -66,48 +56,60 @@ const Registration = ({successRegister, err}) => {
         username: "",
         email: "",
         password: "",
-        roles: '',
+        roles: "",
       }}
       validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting, resetForm }) => {
         setSubmitting(true);
-        var fullname = values.name.lastIndexOf(' ');
-        var name = values.name.substring(0,fullname);
-        var surname = values.name.substring(fullname+1);
-      
+        var fullname = values.name.lastIndexOf(" ");
+        var name = values.name.substring(0, fullname);
+        var surname = values.name.substring(fullname + 1);
+        setEmailSent(true);
+
         //down below is where the data should be sent to the server
-        dispatch(register(name ,surname, 
-          values.email, values.password, role, values.username))
-          .then(response =>{
+        dispatch(
+          register(
+            name,
+            surname,
+            values.email,
+            values.password,
+            role,
+            values.username
+          )
+        )
+          .then((response) => {
             setSubmitting(true);
             setRegister(true);
-            
-           
-            console.log('Data ' + response.data);
+            setEmailSent(false);
 
-            if(response.data){
-              setTimeout(() => {
-              //will put a spinner instead of the alert for logging in kur t'shtohet auth
-              //alert(JSON.stringify(values, null, 2));
-               notify();
-               resetForm();
-               setSubmitting(false);
-               setRegister(false);
-              }, 500);
-            }
+            console.log("Data " + JSON.stringify(response.data));
 
-          }).catch(err => {
+            notify.show(
+              <div>
+                {response.data.msg}
+                <button
+                  className="btn btn-sm btn-outline-light"
+                  onClick={notify.hide}
+                >
+                  Close
+                </button>
+              </div>,
+              "custom",
+              -1,
+              toastColor
+            );
+          })
+          .catch((err) => {
             setRegister(false);
             setSubmitting(false);
             console.log("Error: " + err);
           });
-      
-        // setTimeout(() => {
-        //   //will put a spinner instead of the alert for logging in kur t'shtohet auth
-        //   alert(JSON.stringify(values, null, 2));
-        //   resetForm();
-        //   setSubmitting(false);
-        // }, 500);
+
+        setTimeout(() => {
+          setRegister(false);
+          resetForm();
+          setSubmitting(false);
+        }, 500);
       }}
     >
       {({
@@ -120,11 +122,8 @@ const Registration = ({successRegister, err}) => {
         isSubmitting,
       }) => (
         <Container style={{ marginBottom: "150px" }}>
-          <ToastContainer position="top-center"
-                          autoClose={5000}
-                          newestOnTop={false}
-                          closeOnClick
-                           /> 
+          {/* The notification when the user registers */}
+          <Notifications options={{ top: "10px" }} />
           <Row noGutters={true}>
             <Col sm={12} md={12} lg={6}>
               <Card className="text-center cards">
@@ -138,11 +137,7 @@ const Registration = ({successRegister, err}) => {
                   Please enter your credentials to set up an account with us!
                 </Card.Text>
                 <Form onSubmit={handleSubmit}>
-                  {err && (
-                    <div className="text-danger">
-                      {err}
-                    </div>
-                  )}
+                  {err && <div className="text-danger">{err}</div>}
                   <Form.Group controlId="formBasicName">
                     <Form.Control
                       type="text"
@@ -215,34 +210,39 @@ const Registration = ({successRegister, err}) => {
                       You are registering as a:
                     </Form.Label>
                     <Form.Group controlId="exampleForm.SelectCustom">
-                    <Form.Control
-                    as="select"
-                    onChange={(e) => {
-                      const roli = e.target.value;
-                      setRole(roli);
-                    console.log('ROLE ' + roli)}}
-                    value={role}
-                    onBlur={handleBlur}
-                    required={true}
-                    custom 
-                    >
-                      <option hidden value="choose">---Choose one---</option>
-                      <option value="user">Student</option>
-                      <option value="admin">Teacher</option>
-                    </Form.Control>
-                    {role=='' && (<div className="text-danger">This is required!</div>)}
-                  </Form.Group>
+                      <Form.Control
+                        as="select"
+                        onChange={(e) => {
+                          const roli = e.target.value;
+                          setRole(roli);
+                          console.log("ROLE " + roli);
+                        }}
+                        value={role}
+                        onBlur={handleBlur}
+                        required={true}
+                        custom
+                      >
+                        <option hidden value="choose">
+                          ---Choose one---
+                        </option>
+                        <option value="user">Student</option>
+                        <option value="admin">Teacher</option>
+                      </Form.Control>
+                      {role == "" && (
+                        <div className="text-danger">This is required!</div>
+                      )}
+                    </Form.Group>
                   </Form.Group>
 
-                  {registered && (
-                    <span className="spinner-border spinner-border-sm"></span>
-                  )}
                   <Button
                     className="register"
                     type="submit"
-                    //disabled={isSubmitting}
+                    disabled={emailSent}
                   >
-                    Register
+                  {emailSent && (
+                    <Spinner size='1x' spinning="spinning" />
+                  )}
+                   Register
                   </Button>
                 </Form>
               </Card>
@@ -252,13 +252,13 @@ const Registration = ({successRegister, err}) => {
       )}
     </Formik>
   );
-}
+};
 
-function mapStateToProps(state){
+function mapStateToProps(state) {
   return {
     successRegister: state.login.registered,
-    err: state.login.error
+    err: state.login.error,
   };
 }
 
-export default connect(mapStateToProps, {register})(withRouter(Registration));
+export default connect(mapStateToProps, { register })(withRouter(Registration));

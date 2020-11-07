@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, Router as R , withRouter} from "react-router-dom";
+import { BrowserRouter, Route, Router as R , Switch, withRouter} from "react-router-dom";
 import {ConnectedRouter} from 'connected-react-router';
 
 import Header from "../components/header/Header";
@@ -15,24 +15,32 @@ import Registration from "../screens/registration/Registration";
 import Admin from "../screens/admin/Admin";
 import Course from "../screens/course/Course";
 import MyCourses from "../screens/myCourses/MyCourses";
+import Confirm from "../screens/registration/Confirm";
 import { history } from "../helpers/history";
+import PrivateRoute from "./privateRoute";
+import PublicRoute from './publicRoutes';
 
 
 function Router() {
   return (
     <ConnectedRouter history={history}>
-      <Header />
+
+      <Header /> 
       <Route path="/" component={Home} exact />
-      <Route path="/courses" component={Courses} />
       <Route path="/articles" component={Articles} />
       <Route path="/forum" component={Forum} />
       <Route path="/about-us" component={AboutUs} />
       <Route path="/contact" component={Contact} />
-      <Route path="/login" component={Login} />
-      <Route path="/registration" component={Registration} />
+        {/* should not be shown to the user if the user is logged in */}
+      <PublicRoute path="/login" component={Login} />
+      <PublicRoute path="/registration" component={Registration} />
       <Route path="/admin" component={Admin} />
       <Route path="/myCourses" component={MyCourses} />
-      <Route path="/course/:id" component={Course}></Route>
+      <Route exact path='/confirm/:id' component={Confirm} />
+      <Switch>
+      <Route exact path="/courses" component={Courses} />
+      <Route exact path="/course/:id" component={Course}></Route>
+      </Switch>
       {
       (history.location.pathname!=='/login' && history.location.pathname!=='/registration') ? <Footer/>:null
       }

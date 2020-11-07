@@ -8,7 +8,8 @@ const {generateAccessToken, generateRefreshToken, verify} = require('../middlewa
 
 const {refreshTokens} = require('../data/refreshTokens');
 const User = require('../models/User');
-
+const emailTemplate = require('../templates/email');
+const sendEmail = require('../config/email')
 
 
 //Get All the users
@@ -29,9 +30,10 @@ router.post('/register', async (req,res) => {
     const {error} = schema.registrationValidate(req.body);
     if(error) return res.status(400).send(error.details[0].message);
 
+    const email = req.body.email;
     //Check if that email already exists
     const emailExists = await User.findOne({
-        email: req.body.email
+        email: email
     });
     if(emailExists) return res.status(400).send('Email already exists!');
 
@@ -43,14 +45,31 @@ router.post('/register', async (req,res) => {
         const newUser = new User({
             name: req.body.name,
             surname: req.body.surname,
-            email: req.body.email,
+            email: email,
             password: hashedPassword,
             role: req.body.role,
             username: req.body.username
         })
 
-        const savedUser = await newUser.save();
-        res.send({user: savedUser});
+        // const savedUser = await newUser.save();
+        const savedUser = newUser.save()
+        .then((newUser) => {
+            sendEmail(newUser.email, emailTemplate.confirm(newUser._id))
+        })
+        .then(() => res.json({msg:'Email sent, please check your inbox to verify it!'}))
+        .catch(err => console.log(err));
+        
+        
+        //const emailed =  await sendEmail(savedUser.email, emailTemplate.confirm(savedUser._id));
+        // .then(() => res.json({msg: 'Please confirm your email!'}))
+        // .catch(err => console.log(err));
+        
+
+        if(emailExists && !emailExists.confirmed) {
+            await sendEmail(emailExists.email, emailTemplate.confirm(emailExists._id))
+            .then(() => res.json({msg: 'An email message was resent to you!'}))
+        }
+        // res.send({user: savedUser, email: emailed});
     } catch (error) {
         console.log(error);
     }
@@ -71,16 +90,16 @@ router.post('/login', async (req,res) => {
    const validPassword = await bcrypt.compare(req.body.password, user.password);
    if(!validPassword) return res.status(400).send('Invalid Password!');
 
+   if(!user.confirmed){
+       res.status(400).send('Please confirm your email first!');
+   }
+
    const accessToken = generateAccessToken(user);
    const refreshToken = generateRefreshToken(user);
    user.tokens = refreshTokens; 
    user.tokens.push(refreshToken);
-   
-//    console.log('dd : ' + user.tokens);
-//    console.log('REFFF ' + refreshToken);
 
    res.cookie("jwt", accessToken, {secure: false, httpOnly: false})
-
 //    res.header('auth-token', accessToken).send( {
 //        refreshToken: refreshToken
 //    });
@@ -129,7 +148,7 @@ router.delete('/:userId', async (req,res) => {
         const deletedUser = await User.deleteOne({
             _id: id
         })
-        res.send(deletedUser);
+        res.json("User deleted" + deletedUser);
     } catch (error) {
         console.error(error);
     }
@@ -137,16 +156,25 @@ router.delete('/:userId', async (req,res) => {
 
 
 //Update a user by id
-router.patch('/:userId', async (req,res) => {
-    try {
-        const id = req.params.userId;
-        const updated = await User.updateOne({
-            _id: id
-        })
-        res.json(updated);
-    } catch (error) {
-        console.error(error);
-    }
-});
+// router.patch('/:userId', async (req,res) => {
+//     try {
+//         const id = req.params.userId;
+//         const updated = await User.updateOne({
+//             _id: id
+//         })
+//         res.json(updated);
+//     } catch (error) {
+//         console.error(error);
+//     }
+// });
+
+router.put('/:id', async(req,res) => {
+    const id = req.params.id;
+
+    const userup = await User.findByIdAndUpdate(id, {
+        confirmed:true
+    });
+    res.json('updated ' + userup);
+})
 
 module.exports = router;

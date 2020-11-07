@@ -1,0 +1,26 @@
+.c1{
+  margin-bottom:25rem;
+  margin-top:8rem;
+}
+
+.confirm a {
+  color: #6279AB;
+  font: inherit;
+  text-decoration: none;
+}
+  
+.confirm a:hover {
+  color: #334f8d;
+  /* background-color: #0E1717; */
+}
+  
+/* Toast Overide */
+.toast-notification {
+  box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.1);
+  border-radius: 0px 0px 5px 5px;
+  background: #fff;
+  font: inherit;
+  padding: 5px;
+  color: #999;
+  cursor: pointer;
+}

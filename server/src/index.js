@@ -8,6 +8,7 @@ const userRoutes = require('./api/user');
 const courseRoutes = require('./api/course');
 const orderRoutes = require('./api/order');
 const orderTest = require('./api/test');
+const emailRoutes = require('./api/email');
 require('dotenv').config();//Configure .env variables
 
 
@@ -25,6 +26,7 @@ app.use('/api/user', userRoutes);
 app.use('/api/course', courseRoutes);
 app.use('/api/order', orderRoutes);
 app.use('/api/test', orderTest);
+app.use('/api/email/confirm', emailRoutes);
 
 //Throws when a non-existent route is visited
 app.use((req, res, next) => {

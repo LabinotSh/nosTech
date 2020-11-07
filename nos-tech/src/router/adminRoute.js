@@ -34,7 +34,7 @@ const AdminRoute = ({component: Component, ...rest}) => {
     const user = localStorage.getItem('user');
     return(
         <Route {...rest} render={props => (
-         (checkAuth('admin') || !user)
+         (checkAuth('admin') && !user)
          ? <Component {...props} />
          : <Redirect to='/'/> 
         )} />

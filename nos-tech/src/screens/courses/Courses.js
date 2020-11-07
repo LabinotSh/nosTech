@@ -38,7 +38,7 @@ const Courses = ({ list }) => {
   const CourseCarousel = () => {
     return courses.map((course) => {
       return (
-        <div className="container-fluid">
+        <div className="container-fluid"> 
           <div className="card h-100 courses-card" key={course._id}>
             <ReactTooltip
               place="top"
@@ -59,7 +59,7 @@ const Courses = ({ list }) => {
               <div className="courses-footer">
                 <div className="container-fluid">
                   <div className="row no-gutters">
-                    <div className="col-sm-4 mt-1 justify-content-start">
+                    <div className="col-sm-4 mt-2 justify-content-start">
                       <span className="price"
                         style={{
                           fontSize: "18px",
@@ -106,6 +106,8 @@ const Courses = ({ list }) => {
               </div>
             </div>
           </div>
+
+
         </div>
       );
     });

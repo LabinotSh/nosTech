@@ -34,6 +34,10 @@ const userSchema = new moongose.Schema({
         type: String,
         required: true,
     },
+    confirmed: {
+        type:Boolean,
+        default: false
+    },
     courses:[{
         type: moongose.Schema.Types.ObjectId,
         ref: 'Course'
