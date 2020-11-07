@@ -1,0 +1,14 @@
+.modal-course-button{
+    margin-left: 150px;
+    padding: 0.5rem;
+    background-color: transparent;
+    border: 1px solid white;
+    color: white;
+    border-radius: 5px;
+    font-size: 15px;
+}
+.modal-course-button:hover{
+    background-color: white;
+    color:rgb(57, 91, 204);
+    
+}

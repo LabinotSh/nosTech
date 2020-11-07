@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-
+import LeftContent from '../../components/courseComponents/postform'
 
 function AddCourse() {
   /** start states */
@@ -67,7 +67,7 @@ function AddCourse() {
         setTimeout(() => {
           setError({
             found: false,
-            message: '',
+            message: '' ,
           });
           setProgressPercent(0);
         }, 3000);
@@ -77,35 +77,38 @@ function AddCourse() {
   
   return (
     <div
-      className='d-flex my-5 justify-content-center align-items-center flex-column'
+      className='d-flex justify-content-center'
     >
-      {error.found && (
+     
+      <div className="main-add-course d-flex my-5 justify-content-center align-items-center flex-row">
+      <LeftContent />
+        
+      <div className="add-course-right-content">
+      <form id="create-course-form" className="add-course-form" onSubmit={handleSubmit} style={{ width: '359px' }}>
+        <div className="form-group">
+            <label>Name</label>
+            <input type="text" id="name" name="name" className="form-control w-100"/>
+        </div>
+        <div className="form-group">
+            <label>Description</label>
+            <input type="text" id="description" name="description" className="form-control w-100"/>
+        </div>
+        <div className="form-group">
+            <label>Price</label>
+            <input type="number" id="price" name="price" className="form-control w-100"/>
+        </div>
+        <div className="form-group">
+            <label>Category</label>
+            <input type="text" id="category"  name="category" className="form-control w-100"/>
+        </div>
+        {error.found && (
         <div
-          className='alert alert-danger'
+          className='alert alert-danger file-error'
           role='alert'
-          style={{ width: '359px' }}
         >
           {error.message}
         </div>
       )}
-
-      <form id="create-course-form" className="add-course-form" onSubmit={handleSubmit} style={{ width: '359px' }}>
-        <div className="form-group">
-            <label>Name</label>
-            <input type="text" id="name" name="name" className="form-control"/>
-        </div>
-        <div className="form-group">
-            <label>Description</label>
-            <input type="text" id="description" name="description" className="form-control"/>
-        </div>
-        <div className="form-group">
-            <label>Price</label>
-            <input type="number" id="price" name="price" className="form-control"/>
-        </div>
-        <div className="form-group">
-            <label>Category</label>
-            <input type="text" id="category"  name="category" className="form-control"/>
-        </div>
         <div className='progress mb-3 w-100'>
           <div
             className='progress-bar'
@@ -130,10 +133,13 @@ function AddCourse() {
             Choose file
           </label>
         </div>
+
         <button type='submit' className='btn btn-primary w-100'>
           Submit
         </button>
       </form>
+      </div>
+      </div>
     </div>
   );
 }
