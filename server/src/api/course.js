@@ -93,11 +93,11 @@ createCourse = (req, res) => {
             course
         })
     })
-  }
+}
 router.post('/newCourse', uploadMulter, uploadvalidation, createCourse)
 
 //Update a course by id
-router.patch('/:courseId', asyncHandler(async (req,res) => {
+router.put('/:courseId', asyncHandler(async (req,res) => {
     const id = req.params.courseId;
     const updated = await Course.findByIdAndUpdate(id, req.body)
     res.json(updated);
