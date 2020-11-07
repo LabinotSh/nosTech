@@ -15,7 +15,11 @@ import Login from "../screens/login/Login";
 import Registration from "../screens/registration/Registration";
 import Admin from "../screens/admin/Admin";
 import Course from "../screens/course/Course";
+import CoursesView from "../screens/adminViews/coursesView"
 import { history } from "../helpers/history";
+import CourseEditView from "../screens/adminViews/CourseEditView";
+import UsersView from "../screens/adminViews/usersView"
+import UserEditView from "../screens/adminViews/UserEditView"
 
 
 function Router() {
@@ -33,12 +37,19 @@ function Router() {
       <Route path="/registration" component={Registration} />
       <Route path="/admin" component={Admin} />
       <Route path="/course/:id" component={Course}></Route>
+      <Route path="/admins/courses" component={CoursesView}></Route>
+      <Route path="/admins/course/:id/edit" component={CourseEditView}></Route>
+      <Route path="/admins/users" component={UsersView}></Route>
+      <Route path="/admins/user/:id/edit" component={UserEditView}></Route>
       {
       (history.location.pathname!=='/login' && history.location.pathname!=='/registration') ? <Footer/>:null
       }
       {/* <Footer /> */}
     </ConnectedRouter>
-  );
+      
+    
+    
+  )
 }
 
 //pa ja shtu qeto withRouter sbojke opsioni per me e hjek footer prej login edhe register

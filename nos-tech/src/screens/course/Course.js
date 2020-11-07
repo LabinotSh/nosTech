@@ -1,35 +1,39 @@
 import React, {useState, useEffect} from 'react'
 import './course.css'
-import courses from './courses';
 import Feedback from './Feedback';
 import axios from 'axios'
 import spinner from './spinner.gif'
-import AboutUs from '../aboutUs/AboutUs';
+import {useDispatch, useSelector} from 'react-redux'
+import {listCourseDetails} from '../../redux/actions/courseActions'
+
+
 
 const Course = ({match}) => {
-    const [course, setCourse] = useState([]);
+    const courseId = match.params.id
     const [video, setVideo] = useState("spinner.gif")
     const [about, setAbout] = useState(true)
 
+    const dispatch = useDispatch();
+    const courseDetails = useSelector(state => state.courseDetails)
+    const{course} = courseDetails
+
+    
+
     useEffect(() => {
-        const fetchCourse = async () => {
-            const {data} = await axios.get(`/api/course/${match.params.id}`)
-            setCourse(data) 
-            setVideo(data.videos[0])      
-        }
-        fetchCourse() 
+        dispatch(listCourseDetails(courseId)) 
     },[])
+
+    useEffect(()=> {
+        if(course.videos[0]) {
+            setVideo(course.videos[0])
+        }
+    },[course.videos])
     
-    // useEffect(() => {
-    //     if(course.videos) {
-    //         setVideo(course.videos[0])
-    //         console.log(course.videos[0])
-    //     }
-    // }, [course])
-    
+
     const videoChangeHandler = (name) => {
         setVideo(name)
     }
+    
     
     
         
