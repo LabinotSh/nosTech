@@ -6,6 +6,7 @@ import Header from "../components/header/Header";
 import Footer from "../components/footer/Footer";
 import Home from "../screens/home/Home";
 import Courses from "../screens/courses/Courses";
+import AddCourse from "../screens/courses/AddCourse";
 import Articles from "../screens/articles/Articles";
 import Forum from "../screens/forum/Forum";
 import AboutUs from "../screens/aboutUs/AboutUs";
@@ -23,6 +24,7 @@ function Router() {
       <Header />
       <Route path="/" component={Home} exact />
       <Route path="/courses" component={Courses} />
+      <Route path="/addcourse" component={AddCourse} />
       <Route path="/articles" component={Articles} />
       <Route path="/forum" component={Forum} />
       <Route path="/about-us" component={AboutUs} />
