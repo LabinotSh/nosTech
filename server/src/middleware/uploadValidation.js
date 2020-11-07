@@ -1,7 +1,7 @@
 module.exports = (req, res, next) => {
     if (typeof (req.file) === 'undefined' || typeof (req.body) === 'undefined') {
         return res.status(400).json({
-            errors: 'problem with sending data'
+            errors: 'You didn\'t choose any file'
         })
     }
     console.log(req.body.name)
@@ -12,7 +12,7 @@ module.exports = (req, res, next) => {
     if (!(req.file.mimetype).includes('jpeg') && !(req.file.mimetype).includes('png') && !(req.file.mimetype).includes('jpg')) {
         fs.unlinkSync(req.file.path)
         return res.status(400).json({
-            errors: "file not support"
+            errors: "file not supported"
         })
     }
 
@@ -25,12 +25,10 @@ module.exports = (req, res, next) => {
     console.log(req.file)
 
     if (!image) {
-
         return res.status(400).json({
             sucess: false,
             message: "Image is required"
         })
     }
-
     next()
 }
