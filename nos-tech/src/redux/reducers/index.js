@@ -12,7 +12,7 @@ import { userDeleteReducer, userListReducer,userDetailsReducer } from './userRed
 const allReducers = combineReducers({
     login: loginReducer,
     courses: coursesReducer,
-    router: connectRouter(history)
+    router: connectRouter(history),
     courseList: courseListReducer,
     courseDelete:courseDeleteReducer,
     courseDetails:courseDetailsReducer,
