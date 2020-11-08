@@ -16,8 +16,7 @@ const checkAuth = (role) => {
         const user = jwt_decode(token);
         role = user['role'];
 
-    
-        if (exp < new Date.now() /1000) {
+        if (Date.now() >= (jwt_decode(refreshToken).exp)*1000) {
           return false;
         }
         if(role!=='admin'){
@@ -34,7 +33,7 @@ const AdminRoute = ({component: Component, ...rest}) => {
     const user = localStorage.getItem('user');
     return(
         <Route {...rest} render={props => (
-         (checkAuth('admin') || !user)
+         (checkAuth('admin'))
          ? <Component {...props} />
          : <Redirect to='/'/> 
         )} />
