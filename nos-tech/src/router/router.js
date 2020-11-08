@@ -21,7 +21,9 @@ import CourseEditView from "../screens/adminViews/CourseEditView";
 import UsersView from "../screens/adminViews/usersView";
 import UserEditView from "../screens/adminViews/UserEditView";
 import Category from '../screens/category/Category';
-
+import AdminRoute from './adminRoute';
+import PrivateRoute from './privateRoute';
+import PublicRoute from './publicRoutes';
 
 function Router() {
   return (
@@ -34,8 +36,8 @@ function Router() {
       <Route path="/forum" component={Forum} />
       <Route path="/about-us" component={AboutUs} />
       <Route path="/contact" component={Contact} />
-      <Route path="/login" component={Login} />
-      <Route path="/registration" component={Registration} />
+      <PublicRoute path="/login" component={Login} />
+      <PublicRoute path="/registration" component={Registration} />
       <Route path="/admin" component={Admin} />
       <Route path="/course/:id" component={Course}></Route>
       <Route path="/admins/courses" component={CoursesView}></Route>

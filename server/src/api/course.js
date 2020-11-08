@@ -19,7 +19,7 @@ const uploadvalidation = require('../middleware/Uploadvalidation.js')
 router.get('/', asyncHandler(async (req, res) => {
     const courses = await Course.find();
     //res.header('Content-Range', course 0-2/${courses.length})
-    res.send({courses: courses});
+    res.send( courses);
 }));
 
 //find all users of the course
