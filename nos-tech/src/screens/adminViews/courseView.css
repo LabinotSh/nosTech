@@ -1,0 +1,11 @@
+.smaller {
+  display: flex;
+  justify-content: center;
+  font-size: 13px;
+  width: 90%;
+  padding-left: 4%;
+}
+
+h2 {
+  color: black;
+}

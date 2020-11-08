@@ -15,3 +15,4 @@ const PublicRoute = ({ component: Component, ...rest }) => {
 };
 
 export default PublicRoute;
+

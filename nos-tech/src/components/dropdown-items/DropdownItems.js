@@ -18,10 +18,12 @@ function DropdownItems() {
 
   const LogOut = (e) => {
     e.preventDefault();
-    dispatch(logout());    
+    dispatch(logout());
+    
     //history.push('/login');
     //window.location.reload();
   };
+
 
 
   return (
@@ -29,20 +31,20 @@ function DropdownItems() {
       <Dropdown.Toggle id="dropdown-basic">My Account</Dropdown.Toggle>
 
       <Dropdown.Menu>
-        <Dropdown.Item href="#/action-1">Profile</Dropdown.Item>
-        <Dropdown.Item href="#/action-2" 
-                       tag="li"
-                       >{user && (
-                        <Link
-                          to='/myCourses'
-                          tag="li"
-                          active-class="active"
-                          exact
-                          style={{ textDecoration: "none" }}
-                        >
-                          My Courses
-                        </Link>
-                      )}</Dropdown.Item>
+        <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+        <Dropdown.Item href="#/action-2">
+        {user && (
+            <Link
+              to="/profile"
+              tag="li"
+              active-class="active"
+              exact
+              style={{ textDecoration: "none" }}
+            >
+              My profile
+            </Link>
+          )}
+        </Dropdown.Item>
         <Dropdown.Divider />
         <Dropdown.Item
           href="#/action-3"
@@ -64,7 +66,6 @@ function DropdownItems() {
               Log Out
             </Link>
           )}
-          
         </Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>

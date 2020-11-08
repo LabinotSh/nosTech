@@ -90,9 +90,9 @@ router.post('/login', async (req,res) => {
    const validPassword = await bcrypt.compare(req.body.password, user.password);
    if(!validPassword) return res.status(400).send('Invalid Password!');
 
-   if(!user.confirmed){
-       res.status(400).send('Please confirm your email first!');
-   }
+//    if(!user.confirmed){
+//        res.status(400).send('Please confirm your email first!');
+//    }
 
    const accessToken = generateAccessToken(user);
    const refreshToken = generateRefreshToken(user);

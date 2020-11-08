@@ -22,7 +22,7 @@ const Courses = ({ list }) => {
   const retrieveCourses = () => {
     dispatch(fetchAllCourses())
       .then((response) => {
-        setCourses(response.courses);
+        setCourses(response);
         console.log("COURSES: " + JSON.stringify(response));
       })
       .catch((e) => {

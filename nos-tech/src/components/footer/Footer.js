@@ -21,7 +21,7 @@ const Footer = () => {
                         </p>
 
                         <form>
-                            <input className="text-box" type="text" placeholder="Your email here..."></input>
+                            <input className="text-input-box" type="text" placeholder="Your email here..."></input>
                         </form>
 
                         <div>
