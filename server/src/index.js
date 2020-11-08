@@ -10,6 +10,7 @@ const courseRoutes = require('./api/course');
 const orderRoutes = require('./api/order');
 const categoryRoutes = require('./api/category');
 const orderTest = require('./api/test');
+const emailRoutes = require('./api/email');
 const path = require('path');
 require('dotenv').config();//Configure .env variables
 
@@ -33,6 +34,7 @@ app.use('/api/user', userRoutes);
 app.use('/api/course', courseRoutes);
 app.use('/api/order', orderRoutes);
 app.use('/api/test', orderTest);
+app.use('/api/email/confirm', emailRoutes);
 app.use('/api/category', categoryRoutes);
 
 //Throws when a non-existent route is visited
@@ -52,6 +54,31 @@ app.use((err, req, res, next) => {
     })
 }
 )
+
+// var nodemailer = require('nodemailer');
+
+// var transporter = nodemailer.createTransport({
+//   service: 'gmail',
+//   auth: {
+//     user: 'sherifilabinot@gmail.com',
+//     pass: '********'
+//   }
+// });
+
+// var mailOptions = {
+//   from: 'sherifilabinot@gmail.com',
+//   to: 'sherifilabinot@gmail.com',
+//   subject: 'Sending Email using Node.js',
+//   text: 'That was easy!'
+// };
+
+// transporter.sendMail(mailOptions, function(error, info){
+//   if (error) {
+//     console.log(error);
+//   } else {
+//     console.log('Email sent: ' + info.response);
+//   }
+// });
 
 
 const port = process.env.PORT || 3001;

@@ -9,7 +9,7 @@ import store from '../../store';
 import { login } from '../../redux/actions/auth';
 import {history} from '../../helpers/history';
 import {connect, useSelector, useDispatch} from 'react-redux';
-import {withRouter} from 'react-router-dom';
+import {Link, withRouter} from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 
 const validationSchema = Yup.object().shape({
@@ -28,9 +28,9 @@ const Login = ({authenticated, err}) => {
 
   useEffect(() => {
     if(authenticated){
-      dispatch(login());
+      
     }
-  },[dispatch, authenticated])
+  },[authenticated])
 
   return (
     <Formik
@@ -47,22 +47,16 @@ const Login = ({authenticated, err}) => {
           setRole(response.data.user['role']);
           console.log('User: ' + userRole);
 
-          setTimeout(() => {
-            resetForm();
-            setSubmitting(false);
-          }, 1000);
-
         }).catch(error => {
           setLoading(false);
-          // console.log('ERRor ' + error);
+          console.log('Error: ' + error);
   
         });
-        // setTimeout(() => {
-        //   //will put a spinner instead of the alert for logging in kur t'shtohet auth
-        //   //alert(JSON.stringify(values, null, 2));
-        //   resetForm();
-        //   setSubmitting(false);
-        // }, 1000);
+        setTimeout(() => {
+          setLoading(false);
+          resetForm();
+          setSubmitting(false);
+        }, 1000);
       }}
     >
       {({
@@ -135,7 +129,9 @@ const Login = ({authenticated, err}) => {
                   >
                     Login Now
                   </Button>
+                  <Link to='registration'>
                   <Button className="registerBtn">Create Account</Button>
+                  </Link>
                 </Form>
               </Card>
             </Col>

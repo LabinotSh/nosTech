@@ -25,8 +25,7 @@ const checkAuth = () => {
 };
 
 const PrivateRoute = ({component:Component, ...rest}) => {
-    const user = localStorage.getItem('user');
-
+    // const user = localStorage.getItem('user');
     return(
         <Route {...rest} render={(props) => (
             (checkAuth()) 

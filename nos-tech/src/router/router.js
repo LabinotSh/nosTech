@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, Router as R , withRouter} from "react-router-dom";
+import { BrowserRouter, Route, Router as R , Switch, withRouter} from "react-router-dom";
 import {ConnectedRouter} from 'connected-react-router';
 
 import Header from "../components/header/Header";
@@ -13,10 +13,11 @@ import AboutUs from "../screens/aboutUs/AboutUs";
 import Contact from "../screens/contact/Contact";
 import Login from "../screens/login/Login";
 import Registration from "../screens/registration/Registration";
-import Admin from "../screens/admin/Admin";
 import Course from "../screens/course/Course";
-import CoursesView from "../screens/adminViews/coursesView"
+import MyCourses from "../screens/myCourses/MyCourses";
+import Confirm from "../screens/registration/Confirm";
 import { history } from "../helpers/history";
+import CoursesView from "../screens/adminViews/coursesView"
 import CourseEditView from "../screens/adminViews/CourseEditView";
 import UsersView from "../screens/adminViews/usersView";
 import UserEditView from "../screens/adminViews/UserEditView";
@@ -28,7 +29,8 @@ import PublicRoute from './publicRoutes';
 function Router() {
   return (
     <ConnectedRouter history={history}>
-      <Header />
+
+      <Header /> 
       <Route path="/" component={Home} exact />
       <Route path="/courses" component={Courses} />
       <Route path="/addcourse" component={AddCourse} />
@@ -36,9 +38,11 @@ function Router() {
       <Route path="/forum" component={Forum} />
       <Route path="/about-us" component={AboutUs} />
       <Route path="/contact" component={Contact} />
+        {/* should not be shown to the user if the user is logged in */}
       <PublicRoute path="/login" component={Login} />
       <PublicRoute path="/registration" component={Registration} />
-      <Route path="/admin" component={Admin} />
+      <Route path="/myCourses" component={MyCourses} />
+      <Route exact path='/confirm/:id' component={Confirm} />
       <Route path="/course/:id" component={Course}></Route>
       <Route path="/admins/courses" component={CoursesView}></Route>
       <Route path="/admins/course/:id/edit" component={CourseEditView}></Route>
