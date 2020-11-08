@@ -18,8 +18,9 @@ import Course from "../screens/course/Course";
 import CoursesView from "../screens/adminViews/coursesView"
 import { history } from "../helpers/history";
 import CourseEditView from "../screens/adminViews/CourseEditView";
-import UsersView from "../screens/adminViews/usersView"
-import UserEditView from "../screens/adminViews/UserEditView"
+import UsersView from "../screens/adminViews/usersView";
+import UserEditView from "../screens/adminViews/UserEditView";
+import Category from '../screens/category/Category';
 
 
 function Router() {
@@ -41,6 +42,7 @@ function Router() {
       <Route path="/admins/course/:id/edit" component={CourseEditView}></Route>
       <Route path="/admins/users" component={UsersView}></Route>
       <Route path="/admins/user/:id/edit" component={UserEditView}></Route>
+      <Route path="/category" component={Category} />
       {
       (history.location.pathname!=='/login' && history.location.pathname!=='/registration') ? <Footer/>:null
       }
