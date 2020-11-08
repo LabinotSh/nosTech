@@ -94,10 +94,10 @@ export const logout = () => (dispatch) => {
      type:LOGOUT
  })
  
- setTimeout(() => {
-    history.push('/login');   
-    window.location.reload(false);    
- },1000)
+
+  history.push('/login');   
+  window.location.reload(false);    
+
 
 
 };

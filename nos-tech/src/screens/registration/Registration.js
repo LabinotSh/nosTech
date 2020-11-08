@@ -107,9 +107,10 @@ const Registration = ({ successRegister, err }) => {
 
         setTimeout(() => {
           setRegister(false);
+          err=null;
           resetForm();
           setSubmitting(false);
-        }, 500);
+        }, 1000);
       }}
     >
       {({
