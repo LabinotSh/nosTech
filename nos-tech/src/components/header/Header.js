@@ -126,7 +126,7 @@ function Header() {
 
               <div className="float-left d-flex col-md-2">
                 <div id="c">
-                  <ul class="navbar-nav ml-auto">
+                  <ul className="navbar-nav ml-auto">
                     {!user && (
                       <li className="nav-item">
                         <NavLink

@@ -59,7 +59,7 @@ export const login = (username, password) => (dispatch) => {
             const ro = JSON.parse(role);
 
             if(ro === "admin"){
-                history.push('/admin')
+                history.push('/admins/users')
             }else{
                 history.push('/');
             }
@@ -93,9 +93,13 @@ export const logout = () => (dispatch) => {
  dispatch({
      type:LOGOUT
  })
+ 
 
- history.push('/login');
- window.location.reload(false);
+  history.push('/login');   
+  window.location.reload(false);    
+
+
+
 };
 
 

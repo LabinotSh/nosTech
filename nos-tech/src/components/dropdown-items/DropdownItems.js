@@ -21,9 +21,9 @@ function DropdownItems() {
     dispatch(logout());
     
     //history.push('/login');
-   
     //window.location.reload();
   };
+
 
 
   return (
@@ -32,7 +32,19 @@ function DropdownItems() {
 
       <Dropdown.Menu>
         <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-        <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+        <Dropdown.Item href="#/action-2">
+        {user && (
+            <Link
+              to="/profile"
+              tag="li"
+              active-class="active"
+              exact
+              style={{ textDecoration: "none" }}
+            >
+              My profile
+            </Link>
+          )}
+        </Dropdown.Item>
         <Dropdown.Divider />
         <Dropdown.Item
           href="#/action-3"
@@ -44,6 +56,7 @@ function DropdownItems() {
         >
           {user && (
             <Link
+              to='/login'
               tag="li"
               active-class="active"
               onClick={LogOut}

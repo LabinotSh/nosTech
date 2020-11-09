@@ -15,7 +15,7 @@ function AboutUs() {
   const aboutCarousel = () =>{
     return AboutItems.map(AboutItems => {
       return (
-        <div>
+        <div key={AboutItems}>
         <img alt="Pic not found" className="aboutUs-Carousel" src={AboutItems.image}/>
       </div>
       )

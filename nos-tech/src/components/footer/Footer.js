@@ -2,9 +2,10 @@ import React from "react";
 import "./footer.css";
 import FooterList from "../footer-list/FooterList";
 import { Container, Row, Col, Card, Button, Form } from "react-bootstrap";
+import {history} from '../../helpers/history';
 
 const Footer = () => {
-  // if (window.location.pathname === '/login') return null;
+//   if (history.location.pathname === '/confirm/:id') return null;
   return(
         <div className="footeri">
             <div className="container">
@@ -20,7 +21,7 @@ const Footer = () => {
                         </p>
 
                         <form>
-                            <input className="text-box" type="text" placeholder="Your email here..."></input>
+                            <input className="text-input-box" type="text" placeholder="Your email here..."></input>
                         </form>
 
                         <div>

@@ -107,15 +107,19 @@ router.post('/login', async (req, res) => {
   const validPassword = await bcrypt.compare(req.body.password, user.password)
   if (!validPassword) return res.status(400).send('Invalid Password!')
 
+  //    if(!user.confirmed){
+  //        res.status(400).send('Please confirm your email first!');
+  //    }
+
   const accessToken = generateAccessToken(user)
   const refreshToken = generateRefreshToken(user)
   user.tokens = refreshTokens
   user.tokens.push(refreshToken)
 
-  //    console.log('dd : ' + user.tokens);
-  //    console.log('REFFF ' + refreshToken);
-
   res.cookie('jwt', accessToken, { secure: false, httpOnly: false })
+  //    res.header('auth-token', accessToken).send( {
+  //        refreshToken: refreshToken
+  //    });
 
   //    res.header('auth-token', accessToken).send( {
   //        refreshToken: refreshToken
@@ -162,33 +166,32 @@ router.delete('/:userId', async (req, res) => {
     const deletedUser = await User.deleteOne({
       _id: id,
     })
-    res.send(deletedUser)
+    res.json('User deleted' + deletedUser)
   } catch (error) {
     console.error(error)
   }
 })
 
 //Update a user by id
-// Update a user by id
-router.patch('/:userId', async (req, res) => {
-  try {
-    const id = req.params.userId
-    const updated = await User.updateOne({
-      _id: id,
-    })
-    res.json(updated)
-  } catch (error) {
-    console.error(error)
-  }
+// router.patch('/:userId', async (req,res) => {
+//     try {
+//         const id = req.params.userId;
+//         const updated = await User.updateOne({
+//             _id: id
+//         })
+//         res.json(updated);
+//     } catch (error) {
+//         console.error(error);
+//     }
+// });
+
+router.put('/:id', async (req, res) => {
+  const id = req.params.id
+
+  const userup = await User.findByIdAndUpdate(id, {
+    confirmed: true,
+  })
+  res.json('updated ' + userup)
 })
-
-// router.put('/:id', async(req,res) => {
-//     const id = req.params.id;
-
-//     const userup = await User.findByIdAndUpdate(id, {
-//         confirmed:true
-//     });
-//     res.json('updated ' + userup);
-// })
 
 module.exports = router

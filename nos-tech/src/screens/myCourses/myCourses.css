@@ -1,0 +1,64 @@
+.course-list li {
+    background-color: #232324;
+    /* word-wrap: break-word; */
+}
+  
+.course-list li:hover {
+    cursor: pointer;
+    background-color: #ffbb32;
+}
+  
+.course-list li:active {
+    background-color: #232324;
+}
+  
+.cs-nav {
+    text-align: center;
+    /* margin-left: 38%; */
+}
+  
+.cs-nav li {
+    font-size: 20px;
+    display: inline;
+    /* list-style-type: none; */
+    margin-right: 20px;
+}
+.cs-nav li:hover {
+    cursor: pointer;
+    /* text-decoration: underline; */
+}
+.abo {
+    display: flex;
+    flex-direction: row;
+    margin: 2rem;
+}
+  
+.abo-left {
+    width: 80%;
+    margin-left: 8%;
+    margin-right: 2%;
+}
+  
+.abo-right {
+    width: 15%;
+    word-wrap: break-word;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.li-col{
+    color: #000;
+}
+
+.li-col:hover {
+    color:#000;
+}
+
+.main-cont{
+    justify-content: center;
+}
+
+.fav{
+    margin-left:8%;
+}

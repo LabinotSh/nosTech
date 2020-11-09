@@ -66,3 +66,25 @@ span.hover:hover{
     margin-bottom: 10px;
     padding:'12px';
 }
+.add-course-form{
+    position: relative;
+}
+.add-course-right-content{
+    height: 700px;
+    width: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top-left-radius: 80px;
+}
+.main-add-course{
+    margin: 0;
+    padding: 0;
+    background-color: white;
+}
+.file-error{
+    width: 300px;
+    background-color: rgba(195, 0, 26, 0.63);
+    color: white;
+    border: none;
+}
