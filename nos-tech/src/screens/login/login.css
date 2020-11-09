@@ -23,7 +23,7 @@
 .form-control {
     height: 50px;
     border-radius: 0;
-    width: 300px;
+    /* width: 300px; */
     border-top: none;
     border-left: none;
     border-right: none;
