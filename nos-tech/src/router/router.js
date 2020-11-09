@@ -1,6 +1,12 @@
 import React from "react";
-import { BrowserRouter, Route, Router as R , Switch, withRouter} from "react-router-dom";
-import {ConnectedRouter} from 'connected-react-router';
+import {
+  BrowserRouter,
+  Route,
+  Router as R,
+  Switch,
+  withRouter,
+} from "react-router-dom";
+import { ConnectedRouter } from "connected-react-router";
 
 import Header from "../components/header/Header";
 import Footer from "../components/footer/Footer";
@@ -15,22 +21,22 @@ import Login from "../screens/login/Login";
 import Registration from "../screens/registration/Registration";
 import Course from "../screens/course/Course";
 import MyCourses from "../screens/myCourses/MyCourses";
+import MyProfile from "../screens/myProfile/MyProfile";
 import Confirm from "../screens/registration/Confirm";
 import { history } from "../helpers/history";
-import CoursesView from "../screens/adminViews/coursesView"
+import CoursesView from "../screens/adminViews/coursesView";
 import CourseEditView from "../screens/adminViews/CourseEditView";
 import UsersView from "../screens/adminViews/usersView";
 import UserEditView from "../screens/adminViews/UserEditView";
-import Category from '../screens/category/Category';
-import AdminRoute from './adminRoute';
-import PrivateRoute from './privateRoute';
-import PublicRoute from './publicRoutes';
+import Category from "../screens/category/Category";
+import AdminRoute from "./adminRoute";
+import PrivateRoute from "./privateRoute";
+import PublicRoute from "./publicRoutes";
 
 function Router() {
   return (
     <ConnectedRouter history={history}>
-
-      <Header /> 
+      <Header />
       <Route path="/" component={Home} exact />
       <Route path="/courses" component={Courses} />
       <Route path="/addcourse" component={AddCourse} />
@@ -38,26 +44,25 @@ function Router() {
       <Route path="/forum" component={Forum} />
       <Route path="/about-us" component={AboutUs} />
       <Route path="/contact" component={Contact} />
-        {/* should not be shown to the user if the user is logged in */}
+      {/* should not be shown to the user if the user is logged in */}
       <PublicRoute path="/login" component={Login} />
       <PublicRoute path="/registration" component={Registration} />
       <Route path="/myCourses" component={MyCourses} />
-      <Route exact path='/confirm/:id' component={Confirm} />
+      <PrivateRoute path="/myProfile" component={MyProfile} />
+      <Route exact path="/confirm/:id" component={Confirm} />
       <Route path="/course/:id" component={Course}></Route>
       <Route path="/admins/courses" component={CoursesView}></Route>
       <Route path="/admins/course/:id/edit" component={CourseEditView}></Route>
       <Route path="/admins/users" component={UsersView}></Route>
       <Route path="/admins/user/:id/edit" component={UserEditView}></Route>
       <Route path="/category" component={Category} />
-      {
-      (history.location.pathname!=='/login' && history.location.pathname!=='/registration') ? <Footer/>:null
-      }
+      {history.location.pathname !== "/login" &&
+      history.location.pathname !== "/registration" ? (
+        <Footer />
+      ) : null}
       {/* <Footer /> */}
     </ConnectedRouter>
-      
-    
-    
-  )
+  );
 }
 
 //pa ja shtu qeto withRouter sbojke opsioni per me e hjek footer prej login edhe register
