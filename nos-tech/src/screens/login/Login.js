@@ -9,7 +9,7 @@ import store from '../../store';
 import { login } from '../../redux/actions/auth';
 import {history} from '../../helpers/history';
 import {connect, useSelector, useDispatch} from 'react-redux';
-import {Link, withRouter} from 'react-router-dom';
+import {Link, Redirect, withRouter} from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 import Loader from '../../components/icons/Loader';
 
@@ -27,10 +27,10 @@ const Login = ({authenticated, err, user}) => {
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
+  // useEffect(() => {
   
     
-  },[loading])
+  // },[loading])
 
   if(loading) return <Loader />
   return (
@@ -43,10 +43,12 @@ const Login = ({authenticated, err, user}) => {
         //down below is where the data should be sent to the server
         dispatch(login(values.username, values.password))
         .then(response => {
-          setLoading(true);
-          const userRole = JSON.stringify(response.data.user['role']);
+          // setLoading(true);
+          const userRole = JSON.stringify(user['role']);
+
           setRole(response.data.user['role']);
-          console.log('User: ' + userRole);
+          console.log('Role: ' + userRole);       
+         
 
         }).catch(error => {
           setLoading(false);
@@ -56,7 +58,7 @@ const Login = ({authenticated, err, user}) => {
         setTimeout(() => {
           resetForm();
           setSubmitting(false);
-          setLoading(false);
+          setLoading(true);
         }, 1200);
       }}
     >

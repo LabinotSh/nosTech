@@ -17,18 +17,32 @@ import {
   ListGroup,
   ListGroupItem,
 } from "react-bootstrap";
+import jwt_decode from 'jwt-decode';
+
 
 const MyCourses = ({ match }) => {
   const [course, setCourse] = useState([]);
   const [video, setVideo] = useState("spinner.gif");
   const [about, setAbout] = useState(true);
 
+  const user = localStorage.getItem('user');
+  const decoded = jwt_decode(user);
+  const id = decoded._id;
+
+  const fetchCourse = async () => {
+      
+    const { data } = await axios.get(`/api/user/${id}`);
+    // .then(res => {
+    //   if(user._id === res.user._id){
+
+    //   }
+    // });
+    setCourse(data);
+    //setVideo(data.videos[0]);
+  };
+
   useEffect(() => {
-    const fetchCourse = async () => {
-      const { data } = await axios.get(`/api/course/${match.params.id}`);
-      setCourse(data);
-      setVideo(data.videos[0]);
-    };
+    
     fetchCourse();
   }, []);
 
@@ -36,6 +50,9 @@ const MyCourses = ({ match }) => {
     setVideo(name);
   };
 
+
+
+  
   return (
     <>
       <div>
@@ -49,7 +66,7 @@ const MyCourses = ({ match }) => {
             Subscribed Courses
           </li>
           <li className="li-col" onClick={() => setAbout(false)}>
-            Favorites{" "}
+            Favorites
           </li>
         </ul>
         <hr></hr>
@@ -60,7 +77,7 @@ const MyCourses = ({ match }) => {
           <Card style={{ width: "18rem" }}>
             <Card.Img variant="top" src="holder.js/100px180?text=Image cap" />
             <Card.Body>
-              <Card.Title>MERN course</Card.Title>
+              <Card.Title>{course.name}</Card.Title>
               <Card.Text>Description......</Card.Text>
             </Card.Body>
             <ListGroup className="list-group-flush">
@@ -78,6 +95,7 @@ const MyCourses = ({ match }) => {
           <div className="abo-right"></div>
         </div>
       ) : (
+        
         <div className="fav bg-light">
           <Card style={{ width: "18rem" }}>
             <Card.Img variant="top" src="holder.js/100px180?text=Image cap" />

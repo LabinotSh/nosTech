@@ -29,8 +29,6 @@ export const register = (name, surname, email, password, role, username) => (dis
             type:REGISTER_SUCCESS,
         });
 
-        //history.push('/login');
-        //window.location.reload(false);
 
         return response;
     }).catch(error => {
@@ -54,25 +52,22 @@ export const login = (username, password) => (dispatch) => {
             const user = response.data.token;
             localStorage.setItem('user', JSON.stringify(user));
             localStorage.setItem('refresh', JSON.stringify(response.data.refreshToken));
-
-            const role = JSON.stringify(response.data.user['role'])
-            const ro = JSON.parse(role);
-
-            if(ro === "admin"){
-                history.push('/admins/users')
-            }else{
-                history.push('/');
-            }
         }
-
 
         dispatch({
             type:LOGIN_SUCCESS,
             payload: response.data.user
         });
 
-       window.location.reload(false);
+        const role = JSON.stringify(response.data.user['role']);
+        if(role === "admin"){
+            history.push('/admins/users')
+        }else{
+            history.push('/');
+        }
 
+       window.location.reload(false);
+    
         return response;
     }).catch(error => {
         console.log('Error: ' + error.response.data);
@@ -95,9 +90,8 @@ export const logout = () => (dispatch) => {
  })
  
 
-  history.push('/login');   
-  window.location.reload(false);    
-
+ history.push('/login');   
+ window.location.reload(false);   
 
 
 };

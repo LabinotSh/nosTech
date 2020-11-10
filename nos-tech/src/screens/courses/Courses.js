@@ -58,7 +58,7 @@ const Courses = ({ list, pending }) => {
     setTimeout(() => {
       history.push(`/course/${id}`);
       window.location.reload();
-    }, 1000);
+    }, 700);
   };
 
 
@@ -74,7 +74,6 @@ const Courses = ({ list, pending }) => {
       if(addArray){
           array.push(props);
       }
-
       setFavList([...array]);
   }
 
@@ -87,7 +86,6 @@ const Courses = ({ list, pending }) => {
               array.pop(item);
           }
       });
-
       setFavList([...array]);
   }
 

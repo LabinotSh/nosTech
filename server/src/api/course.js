@@ -39,7 +39,7 @@ router.get('/:courseId/users', async (req,res) => {
 //find course by id
 router.get('/:id', asyncHandler(async(req,res) => {
     const { id } = req.params;
-    const course = await Course.findById(id)
+    const course = await Course.findById(id);
     if(course) {
         res.send(course);
     }else {

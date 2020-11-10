@@ -47,10 +47,10 @@ function Router() {
       {/* should not be shown to the user if the user is logged in */}
       <PublicRoute path="/login" component={Login} />
       <PublicRoute path="/registration" component={Registration} />
-      <Route path="/myCourses" component={MyCourses} />
+      <PrivateRoute path="/myCourses" component={MyCourses} />
       <PrivateRoute path="/myProfile" component={MyProfile} />
       <Route exact path="/confirm/:id" component={Confirm} />
-      <Route path="/course/:id" component={Course}></Route>
+      <Route exact path="/course/:id" component={Course}></Route>
       <Route path="/admins/courses" component={CoursesView}></Route>
       <Route path="/admins/course/:id/edit" component={CourseEditView}></Route>
       <Route path="/admins/users" component={UsersView}></Route>
