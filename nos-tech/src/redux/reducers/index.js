@@ -6,7 +6,7 @@ import {connectRouter }  from 'connected-react-router';
 import {history} from '../../helpers/history'; 
 import {courseListReducer, courseDeleteReducer, courseDetailsReducer,courseUpdateReducer} from './courseReducers'
 import { userDeleteReducer, userListReducer,userDetailsReducer } from './userReducers';
-
+import { postCategory } from "./postCategory";
 //krijimi i konstantes combineReducers, ne menyre qe me i perfshi krejt reducers
 
 const allReducers = combineReducers({
@@ -19,7 +19,8 @@ const allReducers = combineReducers({
     courseUpdate:courseUpdateReducer,
     userList:userListReducer,
     userDelete:userDeleteReducer,
-    userDetails:userDetailsReducer
+    userDetails:userDetailsReducer,
+    postCategory
 })
 
 export default allReducers;
