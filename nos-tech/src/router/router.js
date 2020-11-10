@@ -28,10 +28,10 @@ import CoursesView from "../screens/adminViews/coursesView";
 import CourseEditView from "../screens/adminViews/CourseEditView";
 import UsersView from "../screens/adminViews/usersView";
 import UserEditView from "../screens/adminViews/UserEditView";
-import Category from "../screens/category/Category";
 import AdminRoute from "./adminRoute";
 import PrivateRoute from "./privateRoute";
 import PublicRoute from "./publicRoutes";
+import Categories from "../components/category/PostCategories";
 
 function Router() {
   return (
@@ -55,7 +55,7 @@ function Router() {
       <Route path="/admins/course/:id/edit" component={CourseEditView}></Route>
       <Route path="/admins/users" component={UsersView}></Route>
       <Route path="/admins/user/:id/edit" component={UserEditView}></Route>
-      <Route path="/category" component={Category} />
+      <Route path="/categories" component={Categories} />
       {history.location.pathname !== "/login" &&
       history.location.pathname !== "/registration" ? (
         <Footer />

@@ -3,12 +3,15 @@ const Category = require('../models/Category');
 const asyncHandler = require('express-async-handler');
 const mongoose = require('mongoose');
 const router = express.Router();
+var ObjectID = require('mongoose').Types.ObjectId
 
 //Get Category 
-router.get('/', asyncHandler(async (req, res) => {
-    const category = await Category.find();
-    res.json(category); 
-}));
+router.get('/', (req, res) => {
+    Category.find((err, docs) => {
+          if (!err) res.send(docs)
+          else console.log('Error while retrieving all categories : ' + JSON.stringify(err, undefined, 2))
+      })
+  })
 
 //Get Category by id
 router.get('/:catId', asyncHandler(async(req,res) => {
@@ -18,28 +21,42 @@ router.get('/:catId', asyncHandler(async(req,res) => {
 }));
 
 //Post Category
-router.post('/', function(req, res, next) {
-    Category.create(req.body, function (err, post) {
-      if (err) return next(err);
-      res.json(post);
-    });
-});
+router.post('/', (req, res) => {
+    var newCategory = new Category({
+        name: req.body.name,
+    })
+
+    newCategory.save((err, docs) => {
+        if (!err) res.send(docs)
+        else console.log('Error while creating new category : ' + JSON.stringify(err, undefined, 2))
+    })
+})
 
 //Edit Category by Id
-router.put('/:id', function(req, res, next) {
-  console.log(req.body);
-  Category.findByIdAndUpdate(req.params.id, req.body, function (err, post) {
-    if (err) return next(err);
-    res.json(post);
-  });
-});
+router.put('/:id', (req, res) => {
+    if (!ObjectID.isValid(req.params.id))
+        return res.status(400).send('No category with given id : ' + req.params.id)
+
+    var updatedCategory = {
+      name: req.body.name,
+       
+    }
+
+    Category.findByIdAndUpdate(req.params.id, { $set: updatedCategory },{new:true}, (err, docs) => {
+        if (!err) res.send(docs)
+        else console.log('Error while updating a category : ' + JSON.stringify(err, undefined, 2))
+    })
+})
 
 //Delete Category by Id
-router.delete('/:id', function(req, res, next) {
-  Category.findByIdAndRemove(req.params.id, req.body, function (err, post) {
-    if (err) return next(err);
-    res.json(post);
-  });
-}); 
+router.delete('/:id', (req, res) => {
+    if (!ObjectID.isValid(req.params.id))
+        return res.status(400).send('No category with given id : ' + req.params.id)
+
+    Category.findByIdAndRemove(req.params.id, (err, docs) => {
+        if (!err) res.send(docs)
+        else console.log('Error while deleting a record : ' + JSON.stringify(err, undefined, 2))
+    })
+})
 
 module.exports = router;
