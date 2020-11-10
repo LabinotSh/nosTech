@@ -1,36 +1,39 @@
-import React,{useState,useEffect} from 'react';
+import React,{useState,useEffect,Fragment} from 'react';
+import { connect } from "react-redux";
+import * as actions from "../../redux/actions/postCategory";
 import './Banner.css'
-import axios from 'axios'
 
 
-const CourseBannerComponent = () => {
-
-    const [category, setCategory] = useState([]);
+const CourseBannerComponent = ({classes, ...props}) => {
 
     useEffect(() => {
-        const fetchData = async () => {
-          const response = await axios.get('/api/category');
-          setCategory(response.data);
-      }
-      fetchData();
-    }, [category]);
+        props.fetchAllPostCategories()
+    }, [])//DidMount
    
     return(
         <div className="CourseBanner">
         <div className="container">
         <h1 className="Coursebanner-title pt-5 pb-3">NosTech Courses</h1>
-        {category.map((category,index) => {
+         {props.postCategoryList.slice(0,5).map((record, index) => {
             return(
+            <Fragment key={index}>
                 <div style={{display: "inline"}} key={index} >
-            <button className="courseBanner-button" >{category.name}</button>
+            <button className="courseBanner-button" >{record.name}</button>
                 </div>
-            )
-        })
-        }
+            </Fragment>
+            )})}
        
         </div>
         </div>
     )
 }
 
-export default CourseBannerComponent
+const mapStateToProps = state => ({
+    postCategoryList: state.postCategory.list
+})
+
+const mapActionToProps = {
+    fetchAllPostCategories: actions.fetchAll
+}
+
+export default connect(mapStateToProps, mapActionToProps)((CourseBannerComponent));
