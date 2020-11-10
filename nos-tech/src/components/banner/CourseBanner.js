@@ -1,20 +1,28 @@
 import React,{useState,useEffect} from 'react';
 import './Banner.css'
 import axios from 'axios'
-
+import Loader from '../icons/Loader';
 
 const CourseBannerComponent = () => {
 
     const [category, setCategory] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    const fetchData = async () => {
+        try {
+            const response = await axios.get('/api/category');
+          setCategory(response.data);
+          setLoading(false);
+        } catch (error) {
+            setLoading(false);
+            console.log(error);
+        }    
+    }
 
     useEffect(() => {
-        const fetchData = async () => {
-          const response = await axios.get('/api/category');
-          setCategory(response.data);
-      }
       fetchData();
-    }, [category]);
-   
+    }, []);
+
     return(
         <div className="CourseBanner">
         <div className="container">

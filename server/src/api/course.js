@@ -37,11 +37,11 @@ router.get('/:courseId/users', async (req,res) => {
 
 
 //find course by id
-router.get('/:courseId', asyncHandler(async(req,res) => {
-    const id = req.params.courseId;
+router.get('/:id', asyncHandler(async(req,res) => {
+    const { id } = req.params;
     const course = await Course.findById(id)
     if(course) {
-        res.json(course);
+        res.send(course);
     }else {
         res.status(404)
         throw new Error('Course not found');

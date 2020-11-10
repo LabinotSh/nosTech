@@ -11,13 +11,14 @@ import {history} from '../../helpers/history';
 import {connect, useSelector, useDispatch} from 'react-redux';
 import {Link, withRouter} from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
+import Loader from '../../components/icons/Loader';
 
 const validationSchema = Yup.object().shape({
   username: Yup.string().required("(Username is required)"),
   password: Yup.string().required("(Password is required)"),
 });
 
-const Login = ({authenticated, err}) => {
+const Login = ({authenticated, err, user}) => {
 
   const [loading, setLoading] = useState(false);
   const [role, setRole] = useState("");
@@ -27,11 +28,11 @@ const Login = ({authenticated, err}) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if(authenticated){
-      
-    }
-  },[authenticated])
+  
+    
+  },[loading])
 
+  if(loading) return <Loader />
   return (
     <Formik
       initialValues={{ username: "", password: "" }}
@@ -53,10 +54,10 @@ const Login = ({authenticated, err}) => {
   
         });
         setTimeout(() => {
-          setLoading(false);
           resetForm();
           setSubmitting(false);
-        }, 1000);
+          setLoading(false);
+        }, 1200);
       }}
     >
       {({
@@ -151,6 +152,7 @@ const Login = ({authenticated, err}) => {
 }
 
 const mapStateToProps = state => ({
+  user: state.login.user,
   authenticated: state.login.isLoggedIn,
   err: state.login.error
 });
