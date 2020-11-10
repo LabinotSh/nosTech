@@ -13,6 +13,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Notifications, { notify } from "react-notify-toast";
 import Spinner from "../../components/icons/Spinner";
+import Loader from '../../components/icons/Loader';
 // import SelectComp from "../../components/select/SelectComp.js";
 
 const validationSchema = Yup.object().shape({

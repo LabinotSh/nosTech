@@ -9,15 +9,16 @@ import store from '../../store';
 import { login } from '../../redux/actions/auth';
 import {history} from '../../helpers/history';
 import {connect, useSelector, useDispatch} from 'react-redux';
-import {Link, withRouter} from 'react-router-dom';
+import {Link, Redirect, withRouter} from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
+import Loader from '../../components/icons/Loader';
 
 const validationSchema = Yup.object().shape({
   username: Yup.string().required("(Username is required)"),
   password: Yup.string().required("(Password is required)"),
 });
 
-const Login = ({authenticated, err}) => {
+const Login = ({authenticated, err, user}) => {
 
   const [loading, setLoading] = useState(false);
   const [role, setRole] = useState("");
@@ -26,12 +27,12 @@ const Login = ({authenticated, err}) => {
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if(authenticated){
-      
-    }
-  },[authenticated])
+  // useEffect(() => {
+  
+    
+  // },[loading])
 
+  if(loading) return <Loader />
   return (
     <Formik
       initialValues={{ username: "", password: "" }}
@@ -42,10 +43,12 @@ const Login = ({authenticated, err}) => {
         //down below is where the data should be sent to the server
         dispatch(login(values.username, values.password))
         .then(response => {
-          setLoading(true);
-          const userRole = JSON.stringify(response.data.user['role']);
+          // setLoading(true);
+          const userRole = JSON.stringify(user['role']);
+
           setRole(response.data.user['role']);
-          console.log('User: ' + userRole);
+          console.log('Role: ' + userRole);       
+         
 
         }).catch(error => {
           setLoading(false);
@@ -53,10 +56,10 @@ const Login = ({authenticated, err}) => {
   
         });
         setTimeout(() => {
-          setLoading(false);
           resetForm();
           setSubmitting(false);
-        }, 1000);
+          setLoading(true);
+        }, 1200);
       }}
     >
       {({
@@ -151,6 +154,7 @@ const Login = ({authenticated, err}) => {
 }
 
 const mapStateToProps = state => ({
+  user: state.login.user,
   authenticated: state.login.isLoggedIn,
   err: state.login.error
 });

@@ -3,31 +3,36 @@ import './course.css'
 import Feedback from './Feedback';
 import axios from 'axios'
 import spinner from './spinner.gif'
-import {useDispatch, useSelector} from 'react-redux'
-import {listCourseDetails} from '../../redux/actions/courseActions'
+import {useDispatch, useSelector,connect} from 'react-redux'
+import {withRouter, Link} from 'react-router-dom';
+import {listCourseDetails} from '../../redux/actions/courseActions';
+import Loader from '../../components/icons/Loader';
 
 
 
-const Course = ({match}) => {
+const Course = ({match, loading}) => {
     const courseId = match.params.id
     const [video, setVideo] = useState("spinner.gif")
     const [about, setAbout] = useState(true)
 
     const dispatch = useDispatch();
     const courseDetails = useSelector(state => state.courseDetails)
-    const{course} = courseDetails
+    const {course} = courseDetails
 
     
 
     useEffect(() => {
-        dispatch(listCourseDetails(courseId)) 
+        setTimeout(() => {
+            dispatch(listCourseDetails(courseId));
+        }, 1000);
+        
     },[])
 
-    useEffect(()=> {
-        if(course.videos[0]) {
-            setVideo(course.videos[0])
-        }
-    },[course.videos])
+    // useEffect(()=> {
+    //     if(course.videos[0]) {
+    //         setVideo(course.videos[0])
+    //     }
+    // },[course.videos])
     
 
     const videoChangeHandler = (name) => {
@@ -35,13 +40,12 @@ const Course = ({match}) => {
     }
     
     
-    
-        
-
+    // if(loading) return <Loader />;
     return (
+       
         <>
             <div className="mx-2 mt-3 py-3 mainContent">
-                <h6>Category &gt; <a href="#">{course.category}</a></h6>
+                {/* <h6>Category &gt; <a href="#">{course.category}</a></h6> */}
                 <h2 className="text-white">{course.name}</h2>
                 <div className="videoDiv">
                     <div className="embed-responsive embed-responsive-16by9 left-main">
@@ -53,7 +57,7 @@ const Course = ({match}) => {
                         <button type="button" id="enrBtn">Enroll Now</button> 
                         <h2 className="text-white">${course.price}</h2>
                     </div> */}
-                    <ul class="list-group course-list w-25">
+                    <ul className="list-group course-list w-25">
                         {(course.videos)?(<>{course.videos.map((courseVideo, index) =>
                         <li  class="list-group-item" key={index} onClick={() => videoChangeHandler(courseVideo)}>{`${index +1}. ${courseVideo}`}</li>) }
                        
@@ -91,4 +95,10 @@ const Course = ({match}) => {
     )
 }
 
-export default Course
+function mapStateToProps(state) {
+    return {
+        loading: state.courseDetails.loading
+    }
+}
+
+export default connect(mapStateToProps,{listCourseDetails})(withRouter(Course));

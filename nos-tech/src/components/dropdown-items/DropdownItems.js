@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Dropdown } from "react-bootstrap";
 import { Link, NavLink, Redirect, withRouter } from "react-router-dom";
 import "./dropdown-items.css";
@@ -13,70 +13,51 @@ function DropdownItems() {
   const dispatch = useDispatch();
   const user = localStorage.getItem("user");
 
-  const LogOut = (e) => {
-    e.preventDefault();
-    dispatch(logout());
+  const [act, setAct] = useState(false);
 
-    //history.push('/login');
-    //window.location.reload();
+  const LogOut = (e) => {
+    e.preventDefault(); 
+    dispatch(logout());
+   
   };
 
   return (
     <Dropdown>
       <Dropdown.Toggle id="dropdown-basic">My Account</Dropdown.Toggle>
-
       <Dropdown.Menu>
-        <Dropdown.Item href="#/action-1">
-          {user && (
-            <Link
-              to="/myProfile"
-              tag="li"
-              active-class="active"
-              exact
-              style={{ textDecoration: "none" }}
-            >
-              Profile
-            </Link>
-          )}
+        <Dropdown.Item
+          active={act} 
+          href="/myProfile"
+          tag="li"
+          active-class="active"
+          onClick={() => setAct(true)} 
+        >
+          Profile          
         </Dropdown.Item>
-        <Dropdown.Item href="#/action-2">
-          {user && (
-            <Link
-              to="/myCourses"
-              tag="li"
-              active-class="active"
-              exact
-              style={{ textDecoration: "none" }}
-            >
-              Courses
-            </Link>
-          )}
+        <Dropdown.Item
+          active={act}  
+          href="/myCourses"
+          tag="li"
+          active-class="active"
+          onClick={() => setAct(true)} 
+          >
+            Courses
         </Dropdown.Item>
         <Dropdown.Divider />
         <Dropdown.Item
-          href="#/action-3"
+          active={act}
+          onClick={LogOut}
           tag="li"
           active-class="active"
-          // onClick={LogOut}
-          exact
+          onSelect={() => setAct(true)}
           style={{ textDecoration: "none" }}
         >
-          {user && (
-            <Link
-              to="/login"
-              tag="li"
-              active-class="active"
-              onClick={LogOut}
-              exact
-              style={{ textDecoration: "none" }}
-            >
-              Log Out
-            </Link>
-          )}
+            Log Out
         </Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>
   );
 }
+
 
 export default connect(null, { logout })(withRouter(DropdownItems));

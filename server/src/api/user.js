@@ -152,12 +152,15 @@ router.post('/token', async (req, res) => {
 router.get('/:userId', async (req, res) => {
   try {
     const id = req.params.userId
-    const user = await User.findOne({ _id: id })
+    const user = await User.findOne({_id:id}).populate('courses');
+    console.log('users  ' + user);
     res.json(user)
   } catch (error) {
     console.error(error)
   }
 })
+
+
 
 //Delete a user by id
 router.delete('/:userId', async (req, res) => {
