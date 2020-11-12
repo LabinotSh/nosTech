@@ -235,7 +235,7 @@ import Error from '../../components/error/Error.js'
 import axios from 'axios'
 import { API_URL } from '../../constants/Constants'
 import Notifications, { notify } from 'react-notify-toast'
-// import Spinner from '../../components/icons/Spinner';
+import Spinner from '../../components/icons/Spinner';
 
 const validationSchema = Yup.object().shape({
   fname: Yup.string()
@@ -266,7 +266,7 @@ function Contact() {
   const sendEmail = (name, sname, email, subject, message) => {
     // const {id} = props.match.params;
     axios
-      .post(`/api/user/contact`, { name, sname, email, subject, message })
+      .post(`${API_URL}/user/contact`, { name, sname, email, subject, message })
       .then((res) => {
         console.log('res ' + JSON.stringify(res.data))
       })
@@ -319,10 +319,7 @@ function Contact() {
                     <button
                       className='btn btn-sm btn-outline-light'
                       onClick={notify.hide}
-                    >
-                      {' '}
-                      X{' '}
-                    </button>
+                    > X </button>
                   </div>,
                   'custom',
                   8000,
@@ -457,10 +454,10 @@ function Contact() {
                     label='send'
                     className='btn submit-btn btn-outline-dark btn-block pseudoBtn'
                   >
-                    Send
-                    {/* {emailSent 
+                    {/* //Send */}
+                    {emailSent 
                     ? <Spinner size='1x' spinning="spinning" />
-                    : 'Send'} */}
+                    : 'Send'}
                   </button>
                 </div>
               </form>

@@ -13,7 +13,7 @@ const {
 const { refreshTokens } = require('../data/refreshTokens')
 const User = require('../models/User')
 
-// const emailTemplate = require('../templates/email')
+const emailTemplate = require('../templates/email')
 const { confirmEmail, contactEmail } = require('../../nodemailer/email')
 
 //Get All the users
@@ -34,7 +34,7 @@ router.post('/contact', async (req, res) => {
     const { name, sname, subject, email, message } = req.body
 
     const sent = await contactEmail(name, sname, email, subject, message)
-    res.json({ msg: sent })
+    res.json({ msg: 'Message sent!' })
   } catch (err) {
     console.log(err)
   }
@@ -77,9 +77,6 @@ router.post('/register', async (req, res) => {
       )
       .catch((err) => console.log(err))
 
-    //const emailed =  await sendEmail(savedUser.email, emailTemplate.confirm(savedUser._id));
-    // .then(() => res.json({msg: 'Please confirm your email!'}))
-    // .catch(err => console.log(err));
 
     if (emailExists && !emailExists.confirmed) {
       await sendEmail(
@@ -107,6 +104,7 @@ router.post('/login', async (req, res) => {
   const validPassword = await bcrypt.compare(req.body.password, user.password)
   if (!validPassword) return res.status(400).send('Invalid Password!')
 
+  //Check if the suer has confirmed his email!
   //    if(!user.confirmed){
   //        res.status(400).send('Please confirm your email first!');
   //    }
