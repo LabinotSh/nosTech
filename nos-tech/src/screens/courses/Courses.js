@@ -15,13 +15,19 @@ import { icon } from "@fortawesome/fontawesome-svg-core";
 import Spinner from "../../components/icons/Spinner";
 import Loader from "../../components/icons/Loader";
 import { history } from "../../helpers/history";
+import axios from "axios";
 
-import {HeartFull, HeartEmpty} from '../../components/icons/Heart';
+import { HeartFull, HeartEmpty } from "../../components/icons/Heart";
+import { array } from "yup";
+import { API_URL } from "../../constants/Constants";
+import Notifications, { notify } from "react-notify-toast";
 
 const Courses = ({ list, pending }) => {
   const dispatch = useDispatch();
   const [courses, setCourses] = useState([]);
   const [mounted, setMounted] = useState(true);
+
+  const toastColor = { background: "#6279AB", text: "#FFFFFF" };
 
   const [favorite, setFavorite] = useState(false);
   const [favList, setFavList] = useState([]);
@@ -43,13 +49,23 @@ const Courses = ({ list, pending }) => {
   };
 
   // const {id} = props.match.params;
+  {
+    /* <FontAwesomeIcon
+                    icon={favorite ? faHeart : farHeart}
+                    size="2x"
+                    color={"#fc4563"}
+                    style={{ marginRight: "5px", marginTop: "3px" }}
+                    //  onFocus={() => }
+                    onClick={() => setFavorite(!favorite)}
+                  /> */
+  }
 
   //Load courses on render
   useEffect(() => {
     setTimeout(() => {
       retrieveCourses();
       setMounted(false);
-      console.log('FAVVVVOTIREE ' + favList);
+      console.log("FAVVVVOTIREE " + favList);
     }, 1000);
     // console.log('ID ' + id);
   }, []);
@@ -61,47 +77,73 @@ const Courses = ({ list, pending }) => {
     }, 700);
   };
 
+  const addToFav = (id, props) => {
+    let array = favList;
+    let add = true;
+    axios
+      .put(`${API_URL}/course/fav/add/${id}`)
+      .then(() => {
+        console.log("ADDEDDDDDD");
 
-  const addFav = (props) => {
-      let array = favList;
-      let addArray = true;
-      array.map(item => {
-          if(item === props){
-            //   array.splice()
-            addArray = false;
+        array.map((item) => {
+          if (item === props) {
+            add = false;
           }
-      });
-      if(addArray){
+        });
+        if (add) {
           array.push(props);
-      }
-      setFavList([...array]);
-  }
+          setFavList([...array]);
+        }
 
-  const removeFav = (props) => {
-      let array = favList;
-      let removeArray = false;
-      array.map(item => {
-          if(item===props){
-              removeArray=true;
-              array.pop(item);
+        localStorage.setItem("favs", favList);
+
+        setFavorite(true);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const removeFromFav = (id, props) => {
+    let array = favList;
+    let remove = false;
+    axios
+      .put(`${API_URL}/course/fav/remove/${id}`)
+      .then(() => {
+        console.log("Removed");
+
+        array.map((item) => {
+          if (item === props) {
+            remove = true;
           }
-      });
-      setFavList([...array]);
-  }
+        });
+        if (remove) {
+          array.pop(props);
+          setFavList([...array]);
+        }
+
+        localStorage.removeItem("favs");
+
+        setFavorite(false);
+      })
+      .catch((err) => console.log(err));
+  };
 
   const CourseCarousel = () => {
     //if(pending) return <Spinner size='5x' spinning="spinning" />
     return courses.map((course) => {
       return (
         <div className="card courses-card" key={course._id}>
+          <Notifications options={{ width: "800px", top: "10px" }} />
           <ReactTooltip
             place="top"
             backgroundColor={"#fc4563"}
             type="success"
             effect="solid"
           />
-          <Link to
-            onClick={() => { toCourseDet(course._id);}}
+          <Link
+            to="/courses/:id"
+            onClick={() => {
+              toCourseDet(course._id);
+            }}
           >
             <img
               src={course.image}
@@ -119,31 +161,135 @@ const Courses = ({ list, pending }) => {
               {/* <button className="btn btn-sm btn-outline-dark float-left">{course.category}</button> */}
 
               <div className="justify-content-center">
+                {localStorage.getItem('user') ? (
                 <span
                   className="hover"
                   data-tip={
-                    favorite ? "Remove from favorites" : "Add to favorites"
+                    localStorage.getItem("favs") && localStorage.getItem("user")
+                      ? "Remove from favorites"
+                      : "Add to favorites"
                   }
                 >
-                    {favorite
-                    ? <HeartFull onClick={() =>{ setFavorite(false); 
-                        removeFav(course);
-                    console.log('FACEE ' + favorite);
-                    console.log('Ffasdsd ' + favList[0])}}/>
-                    : <HeartEmpty onClick={() => {setFavorite(true);
-                         addFav(course);
-                    console.log('FAVVV '+ favorite);}}/> }
+                  {localStorage.getItem("favs") &&
+                  localStorage.getItem("user") ? (
+                    <HeartFull
+                      onClick={() => {
+                        
+                          removeFromFav(course._id, course);
+                          // localStorage.removeItem('favs');
+                          // setFavorite(false)
+                        
+                        //   notify.show(
+                        //     <div>
+                        //       You must be logged in to remove from favorites
+                        //       <button
+                        //         className="btn btn-sm btn-outline-light"
+                        //         onClick={notify.hide}
+                        //       >
+                        //         {" "}
+                        //         X{" "}
+                        //       </button>
+                        //     </div>,
+                        //     "custom",
+                        //     -1,
+                        //     toastColor
+                        //   );
+                        // }
+                      }}
+                    />
+                  ) : (
+                    <HeartEmpty
+                      onClick={() => {
+                        // if (localStorage.getItem("user")) {
+                          addToFav(course._id, course);
 
-                  {/* <FontAwesomeIcon
-                    icon={favorite ? faHeart : farHeart}
-                    size="2x"
-                    color={"#fc4563"}
-                    style={{ marginRight: "5px", marginTop: "3px" }}
-                    //  onFocus={() => }
-                    onClick={() => setFavorite(!favorite)}
-                  /> */}
+                          //setFavorite(true);
+                        // } else {
+                        //   notify.show(
+                        //     <div>
+                        //       You must be logged in to add to favorites
+                        //       <button
+                        //         className="btn btn-sm btn-outline-light"
+                        //         onClick={notify.hide}
+                        //       >
+                        //         {" "}
+                        //         X{" "}
+                        //       </button>
+                        //     </div>,
+                        //     "custom",
+                        //     -1,
+                        //     toastColor
+                        //   );
+                        // }
+                      }}
+                    />
+                  )}
                 </span>
-                {/* <button className="btn btn-outline-success float-left" type="submit" style={{marginRight:'2px'}}>Buy now</button>  */}
+                //if the user is not logged in then dont show his favorites
+                 ):(
+                    <span
+                    className="hover"
+                    data-tip={
+                      favorite
+                        ? "Remove from favorites"
+                        : "Add to favorites"
+                    }
+                  >
+                    {favorite ? (
+                      <HeartFull
+                        onClick={() => {
+                          if (localStorage.getItem("user")) {
+                            removeFromFav(course._id, course);
+                            // localStorage.removeItem('favs');
+                            // setFavorite(false)
+                          } else {
+                            notify.show(
+                              <div>
+                                You must be logged in to remove from favorites
+                                <button
+                                  className="btn btn-sm btn-outline-light"
+                                  onClick={notify.hide}
+                                >
+                                  {" "}
+                                  X{" "}
+                                </button>
+                              </div>,
+                              "custom",
+                              -1,
+                              toastColor
+                            );
+                          }
+                        }}
+                      />
+                    ) : (
+                      <HeartEmpty
+                        onClick={() => {
+                          if (localStorage.getItem("user")) {
+                            addToFav(course._id, course);
+  
+                            //setFavorite(true);
+                          } else {
+                            notify.show(
+                              <div>
+                                You must be logged in to add to favorites
+                                <button
+                                  className="btn btn-sm btn-outline-light"
+                                  onClick={notify.hide}
+                                >
+                                  {" "}
+                                  X{" "}
+                                </button>
+                              </div>,
+                              "custom",
+                              -1,
+                              toastColor
+                            );
+                          }
+                        }}
+                      />
+                    )}
+                  </span>
+                 )}
 
                 <button
                   className="btn btn btn-outline-success buy"
@@ -153,14 +299,16 @@ const Courses = ({ list, pending }) => {
                 </button>
 
                 {/* Testing the favorite list of courses */}
-                <ul>
-                    {favList && favList.map(item => {
-                    return (
-                     <div key={item._id}><li>{item.name}</li>
-                     </div>
-                    );
-                     })}
-                </ul>
+                {/* <ul>
+                  {favList &&
+                    favList.map((item) => {
+                      return (
+                        <div key={item._id}>
+                          <li>{item.name}</li>
+                        </div>
+                      );
+                    })}
+                </ul> */}
               </div>
             </div>
           </div>

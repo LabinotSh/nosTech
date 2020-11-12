@@ -84,6 +84,7 @@ export const login = (username, password) => (dispatch) => {
 export const logout = () => (dispatch) => {
  localStorage.removeItem('user');
  localStorage.removeItem('refresh');
+ 
 
  dispatch({
      type:LOGOUT

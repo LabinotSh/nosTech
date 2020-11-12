@@ -24,26 +24,37 @@ const MyCourses = ({ match }) => {
   const [course, setCourse] = useState([]);
   const [video, setVideo] = useState("spinner.gif");
   const [about, setAbout] = useState(true);
+  const [favorites, setFavorites] = useState([]);
 
   const user = localStorage.getItem('user');
   const decoded = jwt_decode(user);
   const id = decoded._id;
 
-  const fetchCourse = async () => {
-      
-    const { data } = await axios.get(`/api/user/${id}`);
-    // .then(res => {
-    //   if(user._id === res.user._id){
+  const favs = localStorage.getItem('favorites');
 
-    //   }
-    // });
-    setCourse(data);
-    //setVideo(data.videos[0]);
+  const fetchCourse = async () => { 
+    //const { data } = await axios.get(`/api/user/${id}`);
+    axios.get(`api/user/${id}`)
+    .then(res => {
+      setCourse(res.data);
+      console.log('User data : ' + JSON.stringify(res.data));
+    })
+    .catch(err => console.log(err));
+    
   };
 
+  const getFavorites = async () => {
+    axios.get('api/course/favs/added')
+    .then(res => {
+      setFavorites(res.data);
+      console.log('FAvorites ' + JSON.stringify(res.data));
+    }).catch(err => console.log(err));
+  }
+
   useEffect(() => {
-    
+     getFavorites();
     fetchCourse();
+  
   }, []);
 
   const videoChangeHandler = (name) => {
@@ -59,8 +70,9 @@ const MyCourses = ({ match }) => {
         <MyCoursesBanner />
         {/* <h6>Categories &gt; <a href="#">{course.category}</a></h6> */}
         <h2 className="text-white">{course.name}</h2>
+        <h2 className="text-white">Kurset {course.courses}</h2>
       </div>
-      <div className="mx-1 mt-4 main-cont">
+      <div className="mx-1 mt-2 main-cont">
         <ul className="cs-nav">
           <li className="li-col" onClick={() => setAbout(true)}>
             Subscribed Courses
@@ -72,13 +84,14 @@ const MyCourses = ({ match }) => {
         <hr></hr>
       </div>
       {about ? (
-        <div id="abo" className="abo">
+        <div id="abo" className="abo" style={{marginBottom:'150px'}}>
           <div className="abo-left">
           <Card style={{ width: "18rem" }}>
-            <Card.Img variant="top" src="holder.js/100px180?text=Image cap" />
+            <Card.Img  src={course.image} />
             <Card.Body>
-              <Card.Title>{course.name}</Card.Title>
-              <Card.Text>Description......</Card.Text>
+            <Card.Title>{course.name}</Card.Title>
+              <Card.Text>Description......
+              </Card.Text>
             </Card.Body>
             <ListGroup className="list-group-flush">
               <ListGroupItem>Price: </ListGroupItem>
@@ -96,16 +109,18 @@ const MyCourses = ({ match }) => {
         </div>
       ) : (
         
-        <div className="fav bg-light">
-          <Card style={{ width: "18rem" }}>
-            <Card.Img variant="top" src="holder.js/100px180?text=Image cap" />
+        <div className="fav bg-light" style={{marginBottom:'150px'}}>
+          {favorites && favorites.map(favorite => {
+            return (
+            <Card key={favorite._id} style={{ width: "18rem" }}>
+            <Card.Img variant="top" src={favorite.image} />
             <Card.Body>
-              <Card.Title>MERN course</Card.Title>
-              <Card.Text>Description......</Card.Text>
+            <Card.Title>{favorite.name}</Card.Title>
+              <Card.Text>{favorite.description}</Card.Text>
             </Card.Body>
             <ListGroup className="list-group-flush">
-              <ListGroupItem>Price: </ListGroupItem>
-              <ListGroupItem>Author: </ListGroupItem>
+              <ListGroupItem>Price: {favorite.price}</ListGroupItem>
+              <ListGroupItem>Instructor: {favorite._instructor}</ListGroupItem>
               <ListGroupItem></ListGroupItem>
             </ListGroup>
             <Card.Body>
@@ -113,6 +128,8 @@ const MyCourses = ({ match }) => {
               {/* <Card.Link href="#">Another Link</Card.Link> */}
             </Card.Body>
           </Card>
+            );
+          })}
         </div>
       )}
     </>
