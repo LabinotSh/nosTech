@@ -63,12 +63,18 @@ const PostCategoryForm = ({ classes, ...props }) => {
             placeholder="enter name..."
             style={{width:"250px"}}
             className="form-control text-white bg-transparent"
-            {...(errors.name && { error: true, helperText: errors.name })}
             />
+            <span className="category-input-error" {...(errors.name && { error: true })}>
+                {errors.name}
+            </span>
         </div>
         <button type="submit" className="category-button">
                             Submit
         </button>
+        <p className="unique-cat">*Category name should be unique*</p>
+
+
+
         </form>
         </div>
     );
