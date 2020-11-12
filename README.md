@@ -18,7 +18,9 @@ A MERN Fullstack application
      #1.MONGO_URI -> Database connection with MongoDB\
      #2.ACCESS_TOKEN_SECRET\
      #3.REFRESH_TOKEN_SECRET\
-     #4.PORT -> the running port for back end is 3001, but you can create yours based on your requirements.\
+     #4.PORT -> the running port for back end is 3001, but you can create yours based on your requirements\
+     #5.MAIL_USER\
+     #6.MAIL_PASS\
  
 ## Back-End => /server
 
