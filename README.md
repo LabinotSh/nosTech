@@ -20,7 +20,7 @@ A MERN Fullstack application
      #3.REFRESH_TOKEN_SECRET\
      #4.PORT -> the running port for back end is 3001, but you can create yours based on your requirements\
      #5.MAIL_USER\
-     #6.MAIL_PASS\
+     #6.MAIL_PASS
  
 ## Back-End => /server
 
