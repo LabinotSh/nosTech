@@ -6,7 +6,7 @@ import spinner from "./spinner.gif";
 import MyCoursesBanner from "../../components/banner/MyCoursesBanner";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faHeart, faTrash, faLaptopCode } from "@fortawesome/free-solid-svg-icons";
 import {
   Card,
   Row,
@@ -72,7 +72,7 @@ const MyCourses = ({ match }) => {
         <h2 className="text-white">{course.name}</h2>
         <h2 className="text-white">Kurset {course.courses}</h2>
       </div>
-      <div className="mx-1 mt-2 main-cont">
+      <div className="mx-1 main-cont">
         <ul className="cs-nav">
           <li className="li-col" onClick={() => setAbout(true)}>
             Subscribed Courses
