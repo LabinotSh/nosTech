@@ -66,7 +66,7 @@ const Courses = ({ list, pending }) => {
       retrieveCourses();
       setMounted(false);
       console.log("FAVVVVOTIREE " + favList);
-    }, 1000);
+    }, 600);
     // console.log('ID ' + id);
   }, []);
 
@@ -93,11 +93,12 @@ const Courses = ({ list, pending }) => {
         if (add) {
           array.push(props);
           setFavList([...array]);
+          
         }
-
         localStorage.setItem("favs", favList);
 
-        setFavorite(true);
+        
+        //setFavorite(true);
       })
       .catch((err) => console.log(err));
   };
@@ -109,6 +110,7 @@ const Courses = ({ list, pending }) => {
       .put(`${API_URL}/course/fav/remove/${id}`)
       .then(() => {
         console.log("Removed");
+        
 
         array.map((item) => {
           if (item === props) {
@@ -118,11 +120,13 @@ const Courses = ({ list, pending }) => {
         if (remove) {
           array.pop(props);
           setFavList([...array]);
+         
         }
+         localStorage.removeItem("favs");
 
-        localStorage.removeItem("favs");
-
-        setFavorite(false);
+        
+        //setFavorite(false);
+        
       })
       .catch((err) => console.log(err));
   };
@@ -165,19 +169,19 @@ const Courses = ({ list, pending }) => {
                 <span
                   className="hover"
                   data-tip={
-                    localStorage.getItem("favs") && localStorage.getItem("user")
+                    favorite
                       ? "Remove from favorites"
                       : "Add to favorites"
                   }
                 >
-                  {localStorage.getItem("favs") &&
-                  localStorage.getItem("user") ? (
+                  {
+                  favorite
+                   ? (
                     <HeartFull
                       onClick={() => {
-                        
+                          setFavorite(false)
                           removeFromFav(course._id, course);
-                          // localStorage.removeItem('favs');
-                          // setFavorite(false)
+                          
                         
                         //   notify.show(
                         //     <div>
@@ -201,9 +205,11 @@ const Courses = ({ list, pending }) => {
                     <HeartEmpty
                       onClick={() => {
                         // if (localStorage.getItem("user")) {
+                          setFavorite(true);
                           addToFav(course._id, course);
+                          
 
-                          //setFavorite(true);
+                          
                         // } else {
                         //   notify.show(
                         //     <div>

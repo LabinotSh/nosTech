@@ -62,3 +62,10 @@
 .fav{
     margin-left:8%;
 }
+
+.selected{
+    color: midnightblue;
+    text-decoration: none;
+    text-decoration-color: midnightblue;
+    font-weight: bold;
+}

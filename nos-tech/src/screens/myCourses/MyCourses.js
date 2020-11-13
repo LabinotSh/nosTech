@@ -18,6 +18,7 @@ import {
   ListGroupItem,
 } from "react-bootstrap";
 import jwt_decode from 'jwt-decode';
+import { NavLink } from "react-router-dom";
 
 
 const MyCourses = ({ match }) => {
@@ -72,21 +73,31 @@ const MyCourses = ({ match }) => {
         <h2 className="text-white">{course.name}</h2>
         <h2 className="text-white">Kurset {course.courses}</h2>
       </div>
-      <div className="mx-1 main-cont">
+      <div className="main-cont">
         <ul className="cs-nav">
-          <li className="li-col" onClick={() => setAbout(true)}>
-            Subscribed Courses
+          <li className="li-col" onClick={() => setAbout(true)} >
+            <NavLink to='#abo' 
+             style={{color:"#000" ,textDecoration:"none"}}
+             activeStyle={about ? 
+              {color:'#fff', borderRadius:'7%' , padding:'.65rem', backgroundColor:'#132440'} 
+              : null}
+            >Enrolled Courses</NavLink> 
           </li>
           <li className="li-col" onClick={() => setAbout(false)}>
-            Favorites
+           <NavLink to='#abo' 
+            style={{color:"#000" ,textDecoration:"none"}}
+            activeStyle={!about ? 
+              {color:'#fff', borderRadius:'7%' , padding:'.65rem', backgroundColor:'#132440'} 
+              : null}
+            >Favorites</NavLink>
           </li>
         </ul>
-        <hr></hr>
+        <hr className='text-center'/>
       </div>
       {about ? (
         <div id="abo" className="abo" style={{marginBottom:'150px'}}>
           <div className="abo-left">
-          <Card style={{ width: "18rem" }}>
+          <Card style={{ width: "18rem" , borderRadius:'5%'}}>
             <Card.Img  src={course.image} />
             <Card.Body>
             <Card.Title>{course.name}</Card.Title>
@@ -107,12 +118,11 @@ const MyCourses = ({ match }) => {
           </div>
           <div className="abo-right"></div>
         </div>
-      ) : (
-        
-        <div className="fav bg-light" style={{marginBottom:'150px'}}>
+      ) : (   
+        <div className="fav bg-light" id="2" style={{marginBottom:'150px'}}>
           {favorites && favorites.map(favorite => {
             return (
-            <Card key={favorite._id} style={{ width: "18rem" }}>
+            <Card key={favorite._id} style={{ width: "18rem" ,borderRadius:'5%'}}>
             <Card.Img variant="top" src={favorite.image} />
             <Card.Body>
             <Card.Title>{favorite.name}</Card.Title>

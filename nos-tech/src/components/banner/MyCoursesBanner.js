@@ -1,6 +1,6 @@
 import React from "react";
 import "./Banner.css";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { faLaptop, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHeart,
@@ -20,7 +20,7 @@ function MyCoursesBanner() {
               className="text-center"
             /> */}
             <span className="my"> my </span> Courses
-              <FontAwesomeIcon icon={faLaptopCode} style={{marginLeft:'10px'}} />
+              <FontAwesomeIcon icon={faLaptop} color={'#fff'} style={{marginLeft:'10px'}} />
           </h1>
           <div className="text-light">
             View all the courses you are subscribed to and added as Favorites
