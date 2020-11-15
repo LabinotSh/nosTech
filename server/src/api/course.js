@@ -19,7 +19,7 @@ const uploadvalidation = require('../middleware/Uploadvalidation.js')
 router.get('/', asyncHandler(async (req, res) => {
     const courses = await Course.find();
     //res.header('Content-Range', course 0-2/${courses.length})
-    res.send( courses);
+    res.send(courses);
 }));
 
 //find all users of the course
@@ -99,6 +99,9 @@ router.post('/newCourse', uploadMulter, uploadvalidation, createCourse)
 //Update a course by id
 router.put('/:courseId', asyncHandler(async (req,res) => {
     const id = req.params.courseId;
+    if(req.body.users) {
+        
+    }
     const updated = await Course.findByIdAndUpdate(id, req.body)
     res.json(updated);
 }));
@@ -112,5 +115,28 @@ router.delete('/:courseId', asyncHandler(async (req,res) => {
         res.send(deletedUser);
     
 }));
+
+router.post('/:id/addUser', asyncHandler(async(req, res)=> {
+    const course = await Course.findById(req.params.id);
+    
+    if(course) {
+        
+        
+        const alreadyEnrolled = course.users.find(u => u.toString() === req.body._id.toString())
+        if(alreadyEnrolled) {
+            res.status(400)
+            throw new Error("Already enrolled")
+        }
+
+        course.users.push(req.body._id);
+        await course.save()
+        res.status(201).json({message:"Enrolled Successfully!"})
+    }else {
+        res.status(404)
+        throw new Error("Course not found")
+    }
+}))
+
+
 
 module.exports = router;

@@ -12,7 +12,6 @@ const checkAuth = (role) => {
 
     try {
         // { exp: 12903819203 }
-        const { exp } = jwt_decode(refreshToken);
         const user = jwt_decode(token);
         role = user['role'];
 
@@ -32,11 +31,11 @@ const checkAuth = (role) => {
 const AdminRoute = ({component: Component, ...rest}) => {
     const user = localStorage.getItem('user');
     return(
-        <Route {...rest} render={props => (
+        <Route {...rest} render={props => 
          (checkAuth('admin'))
          ? <Component {...props} />
          : <Redirect to='/'/> 
-        )} />
+        } />
     )      
 };
 

@@ -17,6 +17,7 @@ import Loader from "../../components/icons/Loader";
 import { history } from "../../helpers/history";
 
 import {HeartFull, HeartEmpty} from '../../components/icons/Heart';
+import { LinkContainer } from "react-router-bootstrap";
 
 const Courses = ({ list, pending }) => {
   const dispatch = useDispatch();
@@ -100,15 +101,15 @@ const Courses = ({ list, pending }) => {
             type="success"
             effect="solid"
           />
-          <Link to
-            onClick={() => { toCourseDet(course._id);}}
+          <LinkContainer to={`course/${course._id}`}
+            
           >
             <img
               src={course.image}
               className="card-img-top courseImg"
               alt="..."
             />
-          </Link>
+          </LinkContainer>
           <div>
             <h6 className="card-title courses-title">{course.name}</h6>
             <p className="card-text courses-desc">{course.description}</p>
