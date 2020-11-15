@@ -5,12 +5,12 @@
     border-top: none; 
     padding: .65rem;
 }
-input:focus { 
+.search-form:focus { 
     outline: none !important;
     border-color: #4169E1;
     box-shadow: 3px 3px 10px #4169E1;
 }
-input{
+.search-form{
     border-color: lightslategray !important;
     box-shadow:2px 2px thistle;
 }

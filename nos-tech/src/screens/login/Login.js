@@ -18,21 +18,25 @@ const validationSchema = Yup.object().shape({
   password: Yup.string().required("(Password is required)"),
 });
 
-const Login = ({authenticated, err, user}) => {
+const Login = ({authenticated, err, user, role}) => {
 
   const [loading, setLoading] = useState(false);
-  const [role, setRole] = useState("");
-
-  //const loggingIn = useSelector(state => state.login.isLoggedIn);
+  const [ro, setRole] = useState("");
 
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  
-    
-  // },[loading])
+  useEffect(() => {
+    if(user){
+        const role = user.role;
+        if(role === "user"){
+          history.push('/')
+        }else{
+          history.push('/admins/users')
+        }
+        window.location.reload(); 
+  }
+  }, [user])
 
-  if(loading) return <Loader />
   return (
     <Formik
       initialValues={{ username: "", password: "" }}
@@ -44,10 +48,15 @@ const Login = ({authenticated, err, user}) => {
         dispatch(login(values.username, values.password))
         .then(response => {
           // setLoading(true);
-          const userRole = JSON.stringify(user['role']);
+          const userRole = JSON.stringify(response.data.user['role']);
 
-          setRole(response.data.user['role']);
-          console.log('Role: ' + userRole);       
+          setRole(userRole);
+          console.log('Role: ' + userRole);   
+          setTimeout(() => {
+            resetForm();
+            setSubmitting(false);
+            setLoading(true);
+          }, 500);    
          
 
         }).catch(error => {
@@ -55,11 +64,11 @@ const Login = ({authenticated, err, user}) => {
           console.log('Error: ' + error);
   
         });
-        setTimeout(() => {
-          resetForm();
-          setSubmitting(false);
-          setLoading(true);
-        }, 1200);
+        // setTimeout(() => {
+        //   resetForm();
+        //   setSubmitting(false);
+        //   setLoading(true);
+        // }, 600);
       }}
     >
       {({
@@ -159,4 +168,4 @@ const mapStateToProps = state => ({
   err: state.login.error
 });
 
-export default connect(mapStateToProps ,{login})(withRouter(Login));
+export default connect(mapStateToProps ,{login})(Login);

@@ -52,33 +52,41 @@ router.get('/:id', asyncHandler(async(req,res) => {
 router.put('/fav/add/:id', async(req,res) => {
     const {id} = req.params;
 
-    Course.findById(id)
-    .then(course => {
-        if(course && !course.favorite){
-            Course.findByIdAndUpdate(id, {favorite:true}).
-            then(() => res.json({msg:'Added to fav'}))
-            .catch(err => console.log(err));
-        }else{
-            res.json({msg:"already added"});
-        }
-
-    })  
+    const course = await Course.findById(id);
+    if(course && course.favorite){
+        res.send({
+            msg:"Already added",
+            course: course
+        })
+    }else if (!course.favorite){
+    const updated = await Course.findByIdAndUpdate(id, {favorite:true}, {new: true});
+    res.send(updated);
+    }else{
+        res.sendStatus(404).send('Error: Could not add it!');
+    }  
+    console.log('coursess ' + JSON.stringify(course));
+    // res.send(course);
 })
+
 //Remove from favorites
 router.put('/fav/remove/:id', async(req,res) => {
     const {id} = req.params;
 
-    Course.findById(id)
+    const course = await Course.findById(id)
     .then(course => {
         if(course && course.favorite){
-            Course.findByIdAndUpdate(id, {favorite:false}).
-            then(() => res.json({msg:'Removed from fav'}))
+            Course.findByIdAndUpdate(id, {favorite:false}, {new: true}).
+            then((co) => { 
+                console.log('Course '+ co);
+                res.send(co)})
             .catch(err => console.log(err));
         }else{
             res.json({msg:"already removed"});
         }
 
-    })  
+    }) 
+    console.log('cc ' + course);
+    // res.send(course); 
 })
 
 //Get all the courses added as favorites

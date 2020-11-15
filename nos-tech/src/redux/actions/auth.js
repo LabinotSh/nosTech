@@ -51,9 +51,7 @@ export const login = (username, password) => (dispatch) => {
             console.log('USER ' + JSON.stringify(response.data.token));
             const user = response.data.token;
             localStorage.setItem('user', JSON.stringify(user));
-            localStorage.setItem('refresh', JSON.stringify(response.data.refreshToken));
-
-                
+            localStorage.setItem('refresh', JSON.stringify(response.data.refreshToken));          
         }
 
         dispatch({
@@ -66,17 +64,17 @@ export const login = (username, password) => (dispatch) => {
             const course = localStorage.getItem('course')
             localStorage.removeItem('course')
             history.push(`/course/${course}`)
-        }else {
-
-            const role = JSON.stringify(response.data.user['role']);
-            if(role === "admin"){
-                history.push('/admins/users')
-            }else{
-                history.push('/');
-            }
         }
 
-       window.location.reload(false);
+            // const role = JSON.stringify(response.data.user['role']);
+            // if(role === "admin"){
+            //     history.push('/admins/users')
+            // }else{
+            //     history.replace('/');
+            // }
+        // }
+
+       //window.location.reload(false);
     
         return response;
     }).catch(error => {
@@ -94,16 +92,13 @@ export const login = (username, password) => (dispatch) => {
 export const logout = () => (dispatch) => {
  localStorage.removeItem('user');
  localStorage.removeItem('refresh');
- 
 
  dispatch({
      type:LOGOUT
  })
  
-
  history.push('/login');   
  window.location.reload(false);   
-
 
 };
 

@@ -7,12 +7,13 @@ import {history} from '../../helpers/history';
 import { postCategory } from "./postCategory";
 import {courseListReducer, courseDeleteReducer, courseDetailsReducer,courseUpdateReducer,courseAddStudentReducer} from './courseReducers'
 import { userDeleteReducer, userListReducer,userDetailsReducer, userUpdateReducer } from './userReducers';
-
+import {favoritesReducer} from './favorites';
 //krijimi i konstantes combineReducers, ne menyre qe me i perfshi krejt reducers
 
 const allReducers = combineReducers({
     login: loginReducer,
     courses: coursesReducer,
+    favorites: favoritesReducer,
     router: connectRouter(history),
     courseList: courseListReducer,
     courseDelete:courseDeleteReducer,
