@@ -88,3 +88,25 @@ span.hover:hover{
     color: white;
     border: none;
 }
+
+.search-form {
+    width: 15rem;
+    border-radius: 30px 0px 0px 30px;
+    /*border-radius:Top-left, Top-right, Bottom-right, Bottom-left;*/
+    border-color: lightgray;
+    padding: .5rem;
+}
+
+.search-btn {
+    margin-left: 0;
+    border-radius: 0px 30px 30px 0px;
+    cursor:pointer;
+}
+
+.unmatch{
+    box-sizing: border-box;
+    font-size: large;
+    font-style: italic;
+    color:lightslategray;
+    font-weight: 400;
+}

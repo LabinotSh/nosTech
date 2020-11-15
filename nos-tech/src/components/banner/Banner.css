@@ -72,12 +72,11 @@
     color: white;
     font-weight: 300;
     cursor: pointer;
-    font-family: 'Roboto', cursive;
+    font-family: "Courier"; 
 }
 
 .my{
-    transform: rotate( '45deg');
-    font-family: 'Roboto', cursive;
+    font-family: "Courier";
 }
 
 .my-container{

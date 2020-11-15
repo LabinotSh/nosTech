@@ -6,7 +6,7 @@ import { fetchAllCourses } from "../../redux/actions/courses";
 import { withRouter, Link } from "react-router-dom";
 import responsive from "../../constants/carouselResponsive";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faHeart, faSearch, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as farHeart } from "@fortawesome/free-regular-svg-icons";
 import Banner from "../../components/banner/CourseBanner";
 import ReactTooltip from "react-tooltip";
@@ -21,17 +21,23 @@ import { HeartFull, HeartEmpty } from "../../components/icons/Heart";
 import { array } from "yup";
 import { API_URL } from "../../constants/Constants";
 import Notifications, { notify } from "react-notify-toast";
+import SearchBar from "../../components/searchBar/searchBar";
 
 const Courses = ({ list, pending }) => {
   const dispatch = useDispatch();
+
   const [courses, setCourses] = useState([]);
   const [mounted, setMounted] = useState(true);
+  const [filterText, setFilterText] = useState("");
+
+  const handleChange = (e) => {
+      setFilterText(e.target.value);
+  }
 
   const toastColor = { background: "#6279AB", text: "#FFFFFF" };
 
   const [favorite, setFavorite] = useState(false);
   const [favList, setFavList] = useState([]);
-  //const [id, setId] = useState('');
 
   const retrieveCourses = () => {
     dispatch(fetchAllCourses())
@@ -41,6 +47,7 @@ const Courses = ({ list, pending }) => {
         setMounted(false);
 
         console.log("COURSES: " + JSON.stringify(response));
+       
       })
       .catch((e) => {
         console.error("Error: " + e);
@@ -48,7 +55,6 @@ const Courses = ({ list, pending }) => {
       });
   };
 
-  // const {id} = props.match.params;
   {
     /* <FontAwesomeIcon
                     icon={favorite ? faHeart : farHeart}
@@ -62,13 +68,13 @@ const Courses = ({ list, pending }) => {
 
   //Load courses on render
   useEffect(() => {
-    setTimeout(() => {
+    // setTimeout(() => {
       retrieveCourses();
       setMounted(false);
       console.log("FAVVVVOTIREE " + favList);
-    }, 600);
-    // console.log('ID ' + id);
-  }, []);
+      
+    // }, 600);
+  }, [filterText]);
 
   const toCourseDet = (id) => {
     setTimeout(() => {
@@ -93,11 +99,8 @@ const Courses = ({ list, pending }) => {
         if (add) {
           array.push(props);
           setFavList([...array]);
-          
         }
         localStorage.setItem("favs", favList);
-
-        
         //setFavorite(true);
       })
       .catch((err) => console.log(err));
@@ -110,7 +113,6 @@ const Courses = ({ list, pending }) => {
       .put(`${API_URL}/course/fav/remove/${id}`)
       .then(() => {
         console.log("Removed");
-        
 
         array.map((item) => {
           if (item === props) {
@@ -120,20 +122,24 @@ const Courses = ({ list, pending }) => {
         if (remove) {
           array.pop(props);
           setFavList([...array]);
-         
         }
-         localStorage.removeItem("favs");
-
-        
+        localStorage.removeItem("favs");
         //setFavorite(false);
-        
       })
       .catch((err) => console.log(err));
   };
 
-  const CourseCarousel = () => {
-    //if(pending) return <Spinner size='5x' spinning="spinning" />
-    return courses.map((course) => {
+  const results = !filterText
+  ? courses
+  : courses.filter(course =>
+      course.name.toLowerCase().includes(filterText.toLocaleLowerCase())
+    );
+
+
+  const CourseCarousel = (props) => {
+    if(!results.length) return <div className="unmatch text-center">There is no matching searches!</div>
+   
+    return results.map((course) => {
       return (
         <div className="card courses-card" key={course._id}>
           <Notifications options={{ width: "800px", top: "10px" }} />
@@ -162,83 +168,37 @@ const Courses = ({ list, pending }) => {
               <strong style={{ fontSize: "18px", marginTop: "6px" }}>
                 <i className="fa fa-eur" /> {course.price}
               </strong>
-              {/* <button className="btn btn-sm btn-outline-dark float-left">{course.category}</button> */}
 
               <div className="justify-content-center">
-                {localStorage.getItem('user') ? (
-                <span
-                  className="hover"
-                  data-tip={
-                    favorite
-                      ? "Remove from favorites"
-                      : "Add to favorites"
-                  }
-                >
-                  {
-                  favorite
-                   ? (
-                    <HeartFull
-                      onClick={() => {
-                          setFavorite(false)
-                          removeFromFav(course._id, course);
-                          
-                        
-                        //   notify.show(
-                        //     <div>
-                        //       You must be logged in to remove from favorites
-                        //       <button
-                        //         className="btn btn-sm btn-outline-light"
-                        //         onClick={notify.hide}
-                        //       >
-                        //         {" "}
-                        //         X{" "}
-                        //       </button>
-                        //     </div>,
-                        //     "custom",
-                        //     -1,
-                        //     toastColor
-                        //   );
-                        // }
-                      }}
-                    />
-                  ) : (
-                    <HeartEmpty
-                      onClick={() => {
-                        // if (localStorage.getItem("user")) {
-                          setFavorite(true);
-                          addToFav(course._id, course);
-                          
-
-                          
-                        // } else {
-                        //   notify.show(
-                        //     <div>
-                        //       You must be logged in to add to favorites
-                        //       <button
-                        //         className="btn btn-sm btn-outline-light"
-                        //         onClick={notify.hide}
-                        //       >
-                        //         {" "}
-                        //         X{" "}
-                        //       </button>
-                        //     </div>,
-                        //     "custom",
-                        //     -1,
-                        //     toastColor
-                        //   );
-                        // }
-                      }}
-                    />
-                  )}
-                </span>
-                //if the user is not logged in then dont show his favorites
-                 ):(
-                    <span
+                {localStorage.getItem("user") ? (
+                  <span
                     className="hover"
                     data-tip={
-                      favorite
-                        ? "Remove from favorites"
-                        : "Add to favorites"
+                      favorite ? "Remove from favorites" : "Add to favorites"
+                    }
+                  >
+                    {favorite ? (
+                      <HeartFull
+                        onClick={() => {
+                          setFavorite(false);
+                          removeFromFav(course._id, course);
+                        }}
+                      />
+                    ) : (
+                      <HeartEmpty
+                        onClick={() => {
+                          setFavorite(true);
+                          addToFav(course._id, course);
+                        }}
+                      />
+                    )}
+                  </span>
+                ) : (
+                  //if the user is not logged in then dont show his favorites
+                  <span
+                    className="hover"
+                    data-tip={
+                      favorite ? "Remove from favorites" : "Add to favorites"
                     }
                   >
                     {favorite ? (
@@ -246,8 +206,7 @@ const Courses = ({ list, pending }) => {
                         onClick={() => {
                           if (localStorage.getItem("user")) {
                             removeFromFav(course._id, course);
-                            // localStorage.removeItem('favs');
-                            // setFavorite(false)
+                            setFavorite(false)
                           } else {
                             notify.show(
                               <div>
@@ -255,9 +214,7 @@ const Courses = ({ list, pending }) => {
                                 <button
                                   className="btn btn-sm btn-outline-light"
                                   onClick={notify.hide}
-                                >
-                                  {" "}
-                                  X{" "}
+                                > X
                                 </button>
                               </div>,
                               "custom",
@@ -272,8 +229,8 @@ const Courses = ({ list, pending }) => {
                         onClick={() => {
                           if (localStorage.getItem("user")) {
                             addToFav(course._id, course);
-  
-                            //setFavorite(true);
+                            setFavorite(true);
+
                           } else {
                             notify.show(
                               <div>
@@ -281,9 +238,7 @@ const Courses = ({ list, pending }) => {
                                 <button
                                   className="btn btn-sm btn-outline-light"
                                   onClick={notify.hide}
-                                >
-                                  {" "}
-                                  X{" "}
+                                > X
                                 </button>
                               </div>,
                               "custom",
@@ -295,7 +250,7 @@ const Courses = ({ list, pending }) => {
                       />
                     )}
                   </span>
-                 )}
+                )}
 
                 <button
                   className="btn btn btn-outline-success buy"
@@ -327,8 +282,20 @@ const Courses = ({ list, pending }) => {
   return (
     <div>
       <Banner />
-      <div className="top-content">
-        <p className="courses-headline">Courses we offer!</p>
+      <div className="container-fluid top-content">
+        <div className="row no-gutters pb-4">
+          <div className="col-sm-4"></div>
+          <div className="col-sm-4 text-center">
+            <p className="courses-headline">Courses we offer!</p>
+            <hr/>
+          </div>
+          <div className="col-sm-4 text-center">
+              <SearchBar 
+               input={filterText}
+               onChange={handleChange} />
+           </div> 
+        </div>
+        
         <Carousel
           responsive={responsive}
           paddingLeft={50}
