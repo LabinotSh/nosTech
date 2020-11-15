@@ -9,6 +9,7 @@ const {
   generateRefreshToken,
   verify,
 } = require('../middleware/authToken')
+const asyncHandler = require('express-async-handler');
 
 const { refreshTokens } = require('../data/refreshTokens')
 const User = require('../models/User')
@@ -104,7 +105,11 @@ router.post('/login', async (req, res) => {
   const validPassword = await bcrypt.compare(req.body.password, user.password)
   if (!validPassword) return res.status(400).send('Invalid Password!')
 
+<<<<<<< HEAD
   //check if the user has confirmed their email!
+=======
+  //Check if the suer has confirmed his email!
+>>>>>>> e869c27cc3f8fa5e44b8a82805b7ef06fb2aab21
   //    if(!user.confirmed){
   //        res.status(400).send('Please confirm your email first!');
   //    }
@@ -186,14 +191,16 @@ router.delete('/:userId', async (req, res) => {
 //     }
 // });
 
-router.put('/:id', async (req, res) => {
-  const id = req.params.id
 
-  const userup = await User.findByIdAndUpdate(id, {
-    confirmed: true,
-  })
-  res.json('updated ' + userup)
-})
+
+// router.put('/:id', async (req, res) => {
+//   const id = req.params.id
+
+//   const userup = await User.findByIdAndUpdate(id, {
+//     confirmed: true,
+//   })
+//   res.json('updated ' + userup)
+// })
 
 //Show all of the user's courses added to favorites
 router.get('/courses/favorite', async(req,res) => {
@@ -206,3 +213,31 @@ router.get('/courses/favorite', async(req,res) => {
 })
 
 module.exports = router
+router.put('/:userId', asyncHandler(async (req,res) => {
+    const id = req.params.userId;
+    const updated = await User.findByIdAndUpdate(id, req.body)
+    res.json(updated);
+}));
+
+router.post('/:id/addCourse', asyncHandler(async(req, res)=> {
+    const user = await User.findById(req.params.id);
+    
+    if(user) {
+        
+        
+        const alreadyEnrolled = user.courses.find(u => u.toString() === req.body._id.toString())
+        if(alreadyEnrolled) {
+            res.status(400)
+            throw new Error("Already enrolled")
+        }
+
+        user.courses.push(req.body._id);
+        await user.save()
+        res.status(201).json({message:"Enrolled Successfully!"})
+    }else {
+        res.status(404)
+        throw new Error("Course not found")
+    }
+}))
+
+module.exports = router;

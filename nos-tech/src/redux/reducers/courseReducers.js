@@ -10,7 +10,11 @@ import {
     COURSE_DETAILS_FAIL,
     COURSE_UPDATE_REQUEST,
     COURSE_UPDATE_SUCCESS,
-    COURSE_UPDATE_FAIL
+    COURSE_UPDATE_FAIL,
+    COURSE_ADD_STUDENT_REQUEST,
+    COURSE_ADD_STUDENT_FAIL,
+    COURSE_ADD_STUDENT_SUCCESS
+
 } from '../actions/types'
 
 
@@ -61,6 +65,19 @@ export const courseUpdateReducer = (state = {course:{videos: [], users:[]}}, act
             return {...state,loading: false,success:true, course: action.payload}  
         case COURSE_UPDATE_FAIL:
             return {...state,loading: false, error: action.payload};
+            default:
+                return state    
+    }
+}
+
+export const courseAddStudentReducer = (state = {}, action) => {
+    switch(action.type) {
+        case COURSE_ADD_STUDENT_REQUEST:
+            return {loading: true, ...state}
+        case COURSE_ADD_STUDENT_SUCCESS:
+            return {loading: false,success:true}  
+        case COURSE_ADD_STUDENT_FAIL:
+            return {loading: false, error: action.payload};
             default:
                 return state    
     }

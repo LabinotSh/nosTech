@@ -7,7 +7,7 @@
 }
 .category-part{
     margin-top: 200px;
-    width: 50px;
+    width: 150px;
     margin-left: 80px;
     background-color: transparent;
 }
@@ -64,4 +64,19 @@
 .category-edit:hover{
     transform: scale(1.2,1.2);
     color: #09d69c;
+}
+.unique-cat{
+    font-size: 12px;
+    font-weight: 300;
+    line-height: 20px;
+    margin-left: 8rem;
+    margin-top: 1rem;
+    color:white;
+}
+
+.category-input-error{
+    display: inline;
+    color: rgb(0, 0, 0);
+    width: 350px;
+    font-weight: 300;
 }

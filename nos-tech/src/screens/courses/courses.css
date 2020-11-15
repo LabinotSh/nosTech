@@ -22,6 +22,7 @@
 .courses-desc{
     font-size: 15px;
     color:rgb(105, 105, 105);
+    width: 20rem;
     height: 40%;
     margin: 1% 0 1% 0;
     text-overflow: ellipsis;

@@ -22,8 +22,8 @@ export const register = (name, surname, email, password, role, username) => (dis
         if(response.error){
             throw(response.error);
         }
-       const user = JSON.stringify(response.data);
-       console.log('USER ' + user);
+        const user = JSON.stringify(response.data);
+        console.log('USER ' + user);
 
         dispatch({
             type:REGISTER_SUCCESS,
@@ -52,6 +52,8 @@ export const login = (username, password) => (dispatch) => {
             const user = response.data.token;
             localStorage.setItem('user', JSON.stringify(user));
             localStorage.setItem('refresh', JSON.stringify(response.data.refreshToken));
+
+                
         }
 
         dispatch({
@@ -59,11 +61,19 @@ export const login = (username, password) => (dispatch) => {
             payload: response.data.user
         });
 
-        const role = JSON.stringify(response.data.user['role']);
-        if(role === "admin"){
-            history.push('/admins/users')
-        }else{
-            history.push('/');
+        if(localStorage.getItem('course')) {
+                
+            const course = localStorage.getItem('course')
+            localStorage.removeItem('course')
+            history.push(`/course/${course}`)
+        }else {
+
+            const role = JSON.stringify(response.data.user['role']);
+            if(role === "admin"){
+                history.push('/admins/users')
+            }else{
+                history.push('/');
+            }
         }
 
        window.location.reload(false);

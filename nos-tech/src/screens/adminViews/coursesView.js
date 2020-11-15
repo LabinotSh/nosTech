@@ -6,7 +6,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import './courseView.css'
 
 
-const CoursesView = () => {
+const CoursesView = ({history}) => {
     const dispatch = useDispatch();
 
     const  courseList = useSelector(state => state.courseList)
@@ -15,7 +15,8 @@ const CoursesView = () => {
     const courseDelete = useSelector(state => state.courseDelete)
     const {success:courseDeleteSuccess} = courseDelete
 
-    console.log(courseList)
+    const user = localStorage.getItem("user")
+    
 
     useEffect(() => {
         dispatch(listCourses())

@@ -10,7 +10,10 @@ import {
     COURSE_DETAILS_FAIL,
     COURSE_UPDATE_REQUEST,
     COURSE_UPDATE_SUCCESS,
-    COURSE_UPDATE_FAIL
+    COURSE_UPDATE_FAIL,
+    COURSE_ADD_STUDENT_REQUEST,
+    COURSE_ADD_STUDENT_FAIL,
+    COURSE_ADD_STUDENT_SUCCESS
 } from '../actions/types'
 import axios from 'axios';
 
@@ -77,6 +80,23 @@ export const updateCourse = (course) => async (dispatch) => {
     }catch(error) {
         dispatch({
             type:COURSE_UPDATE_FAIL,
+            payload: error.response && error.response.data.message ? error.response.data.message: error.message
+        })
+    }
+}
+
+export const addStudentToCourse = (id,user) => async (dispatch) => {
+    try {
+        dispatch({type: COURSE_ADD_STUDENT_REQUEST})
+
+        await axios.post(`/api/course/${id}/addUser`,user)
+        dispatch({
+            type:COURSE_ADD_STUDENT_SUCCESS,
+            
+        })
+    }catch(error) {
+        dispatch({
+            type:COURSE_ADD_STUDENT_FAIL,
             payload: error.response && error.response.data.message ? error.response.data.message: error.message
         })
     }
