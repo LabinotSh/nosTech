@@ -198,6 +198,16 @@ router.delete('/:userId', async (req, res) => {
 //   res.json('updated ' + userup)
 // })
 
+//Show all of the user's courses added to favorites
+router.get('/courses/favorite', async(req,res) => {
+  const user = User.find()
+  .populate({ path:'courses',
+   match: {'favorite': 'true'}})
+   .then(data => {res.send({data})})
+   .catch(err => console.log(err));
+
+})
+
 module.exports = router
 router.put('/:userId', asyncHandler(async (req,res) => {
     const id = req.params.userId;
