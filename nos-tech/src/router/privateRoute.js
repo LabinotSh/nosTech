@@ -6,6 +6,9 @@ const checkAuth = () => {
     const token = localStorage.getItem('user');
     const refreshToken = localStorage.getItem('refresh');
 
+    console.log(token)
+    console.log(refreshToken)
+
     if(!token || !refreshToken){
         return false;
     }

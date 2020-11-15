@@ -51,10 +51,10 @@ function Router() {
       <PrivateRoute path="/myProfile" component={MyProfile} />
       <Route exact path="/confirm/:id" component={Confirm} />
       <Route exact path="/course/:id" component={Course}></Route>
-      <Route path="/admins/courses" component={CoursesView}></Route>
-      <Route path="/admins/course/:id/edit" component={CourseEditView}></Route>
-      <Route path="/admins/users" component={UsersView}></Route>
-      <Route path="/admins/user/:id/edit" component={UserEditView}></Route>
+      <AdminRoute path="/admins/courses" component={CoursesView}></AdminRoute>
+      <AdminRoute path="/admins/course/:id/edit" component={CourseEditView}></AdminRoute>
+      <AdminRoute path="/admins/users" component={UsersView}></AdminRoute>
+      <AdminRoute path="/admins/user/:id/edit" component={UserEditView}></AdminRoute>
       <Route path="/categories" component={Categories} />
       {history.location.pathname !== "/login" &&
       history.location.pathname !== "/registration" ? (

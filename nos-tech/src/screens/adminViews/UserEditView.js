@@ -1,13 +1,15 @@
 import React, {useEffect, useState} from 'react'
 import { Link } from 'react-router-dom'
-import {Form,Button, Alert} from 'react-bootstrap'
+import {Form,Button,Alert} from 'react-bootstrap'
 import {useDispatch, useSelector} from 'react-redux'
-import {listUserDetails} from '../../redux/actions/userActions'
+import {listUserDetails,updateUser} from '../../redux/actions/userActions'
 import './courseView.css'
 
 const UserEditView = ({match}) => {
     
     const userId = match.params.id
+
+    const[visible,setVisible] = useState(true)
 
     const[name, setName] = useState("");
     const[surname,setSurname] = useState("")
@@ -20,8 +22,14 @@ const UserEditView = ({match}) => {
     const userDetails = useSelector(state => state.userDetails)
     const{user} = userDetails
 
-    // const courseUpdate = useSelector(state => state.courseUpdate)
-    // const{success:courseUpdateSuccess} = courseUpdate
+    const userUpdate = useSelector(state => state.userUpdate)
+    const{success:userUpdateSuccess} = userUpdate
+
+    
+    
+
+    
+    
     
 
     useEffect(()=>{
@@ -40,33 +48,43 @@ const UserEditView = ({match}) => {
         
     },[dispatch,user,userId])
 
+    useEffect(() => {
+        
+        if(userUpdateSuccess) {
+            setTimeout(() => {
+                setVisible(false)
+            },2000)
+        }
+    },[userUpdateSuccess])
+
     const submitHandler = (e) => {
         
         e.preventDefault()
         
 
-        // dispatch(updateCourse({
-        //     _id:courseId,
-        //     name,
-        //     description,
-        //     price,
-        //     category
-        // }))
+        dispatch(updateUser({
+            _id:userId,
+            name,
+            surname,
+            email,
+            role,
+            username
+        }))
     }
 
 
     return (
         <>
-            <Link to="/admins/users" className="btn btn-dark btn-sm my-3 mx-5">Go Back</Link>
+            <Link to="/admins/users"  className="btn btn-dark btn-sm my-3 mx-5" >Go Back</Link>
             <Form onSubmit={submitHandler} className="my-4 px-5">
-                <Alert variant="success">Course updated successfully</Alert>
+                {userUpdateSuccess?<Alert variant="success" show={visible}>User updated successfully</Alert>:null}
                 <Form.Group controlId="name">
                     <Form.Label>Name</Form.Label>
                     <Form.Control size="sm" type="name" placeholder="Name" value={name} onChange={(e)=> setName(e.target.value)}></Form.Control>
                 </Form.Group>
                 <Form.Group controlId="surname">
                     <Form.Label>Surname</Form.Label>
-                    <Form.Control size="sm" as="text" placeholder="Description" value={surname} onChange={(e)=> setSurname(e.target.value)}></Form.Control>
+                    <Form.Control size="sm" type="name" placeholder="Surname" value={surname} onChange={(e)=> setSurname(e.target.value)}></Form.Control>
                 </Form.Group>
                 <Form.Group controlId="username">
                     <Form.Label>Username</Form.Label>
