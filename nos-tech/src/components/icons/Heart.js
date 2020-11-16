@@ -3,7 +3,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as farHeart } from "@fortawesome/free-regular-svg-icons";
 
+const user = localStorage.getItem('user');
+
 export const HeartFull = (props) => {
+//   if(!user) return null;
   return (
     <FontAwesomeIcon
       icon={faHeart}
@@ -13,10 +16,12 @@ export const HeartFull = (props) => {
        onClick={props.onClick}
     />
   );
+
 };
 
 
 export const HeartEmpty = (props) => {
+    // if(!user) return null;
     return (
         <FontAwesomeIcon
           icon={farHeart}

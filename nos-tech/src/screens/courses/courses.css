@@ -1,6 +1,7 @@
 .courseImg{
     width: 300px;
     height: 150px;
+    cursor: pointer;
 }
 .courses-card{
     width: fit-content;
@@ -88,4 +89,11 @@ span.hover:hover{
     background-color: rgba(195, 0, 26, 0.63);
     color: white;
     border: none;
+}
+
+.unmatch{
+    font-size: large;
+    font-style: italic;
+    color:lightslategray;
+    font-weight: 400;
 }

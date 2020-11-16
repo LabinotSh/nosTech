@@ -17,9 +17,9 @@ const uploadvalidation = require('../middleware/Uploadvalidation.js')
 
 //Authenticate before you get all the courses
 router.get('/', asyncHandler(async (req, res) => {
-    const courses = await Course.find();
+    const courses = await Course.find().populate('users');
     //res.header('Content-Range', course 0-2/${courses.length})
-    res.send( courses);
+    res.send(courses);
 }));
 
 //find all users of the course
@@ -47,6 +47,57 @@ router.get('/:id', asyncHandler(async(req,res) => {
         throw new Error('Course not found');
     }
 }));
+
+//Added to favorites
+router.put('/fav/add/:id', async(req,res) => {
+    const {id} = req.params;
+
+    const course = await Course.findById(id);
+    if(course && course.favorite){
+        res.send({
+            msg:"Already added",
+            course: course
+        })
+    }else if (!course.favorite){
+    const updated = await Course.findByIdAndUpdate(id, {favorite:true}, {new: true});
+    res.send(updated);
+    }else{
+        res.sendStatus(404).send('Error: Could not add it!');
+    }  
+    console.log('coursess ' + JSON.stringify(course));
+    // res.send(course);
+})
+
+//Remove from favorites
+router.put('/fav/remove/:id', async(req,res) => {
+    const {id} = req.params;
+
+    const course = await Course.findById(id)
+    .then(course => {
+        if(course && course.favorite){
+            Course.findByIdAndUpdate(id, {favorite:false}, {new: true}).
+            then((co) => { 
+                console.log('Course '+ co);
+                res.send(co)})
+            .catch(err => console.log(err));
+        }else{
+            res.json({msg:"already removed"});
+        }
+
+    }) 
+    console.log('cc ' + course);
+    // res.send(course); 
+})
+
+//Get all the courses added as favorites
+router.get('/favs/added', async(req,res) => {
+
+    const course = await Course.find({favorite:false});
+
+    res.json(course);   
+})
+
+
 
 //find course by category
 router.get('/cat/:category', asyncHandler(async(req,res) => {
@@ -99,6 +150,9 @@ router.post('/newCourse', uploadMulter, uploadvalidation, createCourse)
 //Update a course by id
 router.put('/:courseId', asyncHandler(async (req,res) => {
     const id = req.params.courseId;
+    if(req.body.users) {
+        
+    }
     const updated = await Course.findByIdAndUpdate(id, req.body)
     res.json(updated);
 }));
@@ -112,5 +166,28 @@ router.delete('/:courseId', asyncHandler(async (req,res) => {
         res.send(deletedUser);
     
 }));
+
+router.post('/:id/addUser', asyncHandler(async(req, res)=> {
+    const course = await Course.findById(req.params.id);
+    
+    if(course) {
+        
+        
+        const alreadyEnrolled = course.users.find(u => u.toString() === req.body._id.toString())
+        if(alreadyEnrolled) {
+            res.status(400)
+            throw new Error("Already enrolled")
+        }
+
+        course.users.push(req.body._id);
+        await course.save()
+        res.status(201).json({message:"Enrolled Successfully!"})
+    }else {
+        res.status(404)
+        throw new Error("Course not found")
+    }
+}))
+
+
 
 module.exports = router;

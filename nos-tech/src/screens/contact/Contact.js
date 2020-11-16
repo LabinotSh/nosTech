@@ -235,7 +235,7 @@ import Error from '../../components/error/Error.js'
 import axios from 'axios'
 import { API_URL } from '../../constants/Constants'
 import Notifications, { notify } from 'react-notify-toast'
-// import Spinner from '../../components/icons/Spinner';
+import Spinner from '../../components/icons/Spinner';
 
 const validationSchema = Yup.object().shape({
   fname: Yup.string()
@@ -266,7 +266,7 @@ function Contact() {
   const sendEmail = (name, sname, email, subject, message) => {
     // const {id} = props.match.params;
     axios
-      .post(`/api/user/contact`, { name, sname, email, subject, message })
+      .post(`${API_URL}/user/contact`, { name, sname, email, subject, message })
       .then((res) => {
         console.log('res ' + JSON.stringify(res.data))
       })
@@ -276,10 +276,7 @@ function Contact() {
   return (
     <div className='Content container-md'>
       <Notifications />
-      {/* <p className = "comment-question">For any questions, comments, or concerns, 
-                please fill out the information below and we’ll make sure to reply as soon as possible
-            </p> */}
-      {/* left col */}
+      {/* {/* left col */}
       <div className='row main-row'>
         <div className='left col col-sm-12 col-md-12 col-lg-6'>
           <img src={test} alt='test' />
@@ -314,18 +311,15 @@ function Contact() {
                   <div>
                     <span>
                       Your message has been recieved! <br />
-                      Thank you for reaching to us!{' '}
+                      Thank you for reaching to us!
                     </span>
                     <button
                       className='btn btn-sm btn-outline-light'
                       onClick={notify.hide}
-                    >
-                      {' '}
-                      X{' '}
-                    </button>
+                    > X </button>
                   </div>,
                   'custom',
-                  8000,
+                  4000,
                   toastColor
                 )
                 setEmailSent(false)
@@ -457,10 +451,10 @@ function Contact() {
                     label='send'
                     className='btn submit-btn btn-outline-dark btn-block pseudoBtn'
                   >
-                    Send
-                    {/* {emailSent 
+                    {/* //Send */}
+                    {emailSent 
                     ? <Spinner size='1x' spinning="spinning" />
-                    : 'Send'} */}
+                    : 'Send'}
                   </button>
                 </div>
               </form>

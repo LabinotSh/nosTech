@@ -1,96 +1,61 @@
-import React, { useState, useEffect, useLayoutEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./courses.css";
 import Carousel from "../../components/carousel/Carousel";
 import { connect, useDispatch, useSelector } from "react-redux";
-import { fetchAllCourses } from "../../redux/actions/courses";
+import { fetchAllCourses, addToFavorites, removeFromFavorites } from "../../redux/actions/courses";
 import { withRouter, Link } from "react-router-dom";
 import responsive from "../../constants/carouselResponsive";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart, faTrash } from "@fortawesome/free-solid-svg-icons";
-import { faHeart as farHeart } from "@fortawesome/free-regular-svg-icons";
 import Banner from "../../components/banner/CourseBanner";
 import ReactTooltip from "react-tooltip";
-import { Card } from "react-bootstrap";
-import { icon } from "@fortawesome/fontawesome-svg-core";
-import Spinner from "../../components/icons/Spinner";
 import Loader from "../../components/icons/Loader";
+
 import { history } from "../../helpers/history";
 import {HeartFull, HeartEmpty} from '../../components/icons/Heart';
 
 const Courses = ({ list, pending }) => {
-  const dispatch = useDispatch();
-  const [courses, setCourses] = useState([]);
-  const [mounted, setMounted] = useState(true);
 
+import { HeartFull, HeartEmpty } from "../../components/icons/Heart";
+import SearchBar from "../../components/searchBar/searchBar";
+import { LinkContainer } from "react-router-bootstrap";
+
+const Courses = ({ list, pending, msg  }) => {
+
+  const dispatch = useDispatch();
+
+  const [listCourses, setCourses] = useState([]);
+  const [filterText, setFilterText] = useState("");
   const [favorite, setFavorite] = useState(false);
-  const [favList, setFavList] = useState([]);
-  //const [id, setId] = useState('');
+  
+  const handleChange = (e) => {
+      setFilterText(e.target.value);
+  }
 
   const retrieveCourses = () => {
     dispatch(fetchAllCourses())
       .then((response) => {
         setCourses(response);
-        //setId(response._id);
-        setMounted(false);
-
         console.log("COURSES: " + JSON.stringify(response));
       })
       .catch((e) => {
         console.error("Error: " + e);
-        setMounted(false);
       });
   };
-
-  // const {id} = props.match.params;
 
   //Load courses on render
   useEffect(() => {
-    setTimeout(() => {
       retrieveCourses();
-      setMounted(false);
-      console.log('FAVVVVOTIREE ' + favList);
-    }, 1000);
-    // console.log('ID ' + id);
   }, []);
 
-  const toCourseDet = (id) => {
-    setTimeout(() => {
-      history.push(`/course/${id}`);
-      window.location.reload();
-    }, 700);
-  };
+  const results = !filterText
+  ? listCourses
+  : listCourses.filter(course =>
+      course.name.toLowerCase().includes(filterText.toLocaleLowerCase())
+    );
 
-
-  const addFav = (props) => {
-      let array = favList;
-      let addArray = true;
-      array.map(item => {
-          if(item === props){
-            //   array.splice()
-            addArray = false;
-          }
-      });
-      if(addArray){
-          array.push(props);
-      }
-      setFavList([...array]);
-  }
-
-  const removeFav = (props) => {
-      let array = favList;
-      let removeArray = false;
-      array.map(item => {
-          if(item===props){
-              removeArray=true;
-              array.pop(item);
-          }
-      });
-      setFavList([...array]);
-  }
-
-  const CourseCarousel = () => {
-    //if(pending) return <Spinner size='5x' spinning="spinning" />
-    return courses.map((course) => {
+  const CourseCarousel = (props) => {
+    if(!results.length) return <div className="unmatch text-center">There is no matching searches!</div>
+   
+    return results.map((course) => {
       return (
         <div className="card courses-card" key={course._id}>
           <ReactTooltip
@@ -99,15 +64,13 @@ const Courses = ({ list, pending }) => {
             type="success"
             effect="solid"
           />
-          <Link to
-            onClick={() => { toCourseDet(course._id);}}
-          >
-            <img
-              src={course.image}
-              className="card-img-top courseImg"
-              alt="..."
-            />
-          </Link>
+         <LinkContainer to={`course/${course._id}`}>
+              <img
+                src={course.image}
+                className="card-img-top courseImg"
+                alt="..."
+              />
+         </LinkContainer>
           <div>
             <h6 className="card-title courses-title">{course.name}</h6>
             <p className="card-text courses-desc">{course.description}</p>
@@ -115,51 +78,73 @@ const Courses = ({ list, pending }) => {
               <strong style={{ fontSize: "18px", marginTop: "6px" }}>
                 <i className="fa fa-eur" /> {course.price}
               </strong>
-              {/* <button className="btn btn-sm btn-outline-dark float-left">{course.category}</button> */}
 
               <div className="justify-content-center">
-                <span
-                  className="hover"
-                  data-tip={
-                    favorite ? "Remove from favorites" : "Add to favorites"
-                  }
-                >
-                    {favorite
-                    ? <HeartFull onClick={() =>{ setFavorite(false); 
-                        removeFav(course);
-                    console.log('FACEE ' + favorite);
-                    console.log('Ffasdsd ' + favList[0])}}/>
-                    : <HeartEmpty onClick={() => {setFavorite(true);
-                         addFav(course);
-                    console.log('FAVVV '+ favorite);}}/> }
-
-                  {/* <FontAwesomeIcon
-                    icon={favorite ? faHeart : farHeart}
-                    size="2x"
-                    color={"#fc4563"}
-                    style={{ marginRight: "5px", marginTop: "3px" }}
-                    //  onFocus={() => }
-                    onClick={() => setFavorite(!favorite)}
-                  /> */}
-                </span>
-                {/* <button className="btn btn-outline-success float-left" type="submit" style={{marginRight:'2px'}}>Buy now</button>  */}
-
+                {localStorage.getItem("user") && (
+                    <>
+                    {msg ? (<span
+                    className="hover"
+                    data-tip={
+                        favorite || localStorage.getItem("favs") ? "Remove from favorites" : "Add to favorites"
+                    }
+                  >
+                    {favorite || localStorage.getItem("favs") ? (
+                        <>
+                      <HeartFull
+                        onClick={() => {
+                          setFavorite(false);
+                          localStorage.removeItem("favs");
+                          dispatch(removeFromFavorites(course._id, course));
+                        }}
+                      />
+                      </>
+                    ) : (
+                        <>
+                      <HeartEmpty
+                        onClick={() => {
+                          setFavorite(true);
+                          dispatch(addToFavorites(course._id, course));
+                        }}
+                      />         
+                      </>
+                    )}
+                  </span> ) : (
+                      <span
+                      className="hover"
+                      data-tip={
+                        favorite || localStorage.getItem("favs") ? "Remove from favorites" : "Add to favorites"
+                      }
+                    >
+                      {favorite || localStorage.getItem("favs") ? (
+                          <>
+                        <HeartFull
+                          onClick={() => {
+                            setFavorite(false);
+                            localStorage.removeItem("favs");
+                            dispatch(removeFromFavorites(course._id, course));
+                          }}
+                        />
+                        </>
+                      ) : (
+                          <>
+                        <HeartEmpty
+                          onClick={() => {
+                            setFavorite(true);
+                            dispatch(addToFavorites(course._id, course));
+                          }}
+                        />                       
+                        </>
+                      )}
+                    </span>
+                  )}     
+                  </>
+                )}
                 <button
                   className="btn btn btn-outline-success buy"
                   type="submit"
                 >
                   Buy now
                 </button>
-
-                {/* Testing the favorite list of courses */}
-                <ul>
-                    {favList && favList.map(item => {
-                    return (
-                     <div key={item._id}><li>{item.name}</li>
-                     </div>
-                    );
-                     })}
-                </ul>
               </div>
             </div>
           </div>
@@ -168,12 +153,23 @@ const Courses = ({ list, pending }) => {
     });
   };
 
-  if (list) return <Loader />;
+  if (pending) return <Loader />;
   return (
     <div>
       <Banner />
-      <div className="top-content">
-        <p className="courses-headline">Courses we offer!</p>
+      <div className="container-fluid top-content">
+        <div className="row no-gutters pb-4">
+          <div className="col-sm-4"></div>
+          <div className="col-sm-4 text-center">
+            <p className="courses-headline">Courses we offer!</p>
+            <hr/>
+          </div>
+          <div className="col-sm-4 text-center">
+              <SearchBar 
+               input={filterText}
+               onChange={handleChange} />
+           </div> 
+        </div>
         <Carousel
           responsive={responsive}
           paddingLeft={50}
@@ -194,9 +190,8 @@ function mapStateToProps(state) {
   return {
     pending: state.courses.pending,
     list: state.courses.courses,
+    msg: state.favorites.favorites.msg
   };
 }
 
-export default connect(mapStateToProps, { fetchAllCourses })(
-  withRouter(Courses)
-);
+export default connect(mapStateToProps, { fetchAllCourses})(withRouter(Courses));

@@ -9,11 +9,12 @@ const {
   generateRefreshToken,
   verify,
 } = require('../middleware/authToken')
+const asyncHandler = require('express-async-handler');
 
 const { refreshTokens } = require('../data/refreshTokens')
 const User = require('../models/User')
 
-// const emailTemplate = require('../templates/email')
+const emailTemplate = require('../templates/email')
 const { confirmEmail, contactEmail } = require('../../nodemailer/email')
 
 //Get All the users
@@ -34,7 +35,7 @@ router.post('/contact', async (req, res) => {
     const { name, sname, subject, email, message } = req.body
 
     const sent = await contactEmail(name, sname, email, subject, message)
-    res.json({ msg: sent })
+    res.json({ msg: 'Message sent!' })
   } catch (err) {
     console.log(err)
   }
@@ -77,9 +78,6 @@ router.post('/register', async (req, res) => {
       )
       .catch((err) => console.log(err))
 
-    //const emailed =  await sendEmail(savedUser.email, emailTemplate.confirm(savedUser._id));
-    // .then(() => res.json({msg: 'Please confirm your email!'}))
-    // .catch(err => console.log(err));
 
     if (emailExists && !emailExists.confirmed) {
       await sendEmail(
@@ -107,6 +105,7 @@ router.post('/login', async (req, res) => {
   const validPassword = await bcrypt.compare(req.body.password, user.password)
   if (!validPassword) return res.status(400).send('Invalid Password!')
 
+  //Check if the suer has confirmed his email!
   //    if(!user.confirmed){
   //        res.status(400).send('Please confirm your email first!');
   //    }
@@ -188,13 +187,53 @@ router.delete('/:userId', async (req, res) => {
 //     }
 // });
 
-router.put('/:id', async (req, res) => {
-  const id = req.params.id
 
-  const userup = await User.findByIdAndUpdate(id, {
-    confirmed: true,
-  })
-  res.json('updated ' + userup)
+
+// router.put('/:id', async (req, res) => {
+//   const id = req.params.id
+
+//   const userup = await User.findByIdAndUpdate(id, {
+//     confirmed: true,
+//   })
+//   res.json('updated ' + userup)
+// })
+
+//Show all of the user's courses added to favorites
+router.get('/courses/favorite', async(req,res) => {
+  const user = User.find()
+  .populate({ path:'courses',
+   match: {'favorite': 'true'}})
+   .then(data => {res.send({data})})
+   .catch(err => console.log(err));
+
 })
 
 module.exports = router
+router.put('/:userId', asyncHandler(async (req,res) => {
+    const id = req.params.userId;
+    const updated = await User.findByIdAndUpdate(id, req.body)
+    res.json(updated);
+}));
+
+router.post('/:id/addCourse', asyncHandler(async(req, res)=> {
+    const user = await User.findById(req.params.id);
+    
+    if(user) {
+        
+        
+        const alreadyEnrolled = user.courses.find(u => u.toString() === req.body._id.toString())
+        if(alreadyEnrolled) {
+            res.status(400)
+            throw new Error("Already enrolled")
+        }
+
+        user.courses.push(req.body._id);
+        await user.save()
+        res.status(201).json({message:"Enrolled Successfully!"})
+    }else {
+        res.status(404)
+        throw new Error("Course not found")
+    }
+}))
+
+module.exports = router;
