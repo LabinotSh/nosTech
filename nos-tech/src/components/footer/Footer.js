@@ -2,37 +2,25 @@ import React from "react";
 import "./footer.css";
 import FooterList from "../footer-list/FooterList";
 import { Container, Row, Col, Card, Button, Form } from "react-bootstrap";
-import {history} from '../../helpers/history';
+import { history } from "../../helpers/history";
+import Subscription from "../subscription/Subscription";
 
 const Footer = () => {
-//   if (history.location.pathname === '/confirm/:id') return null;
-  return(
-        <div className="footeri">
-            <div className="container">
-                <div className="footer-content">
+  //   if (history.location.pathname === '/confirm/:id') return null;
+  return (
+    <div className="footeri">
+      <div className="container">
+        <div className="footer-content">
+          <div className="the-list">
+            <FooterList />
+          </div>
 
-                    <div className="the-list">
-                        <FooterList />
-                    </div>
-
-                    <div className="subscription">
-                        <p>
-                            <b>Subscribe</b> to stay up to date with the latest from nosTech:
-                        </p>
-
-                        <form>
-                            <input className="text-input-box" type="text" placeholder="Your email here..."></input>
-                        </form>
-
-                        <div>
-                            <Button className="submit-btn">
-                                Submit
-                            </Button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+          <div className="subscription">
+            <Subscription />
+          </div>
         </div>
+      </div>
+    </div>
   );
 };
 
