@@ -8,12 +8,7 @@ import responsive from "../../constants/carouselResponsive";
 import Banner from "../../components/banner/CourseBanner";
 import ReactTooltip from "react-tooltip";
 import Loader from "../../components/icons/Loader";
-
 import { history } from "../../helpers/history";
-import {HeartFull, HeartEmpty} from '../../components/icons/Heart';
-
-const Courses = ({ list, pending }) => {
-
 import { HeartFull, HeartEmpty } from "../../components/icons/Heart";
 import SearchBar from "../../components/searchBar/searchBar";
 import { LinkContainer } from "react-router-bootstrap";
