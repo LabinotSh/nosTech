@@ -27,24 +27,8 @@
     text-align: center;
 }
 
-.submit-btn {
-    background-color: white;
-    color: #00132A;
-    outline-color:#00132A;
-    border-color:white;
-    margin: 20px 10px;
-    width: 150px;
-    border-radius: 20px;
-    padding: 9px 5px;
-    box-shadow: 3px 5px 14px #bebcbc;
-}
-.submit-btn:hover{
-    background-color: #F7A366 !important;
-    outline-color: #F7A366 !important;
-    border-color:#F7A366 !important;
-}
 
-.text-input-box{
+/* .text-input-box{
     background-color: white;
     padding: 10px 15px;
     border-radius: 7px;
@@ -52,7 +36,7 @@
     border-top: none;
     border-left: none;
     border-right: none;
-}
+} */
 
 .testim {
     display: flex;
