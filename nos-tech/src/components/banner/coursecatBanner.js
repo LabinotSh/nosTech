@@ -5,14 +5,14 @@ import './Banner.css';
 import {Link} from 'react-router-dom';
 
 
-const CourseBannerComponent = ({classes, ...props}) => {
+const CourseCatBannerComponent = ({classes, ...props}) => {
 
     useEffect(() => {
         props.fetchAllPostCategories()
     }, [])//DidMount
    
     return(
-        <div className="CourseBanner">
+        <div className="CourseCategory-Banner">
         <div className="container">
         <h1 className="Coursebanner-title pt-5 pb-3">NosTech Courses</h1>
          {props.postCategoryList.slice(0,5).map((record, index) => {
@@ -22,7 +22,7 @@ const CourseBannerComponent = ({classes, ...props}) => {
                 <Link 
                 className="courseBanner-button mb-5" 
                 to = {`/coursecategory/${record._id}`}>
-                    {record.name}
+                {record.name}
                 </Link>
                 </div>
             </Fragment>
@@ -41,4 +41,4 @@ const mapActionToProps = {
     fetchAllPostCategories: actions.fetchAll
 }
 
-export default connect(mapStateToProps, mapActionToProps)((CourseBannerComponent));
+export default connect(mapStateToProps, mapActionToProps)((CourseCatBannerComponent));

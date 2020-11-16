@@ -15,7 +15,6 @@ import { icon } from "@fortawesome/fontawesome-svg-core";
 import Spinner from "../../components/icons/Spinner";
 import Loader from "../../components/icons/Loader";
 import { history } from "../../helpers/history";
-
 import {HeartFull, HeartEmpty} from '../../components/icons/Heart';
 
 const Courses = ({ list, pending }) => {

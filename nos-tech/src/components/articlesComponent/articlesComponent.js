@@ -47,8 +47,9 @@ const ArticlesComponent = () => {
                 <div class="col mb-4 mt-3 articles-latest" key={title}>
                 <hr className="bg-dark w-80"></hr>
                 <div class="card h-100 my-2">
-
+                <a href={url} target="_blank">
                 <img src={urlToImage} class="card-img-top articles-img" alt="..."/>
+                </a>
                 <div class="card-body">
                 <h6><a href={url} className="articles-title" target="_blank">{title}</a></h6>
                 </div>
