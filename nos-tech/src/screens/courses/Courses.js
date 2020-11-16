@@ -18,9 +18,11 @@ const Courses = ({ list, pending, msg  }) => {
   const [listCourses, setCourses] = useState([]);
   const [filterText, setFilterText] = useState("");
   const [favorite, setFavorite] = useState(false);
+
+  const [displayMessage, setDisplayMessage] = useState("");
   
   const handleChange = (e) => {
-      setFilterText(e.target.value);
+       setFilterText(e.target.value);
   }
 
   const retrieveCourses = () => {
@@ -36,15 +38,22 @@ const Courses = ({ list, pending, msg  }) => {
 
   //Load courses on render
   useEffect(() => {
-      retrieveCourses();
+    retrieveCourses();   
   }, []);
 
-  const results = !filterText
-  ? listCourses
-  : listCourses.filter(course =>
-      course.name.toLowerCase().includes(filterText.toLocaleLowerCase())
-    );
+  //Make the search appear after like 1.5 seconds and not immediately as the user is typing
+  useEffect(() => {
+    const timeOutId = setTimeout(() => setDisplayMessage(filterText), 1500);
+    return () => clearTimeout(timeOutId);
+  }, [filterText]);
 
+  
+    const results = !displayMessage
+    ? listCourses
+    : listCourses.filter(course =>
+          course.name.toLowerCase().includes(displayMessage.toLocaleLowerCase())
+    );
+  
   const CourseCarousel = (props) => {
     if(!results.length) return <div className="unmatch text-center">There is no matching searches!</div>
    
