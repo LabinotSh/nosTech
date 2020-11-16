@@ -38,7 +38,7 @@ const ArticlesComponent = () => {
 
 
     return (
-      <React.Fragment>
+      <>
         <div className="row row-cols-1 row-cols-md-3 col-xl-9 float-left mb-5">
           {!isLoading ? (
             articles.slice(0,9).map(article => {
@@ -50,11 +50,6 @@ const ArticlesComponent = () => {
                 <a href={url} target="_blank">
                 <img src={urlToImage} class="card-img-top articles-img" alt="..."/>
                 </a>
-                <div class="card-body">
-
-                <div className="card h-100 my-2">
-
-                <img src={urlToImage} className="card-img-top articles-img" alt="..."/>
                 <div className="card-body">
  
                 <h6><a href={url} className="articles-title" target="_blank">{title}</a></h6>
@@ -74,7 +69,7 @@ const ArticlesComponent = () => {
             <p>Loading...</p>
           )}
         </div>
-      </React.Fragment>
+      </>
     );
 }
 export default ArticlesComponent;
