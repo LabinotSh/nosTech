@@ -11,6 +11,7 @@ const orderRoutes = require('./api/order');
 const categoryRoutes = require('./api/category');
 const orderTest = require('./api/test');
 const emailRoutes = require('./api/email');
+const favRoutes = require('./api/favorites');
 const path = require('path');
 require('dotenv').config();//Configure .env variables
 
@@ -36,6 +37,7 @@ app.use('/api/order', orderRoutes);
 app.use('/api/test', orderTest);
 app.use('/api/email/confirm', emailRoutes);
 app.use('/api/category', categoryRoutes);
+app.use('/api/favorites', favRoutes)
 //Wake up the server before rendering
 app.get('/wake-up', (req, res) => res.send('👌'))
 

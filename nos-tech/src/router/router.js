@@ -45,8 +45,8 @@ function Router() {
       <Route path="/about-us" component={AboutUs} />
       <Route path="/contact" component={Contact} />
       {/* should not be shown to the user if the user is logged in */}
-      <PublicRoute path="/login" component={Login} />
-      <PublicRoute path="/registration" component={Registration} />
+      <Route path="/login" component={Login} />
+      <Route path="/registration" component={Registration} />
       <PrivateRoute path="/myCourses" component={MyCourses} />
       <PrivateRoute path="/myProfile" component={MyProfile} />
       <Route exact path="/confirm/:id" component={Confirm} />

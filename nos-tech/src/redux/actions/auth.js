@@ -51,7 +51,8 @@ export const login = (username, password) => (dispatch) => {
             console.log('USER ' + JSON.stringify(response.data.token));
             const user = response.data.token;
             localStorage.setItem('user', JSON.stringify(user));
-            localStorage.setItem('refresh', JSON.stringify(response.data.refreshToken));          
+            localStorage.setItem('refresh', JSON.stringify(response.data.refreshToken));
+            // localStorage.setItem('token', JSON.stringify(response.data.user));          
         }
 
         dispatch({

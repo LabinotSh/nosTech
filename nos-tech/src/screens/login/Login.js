@@ -11,7 +11,6 @@ import {history} from '../../helpers/history';
 import {connect, useSelector, useDispatch} from 'react-redux';
 import {Link, Redirect, withRouter} from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
-import Loader from '../../components/icons/Loader';
 
 const validationSchema = Yup.object().shape({
   username: Yup.string().required("(Username is required)"),
@@ -22,6 +21,7 @@ const Login = ({authenticated, err, user, role}) => {
 
   const [loading, setLoading] = useState(false);
   const [ro, setRole] = useState("");
+  const [error, setError] = useState("");
 
   const dispatch = useDispatch();
 
@@ -36,6 +36,25 @@ const Login = ({authenticated, err, user, role}) => {
         window.location.reload(); 
   }
   }, [user])
+
+  useEffect(() => {
+    setTimeout(() => {
+      if(err){
+        setError(err);
+      }else{
+        setError('');
+      }
+    }, 800); 
+  }, [err])
+
+  useEffect(() => {
+    setTimeout(() => {
+      if(error){
+        setError('')
+      }
+    }, 3000); 
+  },[error])
+
 
   return (
     <Formik
@@ -56,19 +75,20 @@ const Login = ({authenticated, err, user, role}) => {
             resetForm();
             setSubmitting(false);
             setLoading(true);
+            setError('');
           }, 500);    
          
-
         }).catch(error => {
           setLoading(false);
           console.log('Error: ' + error);
   
         });
-        // setTimeout(() => {
-        //   resetForm();
-        //   setSubmitting(false);
-        //   setLoading(true);
-        // }, 600);
+        setTimeout(() => {
+          resetForm();
+          setSubmitting(false);
+          setLoading(false); 
+        }, 800);
+       
       }}
     >
       {({
@@ -90,11 +110,11 @@ const Login = ({authenticated, err, user, role}) => {
                 </Card.Text>
                 <Form onSubmit={handleSubmit}>
                   {/* {JSON.stringify(values)} */}
-                  {err && (
-                    <div className="text-danger">
-                      {err}
-                    </div>
-                  )}
+                  {error && (
+                      <div className="text-danger">
+                        {error}
+                      </div>
+                    )} 
                   <Form.Group controlId="formBasicUsername">
                     <Form.Control
                       type="text"

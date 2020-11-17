@@ -3,7 +3,7 @@ import "./courses.css";
 import Carousel from "../../components/carousel/Carousel";
 import { connect, useDispatch, useSelector } from "react-redux";
 import { fetchAllCourses, addToFavorites, removeFromFavorites } from "../../redux/actions/courses";
-import { withRouter, Link } from "react-router-dom";
+import { withRouter, Link, Redirect } from "react-router-dom";
 import responsive from "../../constants/carouselResponsive";
 import Banner from "../../components/banner/CourseBanner";
 import ReactTooltip from "react-tooltip";
@@ -11,10 +11,21 @@ import Loader from "../../components/icons/Loader";
 import { HeartFull, HeartEmpty } from "../../components/icons/Heart";
 import SearchBar from "../../components/searchBar/searchBar";
 import { LinkContainer } from "react-router-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowAltCircleRight } from "@fortawesome/free-regular-svg-icons";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { history } from "../../helpers/history";
+import jwt_decode from 'jwt-decode';
 
-const Courses = ({ list, pending, msg  }) => {
+const Courses = ({ list, pending, msg, loggedIn  }) => {
   const dispatch = useDispatch();
 
+  // const token = localStorage.getItem('user');
+  // const decoded = jwt_decode(token);
+  // const userId = decoded._id;
+
+  const [user,setUser] = useState({});
+  const [enrolled,setEnrolled]= useState(false)
   const [listCourses, setCourses] = useState([]);
   const [filterText, setFilterText] = useState("");
   const [favorite, setFavorite] = useState(false);
@@ -35,17 +46,54 @@ const Courses = ({ list, pending, msg  }) => {
         console.error("Error: " + e);
       });
   };
+  const redirectOnClick = (id) => {
+    setTimeout(() => {
+      if(loggedIn || localStorage.getItem('user')){
+        history.push(`course/${id}`);
+    }else{
+      history.push('/login');
+    }
+    window.location.reload();
+      
+    }, 700);
+      
+  }
 
   //Load courses on render
   useEffect(() => {
-    retrieveCourses();   
+    retrieveCourses();
+    // console.log('tokeni ' + userId)  
   }, []);
 
   //Make the search appear after like 1.5 seconds and not immediately as the user is typing
   useEffect(() => {
-    const timeOutId = setTimeout(() => setDisplayMessage(filterText), 1500);
+    const timeOutId = setTimeout(() => setDisplayMessage(filterText), 1000);
     return () => clearTimeout(timeOutId);
   }, [filterText]);
+
+  const favorites = localStorage.getItem('favs');
+//   const tokenii = localStorage.getItem('token');
+  
+  useEffect(() => {
+    try {
+        const token = localStorage.getItem('user');
+        
+        if(token) {
+            const useri = jwt_decode(token)
+            
+            setUser(useri)
+            console.log('sss ' + user);
+            if(favorites.users) {
+                if(favorites.users.find(u => u.toString() === user._id.toString())) {
+                    console.log('aaaa ' + user);
+                    setEnrolled(true)
+                } 
+            }
+        }
+    }catch(e) {
+        console.log(e)
+    }
+},[favorites]) 
 
   
     const results = !displayMessage
@@ -96,7 +144,7 @@ const Courses = ({ list, pending, msg  }) => {
                         onClick={() => {
                           setFavorite(false);
                           localStorage.removeItem("favs");
-                          dispatch(removeFromFavorites(course._id, course));
+                          dispatch(removeFromFavorites(course._id, course, user));
                         }}
                       />
                       </>
@@ -105,7 +153,7 @@ const Courses = ({ list, pending, msg  }) => {
                       <HeartEmpty
                         onClick={() => {
                           setFavorite(true);
-                          dispatch(addToFavorites(course._id, course));
+                          dispatch(addToFavorites(course._id, course, user));
                         }}
                       />         
                       </>
@@ -122,8 +170,8 @@ const Courses = ({ list, pending, msg  }) => {
                         <HeartFull
                           onClick={() => {
                             setFavorite(false);
-                            localStorage.removeItem("favs");
-                            dispatch(removeFromFavorites(course._id, course));
+                            // localStorage.removeItem("favs");
+                            // dispatch(removeFromFavorites(course._id, course));
                           }}
                         />
                         </>
@@ -132,7 +180,7 @@ const Courses = ({ list, pending, msg  }) => {
                         <HeartEmpty
                           onClick={() => {
                             setFavorite(true);
-                            dispatch(addToFavorites(course._id, course));
+                            // dispatch(addToFavorites(course._id, course));
                           }}
                         />                       
                         </>
@@ -142,10 +190,13 @@ const Courses = ({ list, pending, msg  }) => {
                   </>
                 )}
                 <button
-                  className="btn btn btn-outline-success buy"
+                  className="btn btn-default buy"
                   type="submit"
+                  onClick={() => {
+                      redirectOnClick(course._id);   
+                  }}
                 >
-                  Buy now
+                Enroll
                 </button>
               </div>
             </div>
@@ -190,10 +241,11 @@ const Courses = ({ list, pending, msg  }) => {
 
 function mapStateToProps(state) {
   return {
+      loggedIn: state.login.isLoggedIn,
     pending: state.courses.pending,
     list: state.courses.courses,
     msg: state.favorites.favorites.msg
   };
 }
 
-export default connect(mapStateToProps, { fetchAllCourses})(withRouter(Courses));
+export default connect(mapStateToProps, { addToFavorites, removeFromFavorites, fetchAllCourses})(Courses);

@@ -6,9 +6,9 @@ const user = localStorage.getItem("user");
 const PublicRoute = ({ component: Component, ...rest }) => {
   return (
     <Route {...rest} render={(props) => (
-        user 
-        ? <Redirect to="/" /> 
-        : <Component {...props} />
+        !user 
+        ? <Component {...props} />
+        : <Redirect to="/" /> 
      )}
     />
   );
