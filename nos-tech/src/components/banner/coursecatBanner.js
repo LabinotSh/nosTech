@@ -20,7 +20,7 @@ const CourseCatBannerComponent = ({classes, ...props}) => {
             <Fragment key={index}>
                 <div style={{display: "inline"}} key={index} >
                 <Link 
-                className="courseBanner-button mb-5" 
+                className="courseCatBanner-button mb-5" 
                 to = {`/coursecategory/${record._id}`}>
                 {record.name}
                 </Link>
