@@ -25,14 +25,15 @@ export const loginReducer = ( state = initialState, action) => {
             return {
                 ...state,
                 registered:true,
-                isLoggedIn:false
+                isLoggedIn:false,
+                errors:null
             };
         case REGISTER_FAIL:
             return {
                 ...state,
                 registered:false,
                 isLoggedIn:false,
-                error: action.payload
+                errors: action.payload
             }; 
         case LOGIN_SUCCESS:
             return {

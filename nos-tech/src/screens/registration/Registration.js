@@ -39,17 +39,25 @@ const Registration = ({ successRegister, err }) => {
   const dispatch = useDispatch();
 
   const [registered, setRegister] = useState(false);
+  const [errs, setErrors] = useState('');
   const [emailSent, setEmailSent] = useState(false);
   const [role, setRole] = useState("");
 
   let toastColor = { background: "#6279AB", text: "#FFFFFF" };
 
   useEffect(() => {
-    if (successRegister) {
+    setTimeout(() => {
+      err ? setErrors(err) : setErrors('')
+    }, 800); 
+  }, [err])
 
-    }
-  }, [notify]);
-
+  useEffect(() => {
+    setTimeout(() => {
+      if(errs){
+        setErrors('')
+      }
+    }, 3500); 
+  },[errs])
   return (
     <Formik
       initialValues={{
@@ -103,15 +111,26 @@ const Registration = ({ successRegister, err }) => {
           .catch((err) => {
             setRegister(false);
             setSubmitting(false);
+            setRole('');
             console.log("Error: " + err);
           });
 
-        setTimeout(() => {
+          if(!registered){
+           
           setRegister(false);
-          err=null;
+          //setErrors('');
+          
+          //setRole('');
+          setTimeout(() => {
+            setRole('')
+            resetForm();
+            setSubmitting(false);
+           }, 1500);
+        }else{
           resetForm();
-          setSubmitting(false);
-        }, 1000);
+          setRole('');
+
+        }
       }}
     >
       {({
@@ -139,7 +158,7 @@ const Registration = ({ successRegister, err }) => {
                   Please enter your credentials to set up an account with us!
                 </Card.Text>
                 <Form onSubmit={handleSubmit}>
-                  {err && <div className="text-danger">{err}</div>}
+                  {errs && <div className="text-danger">{errs}</div>}
                   <Form.Group controlId="formBasicName">
                     <Form.Control
                       type="text"
@@ -259,7 +278,7 @@ const Registration = ({ successRegister, err }) => {
 function mapStateToProps(state) {
   return {
     successRegister: state.login.registered,
-    err: state.login.error,
+    err: state.login.errors,
   };
 }
 

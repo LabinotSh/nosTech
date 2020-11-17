@@ -39,11 +39,7 @@ const Login = ({authenticated, err, user, role}) => {
 
   useEffect(() => {
     setTimeout(() => {
-      if(err){
-        setError(err);
-      }else{
-        setError('');
-      }
+      err ? setError(err) : setError('');
     }, 800); 
   }, [err])
 
@@ -52,7 +48,7 @@ const Login = ({authenticated, err, user, role}) => {
       if(error){
         setError('')
       }
-    }, 3000); 
+    }, 3500); 
   },[error])
 
 

@@ -7,6 +7,7 @@ const asyncHandler = require('express-async-handler');
 
 
 //Added to favorites
+// 1. The 1st method of adding user to favorites, with PUT request
 router.put('/add/:cId', asyncHandler(async(req,res) => {
     const {cId} = req.params;
 
@@ -48,14 +49,13 @@ router.put('/add/:cId', asyncHandler(async(req,res) => {
         }
     })
 
-    // console.log('Body ' , req.body);
+
+    //  2. The 2nd method, doing the same action as the 1st one,
+    //  excpet this one is a POST request 
 
     // const course = await Course.findById(cId);
-
     // if(course){
-
     //     const alreadyAdded = course.users.find(u => u.toString() === req.body._id.toString())
-
     //     if(alreadyAdded) {
     //         res.status(400)
     //         throw new Error("Already added")
