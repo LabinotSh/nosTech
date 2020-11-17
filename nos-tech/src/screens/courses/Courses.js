@@ -11,13 +11,10 @@ import Loader from "../../components/icons/Loader";
 import { HeartFull, HeartEmpty } from "../../components/icons/Heart";
 import SearchBar from "../../components/searchBar/searchBar";
 import { LinkContainer } from "react-router-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowAltCircleRight } from "@fortawesome/free-regular-svg-icons";
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { history } from "../../helpers/history";
 import jwt_decode from 'jwt-decode';
 
-const Courses = ({ list, pending, msg, loggedIn  }) => {
+const Courses = ({ list, pending, loggedIn, fav  }) => {
   const dispatch = useDispatch();
 
   // const token = localStorage.getItem('user');
@@ -46,6 +43,7 @@ const Courses = ({ list, pending, msg, loggedIn  }) => {
         console.error("Error: " + e);
       });
   };
+
   const redirectOnClick = (id) => {
     setTimeout(() => {
       if(loggedIn || localStorage.getItem('user')){
@@ -53,42 +51,40 @@ const Courses = ({ list, pending, msg, loggedIn  }) => {
     }else{
       history.push('/login');
     }
-    window.location.reload();
-      
-    }, 700);
-      
+    window.location.reload();   
+    }, 700);   
   }
+
+  const favorites = localStorage.getItem('favs');
 
   //Load courses on render
   useEffect(() => {
+    console.log('favvaa ' + favorites);
     retrieveCourses();
-    // console.log('tokeni ' + userId)  
   }, []);
 
-  //Make the search appear after like 1.5 seconds and not immediately as the user is typing
+  //Make the search appear after 1 seconds and not immediately as the user is typing
   useEffect(() => {
     const timeOutId = setTimeout(() => setDisplayMessage(filterText), 1000);
     return () => clearTimeout(timeOutId);
   }, [filterText]);
 
-  const favorites = localStorage.getItem('favs');
-//   const tokenii = localStorage.getItem('token');
+  
   
   useEffect(() => {
     try {
         const token = localStorage.getItem('user');
-        
         if(token) {
             const useri = jwt_decode(token)
             
             setUser(useri)
-            console.log('sss ' + user);
-            if(favorites.users) {
-                if(favorites.users.find(u => u.toString() === user._id.toString())) {
-                    console.log('aaaa ' + user);
-                    setEnrolled(true)
-                } 
-            }
+            // console.log('sss ' + JSON.stringify(user));
+            // if(favorites.users) {
+            //     if(favorites.users.find(u => u.toString() === user._id.toString())) {
+            //         console.log('aaaa ' + user);
+            //         setEnrolled(true)
+            //     } 
+            // }
         }
     }catch(e) {
         console.log(e)
@@ -132,19 +128,24 @@ const Courses = ({ list, pending, msg, loggedIn  }) => {
               <div className="justify-content-center">
                 {localStorage.getItem("user") && (
                     <>
-                    {msg ? (<span
+                    <span
                     className="hover"
                     data-tip={
-                        favorite || localStorage.getItem("favs") ? "Remove from favorites" : "Add to favorites"
+                        // favorite || localStorage.getItem("favs")
+                        fav || localStorage.getItem('favs') 
+                        ? "Remove from favorites" : "Add to favorites"
                     }
                   >
-                    {favorite || localStorage.getItem("favs") ? (
+                    {
+                    // favorite || localStorage.getItem("favs")
+                    fav || localStorage.getItem('favs') 
+                     ? (
                         <>
                       <HeartFull
                         onClick={() => {
                           setFavorite(false);
                           localStorage.removeItem("favs");
-                          dispatch(removeFromFavorites(course._id, course, user));
+                          dispatch(removeFromFavorites(course._id, user));
                         }}
                       />
                       </>
@@ -153,40 +154,12 @@ const Courses = ({ list, pending, msg, loggedIn  }) => {
                       <HeartEmpty
                         onClick={() => {
                           setFavorite(true);
-                          dispatch(addToFavorites(course._id, course, user));
+                          dispatch(addToFavorites(course._id, user));
                         }}
                       />         
                       </>
                     )}
-                  </span> ) : (
-                      <span
-                      className="hover"
-                      data-tip={
-                        favorite || localStorage.getItem("favs") ? "Remove from favorites" : "Add to favorites"
-                      }
-                    >
-                      {favorite || localStorage.getItem("favs") ? (
-                          <>
-                        <HeartFull
-                          onClick={() => {
-                            setFavorite(false);
-                            // localStorage.removeItem("favs");
-                            // dispatch(removeFromFavorites(course._id, course));
-                          }}
-                        />
-                        </>
-                      ) : (
-                          <>
-                        <HeartEmpty
-                          onClick={() => {
-                            setFavorite(true);
-                            // dispatch(addToFavorites(course._id, course));
-                          }}
-                        />                       
-                        </>
-                      )}
-                    </span>
-                  )}     
+                  </span> 
                   </>
                 )}
                 <button
@@ -241,10 +214,10 @@ const Courses = ({ list, pending, msg, loggedIn  }) => {
 
 function mapStateToProps(state) {
   return {
-      loggedIn: state.login.isLoggedIn,
+    loggedIn: state.login.isLoggedIn,
     pending: state.courses.pending,
     list: state.courses.courses,
-    msg: state.favorites.favorites.msg
+    fav:state.favorites.favorites.fav
   };
 }
 

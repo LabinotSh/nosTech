@@ -42,32 +42,20 @@ export const fetchAllCourses = () => async (dispatch) => {
       });
     });
 };
+
 const config = { headers: {'Content-Type': 'application/json'} };
-export const addToFavorites = (cId, props, user) => async (dispatch) => {
-  let array = [];
-  let favList = [];
-  let add = true;
+export const addToFavorites = (cId, user) => async (dispatch) => {
     axios
-    .post(`${API_URL}/favorites/add/${cId}`, user)
+    .put(`${API_URL}/favorites/add/${cId}`, user)
     .then((response) => {
       console.log("ADDEDDDDDD");
       console.log('ddd ' + JSON.stringify(response.data));
-
-      array.map((item) => {
-        if (item === props) {
-          add = false;
-        }
-      });
-      if (add) {
-        array.push(props);
-        favList = [...array];
-      }
 
       dispatch({
         type: ADD_TO_FAVORITES_SUCCESS,
         payload: response.data,
       });
-      localStorage.setItem("favs", favList);
+      localStorage.setItem("favs", JSON.stringify(response.data.favorites));
       //return response.data;
     })
     .catch((error) => {
@@ -81,23 +69,13 @@ export const addToFavorites = (cId, props, user) => async (dispatch) => {
 };
 
 
-export const removeFromFavorites = (cId , props, user) => async (dispatch) => {
-    let array = [];
-    let remove = false;
+export const removeFromFavorites = (cId , user) => async (dispatch) => {
+    
     axios
     .put(`${API_URL}/favorites/remove/${cId}`, user, config)
     .then((response) => {
-        console.log("REmoved");
-        console.log('ddd ' + JSON.stringify(response.data));
-  
-        array.map((item) => {
-          if (item === props) {
-            remove = true;
-          }
-        });
-        if (remove) {
-          array.pop(props);
-        }
+        console.log("Removed");
+        console.log('FAVORITES ' + JSON.stringify(response.data));
   
         dispatch({
           type: REMOVE_FROM_FAVORITES_SUCCESS,
