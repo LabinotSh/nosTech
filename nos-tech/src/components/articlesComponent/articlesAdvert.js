@@ -6,10 +6,10 @@ function AdvComponent() {
 return(
 <div className="col-xl-3 float-right">
         
-    <div class="card bg-primary text-white text-center p-3">
-        <blockquote class="blockquote mb-0">
+    <div className="card bg-primary text-white text-center p-3">
+        <blockquote className="blockquote mb-0">
         <p>Advertise here.</p>
-        <footer class="blockquote-footer text-white">
+        <footer className="blockquote-footer text-white">
         <small>
             Advertise your bussines 
             <cite title="Source Title">or product here.</cite>

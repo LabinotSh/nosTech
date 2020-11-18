@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./home.css";
 import Cards from "../../components/card/Cards";
 import Sources from "../../components/sources/Sources";
@@ -7,6 +7,12 @@ import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 function Home() {
+
+  useEffect(() => {
+    setTimeout(() => {
+      
+    }, 700);
+  })
   return (
     <>
       <div className="programming">

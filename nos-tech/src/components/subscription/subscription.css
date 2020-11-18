@@ -1,0 +1,43 @@
+.subscription {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.subscription-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.subscription-input-group{
+    width: 320px;
+}
+
+.submit-btn {
+    background-color: white;
+    color: #00132A;
+    outline-color:#00132A;
+    border-color:white;
+    width: 150px;
+    border-radius: 20px;
+    padding: 6px 4px;
+    box-shadow: 3px 5px 14px #bebcbc;
+}
+.submit-btn:hover{
+    background-color:#00132A;
+    outline-color: #00132A;
+    border-color:#00132A;
+}
+
+
+@media only screen and (max-width: 800px) {
+    .submit-btn {
+        color: white;
+        background-color:#00132A;
+        outline-color: #00132A;
+        border-color:#00132A;
+       }
+} 

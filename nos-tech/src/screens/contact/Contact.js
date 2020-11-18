@@ -276,10 +276,7 @@ function Contact() {
   return (
     <div className='Content container-md'>
       <Notifications />
-      {/* <p className = "comment-question">For any questions, comments, or concerns, 
-                please fill out the information below and we’ll make sure to reply as soon as possible
-            </p> */}
-      {/* left col */}
+      {/* {/* left col */}
       <div className='row main-row'>
         <div className='left col col-sm-12 col-md-12 col-lg-6'>
           <img src={test} alt='test' />
@@ -314,7 +311,7 @@ function Contact() {
                   <div>
                     <span>
                       Your message has been recieved! <br />
-                      Thank you for reaching to us!{' '}
+                      Thank you for reaching to us!
                     </span>
                     <button
                       className='btn btn-sm btn-outline-light'
@@ -322,7 +319,7 @@ function Contact() {
                     > X </button>
                   </div>,
                   'custom',
-                  8000,
+                  4000,
                   toastColor
                 )
                 setEmailSent(false)

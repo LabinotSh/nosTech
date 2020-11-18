@@ -25,6 +25,7 @@ export const listCourses = () => async (dispatch) => {
         dispatch({type: COURSE_LIST_REQUEST})
 
         const {data} = await axios.get('/api/course')
+        console.log('COURSE ' + data);
         dispatch({
             type:COURSE_LIST_SUCCESS,
             payload: data

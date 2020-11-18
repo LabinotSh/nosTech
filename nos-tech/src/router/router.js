@@ -32,6 +32,7 @@ import AdminRoute from "./adminRoute";
 import PrivateRoute from "./privateRoute";
 import PublicRoute from "./publicRoutes";
 import Categories from "../components/category/PostCategories";
+import CourseCategory from "../components/coursecategory/CourseCategory";
 
 function Router() {
   return (
@@ -56,6 +57,7 @@ function Router() {
       <AdminRoute path="/admins/users" component={UsersView}></AdminRoute>
       <AdminRoute path="/admins/user/:id/edit" component={UserEditView}></AdminRoute>
       <Route path="/categories" component={Categories} />
+      <Route exact path="/coursecategory/:cid" component={CourseCategory} />
       {history.location.pathname !== "/login" &&
       history.location.pathname !== "/registration" ? (
         <Footer />

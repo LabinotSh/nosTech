@@ -20,6 +20,10 @@ const courseSchema = new moongose.Schema({
         type: String,
         required: true
     },
+    favorite: {
+        type: Boolean,
+        default: false
+    },
     _instructor: {
         type: moongose.Schema.Types.ObjectId,
         required:false,

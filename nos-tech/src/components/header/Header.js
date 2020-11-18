@@ -1,30 +1,28 @@
 import React, { useEffect } from "react";
 import { Nav, Button } from "react-bootstrap";
-import { Link,NavLink, Redirect, withRouter } from "react-router-dom"
+import { Link, NavLink, Redirect, withRouter } from "react-router-dom";
 import "./header.css";
 import nosTech from "../../assets/images/nostech.png";
-import store from '../../store';
-import {logout} from '../../redux/actions/auth';
-import {history} from '../../helpers/history';
-import {connect, useDispatch} from 'react-redux';
+import store from "../../store";
+import { logout } from "../../redux/actions/auth";
+import { history } from "../../helpers/history";
+import { connect, useDispatch } from "react-redux";
 import DropdownItems from "../dropdown-items/DropdownItems";
 
 const user = localStorage.getItem("user");
 const ActiveLinks = {
   color: "#f06470",
-  fontWeight: "500"
-}
-
+  fontWeight: "500",
+};
 
 function Header() {
-
   //QEKJO I KA PAS FAJETTTTTTTTTTTT
-    // useEffect(() => {
-    //   if(!user){
-    //     history.push('/login');
-    //   }
-    // },[]);
-  
+  // useEffect(() => {
+  //   if(!user){
+  //     history.push('/login');
+  //   }
+  // },[]);
+
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-dark static-top font header">
@@ -48,7 +46,7 @@ function Header() {
               <div className="d-flex float-left col-md-10">
                 <div className="mx-auto">
                   <ul className="navbar-nav ml-auto">
-                    <li className="nav-item">
+                    <li className="nav-item nav-item-list-styling">
                       <NavLink
                         to="/"
                         tag="li"
@@ -60,7 +58,7 @@ function Header() {
                         Home
                       </NavLink>
                     </li>
-                    <li className="nav-item ">
+                    <li className="nav-item nav-item-list-styling">
                       <NavLink
                         to="/courses"
                         tag="li"
@@ -72,7 +70,7 @@ function Header() {
                         Courses
                       </NavLink>
                     </li>
-                    <li className="nav-item">
+                    <li className="nav-item nav-item-list-styling">
                       <NavLink
                         to="/articles"
                         tag="li"
@@ -84,7 +82,7 @@ function Header() {
                         Articles
                       </NavLink>
                     </li>
-                    <li className="nav-item">
+                    <li className="nav-item nav-item-list-styling">
                       <NavLink
                         to="/forum"
                         tag="li"
@@ -96,7 +94,7 @@ function Header() {
                         Forum
                       </NavLink>
                     </li>
-                    <li className="nav-item">
+                    <li className="nav-item nav-item-list-styling">
                       <NavLink
                         to="/about-us"
                         tag="li"
@@ -108,7 +106,7 @@ function Header() {
                         About Us
                       </NavLink>
                     </li>
-                    <li className="nav-item">
+                    <li className="nav-item nav-item-list-styling">
                       <NavLink
                         to="/contact"
                         tag="li"
@@ -167,4 +165,4 @@ function Header() {
   );
 }
 
-export default (withRouter(Header));
+export default withRouter(Header);
