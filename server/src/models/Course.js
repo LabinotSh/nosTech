@@ -37,6 +37,14 @@ const courseSchema = new moongose.Schema({
     videos: [{
         type: String,
         required: false
+    }],
+    feedback: [{
+        user: {
+            type: moongose.Schema.Types.ObjectId,
+            required:false,
+            ref: 'User'
+        },
+        comment: String
     }]
 },{
     timestamps: true
