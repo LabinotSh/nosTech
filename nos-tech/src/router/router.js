@@ -33,6 +33,7 @@ import PrivateRoute from "./privateRoute";
 import PublicRoute from "./publicRoutes";
 import Categories from "../components/category/PostCategories";
 import CourseCategory from "../components/coursecategory/CourseCategory";
+import Dashboard from "../screens/adminViews/Dashboard";
 
 function Router() {
   return (
@@ -40,11 +41,13 @@ function Router() {
       <Header />
       <Route path="/" component={Home} exact />
       <Route path="/courses" component={Courses} />
-      <Route path="/addcourse" component={AddCourse} />
+      <Route path="/add-course" component={AddCourse} />
       <Route path="/articles" component={Articles} />
       <Route path="/forum" component={Forum} />
       <Route path="/about-us" component={AboutUs} />
       <Route path="/contact" component={Contact} />
+      <Route path="/categories" component={Categories} />
+      <Route exact path="/coursecategory/:cid" component={CourseCategory} />
       {/* should not be shown to the user if the user is logged in */}
       <PublicRoute path="/login" component={Login} />
       <PublicRoute path="/registration" component={Registration} />
@@ -56,10 +59,15 @@ function Router() {
       <AdminRoute path="/admins/course/:id/edit" component={CourseEditView}></AdminRoute>
       <AdminRoute path="/admins/users" component={UsersView}></AdminRoute>
       <AdminRoute path="/admins/user/:id/edit" component={UserEditView}></AdminRoute>
-      <Route path="/categories" component={Categories} />
-      <Route exact path="/coursecategory/:cid" component={CourseCategory} />
+      <AdminRoute path="/admins/dashboard" component={Dashboard}></AdminRoute>
       {history.location.pathname !== "/login" &&
-      history.location.pathname !== "/registration" ? (
+      history.location.pathname !== "/registration" &&
+      history.location.pathname !== "/admins/dashboard" &&
+      history.location.pathname !== "/admins/users" &&
+      history.location.pathname !== "/admins/courses" &&
+      history.location.pathname !== "/categories" &&
+      history.location.pathname !== "/add-course" 
+      ? (
         <Footer />
       ) : null}
       {/* <Footer /> */}

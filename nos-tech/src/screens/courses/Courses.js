@@ -14,7 +14,7 @@ import ReactTooltip from "react-tooltip";
 import Loader from "../../components/icons/Loader";
 import { history } from "../../helpers/history";
 import { HeartFull, HeartEmpty } from "../../components/icons/Heart";
-import SearchBar from "../../components/searchBar/SearchBar";
+import SearchBar from "../../components/searchBar/searchBar";
 import { LinkContainer } from "react-router-bootstrap";
 
 const Courses = ({ list, pending, msg, loggedIn }) => {
