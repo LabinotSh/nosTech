@@ -1,26 +1,22 @@
-import React, { Component, useState } from 'react';
-import './searchBar.css';
+import React, { Component, useState } from "react";
+import "./searchBar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { Button } from "react-bootstrap";
+const searchBar = (props) => {
+  return (
+    <div className="search-box-tp">
+      <input
+        className="search-text-tp"
+        type="text"
+        placeholder="Type to search"
+        value={props.filter}
+        onChange={props.onChange}
+      />
 
-const SearchBar = (props) => {
+      <FontAwesomeIcon icon={faSearch} id="fas" />
+    </div>
+  );
+};
 
-    return (
-        <div className="float-right">
-        <div className="input-group mt-3">
-              <input
-                type="text"
-                placeholder="Search courses..."
-                className="search-form"
-                value={props.filter}
-                onChange={props.onChange}
-              />
-              <button className="btn btn-default search-btn">
-                <FontAwesomeIcon icon={faSearch} color={'#fff'} />
-              </button>
-            </div>
-            </div>
-    );
-}
-
-export default SearchBar;
+export default searchBar;
