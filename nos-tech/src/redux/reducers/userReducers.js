@@ -10,7 +10,10 @@ import {
     USER_DETAILS_FAIL,
     USER_UPDATE_REQUEST,
     USER_UPDATE_SUCCESS,
-    USER_UPDATE_FAIL
+    USER_UPDATE_FAIL,
+    USER_ADD_COURSE_REQUEST,
+    USER_ADD_COURSE_SUCCESS,
+    USER_ADD_COURSE_FAIL
     
 } from '../actions/types'
 
@@ -62,6 +65,19 @@ export const userUpdateReducer = (state = {user:{}}, action) => {
             return {...state,loading: false,success:true, user: action.payload}  
         case USER_UPDATE_FAIL:
             return {...state,loading: false, error: action.payload};
+            default:
+                return state    
+    }
+}
+
+export const userAddCourseReducer = (state = {}, action) => {
+    switch(action.type) {
+        case USER_ADD_COURSE_REQUEST:
+            return {loading: true, ...state}
+        case USER_ADD_COURSE_SUCCESS:
+            return {loading: false,success:true}  
+        case USER_ADD_COURSE_FAIL:
+            return {loading: false, error: action.payload};
             default:
                 return state    
     }
