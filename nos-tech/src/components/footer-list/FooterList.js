@@ -2,63 +2,62 @@ import React from "react";
 import { Media } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "./footer-list.css";
+import { RiMapPinFill } from "react-icons/ri";
+import { ImPhone } from "react-icons/im";
+import { GrMail } from "react-icons/gr";
+import { MdLocationCity } from "react-icons/md";
 
 function FooterList() {
   const list = [
-    {
-      title: "Content",
-      one: "Home",
-      two: "Courses",
-      three: "Articles",
-      four: "Forum",
-      five: "About Us",
-      six: "Contact",
-      seven: "Login",
-      eight: "Register",
-    },
+    // {
+    //   title: "Content",
+    //   one: "Home",
+    //   two: "Courses",
+    //   three: "Articles",
+    //   four: "Forum",
+    //   five: "About Us",
+    //   six: "Contact",
+    //   seven: "Login",
+    //   eight: "Register",
+    // },
     {
       title: "Get in Touch",
-      one: "232 Lovatt Crescent",
-      two: "(022) 2967-261",
-      three: "nostech@contact.info",
+      one: "232 Lovatt Crescent, Kensington",
+      two: "New Zealand, 0112",
+      three: "(022) 2967-261",
+      four: "nostech@contact.info",
     },
   ];
 
   const renderFooterList = (li, index) => {
     return (
       <ul key={index}>
-        <Media className="list-title">{li.title}</Media>
+        {/* <Media className="list-title">{li.title}</Media> */}
         <div className="list-item-container">
-          <Media className="list-item">
-            <Link to="/home" className="list-item-link">
+          <div className="list-item">
+            <Link className="list-item-link">
+              <RiMapPinFill className="footer-icons" />
               {li.one}
             </Link>
-          </Media>
-          <Media className="list-item">
-            <Link to="/courses" className="list-item-link">
+          </div>
+          <div className="list-item">
+            <Link className="list-item-link">
+              <MdLocationCity className="footer-icons" />
               {li.two}
             </Link>
-          </Media>
-          <Media className="list-item">
-            <Link to="/articles" className="list-item-link">
+          </div>
+          <div className="list-item">
+            <Link className="list-item-link">
+              <ImPhone className="footer-icons" />
               {li.three}
             </Link>
-          </Media>
-          <Media className="list-item">
-            <Link to="/forum" className="list-item-link">
+          </div>
+          <div className="list-item">
+            <Link className="list-item-link">
+              <GrMail className="footer-icons" />
               {li.four}
             </Link>
-          </Media>
-          <Media className="list-item">
-            <Link to="/about-us" className="list-item-link">
-              {li.five}
-            </Link>
-          </Media>
-          <Media className="list-item">
-            <Link to="/contact" className="list-item-link">
-              {li.six}
-            </Link>
-          </Media>
+          </div>
         </div>
       </ul>
     );

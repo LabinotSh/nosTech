@@ -24,20 +24,22 @@
     width: 150px;
     border-radius: 20px;
     padding: 6px 4px;
-    box-shadow: 3px 5px 14px #bebcbc;
+    box-shadow: 3px 5px 14px #494848;
 }
-.submit-btn:hover{
-    background-color:#00132A;
-    outline-color: #00132A;
-    border-color:#00132A;
+.submit-btn:hover,
+.submit-btn:active,
+.submit-btn:focus{
+    background-color:#BB343E;
+    outline-color:#BB343E;
+    border-color:#BB343E;
 }
 
 
 @media only screen and (max-width: 800px) {
     .submit-btn {
         color: white;
-        background-color:#00132A;
-        outline-color: #00132A;
-        border-color:#00132A;
+        background-color:#BB343E;
+    outline-color:#BB343E;
+    border-color:#BB343E;
        }
 } 
