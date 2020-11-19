@@ -5,7 +5,7 @@ import { Form, Button, FormControl, InputGroup } from "react-bootstrap";
 const Subscription = () => {
   return (
     <div className="subscription">
-      <p>
+      <p style={{ color: "white" }}>
         <b>Subscribe</b> for the latest from nosTech:
       </p>
 
