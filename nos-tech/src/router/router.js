@@ -5,6 +5,7 @@ import {
   Router as R,
   Switch,
   withRouter,
+  HashRouter
 } from "react-router-dom";
 import { ConnectedRouter } from "connected-react-router";
 

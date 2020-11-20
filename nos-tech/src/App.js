@@ -6,7 +6,7 @@ import Router from "./router/router";
 const App = () => {
 
   const [loading, setLoading] = useState(true);
-
+  
   useEffect(() => {
     fetch('/wake-up')
     // .then(res => res.json())

@@ -1,31 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./courses.css";
 import Carousel from "../../components/carousel/Carousel";
 import { connect, useDispatch, useSelector } from "react-redux";
-import { fetchAllCourses, addToFavorites, removeFromFavorites } from "../../redux/actions/courses";
+import { fetchAllCourses } from "../../redux/actions/courses";
 import { withRouter, Link, Redirect } from "react-router-dom";
 import responsive from "../../constants/carouselResponsive";
 import Banner from "../../components/banner/CourseBanner";
-import ReactTooltip from "react-tooltip";
 import Loader from "../../components/icons/Loader";
-import { HeartFull, HeartEmpty } from "../../components/icons/Heart";
 import SearchBar from "../../components/searchBar/searchBar";
-import { LinkContainer } from "react-router-bootstrap";
-import { history } from "../../helpers/history";
-import jwt_decode from 'jwt-decode';
+import CourseItem from './CourseItem';
 
-const Courses = ({ list, pending, loggedIn, fav  }) => {
+const Courses = ({ list, pending,err  }) => {
   const dispatch = useDispatch();
 
-  // const token = localStorage.getItem('user');
-  // const decoded = jwt_decode(token);
-  // const userId = decoded._id;
+  const isRendered = useRef('false');
 
-  const [user,setUser] = useState({});
-  const [enrolled,setEnrolled]= useState(false)
   const [listCourses, setCourses] = useState([]);
   const [filterText, setFilterText] = useState("");
-  const [favorite, setFavorite] = useState(false);
 
   const [displayMessage, setDisplayMessage] = useState("");
   
@@ -34,33 +25,26 @@ const Courses = ({ list, pending, loggedIn, fav  }) => {
   }
 
   const retrieveCourses = () => {
+    isRendered.current = true;
     dispatch(fetchAllCourses())
       .then((response) => {
+        if(isRendered){
         setCourses(response);
         console.log("COURSES: " + JSON.stringify(response));
+        }
       })
       .catch((e) => {
         console.error("Error: " + e);
       });
   };
 
-  const redirectOnClick = (id) => {
-    setTimeout(() => {
-      if(loggedIn || localStorage.getItem('user')){
-        history.push(`course/${id}`);
-    }else{
-      history.push('/login');
-    }
-    window.location.reload();   
-    }, 700);   
-  }
-
-  const favorites = localStorage.getItem('favs');
-
   //Load courses on render
   useEffect(() => {
-    console.log('favvaa ' + favorites);
     retrieveCourses();
+
+    return () => {
+      isRendered.current=false;
+    }
   }, []);
 
   //Make the search appear after 1 seconds and not immediately as the user is typing
@@ -69,112 +53,18 @@ const Courses = ({ list, pending, loggedIn, fav  }) => {
     return () => clearTimeout(timeOutId);
   }, [filterText]);
 
-  
-  
-  useEffect(() => {
-    try {
-        const token = localStorage.getItem('user');
-        if(token) {
-            const useri = jwt_decode(token)
-            
-            setUser(useri)
-            // console.log('sss ' + JSON.stringify(user));
-            // if(favorites.users) {
-            //     if(favorites.users.find(u => u.toString() === user._id.toString())) {
-            //         console.log('aaaa ' + user);
-            //         setEnrolled(true)
-            //     } 
-            // }
-        }
-    }catch(e) {
-        console.log(e)
-    }
-},[favorites]) 
-
-  
-    const results = !displayMessage
+  const results = !displayMessage
     ? listCourses
     : listCourses.filter(course =>
           course.name.toLowerCase().includes(displayMessage.toLocaleLowerCase())
-    );
+  );
   
   const CourseCarousel = (props) => {
     if(!results.length) return <div className="unmatch text-center">There is no matching searches!</div>
    
     return results.map((course) => {
       return (
-        <div className="card courses-card" key={course._id}>
-          <ReactTooltip
-            place="top"
-            backgroundColor={"#fc4563"}
-            type="success"
-            effect="solid"
-          />
-         <LinkContainer to={`course/${course._id}`}>
-              <img
-                src={course.image}
-                className="card-img-top courseImg"
-                alt="..."
-              />
-         </LinkContainer>
-          <div>
-            <h6 className="card-title courses-title">{course.name}</h6>
-            <p className="card-text courses-desc">{course.description}</p>
-            <div className="courses-footer">
-              <strong style={{ fontSize: "18px", marginTop: "6px" }}>
-                <i className="fa fa-eur" /> {course.price}
-              </strong>
-
-              <div className="justify-content-center">
-                {localStorage.getItem("user") && (
-                    <>
-                    <span
-                    className="hover"
-                    data-tip={
-                        // favorite || localStorage.getItem("favs")
-                        fav || localStorage.getItem('favs') 
-                        ? "Remove from favorites" : "Add to favorites"
-                    }
-                  >
-                    {
-                    // favorite || localStorage.getItem("favs")
-                    fav || localStorage.getItem('favs') 
-                     ? (
-                        <>
-                      <HeartFull
-                        onClick={() => {
-                          setFavorite(false);
-                          localStorage.removeItem("favs");
-                          dispatch(removeFromFavorites(course._id, user));
-                        }}
-                      />
-                      </>
-                    ) : (
-                        <>
-                      <HeartEmpty
-                        onClick={() => {
-                          setFavorite(true);
-                          dispatch(addToFavorites(course._id, user));
-                        }}
-                      />         
-                      </>
-                    )}
-                  </span> 
-                  </>
-                )}
-                <button
-                  className="btn btn-default buy"
-                  type="submit"
-                  onClick={() => {
-                      redirectOnClick(course._id);   
-                  }}
-                >
-                Enroll
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+        <CourseItem course={course} key={course._id} />
       );
     });
   };
@@ -217,8 +107,8 @@ function mapStateToProps(state) {
     loggedIn: state.login.isLoggedIn,
     pending: state.courses.pending,
     list: state.courses.courses,
-    fav:state.favorites.favorites.fav
+    err: state.favorites.error
   };
 }
 
-export default connect(mapStateToProps, { addToFavorites, removeFromFavorites, fetchAllCourses})(Courses);
+export default connect(mapStateToProps, { fetchAllCourses})(withRouter(Courses));

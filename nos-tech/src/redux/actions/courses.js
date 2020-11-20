@@ -44,9 +44,9 @@ export const fetchAllCourses = () => async (dispatch) => {
 };
 
 const config = { headers: {'Content-Type': 'application/json'} };
-export const addToFavorites = (cId, user) => async (dispatch) => {
-    axios
-    .put(`${API_URL}/favorites/add/${cId}`, user)
+export const addToFavorites = (uId, course) => async (dispatch) => {
+    return axios
+    .put(`${API_URL}/favorites/add/${uId}`, course)
     .then((response) => {
       console.log("ADDEDDDDDD");
       console.log('ddd ' + JSON.stringify(response.data));
@@ -55,8 +55,7 @@ export const addToFavorites = (cId, user) => async (dispatch) => {
         type: ADD_TO_FAVORITES_SUCCESS,
         payload: response.data,
       });
-      localStorage.setItem("favs", JSON.stringify(response.data.favorites));
-      //return response.data;
+      return response.data;
     })
     .catch((error) => {
       console.log(error);
@@ -65,14 +64,15 @@ export const addToFavorites = (cId, user) => async (dispatch) => {
         type: ADD_TO_FAVORITES_ERROR,
         payload: error.response.data,
       });
+      return error.response.data;
     });
 };
 
 
-export const removeFromFavorites = (cId , user) => async (dispatch) => {
+export const removeFromFavorites = (uId , course) => async (dispatch) => {
     
-    axios
-    .put(`${API_URL}/favorites/remove/${cId}`, user, config)
+    return axios
+    .put(`${API_URL}/favorites/remove/${uId}`, course)
     .then((response) => {
         console.log("Removed");
         console.log('FAVORITES ' + JSON.stringify(response.data));
@@ -91,5 +91,6 @@ export const removeFromFavorites = (cId , user) => async (dispatch) => {
           type: REMOVE_FROM_FAVORITES_ERROR,
           payload: error.response.data,
         });
+        return error.response.data;
       });
   };

@@ -9,6 +9,7 @@ export const HeartFull = (props) => {
 //   if(!user) return null;
   return (
     <FontAwesomeIcon
+      key={props.key}
       icon={faHeart}
       size="2x"
       color={"#fc4563"}
@@ -24,6 +25,7 @@ export const HeartEmpty = (props) => {
     // if(!user) return null;
     return (
         <FontAwesomeIcon
+          key={props.key}
           icon={farHeart}
           size="2x"
           color={"#fc4563"}

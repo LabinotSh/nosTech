@@ -26,14 +26,14 @@ const Login = ({authenticated, err, user, role}) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if(user){
+    if(user && authenticated){
         const role = user.role;
         if(role === "user"){
           history.push('/')
         }else{
           history.push('/admins/users')
         }
-        window.location.reload(); 
+      window.location.reload(); 
   }
   }, [user])
 
@@ -184,4 +184,4 @@ const mapStateToProps = state => ({
   err: state.login.error
 });
 
-export default connect(mapStateToProps ,{login})(Login);
+export default connect(mapStateToProps ,{login})(withRouter(Login));
