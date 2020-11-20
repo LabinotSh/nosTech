@@ -2,7 +2,11 @@ import React, { useState, useEffect } from "react";
 import "./courses.css";
 import Carousel from "../../components/carousel/Carousel";
 import { connect, useDispatch, useSelector } from "react-redux";
-import { fetchAllCourses, addToFavorites, removeFromFavorites } from "../../redux/actions/courses";
+import {
+  fetchAllCourses,
+  addToFavorites,
+  removeFromFavorites,
+} from "../../redux/actions/courses";
 import { withRouter, Link } from "react-router-dom";
 import responsive from "../../constants/carouselResponsive";
 import Banner from "../../components/banner/CourseBanner";
@@ -13,22 +17,22 @@ import { HeartFull, HeartEmpty } from "../../components/icons/Heart";
 import SearchBar from "../../components/searchBar/searchBar";
 import { LinkContainer } from "react-router-bootstrap";
 
-const Courses = ({ list, pending, msg  }) => {
-
+const Courses = ({ list, pending, msg, loggedIn }) => {
   const dispatch = useDispatch();
 
   const [listCourses, setCourses] = useState([]);
   const [filterText, setFilterText] = useState("");
   const [favorite, setFavorite] = useState(false);
-  
+
   const handleChange = (e) => {
-      setFilterText(e.target.value);
-  }
+    setFilterText(e.target.value);
+  };
 
   const retrieveCourses = () => {
     dispatch(fetchAllCourses())
       .then((response) => {
         setCourses(response);
+        setCourses(response.filter(x => x.status === 1));
         console.log("COURSES: " + JSON.stringify(response));
       })
       .catch((e) => {
@@ -36,20 +40,34 @@ const Courses = ({ list, pending, msg  }) => {
       });
   };
 
+  const redirectOnClick = (id) => {
+    if (loggedIn || localStorage.getItem("user")) {
+      history.push(`course/${id}`);
+    } else {
+      history.push("/login");
+    }
+    window.location.reload();
+  };
+
   //Load courses on render
   useEffect(() => {
-      retrieveCourses();
+    retrieveCourses();
   }, []);
 
   const results = !filterText
-  ? listCourses
-  : listCourses.filter(course =>
-      course.name.toLowerCase().includes(filterText.toLocaleLowerCase())
-    );
+    ? listCourses
+    : listCourses.filter((course) =>
+        course.name.toLowerCase().includes(filterText.toLocaleLowerCase())
+      );
 
   const CourseCarousel = (props) => {
-    if(!results.length) return <div className="unmatch text-center">There is no matching searches!</div>
-   
+    if (!results.length)
+      return (
+        <div className="unmatch text-center">
+          There is no matching searches!
+        </div>
+      );
+
     return results.map((course) => {
       return (
         <div className="card courses-card" key={course._id}>
@@ -59,13 +77,13 @@ const Courses = ({ list, pending, msg  }) => {
             type="success"
             effect="solid"
           />
-         <LinkContainer to={`course/${course._id}`}>
-              <img
-                src={course.image}
-                className="card-img-top courseImg"
-                alt="..."
-              />
-         </LinkContainer>
+          <LinkContainer to={`course/${course._id}`}>
+            <img
+              src={course.image}
+              className="card-img-top courseImg"
+              alt="..."
+            />
+          </LinkContainer>
           <div>
             <h6 className="card-title courses-title">{course.name}</h6>
             <p className="card-text courses-desc">{course.description}</p>
@@ -76,67 +94,81 @@ const Courses = ({ list, pending, msg  }) => {
 
               <div className="justify-content-center">
                 {localStorage.getItem("user") && (
-                    <>
-                    {msg ? (<span
-                    className="hover"
-                    data-tip={
-                        favorite || localStorage.getItem("favs") ? "Remove from favorites" : "Add to favorites"
-                    }
-                  >
-                    {favorite || localStorage.getItem("favs") ? (
-                        <>
-                      <HeartFull
-                        onClick={() => {
-                          setFavorite(false);
-                          localStorage.removeItem("favs");
-                          dispatch(removeFromFavorites(course._id, course));
-                        }}
-                      />
-                      </>
-                    ) : (
-                        <>
-                      <HeartEmpty
-                        onClick={() => {
-                          setFavorite(true);
-                          dispatch(addToFavorites(course._id, course));
-                        }}
-                      />         
-                      </>
-                    )}
-                  </span> ) : (
+                  <>
+                    {msg ? (
                       <span
-                      className="hover"
-                      data-tip={
-                        favorite || localStorage.getItem("favs") ? "Remove from favorites" : "Add to favorites"
-                      }
-                    >
-                      {favorite || localStorage.getItem("favs") ? (
+                        className="hover"
+                        data-tip={
+                          favorite || localStorage.getItem("favs")
+                            ? "Remove from favorites"
+                            : "Add to favorites"
+                        }
+                      >
+                        {favorite || localStorage.getItem("favs") ? (
                           <>
-                        <HeartFull
-                          onClick={() => {
-                            setFavorite(false);
-                            localStorage.removeItem("favs");
-                            dispatch(removeFromFavorites(course._id, course));
-                          }}
-                        />
-                        </>
-                      ) : (
+                            <HeartFull
+                              onClick={() => {
+                                setFavorite(false);
+                                localStorage.removeItem("favs");
+                                dispatch(
+                                  removeFromFavorites(course._id, course)
+                                );
+                              }}
+                            />
+                          </>
+                        ) : (
                           <>
-                        <HeartEmpty
-                          onClick={() => {
-                            setFavorite(true);
-                            dispatch(addToFavorites(course._id, course));
-                          }}
-                        />                       
-                        </>
-                      )}
-                    </span>
-                  )}     
+                            <HeartEmpty
+                              onClick={() => {
+                                setFavorite(true);
+                                dispatch(addToFavorites(course._id, course));
+                              }}
+                            />
+                          </>
+                        )}
+                      </span>
+                    ) : (
+                      <span
+                        className="hover"
+                        data-tip={
+                          favorite || localStorage.getItem("favs")
+                            ? "Remove from favorites"
+                            : "Add to favorites"
+                        }
+                      >
+                        {favorite || localStorage.getItem("favs") ? (
+                          <>
+                            <HeartFull
+                              onClick={() => {
+                                setFavorite(false);
+                                localStorage.removeItem("favs");
+                                dispatch(
+                                  removeFromFavorites(course._id, course)
+                                );
+                              }}
+                            />
+                          </>
+                        ) : (
+                          <>
+                            <HeartEmpty
+                              onClick={() => {
+                                setFavorite(true);
+                                dispatch(addToFavorites(course._id, course));
+                              }}
+                            />
+                          </>
+                        )}
+                      </span>
+                    )}
                   </>
                 )}
+
                 <button
                   className="btn btn btn-outline-success buy"
                   type="submit"
+                  onClick={() => {
+                    redirectOnClick(course._id);
+                  }}
                 >
                   Buy now
                 </button>
@@ -157,13 +189,16 @@ const Courses = ({ list, pending, msg  }) => {
           <div className="col-sm-4"></div>
           <div className="col-sm-4 text-center">
             <p className="courses-headline">Courses we offer!</p>
-            <hr/>
+            <hr />
+            <div
+              className="space-for-search-bar"
+              style={{ marginBottom: "70px" }}
+            >
+              <SearchBar input={filterText} onChange={handleChange} />
+            </div>
           </div>
-          <div className="col-sm-4 text-center">
-              <SearchBar 
-               input={filterText}
-               onChange={handleChange} />
-           </div> 
+
+          <div className="col-sm-4 text-center"></div>
         </div>
         <Carousel
           responsive={responsive}
@@ -183,10 +218,13 @@ const Courses = ({ list, pending, msg  }) => {
 
 function mapStateToProps(state) {
   return {
+    loggedIn: state.login.isLoggedIn,
     pending: state.courses.pending,
     list: state.courses.courses,
-    msg: state.favorites.favorites.msg
+    msg: state.favorites.favorites.msg,
   };
 }
 
-export default connect(mapStateToProps, { fetchAllCourses})(withRouter(Courses));
+export default connect(mapStateToProps, { fetchAllCourses })(
+  withRouter(Courses)
+);

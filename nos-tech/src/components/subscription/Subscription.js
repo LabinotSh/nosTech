@@ -50,8 +50,8 @@ const Subscription = () => {
 
   return (
     <div className='subscription'>
-      <Notifications />
-      <p>
+      {/*  <Notifications /> */}
+      <p style={{ color: 'white' }}>
         <b>Subscribe</b> for the latest from nosTech:
       </p>
 

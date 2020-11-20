@@ -13,8 +13,16 @@ import {
     COURSE_UPDATE_FAIL,
     COURSE_ADD_STUDENT_REQUEST,
     COURSE_ADD_STUDENT_FAIL,
-    COURSE_ADD_STUDENT_SUCCESS
-
+    COURSE_ADD_STUDENT_SUCCESS,
+    COURSE_CREATE_FEEDBACK_REQUEST,
+    COURSE_CREATE_FEEDBACK_FAIL,
+    COURSE_CREATE_FEEDBACK_SUCCESS,
+    COURSE_APPROVE_REQUEST,
+    COURSE_APPROVE_SUCCESS,
+    COURSE_APPROVE_FAIL,
+    COURSE_REFUSE_REQUEST,
+    COURSE_REFUSE_SUCCESS,
+    COURSE_REFUSE_FAIL
 } from '../actions/types'
 
 
@@ -38,6 +46,32 @@ export const courseDeleteReducer = (state = {}, action) => {
         case COURSE_DELETE_SUCCESS:
             return {...state,loading: false, success:true};
         case COURSE_DELETE_FAIL:
+            return {...state,loading: false, error: action.payload};
+        default:
+            return state
+    }
+}
+
+export const courseApproveReducer = (state = {}, action) => {
+    switch(action.type) {
+        case COURSE_APPROVE_REQUEST:
+            return {...state,loading: true};
+        case COURSE_APPROVE_SUCCESS:
+            return {...state,loading: false, success:true};
+        case COURSE_APPROVE_FAIL:
+            return {...state,loading: false, error: action.payload};
+        default:
+            return state
+    }
+}
+
+export const courseRefuseReducer = (state = {}, action) => {
+    switch(action.type) {
+        case COURSE_REFUSE_REQUEST:
+            return {...state,loading: true};
+        case COURSE_REFUSE_SUCCESS:
+            return {...state,loading: false, success:true};
+        case COURSE_REFUSE_FAIL:
             return {...state,loading: false, error: action.payload};
         default:
             return state
@@ -77,6 +111,19 @@ export const courseAddStudentReducer = (state = {}, action) => {
         case COURSE_ADD_STUDENT_SUCCESS:
             return {loading: false,success:true}  
         case COURSE_ADD_STUDENT_FAIL:
+            return {loading: false, error: action.payload};
+            default:
+                return state    
+    }
+}
+
+export const courseCreateFeedbackReducer = (state = {}, action) => {
+    switch(action.type) {
+        case COURSE_CREATE_FEEDBACK_REQUEST:
+            return {loading: true, ...state}
+        case COURSE_CREATE_FEEDBACK_SUCCESS:
+            return {loading: false,success:true}  
+        case COURSE_CREATE_FEEDBACK_FAIL:
             return {loading: false, error: action.payload};
             default:
                 return state    

@@ -1,13 +1,13 @@
 import React, {useState, useEffect} from 'react'
 import './course.css'
 import Feedback from './Feedback';
-import spinner from './spinner.gif'
 import { history } from "../../helpers/history";
-import {useDispatch, useSelector,connect} from 'react-redux'
-import {withRouter, Link} from 'react-router-dom';
-import {listCourseDetails,addStudentToCourse} from '../../redux/actions/courseActions'
+import {useDispatch, useSelector} from 'react-redux'
+import {listCourseDetails,addStudentToCourse,createCourseFeedback} from '../../redux/actions/courseActions'
+import {addCourseToStudent} from '../../redux/actions/userActions'
 import jwt_decode from 'jwt-decode';
-import Loader from '../../components/icons/Loader';
+
+
 
 
 
@@ -24,17 +24,22 @@ const Course = ({match, loading}) => {
 
     const courseAddStudent = useSelector(state => state.courseAddStudent)
     const {success:addStudentSuccess} = courseAddStudent
+
+    const [comment,setComment] = useState("")
     
-    
+    const courseCreateFeedback = useSelector(state => state.courseCreateFeedback)
+    const{success:createFeedbackSuccess, error:createFeedbackError} = courseCreateFeedback
 
     //Gets course details 
     useEffect(() => {
         if(addStudentSuccess) {
             alert("You've enrolled successfully")
-            
+        }
+        if(createFeedbackSuccess) {
+            alert("Your review was successfully submited!")
         }
         dispatch(listCourseDetails(courseId)) 
-    },[dispatch,addStudentSuccess])
+    },[dispatch,addStudentSuccess,createFeedbackSuccess])
 
 
     //Loads the first video of the course
@@ -55,8 +60,7 @@ const Course = ({match, loading}) => {
         try {
             const token = localStorage.getItem('user')
             if(token) {
-                const useri = jwt_decode(token)
-                
+                const useri = jwt_decode(token)       
                 setUser(useri)
                 if(course.users) {
                     if(course.users.find(u => u.toString() === user._id.toString())) {
@@ -72,16 +76,29 @@ const Course = ({match, loading}) => {
     const enrollCourseHandler = () => {
         console.log(user)
         if(!user._id) {
-            console.log("thisss")
             localStorage.setItem('course', courseId);
             history.push('/login')
         }else {
             dispatch(addStudentToCourse(courseId,user))
+            dispatch(addCourseToStudent(user._id,course))
         }
     } 
 
+    const feedbackSubmitHandler = (e) => {
+        e.preventDefault();
+        
+        const userId = user._id
+
+        console.log(userId)
+        console.log(comment)
+        dispatch(createCourseFeedback(courseId, {
+            user:userId,
+            comment
+        }))
+        setComment("")
+    }
+
     return (
-       
         <>
             <div className="mx-2 mt-3 py-3 mainContent">
                 <h6>Category &gt; <a href="#">{course.category}</a></h6>
@@ -99,8 +116,7 @@ const Course = ({match, loading}) => {
                     </div>:
                     <ul class="list-group course-list w-25">
                         {(course.videos)?(<>{course.videos.map((courseVideo, index) =>
-                        <li  class="list-group-item" key={index} onClick={() => videoChangeHandler(courseVideo)}>{`${index +1}. ${courseVideo}`}</li>) }
-                       
+                        <li  class="list-group-item" key={index} onClick={() => videoChangeHandler(courseVideo)}>{`${index +1}. ${courseVideo}`}</li>) }           
                         </>):null}
                     </ul>
                     }
@@ -124,14 +140,28 @@ const Course = ({match, loading}) => {
                 </div>
 
             </div>:
-            <div className="bg-light">
+            <div className="feedbacks">
                 {
-                   (course.feedback)?course.feedback.map((feedback,i) => (
-                        <React.Fragment key={i}><Feedback title={feedback.comment} name={feedback.name}></Feedback> <hr></hr> </React.Fragment>)):<div><img src={spinner}></img></div>
-                } 
+                    (course.feedback)?course.feedback.map((feedback,i) => (
+                        <React.Fragment key={i}><Feedback title={feedback.comment} name={feedback.user.name} lastname={feedback.user.surname}></Feedback> <hr></hr> </React.Fragment>))
+                        :<div className="about-majte"><p>There are no feedbacks</p></div>
+                }
+                
+                {enrolled?
+                
+                <form onSubmit={feedbackSubmitHandler}>
+                    <h4 className="mt-5 mb-3">Leave a Review</h4>
+                    {(createFeedbackError)?
+                    <div className="alert alert-danger">{createFeedbackError}</div>:null
+                    }
+                    <div className="form-group">
+                        <textarea class="form-control border border-secondary"  rows="4" value={comment} placeholder="Your comment..." onChange={(e)=>setComment(e.target.value)}></textarea>
+                    </div>
+                    <button type="submit" className="btn btn-primary">Submit</button>
+                </form>:null
+                }
             </div>
             }
-           
         </>
     )
 }

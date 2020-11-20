@@ -39,7 +39,7 @@ router.get('/:courseId/users', async (req,res) => {
 //find course by id
 router.get('/:id', asyncHandler(async(req,res) => {
     const { id } = req.params;
-    const course = await Course.findById(id);
+    const course = await Course.findById(id).populate('feedback.user','name surname')
     if(course) {
         res.send(course);
     }else {
@@ -182,6 +182,33 @@ router.post('/:id/addUser', asyncHandler(async(req, res)=> {
         course.users.push(req.body._id);
         await course.save()
         res.status(201).json({message:"Enrolled Successfully!"})
+    }else {
+        res.status(404)
+        throw new Error("Course not found")
+    }
+}))
+
+router.post('/:id/addReview', asyncHandler(async(req, res)=> {
+    const course = await Course.findById(req.params.id);
+    
+    if(course) {
+        
+        
+        const alreadyReviewed = course.feedback.find(u => u.user.toString() === req.body.user.toString())
+        if(alreadyReviewed) {
+            res.status(400)
+            throw new Error("You've already left a feedback!")
+        }
+
+        console.log(req.body.comment)
+        const feedback = {
+            user:req.body.user,
+            comment:req.body.comment
+        }
+
+        course.feedback.push(feedback);
+        await course.save()
+        res.status(201).json({message:"Feedback left successfully!"})
     }else {
         res.status(404)
         throw new Error("Course not found")

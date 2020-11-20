@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import LeftContent from '../../components/courseComponents/postform'
+import Panel from '../../components/panel/Panel';
 
 function AddCourse() {
   /** start states */
@@ -87,9 +88,14 @@ function AddCourse() {
 
 
   return (
-    <div className='d-flex justify-content-center'>
-     
-      <div className="main-add-course d-flex my-5 justify-content-center align-items-center flex-row">
+    <div>
+      
+      <div className="col-xl-12">
+        <div style={{marginLeft:'-15px'}}>
+        <Panel />
+        </div>
+      
+      <div className="main-add-course pt-5 d-flex justify-content-center align-items-center flex-row">
       <LeftContent />
         
       <div className="add-course-right-content">
@@ -172,6 +178,7 @@ function AddCourse() {
         </button>
       </form>
       </div>
+      </div>    
       </div>
     </div>
   );

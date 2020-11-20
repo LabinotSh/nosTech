@@ -1,5 +1,5 @@
 .category-form{
-    margin: 10% 0 10% 2%;
+    margin: 10% 0 0 0;
     background-image: url('../../assets/images/category.png');
     width: 450px;
     height: 500px;
@@ -34,7 +34,7 @@
     color: orange;
 }
 .category-table{
-    margin: 30% 0% 10% 10%;
+    margin: 30% 0% 10% 0%;
     width: 400px;
     border: 2px solid rgb(185, 185, 185)
 }

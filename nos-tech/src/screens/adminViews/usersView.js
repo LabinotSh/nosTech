@@ -1,20 +1,31 @@
-import React, {useEffect} from 'react'
+import React, {useEffect,useState} from 'react'
 import { LinkContainer } from 'react-router-bootstrap'
 import {Table, Button} from 'react-bootstrap'
 import {listUsers, deleteUser} from '../../redux/actions/userActions'
 import {useDispatch, useSelector} from 'react-redux'
 import './courseView.css'
-
+import Panel from '../../components/panel/Panel';
+import Pagination from '../../components/pagination/Pagination';
 
 const UsersView = () => {
     const dispatch = useDispatch();
     
+    const [currentPage, setCurrentPage] = useState(1);
+    const [postsPerPage] = useState(10);
+
     const userList = useSelector(state => state.userList)
     const {users} = userList
 
     const userDelete = useSelector(state => state.userDelete)
     const {success:userDeleteSuccess} = userDelete
 
+     //Pagination
+	const indexOfLastPost = currentPage * postsPerPage;
+    const indexOfFirstPost = indexOfLastPost - postsPerPage;
+    const currentPosts = users.slice(indexOfFirstPost, indexOfLastPost);
+
+    // Change page
+    const paginate = pageNumber => setCurrentPage(pageNumber);
     
     useEffect(() => {
         dispatch(listUsers())
@@ -28,12 +39,9 @@ const UsersView = () => {
         }
     }
 
-    
-    
-
     return (
         <>
-            <h2 className="ml-5 text-black">USERS</h2>
+            <Panel />
             <div className="smaller">
             <Table striped bordered hover  size="sm"  >
                 <thead>
@@ -44,10 +52,12 @@ const UsersView = () => {
                         <th>USERNAME</th>
                         <th>EMAIL</th>
                         <th>ROLE</th>
+                        <th>EDIT</th>
+                        <th>DELETE</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {users.map(user =>(
+                    {currentPosts.map(user =>(
                         <tr key={user._id}>
                             <td>{user._id}</td>
                             <td>{user.name}</td>
@@ -57,22 +67,24 @@ const UsersView = () => {
                             <td>{user.role}</td>
                             <td>
                                 <LinkContainer to={`/admins/user/${user._id}/edit`}>
-                                    <Button variant="light" className="btn-sm" style={{fontWeight: 'bold'}}>
-                                    Edit
-                                    </Button>
+                                <i className="pl-2 fa fa-edit category-edit" />
                                 </LinkContainer>
                                 
                             </td>
                             <td>
-                                    <Button variant="danger" className="btn-sm" style={{fontWeight: 'bold'}} onClick={() => deleteUserHandler(user._id)}>
-                                        Delete
-                                    </Button>
-                                
+                                <i onClick={() => deleteUserHandler(user._id)} className="pl-3 fa fa-trash category-trash" />                           
                             </td>
                         </tr>
                     ))}
                 </tbody>
             </Table>
+            </div>
+            <div className="d-flex justify-content-center">
+            <Pagination
+            postsPerPage={postsPerPage}
+            totalPosts={users.length}
+            paginate={paginate}
+            />
             </div>
         </>
     )

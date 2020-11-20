@@ -7,12 +7,9 @@ import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 function Home() {
-
   useEffect(() => {
-    setTimeout(() => {
-      
-    }, 700);
-  })
+    setTimeout(() => {}, 700);
+  });
   return (
     <>
       <div className="programming">

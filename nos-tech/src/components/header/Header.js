@@ -52,6 +52,7 @@ function Header() {
                         tag="li"
                         active-class="active"
                         className="navigation"
+                        id="navlink-test"
                         activeStyle={ActiveLinks}
                         exact
                       >
@@ -126,7 +127,7 @@ function Header() {
                 <div id="c">
                   <ul className="navbar-nav ml-auto">
                     {!user && (
-                      <li className="nav-item">
+                      <li className="nav-item nav-item-list-styling">
                         <NavLink
                           to="/login"
                           tag="li"
@@ -140,7 +141,7 @@ function Header() {
                       </li>
                     )}
                     {!user && (
-                      <li className="nav-item">
+                      <li className="nav-item nav-item-list-styling">
                         <NavLink
                           to="/registration"
                           tag="li"

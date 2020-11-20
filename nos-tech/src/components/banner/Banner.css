@@ -94,3 +94,38 @@
     justify-content: center;
     /* justify-content: space-between; */
 }
+.courseCatBanner-button{
+    border: none;
+    padding: 10px;
+    border-radius: 0;
+    color:rgb(0, 0, 0);
+    background-color:#ffffff;
+    margin-right: 10px;
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 2;
+    margin-left: 25px;
+    transition: ease-in-out;
+    transition-timing-function: ease-in-out;
+    transition-duration: 0.5s;
+    margin-bottom: 20px;
+    
+}
+.courseCatBanner-button:hover{
+    transform: scale(1.1,1.1);
+    z-index: 1;
+    background-color: black;
+    color: white;
+    text-decoration: none;
+}
+@media (max-width: 768px) {
+      .courseCatBanner-button{
+          padding: 5px;
+          margin: 0 20px 0 0;
+      }
+      .courseBanner-button{
+        padding: 5px;
+        margin: 0 20px 0 0;
+    }
+  
+  }
