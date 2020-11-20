@@ -54,6 +54,7 @@ const CoursesView = ({history}) => {
                         <th>DESCRIPTION</th>
                         <th>PRICE</th>
                         <th>CATEGORY</th>
+                        <th>STATUS</th>
                         <th>EDIT</th>
                         <th>DELETE</th>
                     </tr>
@@ -66,6 +67,13 @@ const CoursesView = ({history}) => {
                             <td className="courses-table-dsc">{course.description}</td>
                             <td>{course.price}</td>
                             <td>{course.category}</td>
+                            <td>{course.status === 0 
+                                ? <span className="text-warning">Onhold</span>
+                                : course.status === 1
+                                ? <span className="text-success">Aproved</span>
+                                : <span className="text-danger">Refused</span>
+                                }
+                            </td>
                             <td>
                                 <LinkContainer to={`/admins/course/${course._id}/edit`}>
                                     <i className="pl-2 fa fa-edit category-edit" />

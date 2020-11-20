@@ -34,6 +34,7 @@ import PublicRoute from "./publicRoutes";
 import Categories from "../components/category/PostCategories";
 import CourseCategory from "../components/coursecategory/CourseCategory";
 import Dashboard from "../screens/adminViews/Dashboard";
+import CourseReview from "../screens/adminViews/courseReview";
 
 function Router() {
   return (
@@ -60,13 +61,15 @@ function Router() {
       <AdminRoute path="/admins/users" component={UsersView}></AdminRoute>
       <AdminRoute path="/admins/user/:id/edit" component={UserEditView}></AdminRoute>
       <AdminRoute path="/admins/dashboard" component={Dashboard}></AdminRoute>
+      <AdminRoute path="/admins/course-review" component={CourseReview}></AdminRoute>
       {history.location.pathname !== "/login" &&
       history.location.pathname !== "/registration" &&
       history.location.pathname !== "/admins/dashboard" &&
       history.location.pathname !== "/admins/users" &&
       history.location.pathname !== "/admins/courses" &&
       history.location.pathname !== "/categories" &&
-      history.location.pathname !== "/add-course" 
+      history.location.pathname !== "/add-course" &&
+      history.location.pathname !== "/admins/course-review"
       ? (
         <Footer />
       ) : null}

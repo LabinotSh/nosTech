@@ -14,7 +14,7 @@ const CourseCategory = ({list,pending, match}) => {
     let params = match.params
     const [repos, setRepos] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [postsPerPage] = useState(3);
+    const [postsPerPage] = useState(1);
     
     //Get courses by category
     const retrieveCourses = () => {
