@@ -1,3 +1,53 @@
+const nodemailer = require('nodemailer')
+require('dotenv').config()
+
+const credentials = {
+  service: 'gmail',
+  // port: 465,
+  // secure: true,
+  auth: {
+    type: 'OAuth2',
+    user: process.env.MAIL_USER,
+    pass: process.env.MAIL_PASS,
+    clientId:
+      '615263835064-jen0pbc6480cs03vlaah0nbulju1pah8.apps.googleusercontent.com',
+    clientSecret: 'zUalanmyojx17vecaOC2VM0O',
+    refreshToken:
+      '1//04l6HTY5bb1fvCgYIARAAGAQSNwF-L9IricARJzFVxNPja3Pkq5QV-jMeMCVfHVr-jtuihPmk3EeCG1rXE65w5DsI1gRC9EeXnbc',
+  },
+  tls: {
+    rejectUnauthorized: false,
+  },
+}
+
+const transporter = nodemailer.createTransport(credentials)
+
+const confirmEmail = async (to, content) => {
+  const contacts = {
+    from: process.env.MAIL_USER,
+    to,
+  }
+  const email = Object.assign({}, content, contacts)
+  await transporter.sendMail(email)
+}
+
+const contactEmail = async (name, sname, email, subject, message) => {
+  const contact = {
+    from: `${name} ${sname} <${email}>`,
+    to: process.env.MAIL_USER,
+    subject: subject,
+    html: `<p>Name: ${name} ${sname}</p><p>Email(from): ${email}</p><p>Message: ${message}</p>`,
+  }
+
+  const send = Object.assign({}, contact)
+  await transporter.sendMail(send)
+}
+
+module.exports = {
+  confirmEmail,
+  contactEmail,
+}
+
 // let express = require('express')
 // let nodemailer = require('nodemailer')
 // const router = express.Router()
@@ -63,54 +113,3 @@
 // // serve PORT running here
 // const PORT = process.env.PORT || 8080
 // app.listen(PORT, () => console.info(`server has started on ${PORT}`))
-
-// Labinoti
-const nodemailer = require('nodemailer')
-require('dotenv').config()
-
-const credentials = {
-  service: 'gmail',
-  // port: 465,
-  // secure: true,
-  auth: {
-    type: 'OAuth2',
-    user: process.env.MAIL_USER,
-    pass: process.env.MAIL_PASS,
-    clientId:
-      '615263835064-jen0pbc6480cs03vlaah0nbulju1pah8.apps.googleusercontent.com',
-    clientSecret: 'zUalanmyojx17vecaOC2VM0O',
-    refreshToken:
-      '1//04l6HTY5bb1fvCgYIARAAGAQSNwF-L9IricARJzFVxNPja3Pkq5QV-jMeMCVfHVr-jtuihPmk3EeCG1rXE65w5DsI1gRC9EeXnbc',
-  },
-  tls: {
-    rejectUnauthorized: false,
-  },
-}
-
-const transporter = nodemailer.createTransport(credentials)
-
-const confirmEmail = async (to, content) => {
-  const contacts = {
-    from: process.env.MAIL_USER,
-    to,
-  }
-  const email = Object.assign({}, content, contacts)
-  await transporter.sendMail(email)
-}
-
-const contactEmail = async (name, sname, email, subject, message) => {
-  const contact = {
-    from: `${name} ${sname} <${email}>`,
-    to: process.env.MAIL_USER,
-    subject: subject,
-    html: `<p>Name: ${name} ${sname}</p><p>Email(from): ${email}</p><p>Message: ${message}</p>`,
-  }
-
-  const send = Object.assign({}, contact)
-  await transporter.sendMail(send)
-}
-
-module.exports = {
-  confirmEmail,
-  contactEmail,
-}

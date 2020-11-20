@@ -235,7 +235,7 @@ import Error from '../../components/error/Error.js'
 import axios from 'axios'
 import { API_URL } from '../../constants/Constants'
 import Notifications, { notify } from 'react-notify-toast'
-import Spinner from '../../components/icons/Spinner';
+import Spinner from '../../components/icons/Spinner'
 
 const validationSchema = Yup.object().shape({
   fname: Yup.string()
@@ -294,7 +294,6 @@ function Contact() {
             validationSchema={validationSchema}
             onSubmit={(values, { setSubmitting, resetForm }) => {
               setSubmitting(true)
-              //axios
 
               sendEmail(
                 values.fname,
@@ -316,7 +315,10 @@ function Contact() {
                     <button
                       className='btn btn-sm btn-outline-light'
                       onClick={notify.hide}
-                    > X </button>
+                    >
+                      {' '}
+                      x{' '}
+                    </button>
                   </div>,
                   'custom',
                   4000,
@@ -452,9 +454,11 @@ function Contact() {
                     className='btn submit-btn btn-outline-dark btn-block pseudoBtn'
                   >
                     {/* //Send */}
-                    {emailSent 
-                    ? <Spinner size='1x' spinning="spinning" />
-                    : 'Send'}
+                    {emailSent ? (
+                      <Spinner size='1x' spinning='spinning' />
+                    ) : (
+                      'Send'
+                    )}
                   </button>
                 </div>
               </form>
