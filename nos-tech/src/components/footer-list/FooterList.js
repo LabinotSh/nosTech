@@ -22,7 +22,7 @@ function FooterList() {
     // },
     {
       title: "Get in Touch",
-      one: "232 Lovatt Crescent, Kensington",
+      one: "232 Lovatt Crescent",
       two: "New Zealand, 0112",
       three: "(022) 2967-261",
       four: "nostech@contact.info",
