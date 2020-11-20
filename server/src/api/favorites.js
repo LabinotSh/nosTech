@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 const Course = require('../models/Course');
 const User = require('../models/User');
-var mongoose = require('mongoose');
 const asyncHandler = require('express-async-handler');
 
 //Added to favorites
@@ -43,7 +42,7 @@ router.put('/add/:uId', asyncHandler(async(req,res) => {
                 }
 
         }else{
-            res.json({message:"Already added!"})
+            res.json({msg:"Already added!"})
         }
     })
 
@@ -71,44 +70,6 @@ router.put('/add/:uId', asyncHandler(async(req,res) => {
     //    }
 
 }))
-
-router.post('/remove/:uId', async (req, res) => {
-	const { uId } = req.params;
-  const user = await User.findById(uId);
-  
-	if (user) {
-    const alreadyRemoved = user.favorites.find((u) => u.toString() === req.body._id.toString());
-    console.log('QQQQ ' + alreadyRemoved === req.body._id);
-    console.log('FFFF ' + user.favorites.find((u) => u.toString() === req.body._id.toString()))
-		if (alreadyRemoved) {
-      const course = await Course.findByIdAndUpdate(
-				req.body._id,
-				{
-					favorite: false,
-				},
-				{
-					new: true,
-				}
-			);
-      user.favorites.pull(req.body._id);
-      
-      console.log('TE njejte ' + alreadyRemoved);
-
-			console.log('ca ' + course);
-			const user = await user.save();
-			res.status(201).json({ message: 'Removed from favorites', fav: course.favorite, favorites: user.favorites });
-
-      
-		} else {
-      console.log('ID '+ req.body._id);
-			res.status(400).send({msg:'Already has been removed!'});
-			
-		}
-	} else {
-		res.status(404);
-		throw new Error('Course not found');
-	}
-});
 
 //Remove from favorites
 router.put('/remove/:uId', async (req, res) => {
@@ -144,6 +105,7 @@ router.put('/remove/:uId', async (req, res) => {
 	// res.send(course);
 });
 
+//Get all user's favorites
 router.get('/:uId/getAll', async (req, res) => {
   const {uId} = req.params;
 
