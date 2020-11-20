@@ -93,6 +93,18 @@ const Panel = () => {
         <i className="far fa-folder-open panel-icons-drp-small"/>
         <span>All Courses</span>
         </NavLink>
+
+        <NavLink
+        to="/admins/course-review"
+        tag="li"
+        active-class="active"
+        className="panel-links-drp-item"
+        activeStyle={ActiveLinksPanel}
+        exact
+        >
+        <i className="fas fa-tv panel-icons-drp-small"/>
+        <span>Course Review</span>
+        </NavLink>
         </Dropdown.Item>
     </Dropdown.Menu>
     </Dropdown>

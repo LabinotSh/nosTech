@@ -32,6 +32,7 @@ const Courses = ({ list, pending, msg, loggedIn }) => {
     dispatch(fetchAllCourses())
       .then((response) => {
         setCourses(response);
+        setCourses(response.filter(x => x.status === 1));
         console.log("COURSES: " + JSON.stringify(response));
       })
       .catch((e) => {

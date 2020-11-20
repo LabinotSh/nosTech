@@ -49,7 +49,11 @@ const courseSchema = new moongose.Schema({
             ref: 'User'
         },
         comment: String
-    }]
+    }],
+    status: {
+        type: Number,
+        default: 0
+    }
 },{
     timestamps: true
 })
