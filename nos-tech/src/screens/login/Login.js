@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import "./login.css";
 import { Container, Row, Col, Card, Button, Form } from "react-bootstrap";
 import loginBackground from "../../assets/images/loginBackground.png";
@@ -17,24 +17,22 @@ const validationSchema = Yup.object().shape({
   password: Yup.string().required("(Password is required)"),
 });
 
-const Login = ({authenticated, err, user, role}) => {
+const Login = ({authenticated, user, err}) => {
 
   const [loading, setLoading] = useState(false);
   const [ro, setRole] = useState("");
   const [error, setError] = useState("");
+  const [unMounted, setUnmounted] = useState(false);
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
+
+  useEffect(() => {  
     if(user && authenticated){
-        const role = user.role;
-        if(role === "user"){
-          history.push('/')
-        }else{
-          history.push('/admins/users')
-        }
-      window.location.reload(); 
-  }
+      const role = user.role;
+      role==="user" ? history.push('/') : history.push('/admins/users')
+      //window.location.reload(); 
+    }
   }, [user])
 
   useEffect(() => {
@@ -48,43 +46,40 @@ const Login = ({authenticated, err, user, role}) => {
       if(error){
         setError('')
       }
-    }, 3500); 
+    }, 4000); 
   },[error])
 
-
   return (
+    <>
+    
     <Formik
       initialValues={{ username: "", password: "" }}
       validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting, resetForm }) => {
-        setSubmitting(true);
-        setLoading(true);
-        //down below is where the data should be sent to the server
+        // setSubmitting(true);
+        // setLoading(true);
+        //down below is where the data should be sent to the server 
         dispatch(login(values.username, values.password))
         .then(response => {
-          // setLoading(true);
-          const userRole = JSON.stringify(response.data.user['role']);
-
-          setRole(userRole);
-          console.log('Role: ' + userRole);   
+          setSubmitting(true);
+          setLoading(false);
+          setError('');
           setTimeout(() => {
             resetForm();
-            setSubmitting(false);
-            setLoading(true);
-            setError('');
-          }, 500);    
-         
+            setLoading(false);
+          },500)
+
         }).catch(error => {
-          setLoading(false);
+          setLoading(true);
           console.log('Error: ' + error);
+          setSubmitting(false);
+          setError(err)
+          setTimeout(() => {
+            setLoading(false);
+            resetForm();
+          }, 1500)
   
         });
-        setTimeout(() => {
-          resetForm();
-          setSubmitting(false);
-          setLoading(false); 
-        }, 800);
-       
       }}
     >
       {({
@@ -175,13 +170,14 @@ const Login = ({authenticated, err, user, role}) => {
         </Container>
       )}
     </Formik>
+    </>
   );
 }
 
 const mapStateToProps = state => ({
   user: state.login.user,
   authenticated: state.login.isLoggedIn,
-  err: state.login.error
+   err: state.login.error
 });
 
 export default connect(mapStateToProps ,{login})(withRouter(Login));

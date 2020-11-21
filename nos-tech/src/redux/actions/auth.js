@@ -5,7 +5,6 @@ import {LOGIN_SUCCESS,
        REGISTER_REQUEST, 
        REGISTER_SUCCESS} from './types';
 import axios from 'axios';
-import responsive from '../../constants/carouselResponsive';
 import {history} from '../../helpers/history';
 
 const API_URL = 'http://localhost:3001/api/user'; 
@@ -54,18 +53,8 @@ export const login = (username, password) => async (dispatch) => {
             localStorage.setItem('user', JSON.stringify(user));
             localStorage.setItem('refresh', JSON.stringify(response.data.refreshToken));
             localStorage.setItem('userFav', JSON.stringify(response.data.user.favorites)); 
-            localStorage.setItem('us', JSON.stringify(response.data.user));
-            console.log('favor ' + JSON.stringify(response.data.favorites)) 
-            
+            console.log('favor ' + JSON.stringify(response.data.favorites))   
         }
-
-        // const role = JSON.stringify(response.data.user['role']);
-        // if(role === "admin"){
-        //     history.push('/admins/users')
-        // }else{
-        //     history.replace('/');
-        // }
-  
         dispatch({
             type:LOGIN_SUCCESS,
             payload: response.data.user
@@ -100,9 +89,7 @@ export const login = (username, password) => async (dispatch) => {
 export const logout = () => (dispatch) => {
  localStorage.removeItem('user');
  localStorage.removeItem('refresh');
- localStorage.removeItem('us');
  localStorage.removeItem('userFav')
- 
 
  dispatch({
      type:LOGOUT

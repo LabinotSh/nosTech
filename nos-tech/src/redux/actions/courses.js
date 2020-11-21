@@ -82,26 +82,26 @@ export const addToFavorites = (uId, course) => async (dispatch) => {
 };
 
 export const removeFromFavorites = (uId, course) => async (dispatch) => {
-	let favs = JSON.parse(localStorage.getItem('userFav'));
-	let array = [...favs];
-	let favList = [];
-	let remove = false;
+	// let favs = JSON.parse(localStorage.getItem('userFav'));
+	// let array = [...favs];
+	// let favList = [];
+	// let remove = false;
 	return axios
 		.put(`${API_URL}/favorites/remove/${uId}`, course)
 		.then((response) => {
 			console.log('Removed');
 			console.log('FAVORITES ' + JSON.stringify(response.data));
 
-			array.map((item) => {
-				if (item === course._id) {
-					remove = true;
-				}
-			});
-			if (remove) {
-				array.pop(course._id);
-				favList = [...array];
-			}
-			localStorage.setItem('userFav', JSON.stringify(favList));
+			// array.map((item) => {
+			// 	if (item === course._id) {
+			// 		remove = true;
+			// 	}
+			// });
+			// if (remove) {
+			// 	array.pop(course._id);
+			// 	favList = [...array];
+			// }
+			// localStorage.setItem('userFav', JSON.stringify(favList));
 
 			dispatch({
 				type: REMOVE_FROM_FAVORITES_SUCCESS,

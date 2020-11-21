@@ -1,12 +1,13 @@
 import React from "react";
-import { Route, Redirect } from "react-router-dom";
+import { Route, Redirect, withRouter } from "react-router-dom";
 import jwt_decode from "jwt-decode";
+import { connect } from "react-redux";
 
 const user = localStorage.getItem("user");
 const PublicRoute = ({ component: Component, ...rest }) => {
   return (
     <Route {...rest} render={(props) => (
-        !user 
+        (!user && !rest.auth)
         ? <Component {...props} />
         : <Redirect to="/" /> 
      )}
@@ -14,5 +15,5 @@ const PublicRoute = ({ component: Component, ...rest }) => {
   );
 };
 
-export default PublicRoute;
+export default withRouter(PublicRoute);
 

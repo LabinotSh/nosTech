@@ -14,7 +14,6 @@ const CourseItem = (props) => {
 	const [errors, setErrors] = useState(null);
 	const [user, setUser] = useState({});
 	const [favorites, setFavorites] = useState(JSON.parse(localStorage.getItem('userFav')));
-	const fav = [];
 	const [selected, setSelected] = useState({
 		removed: false,
 		id: props.course._id,
@@ -28,7 +27,7 @@ const CourseItem = (props) => {
 		const timeOutId = setTimeout(() => {
 			isRendered && localStorage.getItem('user') ? history.push(`course/${id}`) : history.push('/login');
 
-			window.location.reload();
+			//window.location.reload();
 		}, 700);
 		return () => {
 			clearTimeout(timeOutId);
@@ -42,18 +41,29 @@ const CourseItem = (props) => {
 			if (token) {
 				const useri = jwt_decode(token);
 				setUser(useri);
-				console.log('id ' + user._id);
 			}
-			fav = [...favorites];
 		} catch (e) {
 			console.log(e);
 		}
 	}, []);
 
-	const check = (courseId) => {
-		const fav = [...favorites];
-		if (fav.includes(courseId)) return true;
-		else return false;
+	const deleteLocal = (courseId) => {
+        let favs = JSON.parse(localStorage.getItem('userFav'));
+        let array = [...favs];
+        let favList = [];
+        let remove = false;
+		array.map((item) => {
+            if (item === courseId) {
+                remove = true;
+            }
+        });
+        if (remove) {
+            array.pop(courseId);
+            favList = [...array];
+			localStorage.setItem('userFav', JSON.stringify(favList));
+			setFavorites(JSON.parse(localStorage.getItem('userFav')))
+        }
+        // localStorage.setItem('userFav', JSON.stringify(favList));
 	};
 
 	return (
@@ -75,17 +85,21 @@ const CourseItem = (props) => {
 								<span
 									className="hover"
 									data-tip={
-										removed || favorites.find((item) => item === props.course._id)
+                                        removed || favorites.find((item) => item === props.course._id) 
 											? 'Remove from favorites'
 											: 'Add to favorites'
 									}
 								>
-									{removed || favorites.find((item) => item === props.course._id) ? (
+                                    {
+                                    removed || favorites.find((item) => item === props.course._id) 
+                                     ? (
 										<HeartFull
 											onClick={() => {
+                                                deleteLocal(props.course._id)
 												setSelected({ ...selected, id: props.course._id, removed: false });
 												dispatch(removeFromFavorites(user._id, props.course)).then((res) => {
-													console.log('ID ' + user);
+                                                    console.log('ID ' + user);
+                                                    setErrors(res.msg);
 												});
 											}}
 										/>

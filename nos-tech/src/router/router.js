@@ -33,11 +33,12 @@ import AdminRoute from "./adminRoute";
 import PrivateRoute from "./privateRoute";
 import PublicRoute from "./publicRoutes";
 import Categories from "../components/category/PostCategories";
+import { connect } from "react-redux";
 
-function Router() {
+function Router({auth}) {
   return (
     <ConnectedRouter history={history}>
-      <Header />
+      <Header auth={auth}/>
       <Route path="/" component={Home} exact />
       <Route path="/courses" component={Courses} />
       <Route path="/addcourse" component={AddCourse} />
@@ -46,8 +47,8 @@ function Router() {
       <Route path="/about-us" component={AboutUs} />
       <Route path="/contact" component={Contact} />
       {/* should not be shown to the user if the user is logged in */}
-      <Route path="/login" component={Login} />
-      <Route path="/registration" component={Registration} />
+      <PublicRoute path="/login" auth={auth} component={Login} />
+      <PublicRoute path="/registration" auth={auth} component={Registration} />
       <PrivateRoute path="/myCourses" component={MyCourses} />
       <PrivateRoute path="/myProfile" component={MyProfile} />
       <Route exact path="/confirm/:id" component={Confirm} />
@@ -66,5 +67,9 @@ function Router() {
   );
 }
 
+const mapStateToProps = state => ({
+  auth: state.login.isLoggedIn,
+});
+
 //pa ja shtu qeto withRouter sbojke opsioni per me e hjek footer prej login edhe register
-export default withRouter(Router);
+export default connect(mapStateToProps, null)(withRouter(Router));
