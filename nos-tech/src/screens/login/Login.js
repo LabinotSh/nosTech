@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import "./login.css";
 import { Container, Row, Col, Card, Button, Form } from "react-bootstrap";
 import loginBackground from "../../assets/images/loginBackground.png";
@@ -11,64 +11,75 @@ import {history} from '../../helpers/history';
 import {connect, useSelector, useDispatch} from 'react-redux';
 import {Link, Redirect, withRouter} from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
-import Loader from '../../components/icons/Loader';
 
 const validationSchema = Yup.object().shape({
   username: Yup.string().required("(Username is required)"),
   password: Yup.string().required("(Password is required)"),
 });
 
-const Login = ({authenticated, err, user, role}) => {
+const Login = ({authenticated, user, err}) => {
 
   const [loading, setLoading] = useState(false);
   const [ro, setRole] = useState("");
+  const [error, setError] = useState("");
+  const [unMounted, setUnmounted] = useState(false);
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if(user){
-        const role = user.role;
-        if(role === "user"){
-          history.push('/')
-        }else{
-          history.push('/admins/users')
-        }
-        window.location.reload(); 
-  }
+
+  useEffect(() => {  
+    if(user && authenticated){
+      const role = user.role;
+      role==="user" ? history.push('/') : history.push('/admins/users')
+      //window.location.reload(); 
+    }
   }, [user])
 
+  useEffect(() => {
+    setTimeout(() => {
+      err ? setError(err) : setError('');
+    }, 800); 
+  }, [err])
+
+  useEffect(() => {
+    setTimeout(() => {
+      if(error){
+        setError('')
+      }
+    }, 4000); 
+  },[error])
+
   return (
+    <>
+    
     <Formik
       initialValues={{ username: "", password: "" }}
       validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting, resetForm }) => {
-        setSubmitting(true);
-        setLoading(true);
-        //down below is where the data should be sent to the server
+        // setSubmitting(true);
+        // setLoading(true);
+        //down below is where the data should be sent to the server 
         dispatch(login(values.username, values.password))
         .then(response => {
-          // setLoading(true);
-          const userRole = JSON.stringify(response.data.user['role']);
-
-          setRole(userRole);
-          console.log('Role: ' + userRole);   
+          setSubmitting(true);
+          setLoading(false);
+          setError('');
           setTimeout(() => {
             resetForm();
-            setSubmitting(false);
-            setLoading(true);
-          }, 500);    
-         
+            setLoading(false);
+          },500)
 
         }).catch(error => {
-          setLoading(false);
+          setLoading(true);
           console.log('Error: ' + error);
+          setSubmitting(false);
+          setError(err)
+          setTimeout(() => {
+            setLoading(false);
+            resetForm();
+          }, 1500)
   
         });
-        // setTimeout(() => {
-        //   resetForm();
-        //   setSubmitting(false);
-        //   setLoading(true);
-        // }, 600);
       }}
     >
       {({
@@ -90,11 +101,11 @@ const Login = ({authenticated, err, user, role}) => {
                 </Card.Text>
                 <Form onSubmit={handleSubmit}>
                   {/* {JSON.stringify(values)} */}
-                  {err && (
-                    <div className="text-danger">
-                      {err}
-                    </div>
-                  )}
+                  {error && (
+                      <div className="text-danger">
+                        {error}
+                      </div>
+                    )} 
                   <Form.Group controlId="formBasicUsername">
                     <Form.Control
                       type="text"
@@ -159,13 +170,14 @@ const Login = ({authenticated, err, user, role}) => {
         </Container>
       )}
     </Formik>
+    </>
   );
 }
 
 const mapStateToProps = state => ({
   user: state.login.user,
   authenticated: state.login.isLoggedIn,
-  err: state.login.error
+   err: state.login.error
 });
 
-export default connect(mapStateToProps ,{login})(Login);
+export default connect(mapStateToProps ,{login})(withRouter(Login));

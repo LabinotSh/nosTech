@@ -1,11 +1,7 @@
-import React, { useEffect } from "react";
-import { Nav, Button } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
 import { Link, NavLink, Redirect, withRouter } from "react-router-dom";
 import "./header.css";
 import nosTech from "../../assets/images/nostech.png";
-import store from "../../store";
-import { logout } from "../../redux/actions/auth";
-import { history } from "../../helpers/history";
 import { connect, useDispatch } from "react-redux";
 import DropdownItems from "../dropdown-items/DropdownItems";
 
@@ -15,13 +11,7 @@ const ActiveLinks = {
   fontWeight: "500",
 };
 
-function Header() {
-  //QEKJO I KA PAS FAJETTTTTTTTTTTT
-  // useEffect(() => {
-  //   if(!user){
-  //     history.push('/login');
-  //   }
-  // },[]);
+function Header(props) {
 
   return (
     <div>
@@ -126,7 +116,7 @@ function Header() {
               <div className="float-left d-flex col-md-2">
                 <div id="c">
                   <ul className="navbar-nav ml-auto">
-                    {!user && (
+                    {(!user && !props.auth) && (
                       <li className="nav-item nav-item-list-styling">
                         <NavLink
                           to="/login"
@@ -140,7 +130,7 @@ function Header() {
                         </NavLink>
                       </li>
                     )}
-                    {!user && (
+                    {(!user && !props.auth) && (
                       <li className="nav-item nav-item-list-styling">
                         <NavLink
                           to="/registration"
@@ -154,7 +144,7 @@ function Header() {
                         </NavLink>
                       </li>
                     )}
-                    {user && <DropdownItems />}
+                    { (user || props.auth)  && <DropdownItems />}
                   </ul>
                 </div>
               </div>

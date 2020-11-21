@@ -20,7 +20,7 @@ const { confirmEmail, contactEmail } = require('../../nodemailer/email')
 //Get All the users
 router.get('/', async (req, res) => {
   try {
-    const users = await User.find()
+    const users = await User.find();
     res.header('Content-Range', `course 0-10/${users.length}`)
     res.json(users)
   } catch (err) {
@@ -65,9 +65,7 @@ router.post('/register', async (req, res) => {
       username: req.body.username,
     })
 
-    // const savedUser = await newUser.save();
-    // res.send({user: savedUser});
-    // const savedUser = await newUser.save();
+ 
     const savedUser = newUser
       .save()
       .then((newUser) => {
@@ -85,7 +83,7 @@ router.post('/register', async (req, res) => {
         emailTemplate.confirm(emailExists._id)
       ).then(() => res.json({ msg: 'An email message was resent to you!' }))
     }
-    // res.send({user: savedUser, email: emailed});
+
   } catch (error) {
     console.log(error)
   }
@@ -98,7 +96,7 @@ router.post('/login', async (req, res) => {
 
   const user = await User.findOne({
     username: req.body.username,
-  })
+  });
 
   if (!user) return res.status(400).send('Username or password wrong!')
 
@@ -123,12 +121,14 @@ router.post('/login', async (req, res) => {
   //    res.header('auth-token', accessToken).send( {
   //        refreshToken: refreshToken
   //    });
+  console.log('fav ' + user.favorites);
 
   res.send({
     message: 'authentication done ',
     token: accessToken,
     refreshToken: refreshToken,
     user: user,
+    favorites: user.favorites
   })
 })
 
@@ -174,41 +174,7 @@ router.delete('/:userId', async (req, res) => {
   }
 })
 
-//Update a user by id
-// router.patch('/:userId', async (req,res) => {
-//     try {
-//         const id = req.params.userId;
-//         const updated = await User.updateOne({
-//             _id: id
-//         })
-//         res.json(updated);
-//     } catch (error) {
-//         console.error(error);
-//     }
-// });
 
-
-
-// router.put('/:id', async (req, res) => {
-//   const id = req.params.id
-
-//   const userup = await User.findByIdAndUpdate(id, {
-//     confirmed: true,
-//   })
-//   res.json('updated ' + userup)
-// })
-
-//Show all of the user's courses added to favorites
-router.get('/courses/favorite', async(req,res) => {
-  const user = User.find()
-  .populate({ path:'courses',
-   match: {'favorite': 'true'}})
-   .then(data => {res.send({data})})
-   .catch(err => console.log(err));
-
-})
-
-module.exports = router
 router.put('/:userId', asyncHandler(async (req,res) => {
     const id = req.params.userId;
     const updated = await User.findByIdAndUpdate(id, req.body)

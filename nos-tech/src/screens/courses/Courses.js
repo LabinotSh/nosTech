@@ -1,230 +1,101 @@
-import React, { useState, useEffect } from "react";
-import "./courses.css";
-import Carousel from "../../components/carousel/Carousel";
-import { connect, useDispatch, useSelector } from "react-redux";
-import {
-  fetchAllCourses,
-  addToFavorites,
-  removeFromFavorites,
-} from "../../redux/actions/courses";
-import { withRouter, Link } from "react-router-dom";
-import responsive from "../../constants/carouselResponsive";
-import Banner from "../../components/banner/CourseBanner";
-import ReactTooltip from "react-tooltip";
-import Loader from "../../components/icons/Loader";
-import { history } from "../../helpers/history";
-import { HeartFull, HeartEmpty } from "../../components/icons/Heart";
-import SearchBar from "../../components/searchBar/searchBar";
-import { LinkContainer } from "react-router-bootstrap";
+import React, { useState, useEffect, useRef } from 'react';
+import './courses.css';
+import Carousel from '../../components/carousel/Carousel';
+import { connect, useDispatch, useSelector } from 'react-redux';
+import { fetchAllCourses } from '../../redux/actions/courses';
+import { withRouter, Link, Redirect } from 'react-router-dom';
+import responsive from '../../constants/carouselResponsive';
+import Banner from '../../components/banner/CourseBanner';
+import Loader from '../../components/icons/Loader';
+import SearchBar from '../../components/searchBar/searchBar';
+import CourseItem from './CourseItem';
 
-const Courses = ({ list, pending, msg, loggedIn }) => {
-  const dispatch = useDispatch();
+const Courses = ({ list, pending, err }) => {
+	const dispatch = useDispatch();
 
-  const [listCourses, setCourses] = useState([]);
-  const [filterText, setFilterText] = useState("");
-  const [favorite, setFavorite] = useState(false);
+	const isRendered = useRef('false');
 
-  const handleChange = (e) => {
-    setFilterText(e.target.value);
-  };
+	const [listCourses, setCourses] = useState([]);
+	const [filterText, setFilterText] = useState('');
 
-  const retrieveCourses = () => {
-    dispatch(fetchAllCourses())
-      .then((response) => {
-        setCourses(response);
-        setCourses(response.filter(x => x.status === 1));
-        console.log("COURSES: " + JSON.stringify(response));
-      })
-      .catch((e) => {
-        console.error("Error: " + e);
-      });
-  };
+	const [displayMessage, setDisplayMessage] = useState('');
 
-  const redirectOnClick = (id) => {
-    if (loggedIn || localStorage.getItem("user")) {
-      history.push(`course/${id}`);
-    } else {
-      history.push("/login");
-    }
-    window.location.reload();
-  };
+	const handleChange = (e) => {
+		setFilterText(e.target.value);
+	};
 
-  //Load courses on render
-  useEffect(() => {
-    retrieveCourses();
-  }, []);
+	const retrieveCourses = () => {
+		isRendered.current = true;
+		dispatch(fetchAllCourses())
+			.then((response) => {
+				if (isRendered) {
+					setCourses(response);
+					console.log('COURSES: ' + JSON.stringify(response));
+				}
+			})
+			.catch((e) => {
+				console.error('Error: ' + e);
+			});
+	};
 
-  const results = !filterText
-    ? listCourses
-    : listCourses.filter((course) =>
-        course.name.toLowerCase().includes(filterText.toLocaleLowerCase())
-      );
+	//Load courses on render
+	useEffect(() => {
+		retrieveCourses();
 
-  const CourseCarousel = (props) => {
-    if (!results.length)
-      return (
-        <div className="unmatch text-center">
-          There is no matching searches!
-        </div>
-      );
+		return () => {
+			isRendered.current = false;
+		};
+	}, []);
 
-    return results.map((course) => {
-      return (
-        <div className="card courses-card" key={course._id}>
-          <ReactTooltip
-            place="top"
-            backgroundColor={"#fc4563"}
-            type="success"
-            effect="solid"
-          />
-          <LinkContainer to={`course/${course._id}`}>
-            <img
-              src={course.image}
-              className="card-img-top courseImg"
-              alt="..."
-            />
-          </LinkContainer>
-          <div>
-            <h6 className="card-title courses-title">{course.name}</h6>
-            <p className="card-text courses-desc">{course.description}</p>
-            <div className="courses-footer">
-              <strong style={{ fontSize: "18px", marginTop: "6px" }}>
-                <i className="fa fa-eur" /> {course.price}
-              </strong>
+	//Make the search appear after 1 seconds and not immediately as the user is typing
+	useEffect(() => {
+		const timeOutId = setTimeout(() => setDisplayMessage(filterText), 1000);
+		return () => clearTimeout(timeOutId);
+	}, [filterText]);
 
-              <div className="justify-content-center">
-                {localStorage.getItem("user") && (
-                  <>
-                    {msg ? (
-                      <span
-                        className="hover"
-                        data-tip={
-                          favorite || localStorage.getItem("favs")
-                            ? "Remove from favorites"
-                            : "Add to favorites"
-                        }
-                      >
-                        {favorite || localStorage.getItem("favs") ? (
-                          <>
-                            <HeartFull
-                              onClick={() => {
-                                setFavorite(false);
-                                localStorage.removeItem("favs");
-                                dispatch(
-                                  removeFromFavorites(course._id, course)
-                                );
-                              }}
-                            />
-                          </>
-                        ) : (
-                          <>
-                            <HeartEmpty
-                              onClick={() => {
-                                setFavorite(true);
-                                dispatch(addToFavorites(course._id, course));
-                              }}
-                            />
-                          </>
-                        )}
-                      </span>
-                    ) : (
-                      <span
-                        className="hover"
-                        data-tip={
-                          favorite || localStorage.getItem("favs")
-                            ? "Remove from favorites"
-                            : "Add to favorites"
-                        }
-                      >
-                        {favorite || localStorage.getItem("favs") ? (
-                          <>
-                            <HeartFull
-                              onClick={() => {
-                                setFavorite(false);
-                                localStorage.removeItem("favs");
-                                dispatch(
-                                  removeFromFavorites(course._id, course)
-                                );
-                              }}
-                            />
-                          </>
-                        ) : (
-                          <>
-                            <HeartEmpty
-                              onClick={() => {
-                                setFavorite(true);
-                                dispatch(addToFavorites(course._id, course));
-                              }}
-                            />
-                          </>
-                        )}
-                      </span>
-                    )}
-                  </>
-                )}
+	const results = !displayMessage
+		? listCourses
+		: listCourses.filter((course) => course.name.toLowerCase().includes(displayMessage.toLocaleLowerCase()));
 
-                <button
-                  className="btn btn btn-outline-success buy"
-                  type="submit"
-                  onClick={() => {
-                    redirectOnClick(course._id);
-                  }}
-                >
-                  Buy now
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      );
-    });
-  };
+	const CourseCarousel = (props) => {
+		if (!results.length) return <div className="unmatch text-center">There is no matching searches!</div>;
 
-  if (pending) return <Loader />;
-  return (
-    <div>
-      <Banner />
-      <div className="container-fluid top-content">
-        <div className="row no-gutters pb-4">
-          <div className="col-sm-4"></div>
-          <div className="col-sm-4 text-center">
-            <p className="courses-headline">Courses we offer!</p>
-            <hr />
-            <div
-              className="space-for-search-bar"
-              style={{ marginBottom: "70px" }}
-            >
-              <SearchBar input={filterText} onChange={handleChange} />
-            </div>
-          </div>
+		return results.map((course) => {
+			return <CourseItem course={course} key={course._id} />;
+		});
+	};
 
-          <div className="col-sm-4 text-center"></div>
-        </div>
-        <Carousel
-          responsive={responsive}
-          paddingLeft={50}
-          disableDotsControls={true}
-        >
-          {CourseCarousel()}
-        </Carousel>
-        <hr></hr>
-      </div>
-      <div className="middle-content">
-        <p className="courses-headline">Recent NosTech Courses</p>
-      </div>
-    </div>
-  );
+	if (pending) return <Loader />;
+	return (
+		<div>
+			<Banner />
+			<div className="container-fluid top-content">
+				<div className="row no-gutters pb-4">
+					<div className="col-sm-4"></div>
+					<div className="col-sm-4 text-center">
+						<p className="courses-headline">Courses we offer!</p>
+						<hr />
+					</div>
+					<div className="col-sm-4 text-center">
+						<SearchBar input={filterText} onChange={handleChange} />
+					</div>
+				</div>
+				<Carousel responsive={responsive} paddingLeft={50} disableDotsControls={true}>
+					{CourseCarousel()}
+				</Carousel>
+				<hr></hr>
+			</div>
+			<div className="middle-content">
+				<p className="courses-headline">Recent NosTech Courses</p>
+			</div>
+		</div>
+	);
 };
 
-function mapStateToProps(state) {
-  return {
-    loggedIn: state.login.isLoggedIn,
-    pending: state.courses.pending,
-    list: state.courses.courses,
-    msg: state.favorites.favorites.msg,
-  };
-}
+const mapStateToProps = (state) => ({
+	loggedIn: state.login.isLoggedIn,
+	pending: state.courses.pending,
+	list: state.courses.courses,
+});
 
-export default connect(mapStateToProps, { fetchAllCourses })(
-  withRouter(Courses)
-);
+export default connect(mapStateToProps, { fetchAllCourses })(withRouter(Courses));

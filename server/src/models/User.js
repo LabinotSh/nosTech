@@ -42,6 +42,9 @@ const userSchema = new moongose.Schema({
         type: moongose.Schema.Types.ObjectId,
         ref: 'Course'
     }],
+    favorites:[{
+        type:String   
+    }],
     refreshTokens: [{
         type: String
     }]

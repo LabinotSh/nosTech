@@ -24,9 +24,12 @@ import {
       case ADD_TO_FAVORITES_ERROR:
           return {
             ...state,
-            error: action.error
+            error: action.payload
           };
       case REMOVE_FROM_FAVORITES_SUCCESS:
+        // const filterID = () => {
+        //   state.favorites.filter()
+        // }
          return {
           ...state,
           favorites: action.payload
@@ -34,7 +37,7 @@ import {
       case REMOVE_FROM_FAVORITES_ERROR:
          return {
           ...state,
-          error: action.error
+          error: action.payload
          };
       default:
         return state;

@@ -6,7 +6,8 @@ const User = require('../models/User');
 const {verify} = require('../middleware/authToken');
 const {authorize} = require('../middleware/authorize');
 const uploadMulter = require('../middleware/upload.js')
-const uploadvalidation = require('../middleware/Uploadvalidation.js')
+const uploadvalidation = require('../middleware/Uploadvalidation.js');
+const mongoose = require('mongoose')
 
 // find all courses
 // router.get('/', asyncHandler(async (req, res) => {
@@ -48,46 +49,99 @@ router.get('/:id', asyncHandler(async(req,res) => {
     }
 }));
 
-//Added to favorites
-router.put('/fav/add/:id', async(req,res) => {
-    const {id} = req.params;
+// //Added to favorites
+// router.put('/fav/add/:cId/:uId', async(req,res) => {
+//     const {cId} = req.params;
+//    const {user} = req.body;
+//    var myId = JSON.parse(req.body.id);
+//     const data = {
+//         $set: {users: new ObjectId},
+//         // $set: {favorite: true}
+//     }
+//     console.log('Body ' , req.body);
 
-    const course = await Course.findById(id);
-    if(course && course.favorite){
-        res.send({
-            msg:"Already added",
-            course: course
-        })
-    }else if (!course.favorite){
-    const updated = await Course.findByIdAndUpdate(id, {favorite:true}, {new: true});
-    res.send(updated);
-    }else{
-        res.sendStatus(404).send('Error: Could not add it!');
-    }  
-    console.log('coursess ' + JSON.stringify(course));
-    // res.send(course);
-})
+//     const course = await Course.findById(cId);
+//     if(course && course.favorite){
+//         res.send({
+//             msg:"Already added",
+//             course: course
+//         })
 
-//Remove from favorites
-router.put('/fav/remove/:id', async(req,res) => {
-    const {id} = req.params;
+//         if(course.users.find(u => u.toString() === req.params.uId)){
+//             res.status(400)
+//             throw new Error("User has been already added!")
+//         }
+        
+//     }else if (!course.favorite){
+//         // course.users.push(req.body._id);
+//         // console.log('fffffff ' + course.users);
+//     const updated = await Course.findOneAndUpdate({ _id: cId },
+//              data,
+//             //{$push:{users: req.body._id}},
+//              {new:true},
+//         function(err, doc){
+//             if (err){
+//               console.log(err);
+//               return res.send({
+//                 success: false,
+//                 message: 'Error somewhere!'
+//               });
+//             } 
+//             return res.send({
+//               success: true,
+//               favorites: doc,
+//               message: 'Updated!'
+              
+//             });
+//         });
+    
+//     }else{
+//         res.sendStatus(404).send('Error: Could not add it!');
+//     }  
+//     console.log('coursess ' + JSON.stringify(course));
 
-    const course = await Course.findById(id)
-    .then(course => {
-        if(course && course.favorite){
-            Course.findByIdAndUpdate(id, {favorite:false}, {new: true}).
-            then((co) => { 
-                console.log('Course '+ co);
-                res.send(co)})
-            .catch(err => console.log(err));
-        }else{
-            res.json({msg:"already removed"});
-        }
+// })
 
-    }) 
-    console.log('cc ' + course);
-    // res.send(course); 
-})
+// //Remove from favorites
+// router.put('/fav/remove/:cId/:uId', async(req,res) => {
+//     const {cId} = req.params;
+
+//     const data = {
+//          favorite:false,
+//         $pull: {users:  req.body._id}
+//     }
+
+//     const course = await Course.findById(cId)
+//     .then(course => {
+//         if(course && course.favorite){
+           
+//             Course.findOneAndUpdate({ _id: cId },
+//                  data,
+//                  {new:true},
+//                 function(err, doc){
+//                     if (err){
+//                       console.log(err);
+//                       return res.send({
+//                         success: false,
+//                         message: 'Error somewhere!'
+//                       });
+//                     } 
+//                     return res.send({
+//                       success: true,
+//                       favorites: doc,
+//                       message: 'Updated!'
+                      
+//                     });
+//                 });
+            
+//         }else{
+//             res.json({msg:"Already removed!"})
+//         }
+
+//     }) 
+//     console.log('cc ' + course);
+//     // res.send(course); 
+// })
 
 //Get all the courses added as favorites
 router.get('/favs/added', async(req,res) => {
@@ -214,6 +268,27 @@ router.post('/:id/addReview', asyncHandler(async(req, res)=> {
         throw new Error("Course not found")
     }
 }))
+
+
+router.post('/new', async(req, res)=> {
+
+    try {
+            const newPost = await new Course({
+              name: req.body.name,
+              description: req.body.description,
+              price:req.body.price,
+              image: req.body.image,
+              category: req.body.category,
+          })
+
+          const co = await newPost.save();
+          res.send(co);
+          console.log(co);
+    }catch(err){
+        console.log(err);
+    }
+});
+
 
 
 

@@ -35,25 +35,25 @@ function FooterList() {
         {/* <Media className="list-title">{li.title}</Media> */}
         <div className="list-item-container">
           <div className="list-item">
-            <Link className="list-item-link">
+            <Link to='' className="list-item-link">
               <RiMapPinFill className="footer-icons" />
               {li.one}
             </Link>
           </div>
           <div className="list-item">
-            <Link className="list-item-link">
+            <Link to='' className="list-item-link">
               <MdLocationCity className="footer-icons" />
               {li.two}
             </Link>
           </div>
           <div className="list-item">
-            <Link className="list-item-link">
+            <Link to='' className="list-item-link">
               <ImPhone className="footer-icons" />
               {li.three}
             </Link>
           </div>
           <div className="list-item">
-            <Link className="list-item-link">
+            <Link to='' className="list-item-link">
               <GrMail className="footer-icons" />
               {li.four}
             </Link>
