@@ -8,12 +8,9 @@ import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
 function Home() {
-
   useEffect(() => {
-    setTimeout(() => {
-      
-    }, 700);
-  })
+    setTimeout(() => {}, 700);
+  });
   return (
     <>
       <div className="programming">

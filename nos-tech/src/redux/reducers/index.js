@@ -5,8 +5,8 @@ import {coursesReducer} from './courses';
 import {connectRouter }  from 'connected-react-router';
 import {history} from '../../helpers/history'; 
 import { postCategory } from "./postCategory";
-import {courseListReducer, courseDeleteReducer, courseDetailsReducer,courseUpdateReducer,courseAddStudentReducer} from './courseReducers'
-import { userDeleteReducer, userListReducer,userDetailsReducer, userUpdateReducer } from './userReducers';
+import {courseListReducer, courseDeleteReducer, courseDetailsReducer,courseUpdateReducer,courseAddStudentReducer,courseCreateFeedbackReducer, courseApproveReducer, courseRefuseReducer} from './courseReducers'
+import { userDeleteReducer, userListReducer,userDetailsReducer, userUpdateReducer,userAddCourseReducer } from './userReducers';
 import {favoritesReducer} from './favorites';
 //krijimi i konstantes combineReducers, ne menyre qe me i perfshi krejt reducers
 
@@ -20,11 +20,15 @@ const allReducers = combineReducers({
     courseDetails:courseDetailsReducer,
     courseUpdate:courseUpdateReducer,
     courseAddStudent:courseAddStudentReducer,
+    courseCreateFeedback:courseCreateFeedbackReducer,
+    courseApprove:courseApproveReducer,
+    courseRefuse:courseRefuseReducer,
     userList:userListReducer,
     userDelete:userDeleteReducer,
     userDetails:userDetailsReducer,
     postCategory,
-    userUpdate:userUpdateReducer
+    userUpdate:userUpdateReducer,
+    userAddCourse:userAddCourseReducer
 
 })
 

@@ -98,3 +98,8 @@ html {
   flex-direction: column;
   align-items: center;
 }
+
+.feedbacks {
+  width: 98%;
+  margin-left: 1%;
+}

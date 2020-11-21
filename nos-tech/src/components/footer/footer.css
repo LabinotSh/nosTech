@@ -1,169 +1,54 @@
-/* --------------------DEFAULTS-------------------- */
-* {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    text-decoration: none;
-    box-sizing: border-box;
-}
-
-.footeri {
-    background-color: whitesmoke;
-    width: 100%;
-}
-
-
-/* --------------------CONTENT------------------- */
-
-.footer-content {
-    justify-content: space-between;
+.footer-child-content {
+    background-color: #282c2d;
     width: 100%;
     display: flex;
+    justify-content: center;
+    align-items: center;
     overflow: hidden;
     padding: 24px 0px;
-    box-sizing: border-box;
+}
+
+.sep-test {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 85%;
 }
 .subscription {
     text-align: center;
 }
 
-.submit-btn {
-    background-color: white;
-    color: #00132A;
-    outline-color:#00132A;
-    border-color:white;
-    margin: 20px 10px;
-    width: 150px;
-    border-radius: 20px;
-    padding: 9px 5px;
-    box-shadow: 3px 5px 14px #bebcbc;
-}
-.submit-btn:hover{
-    background-color: #F7A366 !important;
-    outline-color: #F7A366 !important;
-    border-color:#F7A366 !important;
-}
-
-.text-input-box{
-    background-color: white;
-    padding: 10px 15px;
-    border-radius: 7px;
-    width: 300px;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-}
-
-.testim {
-    display: flex;
-}
-/* .col-6 .subscription input[type = "submit"] {
-    display: block;
-    font-size: 13;
-    width: 100px;
-    min-width: 100px;
-    padding: 7px;
-    border-radius: 3px;
-    margin: 8px;
-} */
-
-/* -----------------RESPONSIVE--------------------- */
-/* ------------------------------------------------ */
-/* ------------------------------------------------ */
-
-@media screen and (max-width: 991px) {
-    .testim {
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-    
-    .footer-content {
-        flex-direction: column;
-        flex-wrap: wrap;
+/* Tablet and down breakpoint */
+@media only screen and (max-width: 800px) {
+    .sep-test {
+        display: flex;
+        flex-wrap: wrap; 
         align-items: center;
-        width: 100%;
-        text-align: center;
+        justify-content: center;
     }
 
-    .subscription {
-        margin-top: 20px;
-    }
-
-    .list-item, 
-    .list-title {
-        justify-content: center;
-    }
-}
-/* ------------------------------------------------ */
-/* ------------------------------------------------ */
-/* ------------------------------------------------ */
-@media only screen and (max-width: 600px) {
-    .testim {
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-     
-    .footer-content {
-        flex-direction: column;
-        flex-wrap: wrap;
-        align-items: center;
-        width: 100%;
-        text-align: center;
-    }
-    
-    .subscription {
-        margin-top: 20px;
-    }
-    
-    .list-item, 
-    .list-title {
-        justify-content: center;
-    }
-  }
-/* ------------------------------------------------ */
-/* ------------------------------------------------ */
-/* ------------------------------------------------ */
-@media screen and (max-width: 460px) {
-    
-    .testim {
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-    
-    .footer-content {
-        flex-direction: column;
-        flex-wrap: wrap;
-        align-items: center;
-        width: 100%;
-        text-align: center;
-    }
-    
-    .subscription {
-        margin-top: 20px;
-    }
-    
-    .list-item, 
-    .list-title {
-        justify-content: center;
-    }
-    
-    ul{
-        border-left: none !important;
-    }
-    
     .list-item-container::after {
         content: '';
-        border-bottom: 1px solid red !important;
+        padding-bottom: 14px;
+        border-bottom: 1px solid rgb(240, 100, 112) !important;
         display: block;
+        margin-left: -25px;
         /* width: 400px; */
         padding-top: 10px;
     }
-    
-}
-/* ------------------------------------------------ */
-/* ------------------------------------------------ */
-/* ------------------------------------------------ */
 
-/* ------------------------------------------------ */
-/* ------------------------------------------------ */
-/* ------------------------------------------------ */
+} 
+
+@media only screen and (max-width: 1160px){
+    .sep-test {
+        display: flex;
+        flex-wrap: wrap; 
+        align-items: center;
+        justify-content: center;
+    }
+
+    .company-description{ 
+        display: none;
+    }
+}
+

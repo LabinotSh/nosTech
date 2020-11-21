@@ -1,7 +1,8 @@
 import React,{useState,useEffect,Fragment} from 'react';
 import { connect } from "react-redux";
 import * as actions from "../../redux/actions/postCategory";
-import './Banner.css'
+import './Banner.css';
+import {Link} from 'react-router-dom';
 
 
 const CourseBannerComponent = ({classes, ...props}) => {
@@ -18,7 +19,11 @@ const CourseBannerComponent = ({classes, ...props}) => {
             return(
             <Fragment key={index}>
                 <div style={{display: "inline"}} key={index} >
-            <button className="courseBanner-button" >{record.name}</button>
+                <Link 
+                className="courseBanner-button mb-5" 
+                to = {`/coursecategory/${record._id}`}>
+                    {record.name}
+                </Link>
                 </div>
             </Fragment>
             )})}

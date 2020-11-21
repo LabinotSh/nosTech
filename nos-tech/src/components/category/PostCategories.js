@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import * as actions from "../../redux/actions/postCategory";
 import PostCategoryForm from "./PostCategoryForm";
 import './Category.css'
+import Panel from '../panel/Panel';
 
 const PostCategories = ({ classes, ...props }) => {
     //const {classes, ...props} = props
@@ -22,15 +23,19 @@ const PostCategories = ({ classes, ...props }) => {
 
 
     return (
+       
         <div className="col-xl-12 row container">
+            {/* Panel */}
+            <Panel />
+
             {/* Left Content */}
-            <div className="col-xl-6">
+            <div className="col-xl-5">
                     <PostCategoryForm {...{ currentId, setCurrentId }} />
             </div>
 
 
             {/* Right Content */}
-            <div className="col-xl-6">
+            <div className="col-xl-5">
             <table className="table table-sm table-hover category-table">
             <thead>
                 <tr>

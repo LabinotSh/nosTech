@@ -34,6 +34,9 @@ import PrivateRoute from "./privateRoute";
 import PublicRoute from "./publicRoutes";
 import Categories from "../components/category/PostCategories";
 import { connect } from "react-redux";
+import CourseCategory from "../components/coursecategory/CourseCategory";
+import Dashboard from "../screens/adminViews/Dashboard";
+import CourseReview from "../screens/adminViews/courseReview";
 
 function Router({auth}) {
   return (
@@ -41,11 +44,13 @@ function Router({auth}) {
       <Header auth={auth}/>
       <Route path="/" component={Home} exact />
       <Route path="/courses" component={Courses} />
-      <Route path="/addcourse" component={AddCourse} />
+      <Route path="/add-course" component={AddCourse} />
       <Route path="/articles" component={Articles} />
       <Route path="/forum" component={Forum} />
       <Route path="/about-us" component={AboutUs} />
       <Route path="/contact" component={Contact} />
+      <Route path="/categories" component={Categories} />
+      <Route exact path="/coursecategory/:cid" component={CourseCategory} />
       {/* should not be shown to the user if the user is logged in */}
       <PublicRoute path="/login" auth={auth} component={Login} />
       <PublicRoute path="/registration" auth={auth} component={Registration} />
@@ -57,9 +62,17 @@ function Router({auth}) {
       <AdminRoute path="/admins/course/:id/edit" component={CourseEditView}></AdminRoute>
       <AdminRoute path="/admins/users" component={UsersView}></AdminRoute>
       <AdminRoute path="/admins/user/:id/edit" component={UserEditView}></AdminRoute>
-      <Route path="/categories" component={Categories} />
+      <AdminRoute path="/admins/dashboard" component={Dashboard}></AdminRoute>
+      <AdminRoute path="/admins/course-review" component={CourseReview}></AdminRoute>
       {history.location.pathname !== "/login" &&
-      history.location.pathname !== "/registration" ? (
+      history.location.pathname !== "/registration" &&
+      history.location.pathname !== "/admins/dashboard" &&
+      history.location.pathname !== "/admins/users" &&
+      history.location.pathname !== "/admins/courses" &&
+      history.location.pathname !== "/categories" &&
+      history.location.pathname !== "/add-course" &&
+      history.location.pathname !== "/admins/course-review"
+      ? (
         <Footer />
       ) : null}
       {/* <Footer /> */}

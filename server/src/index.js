@@ -13,15 +13,16 @@ const orderTest = require('./api/test');
 const emailRoutes = require('./api/email');
 const favRoutes = require('./api/favorites');
 const path = require('path');
-require('dotenv').config();//Configure .env variables
+const newsletterRoutes = require('../nodemailer/newsletter')
 
+require('dotenv').config() //Configure .env variables
 
 connectDB() //initializes connection with the database
 
-const app = express();
+const app = express()
 //multer static files
-app.use(express.static('./public'));
-app.use('/uploads', express.static('uploads'));
+app.use(express.static('./public'))
+app.use('/uploads', express.static('uploads'))
 
 //Middleware packages
 app.use(morgan('common'));
@@ -38,26 +39,25 @@ app.use('/api/test', orderTest);
 app.use('/api/email/confirm', emailRoutes);
 app.use('/api/category', categoryRoutes);
 app.use('/api/favorites', favRoutes)
+app.use('/api/newsletter', newsletterRoutes)
 //Wake up the server before rendering
 app.get('/wake-up', (req, res) => res.send('👌'))
 
 //Throws when a non-existent route is visited
 app.use((req, res, next) => {
-    const error = new Error(`Not found - ${req.originalUrl}`)
-    res.status(404)
-    next(error)
+  const error = new Error(`Not found - ${req.originalUrl}`)
+  res.status(404)
+  next(error)
 })
-
 
 //Throws when a bad paramater is given (e.g non-existent ID)
 app.use((err, req, res, next) => {
-    const statusCode = res.statusCode ===  200 ? 500 : res.statusCode
-    res.status(statusCode);
-    res.json({
-        message: err.message,  
-    })
-}
-)
+  const statusCode = res.statusCode === 200 ? 500 : res.statusCode
+  res.status(statusCode)
+  res.json({
+    message: err.message,
+  })
+})
 
 // var nodemailer = require('nodemailer');
 
@@ -84,10 +84,9 @@ app.use((err, req, res, next) => {
 //   }
 // });
 
-
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 3001
 
 //Listen to the port
 app.listen(port, () => {
-    console.log(`Listening to http:localhost:${port}`);
-});
+  console.log(`Listening to http:localhost:${port}`)
+})
