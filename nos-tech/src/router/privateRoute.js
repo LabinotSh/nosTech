@@ -5,17 +5,13 @@ import jwt_decode from 'jwt-decode';
 const checkAuth = () => {
     const token = localStorage.getItem('user');
     const refreshToken = localStorage.getItem('refresh');
-
-    console.log(token)
-    console.log(refreshToken)
-
+    // console.log(token)
+    // console.log(refreshToken)
     if(!token || !refreshToken){
         return false;
     }
-
     try {
         // { exp: 12903819203 }
-    
       if (Date.now() >= (jwt_decode(refreshToken).exp)*1000) {
           return false;
       }

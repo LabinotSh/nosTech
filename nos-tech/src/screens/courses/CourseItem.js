@@ -26,12 +26,11 @@ const CourseItem = (props) => {
 		// isRendered.current = true
 		const timeOutId = setTimeout(() => {
 			isRendered && localStorage.getItem('user') ? history.push(`course/${id}`) : history.push('/login');
-
 			//window.location.reload();
 		}, 700);
 		return () => {
-			clearTimeout(timeOutId);
 			isRendered.current = true;
+			clearTimeout(timeOutId);
 		};
 	};
 

@@ -8,8 +8,6 @@ import Error from "../../components/error/Error.js";
 import { register } from "../../redux/actions/auth";
 import { connect, useDispatch } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { history } from "../../helpers/history";
-import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Notifications, { notify } from "react-notify-toast";
 import Spinner from "../../components/icons/Spinner";
@@ -254,16 +252,16 @@ const Registration = ({ successRegister, err }) => {
                       )}
                     </Form.Group>
                   </Form.Group>
-
                   <Button
                     className="register"
                     type="submit"
                     disabled={emailSent}
                   >
-                  {emailSent && (
-                    <Spinner size='1x' spinning="spinning" />
-                  )}
-                   Register
+                  {emailSent ? (
+                    <Spinner size='1x' spinning="spinning" />)
+                    : (
+                      "Sign Up"
+                    )}
                   </Button>
                 </Form>
               </Card>

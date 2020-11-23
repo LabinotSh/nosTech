@@ -58,7 +58,34 @@
 .main-cont{
     justify-content: center;
 }
+.container{
+    display: flex;
+    flex-flow: row;
+}
 
 .fav{
     margin-left:8%;
+}
+
+.c-link{
+    color: #337ab7;
+}
+
+.c-image {
+    width: 100%;
+    height: 25vh;
+    object-fit: cover;
+}
+.card-foot {
+    background-color: #f4f4f4;
+}
+
+.inst{
+    font-weight: 400;
+    color:#232324;
+    font-style: italic;
+}
+
+.desc{
+    height: 30vh;
 }

@@ -3,6 +3,10 @@
   margin-top:8rem;
 }
 
+.confirm{
+  justify-content: center;
+}
+
 .confirm a {
   color: #6279AB;
   font: inherit;
