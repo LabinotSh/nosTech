@@ -15,6 +15,7 @@ import Notifications, { notify } from "react-notify-toast";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import Error from "../../components/error/Error.js";
+import SubscriptionMessage from "../../components/subscriptionMessage/SubscriptionMessage";
 import Spinner from "../../components/icons/Spinner";
 import { API_URL } from "../../constants/Constants";
 
@@ -48,9 +49,14 @@ const Subscription = () => {
   return (
     <div className="subscription">
       {/*  <Notifications /> */}
-      <p style={{ color: "white" }}>
-        <b>Subscribe</b> for the latest from nosTech:
-      </p>
+
+      {emailSent ? (
+        <SubscriptionMessage />
+      ) : (
+        <p style={{ color: "white", fontSize: "15px" }}>
+          <b>Subscribe</b> for the latest from nosTech:
+        </p>
+      )}
 
       <Formik
         initialValues={{ name: "", email: "" }}
@@ -61,7 +67,7 @@ const Subscription = () => {
           setEmailSent(true);
 
           setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
+            // alert(JSON.stringify(values, null, 2));
             setEmailSent(false);
             resetForm(true);
             setSubmitting(false);
@@ -84,7 +90,7 @@ const Subscription = () => {
             //   4000,
             //   toastColor
             // );
-          }, 500);
+          }, 1700);
         }}
       >
         {({
@@ -96,16 +102,18 @@ const Subscription = () => {
           handleSubmit,
           isSubmitting,
         }) => (
-          <Form className="subscription-form" onSubmit={handleSubmit}>
+          <Form
+            className="subscription-form"
+            onSubmit={handleSubmit}
+            id="subs-form"
+          >
             <InputGroup id="testinput">
               <Form.Group>
                 <FormControl
-                  aria-label="Small"
                   size="sm"
                   placeholder="Your full name.."
-                  // aria-describedby="inputGroup-sizing-sm"
-                  // required
                   name="name"
+                  id="formcontroltest"
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.name}
@@ -114,13 +122,13 @@ const Subscription = () => {
                 <Error touched={touched.name} message={errors.name} />
               </Form.Group>
             </InputGroup>
-            <InputGroup id="testinput" size="sm">
+            <InputGroup id="testinput">
               <Form.Group>
                 <FormControl
                   size="sm"
                   placeholder="Your email address.."
-                  // required
                   name="email"
+                  id="formcontroltest"
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.email}
@@ -131,20 +139,14 @@ const Subscription = () => {
                 <Error touched={touched.email} message={errors.email} />
               </Form.Group>
             </InputGroup>
-            <br />
-            <div>
-              <Button
-                className="submit-btn"
-                type="submit"
-                disabled={isSubmitting}
-              >
-                {emailSent ? (
-                  <Spinner size="1x" spinning="spinning" />
-                ) : (
-                  "Submit"
-                )}
-              </Button>
-            </div>
+
+            <Button
+              className="submit-btn"
+              type="submit"
+              disabled={isSubmitting}
+            >
+              {emailSent ? <Spinner size="1x" spinning="spinning" /> : "Submit"}
+            </Button>
           </Form>
         )}
       </Formik>
