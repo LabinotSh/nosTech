@@ -6,9 +6,7 @@ import {LOGIN_SUCCESS,
        REGISTER_SUCCESS} from './types';
 import axios from 'axios';
 import {history} from '../../helpers/history';
-
-const API_URL = 'http://localhost:3001/api/user'; 
-
+import { API_URL } from '../../constants/Constants';
 
 export const register = (name, surname, email, password, role, username) => (dispatch) => {
 
@@ -16,7 +14,7 @@ export const register = (name, surname, email, password, role, username) => (dis
         type:REGISTER_REQUEST
     });
     
-    return axios.post(API_URL+'/register', {name, surname, email, password, role, username})
+    return axios.post(API_URL+'/user/register', {name, surname, email, password, role, username})
     .then(response => {
         if(response.error){
             throw(response.error);
@@ -27,7 +25,6 @@ export const register = (name, surname, email, password, role, username) => (dis
         dispatch({
             type:REGISTER_SUCCESS,
         });
-
 
         return response;
     }).catch(error => {
@@ -44,7 +41,7 @@ export const register = (name, surname, email, password, role, username) => (dis
 
 
 export const login = (username, password) => async (dispatch) => {
-    return axios.post(API_URL+'/login', {username, password})
+    return axios.post(API_URL+'/user/login', {username, password})
     .then((response) => {
         console.log('RE ' + JSON.stringify(response))
         if(response.data.token){
@@ -53,7 +50,6 @@ export const login = (username, password) => async (dispatch) => {
             localStorage.setItem('user', JSON.stringify(user));
             localStorage.setItem('refresh', JSON.stringify(response.data.refreshToken));
             localStorage.setItem('userFav', JSON.stringify(response.data.user.favorites)); 
-            console.log('favor ' + JSON.stringify(response.data.favorites))   
         }
         dispatch({
             type:LOGIN_SUCCESS,
@@ -66,11 +62,7 @@ export const login = (username, password) => async (dispatch) => {
             localStorage.removeItem('course')
             history.push(`/course/${course}`)
         }
-
-        // }
-
        //window.location.reload(false);
-    
         return response;
     }).catch(error => {
         console.log('Error: ' + error.response.data);
@@ -79,8 +71,8 @@ export const login = (username, password) => async (dispatch) => {
             type:LOGIN_FAIL,
             payload: error.response.data
         });
-        return error.response.data;
 
+        return error.response.data;
     })
 }
 
@@ -97,7 +89,6 @@ export const logout = () => (dispatch) => {
  
  history.push('/login');   
  window.location.reload(false);   
-
 };
 
 

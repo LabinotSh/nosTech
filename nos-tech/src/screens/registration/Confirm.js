@@ -1,10 +1,9 @@
-import React, { Component, useEffect, useState } from "react";
-import { Link, Redirect } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Redirect } from "react-router-dom";
 import Notifications, { notify } from "react-notify-toast";
 import axios from "axios";
 import { API_URL } from "../../constants/Constants";
 import Spinner from "../../components/icons/Spinner";
-import SignInIcon from "../../components/icons/SignIn";
 import ReactTooltip from "react-tooltip";
 import "./confirm.css";
 
@@ -18,8 +17,9 @@ const Confirm = (props) => {
     axios
       .get(`${API_URL}/email/confirm/${id}`)
       .then((res) => {
-        setConfirming(false);
-        // notify.show(res.data.msg);
+        setTimeout(() => {
+          setConfirming(false);
+        }, 3500);
         notify.show(
           <div>
             {res.data.msg}
@@ -28,11 +28,13 @@ const Confirm = (props) => {
             > X </button>
           </div>,
           "custom",
-          -1,
+          4000,
           toastColor
         );
       })
-      .catch((err) => console.log(err));
+      .catch((err) =>{ 
+        setConfirming(false);
+        console.log(err)});
   };
 
   useEffect(() => {
@@ -52,15 +54,9 @@ const Confirm = (props) => {
             />
         {confirming ? (
             <Spinner size="7x" spinning={"spinning"} />
-          ) : (
-            <Link to="/login">
-              <SignInIcon size="8x" />
-              <span class="hover"
-            data-tip="Head over to login!"
-            ></span>
-            </Link>
+          ) : (  
+            <Redirect  to='/login'/>  
           )
-          // : <Redirect to='/login'/>
         }
       </div>
     </div>
