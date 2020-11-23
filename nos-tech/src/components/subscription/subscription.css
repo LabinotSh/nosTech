@@ -43,3 +43,10 @@
     border-color:#BB343E;
        }
 } 
+
+#testinput {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;   
+}
