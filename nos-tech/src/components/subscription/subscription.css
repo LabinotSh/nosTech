@@ -1,20 +1,19 @@
-.subscription {
+.subscription, .subscription-form, #testinput {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-.subscription-form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.subscription-input-group{
+/* .subscription-input-group{
     width: 320px;
+} */
+
+#formcontroltest {
+    height: 38px;
 }
+
+
 
 .submit-btn {
     background-color: white;

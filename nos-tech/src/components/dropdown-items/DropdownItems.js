@@ -43,6 +43,15 @@ function DropdownItems() {
           >
             Courses
         </Dropdown.Item>
+        <Dropdown.Item
+          active={act}  
+          href="/admins/dashboard"
+          tag="li"
+          active-class="active"
+          onClick={() => setAct(true)} 
+          >
+            Dashboard
+        </Dropdown.Item>
         <Dropdown.Divider />
         <Dropdown.Item
           active={act}

@@ -14,13 +14,13 @@ const CourseCategory = ({list,pending, match}) => {
     let params = match.params
     const [repos, setRepos] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [postsPerPage] = useState(1);
+    const [postsPerPage] = useState(9);
     
     //Get courses by category
     const retrieveCourses = () => {
         dispatch(fetchAllCourses())
         .then((response) => {
-        setRepos(response.filter(x => x.category == params.cid).sort(x => x.updated_date).reverse());
+        setRepos(response.filter(x => x.category == params.cid && x.status === 1).sort(x => x.updated_date).reverse());
         })
         .catch((e) => {
             console.error("Error: " + e);
