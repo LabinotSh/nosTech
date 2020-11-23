@@ -76,3 +76,20 @@
   #dropdown-basic:hover{
     color: #0f5d99 !important;
   }
+  @media (max-width: 768px) {
+    .panel-title-spans{
+      display: none;
+    }
+    #dropdown-basic{
+      margin-left: -15px;
+      margin-top:-15px;
+      font-size: 25px;
+    }
+    .admin-nav{
+      width: 60px;
+    }
+    .panel-links{
+      padding-bottom: 2.5rem;
+    }
+
+}
