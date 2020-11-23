@@ -15,7 +15,16 @@ const storage = multer.diskStorage({
 });
 
 const fileFilter = (req, file, cb) => {
-    cb(null, true);
+    let filetypes = /jpeg|jpg|png/;
+    let mimetype = filetypes.test(file.mimetype);
+    let extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+
+    if (mimetype && extname) {
+    return cb(null, true);
+    }else{
+        req.fileValidationError = "Error: File upload only supports the following filetypes - " + filetypes;
+        return cb(null, false, req.fileValidationError);
+    }
 };
 
 let upload = multer({

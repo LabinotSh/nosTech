@@ -23,7 +23,7 @@ const Panel = () => {
     exact
     >
         <i class="fas fa-home panel-icons "></i>
-        <span>Home</span>
+        <span className="panel-title-spans">Home</span>
     </NavLink>
 
     <NavLink
@@ -35,7 +35,7 @@ const Panel = () => {
     exact
     >
         <i class="fas fa-chart-pie panel-icons "></i>
-        <span>Dashboard</span>
+        <span className="panel-title-spans">Dashboard</span>
     </NavLink>
 
     <NavLink
@@ -47,7 +47,7 @@ const Panel = () => {
     exact
     >
         <i class="fa fa-list-alt panel-icons"></i>
-        <span>Categories</span>
+        <span className="panel-title-spans">Categories</span>
     </NavLink>
 
     <NavLink
@@ -59,13 +59,13 @@ const Panel = () => {
     exact
     >
         <i class="fas fa-user-friends panel-icons"></i>
-        <span>Users</span>
+        <span className="panel-title-spans">Users</span>
     </NavLink>
     
     <Dropdown className="panel-links-dropdown">
-    <i class="far fa-copy panel-icons-drp-big "></i>
+    <i class="far fa-copy panel-icons-drp-big panel-title-spans"></i>
     <Dropdown.Toggle id="dropdown-basic" className="panel-link-drp-title">
-        Courses
+    <span className="panel-title-spans">Courses</span>
     </Dropdown.Toggle>
     <Dropdown.Menu>
         <Dropdown.Item className="drp-i">
@@ -79,7 +79,7 @@ const Panel = () => {
         exact
         >
         <i className="fa fa-plus panel-icons-drp-small"/>
-        <span>Add Course</span>
+        <span >Add Course</span>
         </NavLink>
 
         <NavLink
@@ -91,7 +91,7 @@ const Panel = () => {
         exact
         >
         <i className="far fa-folder-open panel-icons-drp-small"/>
-        <span>All Courses</span>
+        <span >All Courses</span>
         </NavLink>
 
         <NavLink
@@ -103,7 +103,7 @@ const Panel = () => {
         exact
         >
         <i className="fas fa-tv panel-icons-drp-small"/>
-        <span>Course Review</span>
+        <span >Course Review</span>
         </NavLink>
         </Dropdown.Item>
     </Dropdown.Menu>
