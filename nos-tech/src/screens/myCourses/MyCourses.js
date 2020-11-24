@@ -53,15 +53,6 @@ const MyCourses = ({ match }) => {
     })
   }
 
-  // const getFavs = () => {
-  //   let favs = JSON.parse(localStorage.getItem('userFav'));
-  //   let array = [...favs];
-  //   const fa = courses.map((item) => {
-  //      if(array.find(i => i===item._id))
-  //      return setFavList(item)
-  //   });
-  // };
-
   useEffect(() => {
     retrieveCourses();
     getFav(user._id);
@@ -98,7 +89,7 @@ const MyCourses = ({ match }) => {
         <hr className='text-center'/>
       </div>
       {about ? (
-        <div id="abo" className="container abo" style={{marginBottom:'150px'}}>
+        <div id="abo" className="cont abo" style={{marginBottom:'150px'}}>
            {courses && courses.map(course => {
             return (
             <Card key={course._id} style={{ width: "18rem",margin:"1rem" ,borderRadius:'5%'}}>
@@ -111,7 +102,7 @@ const MyCourses = ({ match }) => {
             <Card.Body>
             <Card.Link className="c-link float-right" href="#">Continue Watching <FontAwesomeIcon icon={faArrowRight}/> </Card.Link>
             </Card.Body>
-            <Card.Footer className="card-foot">
+            <Card.Footer className="c-foot">
             <Card.Text className="inst float-left">Instructor: {course._instructor}</Card.Text>
             </Card.Footer>
           </Card>
