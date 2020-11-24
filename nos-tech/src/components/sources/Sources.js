@@ -9,10 +9,7 @@ const Sources = () => {
           Credible Information
         </h3>
         <p className="par">
-          Udacity's mission is to train the world's workforce in the careers of
-          the future. Every industry is being impacted by modern technology. Our
-          mission includes providing the latest, most credible information there
-          is out there, to help our students in their career path.
+          nosTech's mission is to instruct and develop people's careers for the future. In doing so we provide our users with the latest most credible information that is out there.
         </p>
       </div>
       {/* <div className="src rel"> */}
