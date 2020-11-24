@@ -12,7 +12,7 @@ A MERN Fullstack application
   - npm install.
 
 2.## Also create .env file in your back end folder, where you will be putting
-     the constants for database connection and for access/refresh token.\
+     the constants for database connection and for access/refresh token, and your own email/pw credentials.
      
   ###Create your own:\
      #1.MONGO_URI -> Database connection with MongoDB\
