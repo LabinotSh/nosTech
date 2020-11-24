@@ -1,30 +1,18 @@
-import React, { useEffect } from "react";
-import { Nav, Button } from "react-bootstrap";
-import { Link,NavLink, Redirect, withRouter } from "react-router-dom"
+import React, { useEffect, useState } from "react";
+import { Link, NavLink, Redirect, withRouter } from "react-router-dom";
 import "./header.css";
 import nosTech from "../../assets/images/nostech.png";
-import store from '../../store';
-import {logout} from '../../redux/actions/auth';
-import {history} from '../../helpers/history';
-import {connect, useDispatch} from 'react-redux';
+import { connect, useDispatch } from "react-redux";
 import DropdownItems from "../dropdown-items/DropdownItems";
 
 const user = localStorage.getItem("user");
 const ActiveLinks = {
   color: "#f06470",
-  fontWeight: "500"
-}
+  fontWeight: "500",
+};
 
+function Header(props) {
 
-function Header() {
-
-  //QEKJO I KA PAS FAJETTTTTTTTTTTT
-    // useEffect(() => {
-    //   if(!user){
-    //     history.push('/login');
-    //   }
-    // },[]);
-  
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-dark static-top font header">
@@ -48,19 +36,20 @@ function Header() {
               <div className="d-flex float-left col-md-10">
                 <div className="mx-auto">
                   <ul className="navbar-nav ml-auto">
-                    <li className="nav-item">
+                    <li className="nav-item nav-item-list-styling">
                       <NavLink
                         to="/"
                         tag="li"
                         active-class="active"
                         className="navigation"
+                        id="navlink-test"
                         activeStyle={ActiveLinks}
                         exact
                       >
                         Home
                       </NavLink>
                     </li>
-                    <li className="nav-item ">
+                    <li className="nav-item nav-item-list-styling">
                       <NavLink
                         to="/courses"
                         tag="li"
@@ -72,7 +61,7 @@ function Header() {
                         Courses
                       </NavLink>
                     </li>
-                    <li className="nav-item">
+                    <li className="nav-item nav-item-list-styling">
                       <NavLink
                         to="/articles"
                         tag="li"
@@ -84,7 +73,7 @@ function Header() {
                         Articles
                       </NavLink>
                     </li>
-                    <li className="nav-item">
+                    <li className="nav-item nav-item-list-styling">
                       <NavLink
                         to="/forum"
                         tag="li"
@@ -96,7 +85,7 @@ function Header() {
                         Forum
                       </NavLink>
                     </li>
-                    <li className="nav-item">
+                    <li className="nav-item nav-item-list-styling">
                       <NavLink
                         to="/about-us"
                         tag="li"
@@ -108,7 +97,7 @@ function Header() {
                         About Us
                       </NavLink>
                     </li>
-                    <li className="nav-item">
+                    <li className="nav-item nav-item-list-styling">
                       <NavLink
                         to="/contact"
                         tag="li"
@@ -126,9 +115,9 @@ function Header() {
 
               <div className="float-left d-flex col-md-2">
                 <div id="c">
-                  <ul class="navbar-nav ml-auto">
-                    {!user && (
-                      <li className="nav-item">
+                  <ul className="navbar-nav ml-auto">
+                    {(!user && !props.auth) && (
+                      <li className="nav-item nav-item-list-styling">
                         <NavLink
                           to="/login"
                           tag="li"
@@ -141,8 +130,8 @@ function Header() {
                         </NavLink>
                       </li>
                     )}
-                    {!user && (
-                      <li className="nav-item">
+                    {(!user && !props.auth) && (
+                      <li className="nav-item nav-item-list-styling">
                         <NavLink
                           to="/registration"
                           tag="li"
@@ -155,7 +144,7 @@ function Header() {
                         </NavLink>
                       </li>
                     )}
-                    {user && <DropdownItems />}
+                    { (user || props.auth)  && <DropdownItems />}
                   </ul>
                 </div>
               </div>
@@ -167,4 +156,4 @@ function Header() {
   );
 }
 
-export default (withRouter(Header));
+export default withRouter(Header);

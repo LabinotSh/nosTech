@@ -5,18 +5,17 @@ import jwt_decode from 'jwt-decode';
 const checkAuth = () => {
     const token = localStorage.getItem('user');
     const refreshToken = localStorage.getItem('refresh');
-
+    // console.log(token)
+    // console.log(refreshToken)
     if(!token || !refreshToken){
         return false;
     }
-
     try {
         // { exp: 12903819203 }
-        const { exp } = jwt_decode(refreshToken);
-    
-        if (exp < new Date.now() /1000) {
+      if (Date.now() >= (jwt_decode(refreshToken).exp)*1000) {
           return false;
-        }
+      }
+        console.log(jwt_decode(token).exp);
       } catch (e) {
         return false;
       }
@@ -25,14 +24,13 @@ const checkAuth = () => {
 };
 
 const PrivateRoute = ({component:Component, ...rest}) => {
-    const user = localStorage.getItem('user');
-
+    // const user = localStorage.getItem('user');
     return(
-        <Route {...rest} render={(props) => {
-            (checkAuth() || !user) 
+        <Route {...rest} render={(props) => (
+            (checkAuth()) 
             ? <Component {...props} />
             : <Redirect to='/login' />
-        }} />
+        )} />
     )
 }
 

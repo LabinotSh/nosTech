@@ -1,0 +1,24 @@
+.company-description-div {
+    width: 300px;
+    color: white;
+    margin: 0 20px 0 20px;
+} 
+
+.facebook-footer:hover {
+    color: #4267B2;
+}
+
+.twitter-footer:hover {
+    color: #00acee;
+}
+
+.linkedin-footer:hover {
+    color: #0e76a8;
+}
+
+
+@media only screen and (max-width: 874px) {
+    .company-description-div {
+        display: none;
+    }
+} 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import "./login.css";
 import { Container, Row, Col, Card, Button, Form } from "react-bootstrap";
 import loginBackground from "../../assets/images/loginBackground.png";
@@ -9,7 +9,7 @@ import store from '../../store';
 import { login } from '../../redux/actions/auth';
 import {history} from '../../helpers/history';
 import {connect, useSelector, useDispatch} from 'react-redux';
-import {withRouter} from 'react-router-dom';
+import {Link, Redirect, withRouter} from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 
 const validationSchema = Yup.object().shape({
@@ -17,52 +17,69 @@ const validationSchema = Yup.object().shape({
   password: Yup.string().required("(Password is required)"),
 });
 
-const Login = ({authenticated, err}) => {
+const Login = ({authenticated, user, err}) => {
 
   const [loading, setLoading] = useState(false);
-  const [role, setRole] = useState("");
-
-  //const loggingIn = useSelector(state => state.login.isLoggedIn);
+  const [ro, setRole] = useState("");
+  const [error, setError] = useState("");
+  const [unMounted, setUnmounted] = useState(false);
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if(authenticated){
-      dispatch(login());
+
+  useEffect(() => {  
+    if(user && authenticated){
+      const role = user.role;
+      role==="user" ? history.push('/') : history.push('/admins/users')
+      //window.location.reload(); 
     }
-  },[dispatch, authenticated])
+  }, [user])
+
+  useEffect(() => {
+    setTimeout(() => {
+      err ? setError(err) : setError('');
+    }, 800); 
+  }, [err])
+
+  useEffect(() => {
+    setTimeout(() => {
+      if(error){
+        setError('')
+      }
+    }, 4000); 
+  },[error])
 
   return (
+    <>
+    
     <Formik
       initialValues={{ username: "", password: "" }}
       validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting, resetForm }) => {
-        setSubmitting(true);
-        setLoading(true);
-        //down below is where the data should be sent to the server
+        // setSubmitting(true);
+        // setLoading(true);
+        //down below is where the data should be sent to the server 
         dispatch(login(values.username, values.password))
         .then(response => {
-          setLoading(true);
-          const userRole = JSON.stringify(response.data.user['role']);
-          setRole(response.data.user['role']);
-          console.log('User: ' + userRole);
-
+          setSubmitting(true);
+          setLoading(false);
+          setError('');
           setTimeout(() => {
             resetForm();
-            setSubmitting(false);
-          }, 1000);
+            setLoading(false);
+          },500)
 
         }).catch(error => {
-          setLoading(false);
-          // console.log('ERRor ' + error);
+          setLoading(true);
+          console.log('Error: ' + error);
+          setSubmitting(false);
+          setError(err)
+          setTimeout(() => {
+            setLoading(false);
+            resetForm();
+          }, 1500)
   
         });
-        // setTimeout(() => {
-        //   //will put a spinner instead of the alert for logging in kur t'shtohet auth
-        //   //alert(JSON.stringify(values, null, 2));
-        //   resetForm();
-        //   setSubmitting(false);
-        // }, 1000);
       }}
     >
       {({
@@ -84,11 +101,11 @@ const Login = ({authenticated, err}) => {
                 </Card.Text>
                 <Form onSubmit={handleSubmit}>
                   {/* {JSON.stringify(values)} */}
-                  {err && (
-                    <div className="text-danger">
-                      {err}
-                    </div>
-                  )}
+                  {error && (
+                      <div className="text-danger">
+                        {error}
+                      </div>
+                    )} 
                   <Form.Group controlId="formBasicUsername">
                     <Form.Control
                       type="text"
@@ -135,7 +152,9 @@ const Login = ({authenticated, err}) => {
                   >
                     Login Now
                   </Button>
+                  <Link to='registration'>
                   <Button className="registerBtn">Create Account</Button>
+                  </Link>
                 </Form>
               </Card>
             </Col>
@@ -151,12 +170,14 @@ const Login = ({authenticated, err}) => {
         </Container>
       )}
     </Formik>
+    </>
   );
 }
 
 const mapStateToProps = state => ({
+  user: state.login.user,
   authenticated: state.login.isLoggedIn,
-  err: state.login.error
+   err: state.login.error
 });
 
 export default connect(mapStateToProps ,{login})(withRouter(Login));

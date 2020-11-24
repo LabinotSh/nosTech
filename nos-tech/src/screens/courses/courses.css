@@ -1,6 +1,7 @@
 .courseImg{
     width: 300px;
     height: 150px;
+    cursor: pointer;
 }
 .courses-card{
     width: fit-content;
@@ -8,7 +9,6 @@
     height: fit-content;
     margin-bottom: 30px;
     padding: 1rem;
-  
 }
 .courses-title{
     font-size: 18px;
@@ -22,6 +22,7 @@
 .courses-desc{
     font-size: 15px;
     color:rgb(105, 105, 105);
+    width: 20rem;
     height: 40%;
     margin: 1% 0 1% 0;
     text-overflow: ellipsis;
@@ -62,7 +63,43 @@ span.hover:hover{
 }
 
 .buy{
-    margin-left:'3px'; 
+    /* margin-left:'3px';  */
     margin-bottom: 10px;
-    padding:'12px';
+    padding:.55rem;
+    background-color: #fff;
+    color:#4169E1;
+    /* border-color: #4169E1; */
+}
+.buy:hover{
+    background-color: #4169E1;
+    color:#fff;
+}
+.add-course-form{
+    position: relative;
+}
+.add-course-right-content{
+    height: 700px;
+    width: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top-left-radius: 80px;
+}
+.main-add-course{
+    margin: 0;
+    padding: 0;
+    background-color: white;
+}
+.file-error{
+    width: 300px;
+    background-color: rgba(195, 0, 26, 0.63);
+    color: white;
+    border: none;
+}
+
+.unmatch{
+    font-size: large;
+    font-style: italic;
+    color:lightslategray;
+    font-weight: 400;
 }

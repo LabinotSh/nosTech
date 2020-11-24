@@ -5,11 +5,8 @@ import {LOGIN_SUCCESS,
        REGISTER_REQUEST, 
        REGISTER_SUCCESS} from './types';
 import axios from 'axios';
-import responsive from '../../constants/carouselResponsive';
 import {history} from '../../helpers/history';
-
-const API_URL = 'http://localhost:3001/api/user'; 
-
+import { API_URL } from '../../constants/Constants';
 
 export const register = (name, surname, email, password, role, username) => (dispatch) => {
 
@@ -17,20 +14,17 @@ export const register = (name, surname, email, password, role, username) => (dis
         type:REGISTER_REQUEST
     });
     
-    return axios.post(API_URL+'/register', {name, surname, email, password, role, username})
+    return axios.post(API_URL+'/user/register', {name, surname, email, password, role, username})
     .then(response => {
         if(response.error){
             throw(response.error);
         }
-       const user = JSON.stringify(response.data);
-       console.log('USER ' + user);
+        const user = JSON.stringify(response.data);
+        console.log('USER ' + user);
 
         dispatch({
             type:REGISTER_SUCCESS,
         });
-
-        //history.push('/login');
-        //window.location.reload(false);
 
         return response;
     }).catch(error => {
@@ -46,33 +40,29 @@ export const register = (name, surname, email, password, role, username) => (dis
 };
 
 
-export const login = (username, password) => (dispatch) => {
-    return axios.post(API_URL+'/login', {username, password})
+export const login = (username, password) => async (dispatch) => {
+    return axios.post(API_URL+'/user/login', {username, password})
     .then((response) => {
+        console.log('RE ' + JSON.stringify(response))
         if(response.data.token){
             console.log('USER ' + JSON.stringify(response.data.token));
             const user = response.data.token;
             localStorage.setItem('user', JSON.stringify(user));
             localStorage.setItem('refresh', JSON.stringify(response.data.refreshToken));
-
-            const role = JSON.stringify(response.data.user['role'])
-            const ro = JSON.parse(role);
-
-            if(ro === "admin"){
-                history.push('/admin')
-            }else{
-                history.push('/');
-            }
+            localStorage.setItem('userFav', JSON.stringify(response.data.user.favorites)); 
         }
-
-
         dispatch({
             type:LOGIN_SUCCESS,
             payload: response.data.user
         });
 
-       window.location.reload(false);
-
+        if(localStorage.getItem('course')) {
+                
+            const course = localStorage.getItem('course')
+            localStorage.removeItem('course')
+            history.push(`/course/${course}`)
+        }
+       //window.location.reload(false);
         return response;
     }).catch(error => {
         console.log('Error: ' + error.response.data);
@@ -81,21 +71,24 @@ export const login = (username, password) => (dispatch) => {
             type:LOGIN_FAIL,
             payload: error.response.data
         });
-        return error.response.data;
 
+        return error.response.data;
     })
 }
+
+
 
 export const logout = () => (dispatch) => {
  localStorage.removeItem('user');
  localStorage.removeItem('refresh');
+ localStorage.removeItem('userFav')
 
  dispatch({
      type:LOGOUT
  })
-
- history.push('/login');
- window.location.reload(false);
+ 
+ history.push('/login');   
+ window.location.reload(false);   
 };
 
 

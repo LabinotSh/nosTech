@@ -1,0 +1,20 @@
+.account-settings {
+    display: flex;
+    height: 500px;
+    width: 400px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.delete-list {
+    font-style: italic;
+}
+
+.deleteMyAccountBtn {
+    background-color: rgb(253, 37, 37) !important;
+    outline-color:  rgb(253, 37, 37) !important;
+    border:  rgb(253, 37, 37) !important;
+    width: 220px;
+}

@@ -1,0 +1,15 @@
+.smaller {
+  display: flex;
+  justify-content: center;
+  font-size: 13px;
+  width: 80%;
+  margin-top: 5%;
+  padding-left: 3%;
+}
+.courses-table-dsc{
+  width: 150px; 
+  white-space: nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  display: inline-block;
+}
