@@ -155,7 +155,7 @@
         content: '';
         border-bottom: 1px solid red !important;
         display: block;
-        /* width: 400px; */
+        width: 320px;
         padding-top: 10px;
     }
     
