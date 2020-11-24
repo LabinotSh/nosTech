@@ -10,8 +10,13 @@ A MERN Fullstack application
 1.##Before running please make sure you install all packages required, 
   on both back and front folders, by running:
   - npm install.
+ 
+## Back-End => /server
 
-2.## Also create .env file in your back end folder, where you will be putting
+   ##To run:
+   -$npm run dev
+   
+ 2.## Also create .env file in your back end folder, where you will be putting
      the constants for database connection and for access/refresh token, and your own email/pw credentials.
      
   ###Create your own:\
@@ -21,8 +26,3 @@ A MERN Fullstack application
      #4.PORT -> the running port for back end is 3001, but you can create yours based on your requirements\
      #5.MAIL_USER\
      #6.MAIL_PASS
- 
-## Back-End => /server
-
-   ##To run:
-   -$npm run dev
