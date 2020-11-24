@@ -84,14 +84,14 @@ const CourseReview = ({history}) => {
                 </td>
                 <td>
                     {course.status === 0
-                    ? <i onClick={() => approveHandler(course._id)} className="pl-3 fa fa-check-circle category-edit" />
-                    : <button style={{border:'none'}}  disabled><i className="pl-3 fa fa-check-circle" /></button>
+                    ? <i onClick={() => approveHandler(course._id)} style={{paddingLeft:'23px'}} className="fa fa-check-circle category-edit" />
+                    : <button style={{border:'none'}}  disabled><i style={{paddingLeft:'17px'}} className="fa fa-check-circle" /></button>
                     }                  
                 </td>
                 <td>                                
                 {course.status === 0
-                    ? <i onClick={() => refuseHandler(course._id)} className="pl-3 fa fa-ban category-trash" />
-                    : <button style={{border:'none'}}  disabled><i className="pl-3 fa fa-ban" /></button>
+                    ? <i onClick={() => refuseHandler(course._id)} style={{paddingLeft:'23px'}} className="fa fa-ban category-trash" />
+                    : <button style={{border:'none'}}  disabled><i style={{paddingLeft:'17px'}} className="fa fa-ban" /></button>
                 }
                 </td>
                 </tr>
