@@ -53,8 +53,11 @@ const CourseEditView = ({match}) => {
 
 
     return (
-        <>
+        <>  
+            <div className="d-flex justify-content-between">
             <Link to="/admins/courses" className="btn btn-dark btn-sm my-3 mx-5">Go Back</Link>
+            <Link to={`/admins/course/${courseId}/videos`} className="btn btn-dark btn-sm my-3 mx-5">Edit videos</Link>
+            </div>
             <Form onSubmit={submitHandler} className="my-4 px-5">
                 {courseUpdateSuccess?<Alert variant="success">Course updated successfully</Alert>:null}
                 <Form.Group controlId="name">
