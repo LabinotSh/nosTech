@@ -9,6 +9,7 @@ import Banner from '../../components/banner/CourseBanner';
 import Loader from '../../components/icons/Loader';
 import SearchBar from '../../components/searchBar/searchBar';
 import CourseItem from './CourseItem';
+import CourseContent from '../../components/courseComponents/courseContent';
 
 const Courses = ({ list, pending, err }) => {
 	const dispatch = useDispatch();
@@ -29,7 +30,7 @@ const Courses = ({ list, pending, err }) => {
 		dispatch(fetchAllCourses())
 			.then((response) => {
 				if (isRendered) {
-					setCourses(response);
+					setCourses(response.filter(x => x.status == 1).reverse().slice(0, 10));
 					console.log('COURSES: ' + JSON.stringify(response));
 				}
 			})
@@ -86,7 +87,7 @@ const Courses = ({ list, pending, err }) => {
 				<hr></hr>
 			</div>
 			<div className="middle-content">
-				<p className="courses-headline">Recent NosTech Courses</p>
+				<CourseContent />
 			</div>
 		</div>
 	);
