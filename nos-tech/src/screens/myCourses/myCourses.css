@@ -58,7 +58,8 @@
 .main-cont{
     justify-content: center;
 }
-.container{
+
+.cont{
     display: flex;
     flex-flow: row;
 }
@@ -76,7 +77,7 @@
     height: 25vh;
     object-fit: cover;
 }
-.card-foot {
+.c-foot {
     background-color: #f4f4f4;
 }
 

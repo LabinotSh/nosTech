@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './courses.css';
 import Carousel from '../../components/carousel/Carousel';
-import { connect, useDispatch, useSelector } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { fetchAllCourses } from '../../redux/actions/courses';
-import { withRouter, Link, Redirect } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import responsive from '../../constants/carouselResponsive';
 import Banner from '../../components/banner/CourseBanner';
 import Loader from '../../components/icons/Loader';
@@ -41,9 +41,9 @@ const Courses = ({ list, pending, err }) => {
 	//Load courses on render
 	useEffect(() => {
 		retrieveCourses();
-
 		return () => {
-			isRendered.current = false;
+      isRendered.current = false;
+      pending = false;
 		};
 	}, []);
 
