@@ -5,6 +5,7 @@ import {
     COURSE_DELETE_REQUEST,
     COURSE_DELETE_SUCCESS,
     COURSE_DELETE_FAIL,
+    COURSE_DELETE_RESET,
     COURSE_DETAILS_REQUEST,
     COURSE_DETAILS_SUCCESS,
     COURSE_DETAILS_FAIL,
@@ -47,6 +48,8 @@ export const courseDeleteReducer = (state = {}, action) => {
             return {...state,loading: false, success:true};
         case COURSE_DELETE_FAIL:
             return {...state,loading: false, error: action.payload};
+        case COURSE_DELETE_RESET:
+            return state = {}    
         default:
             return state
     }

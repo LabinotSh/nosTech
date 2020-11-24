@@ -9,6 +9,8 @@ const userRoutes = require('./api/user');
 const courseRoutes = require('./api/course');
 const orderRoutes = require('./api/order');
 const categoryRoutes = require('./api/category');
+const postRoutes = require('./api/post')
+const uploadVideoRoutes = require('./api/uploadVideo')
 const orderTest = require('./api/test');
 const emailRoutes = require('./api/email');
 const favRoutes = require('./api/favorites');
@@ -40,8 +42,15 @@ app.use('/api/email/confirm', emailRoutes);
 app.use('/api/category', categoryRoutes);
 app.use('/api/favorites', favRoutes)
 app.use('/api/newsletter', newsletterRoutes)
+app.use('/api/uploadVideo', uploadVideoRoutes)
+app.use('/api/post', postRoutes)
+
+
+app.use('/uploads', express.static(__dirname+'/uploads'))
 //Wake up the server before rendering
 app.get('/wake-up', (req, res) => res.send('👌'))
+
+
 
 //Throws when a non-existent route is visited
 app.use((req, res, next) => {

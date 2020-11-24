@@ -6,8 +6,9 @@ import {useDispatch, useSelector} from 'react-redux'
 import './courseView.css'
 import Panel from '../../components/panel/Panel';
 import Pagination from '../../components/pagination/Pagination';
+import { COURSE_DELETE_RESET } from '../../redux/actions/types'
 
-const CoursesView = ({history}) => {
+const CoursesView = () => {
     const dispatch = useDispatch();
 
     const  courseList = useSelector(state => state.courseList)
@@ -29,8 +30,11 @@ const CoursesView = ({history}) => {
     const paginate = pageNumber => setCurrentPage(pageNumber);
 
     useEffect(() => {
+        if(courseDeleteSuccess) {
+            dispatch({type: COURSE_DELETE_RESET})
+        }
         dispatch(listCourses())
-        console.log("testttt")
+        
     }, [courseDeleteSuccess,dispatch])
 
     const deleteHandler = (id) => {

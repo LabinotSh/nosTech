@@ -269,6 +269,40 @@ router.post('/:id/addReview', asyncHandler(async(req, res)=> {
     }
 }))
 
+router.post('/:id/addVideos', asyncHandler(async(req, res) => {
+    const course = await Course.findById(req.params.id);
+    if(course) {
+        course.videos.push(...req.body.videos)
+        await course.save();
+        res.status(201).json({message:"Courses added successfully"})
+
+    }else {
+        res.status(404)
+        throw new Error("Course not found")
+    }
+}))
+
+router.put('/:id/deleteVideo', asyncHandler(async(req, res) => {
+    console.log(req.body)
+    const course = await Course.findById(req.params.id);
+    if(course) {
+        
+        const index = course.videos.indexOf(JSON.parse(req.body.video))
+        if(index > -1) {
+            course.videos.splice(index,1)
+        }else {
+            res.status(404)
+            throw new Error("Video not found")
+        }
+        await course.save();
+        res.status(201).json({message:"Video deleted"})
+
+    }else {
+        res.status(404)
+        throw new Error("Course not found")
+    }
+}))
+
 
 router.post('/new', async(req, res)=> {
 

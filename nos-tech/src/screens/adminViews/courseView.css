@@ -6,10 +6,18 @@
   margin-top: 5%;
   padding-left: 3%;
 }
-.courses-table-dsc{
-  width: 150px; 
+.courses-table-dsc {
+  width: 150px;
   white-space: nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
+  overflow: hidden;
+  text-overflow: ellipsis;
   display: inline-block;
+}
+
+.addVideo {
+  color: black;
+}
+
+.videosTable {
+  padding-left: 0;
 }
