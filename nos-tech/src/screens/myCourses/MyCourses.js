@@ -15,7 +15,7 @@ import { fetchAllCourses } from "../../redux/actions/courses";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
-const MyCourses = ({ match }) => {
+const MyCourses = () => {
   const [courses, setCourses] = useState([]);
   const [video, setVideo] = useState("spinner.gif");
   const [about, setAbout] = useState(true);
@@ -47,6 +47,7 @@ const MyCourses = ({ match }) => {
     axios.get(`${API_URL}/favorites/${userId}/getAll`).then(
       res => {
         console.log('fav ' + JSON.stringify(res.data));
+        setFavList(res.data.favs);
       }
     ).catch(err => {
       console.log(err);
@@ -73,7 +74,7 @@ const MyCourses = ({ match }) => {
             <NavLink to='#abo' 
              style={{color:"#000" ,textDecoration:"none"}}
              activeStyle={about ? 
-              {color:'#fff', borderRadius:'7%' , padding:'.65rem', backgroundColor:'#132440'} 
+              {color:'#fff', borderRadius:'7%' , padding:'.8rem', backgroundColor:'#132440'} 
               : null}
             >Enrolled Courses</NavLink> 
           </li>
@@ -92,8 +93,10 @@ const MyCourses = ({ match }) => {
         <div id="abo" className="cont abo" style={{marginBottom:'150px'}}>
            {courses && courses.map(course => {
             return (
-            <Card key={course._id} style={{ width: "18rem",margin:"1rem" ,borderRadius:'5%'}}>
+            <Card className="enrolled-c" key={course._id}>
+            <div className="ovf">
             <Card.Img variant="top" className="c-image img-fluid" src={course.image} />
+            </div>
             <Card.Body className="desc">
             <Card.Title>{course.name}</Card.Title>
               <Card.Text>{course.description}</Card.Text>
@@ -110,26 +113,25 @@ const MyCourses = ({ match }) => {
           })}
         </div>
       ) : (   
-        <div className="fav bg-light" id="2" style={{marginBottom:'150px'}}>
+        <div className="cont fav bg-light" id="2" style={{marginBottom:'150px'}}>
           {favList && favList.map(favorite => {
-            // if(favList.find(i => i===favorite._id))
             return (
-            <Card key={favorite._id} style={{ width: "18rem" ,borderRadius:'5%'}}>
-            <Card.Img variant="top" className="card-img" src={favorite.image} />
-            <Card.Body>
-            <Card.Title>{favorite.name}</Card.Title>
-              <Card.Text>{favorite.description}</Card.Text>
-              <Card.Text>{favorite.description}</Card.Text>
-            </Card.Body>
-            <ListGroup className="list-group-flush">
-              <ListGroupItem>Price: {favorite.price}</ListGroupItem>
-              <ListGroupItem>Instructor: {favorite._instructor}</ListGroupItem>
-            </ListGroup>
-            <Card.Body>
-              <Card.Link href="#">Watch</Card.Link>
-              {/* <Card.Link href="#">Another Link</Card.Link> */}
-            </Card.Body>
-          </Card>
+              <Card className="fav-c" key={favorite._id}>
+              <div className="ovf">
+              <Card.Img variant="top" className="c-image img-fluid" src={favorite.image} />
+              </div>
+              <Card.Body className="desc">
+              <Card.Title>{favorite.name}</Card.Title>
+                <Card.Text>{favorite.description}</Card.Text>
+                {/* <Card.Link className="c-link float-right" href="#">Watch <FontAwesomeIcon icon={faArrowRight}/> </Card.Link> */}
+              </Card.Body>
+              <Card.Body>
+              <Card.Link className="c-link float-right" href="#">Watch <FontAwesomeIcon icon={faArrowRight}/> </Card.Link>
+              </Card.Body>
+              <Card.Footer className="c-foot">
+              <Card.Text className="inst float-left">Instructor: {favorite._instructor}</Card.Text>
+              </Card.Footer>
+            </Card>
             );
           })}
         </div>
