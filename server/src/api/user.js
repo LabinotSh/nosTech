@@ -159,8 +159,6 @@ router.get('/:userId', async (req, res) => {
   }
 })
 
-
-
 //Delete a user by id
 router.delete('/:userId', async (req, res) => {
   const id = req.params.userId
