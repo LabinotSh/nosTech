@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Card, ListGroup, ListGroupItem } from 'react-bootstrap';
-import { faArrowRight, faCircle, faDotCircle, faLock, faLockOpen } from '@fortawesome/free-solid-svg-icons';
+import { Card} from 'react-bootstrap';
+import { faArrowRight} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Enrolled = (props) => {

@@ -15,7 +15,6 @@ const MyCourses = () => {
 	const [courses, setCourses] = useState([]);
 	const [video, setVideo] = useState('spinner.gif');
 	const [about, setAbout] = useState(true);
-	const [favorites, setFavorites] = useState(JSON.parse(localStorage.getItem('userFav')));
 	const [favList, setFavList] = useState([]);
 
 	const isRendered = useRef('false');
@@ -40,11 +39,13 @@ const MyCourses = () => {
 	};
 
 	const getFav = (userId) => {
-		axios
-			.get(`${API_URL}/favorites/${userId}/getAll`)
+    isRendered.current=true;
+		axios.get(`${API_URL}/favorites/${userId}/getAll`)
 			.then((res) => {
+        if(isRendered){
 				console.log('fav ' + JSON.stringify(res.data));
-				setFavList(res.data.favs);
+        setFavList(res.data.favs);
+        }
 			})
 			.catch((err) => {
 				console.log(err);
