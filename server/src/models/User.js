@@ -2,6 +2,7 @@ const moongose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
 const ROLE = {
+    SUPERADMIN: 'superadmin',
     ADMIN: 'admin',
     USER: 'user'
 }
@@ -28,7 +29,7 @@ const userSchema = new moongose.Schema({
         type: String,
         required: true,
         default: ROLE.USER,
-        enum: [ROLE.USER,ROLE.ADMIN]
+        enum: [ROLE.USER, ROLE.ADMIN, ROLE.SUPERADMIN]
     },
     username: {
         type: String,

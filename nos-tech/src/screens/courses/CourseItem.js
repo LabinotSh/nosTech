@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { HeartFull, HeartEmpty } from '../../components/icons/Heart';
 import { LinkContainer } from 'react-router-bootstrap';
 import { addToFavorites, removeFromFavorites } from '../../redux/actions/courses';
@@ -47,22 +47,14 @@ const CourseItem = (props) => {
 	}, []);
 
 	const deleteLocal = (courseId) => {
-        let favs = JSON.parse(localStorage.getItem('userFav'));
-        let array = [...favs];
-        let favList = [];
-        let remove = false;
-		array.map((item) => {
-            if (item === courseId) {
-                remove = true;
-            }
-        });
-        if (remove) {
-            array.pop(courseId);
-            favList = [...array];
-			localStorage.setItem('userFav', JSON.stringify(favList));
-			setFavorites(JSON.parse(localStorage.getItem('userFav')))
-        }
-        // localStorage.setItem('userFav', JSON.stringify(favList));
+		let favs = JSON.parse(localStorage.getItem('userFav'));
+		let array = [...favs];
+		let favList = [];
+
+		const filt = array.filter((item) => item !== courseId);
+		favList = [...filt];
+		localStorage.setItem('userFav', JSON.stringify(favList));
+		setFavorites(JSON.parse(localStorage.getItem('userFav')));
 	};
 
 	return (
@@ -84,21 +76,19 @@ const CourseItem = (props) => {
 								<span
 									className="hover"
 									data-tip={
-                                        removed || favorites.find((item) => item === props.course._id) 
+										removed || favorites.find((item) => item === props.course._id)
 											? 'Remove from favorites'
 											: 'Add to favorites'
 									}
 								>
-                                    {
-                                    removed || favorites.find((item) => item === props.course._id) 
-                                     ? (
+									{removed || favorites.find((item) => item === props.course._id) ? (
 										<HeartFull
 											onClick={() => {
-                                                deleteLocal(props.course._id)
+												deleteLocal(props.course._id);
 												setSelected({ ...selected, id: props.course._id, removed: false });
 												dispatch(removeFromFavorites(user._id, props.course)).then((res) => {
-                                                    console.log('ID ' + user);
-                                                    setErrors(res.msg);
+													console.log('ID ' + user);
+													setErrors(res.msg);
 												});
 											}}
 										/>
@@ -137,4 +127,4 @@ const mapStateToProps = (state) => ({
 	error: state.favorites.error,
 });
 
-export default connect(mapStateToProps, {addToFavorites, removeFromFavorites})(withRouter(CourseItem));
+export default connect(mapStateToProps, { addToFavorites, removeFromFavorites })(withRouter(CourseItem));
