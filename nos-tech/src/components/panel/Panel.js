@@ -26,7 +26,7 @@ const Panel = () => {
 
     return(
         <>
-    <div class="admin-nav">
+    <div className="admin-nav">
     <p className="greetings-the-user-p">
       Hi <span className="greetings-the-user-span"> {user.username}</span>
     </p>
@@ -38,7 +38,7 @@ const Panel = () => {
     activeStyle={ActiveLinksPanel}
     exact
     >
-        <i class="fas fa-home panel-icons "></i>
+        <i className="fas fa-home panel-icons "></i>
         <span className="panel-title-spans">Home</span>
     </NavLink>
 
@@ -50,7 +50,7 @@ const Panel = () => {
     activeStyle={ActiveLinksPanel}
     exact
     >
-        <i class="fas fa-chart-pie panel-icons "></i>
+        <i className="fas fa-chart-pie panel-icons "></i>
         <span className="panel-title-spans">Dashboard</span>
     </NavLink>
 
@@ -62,7 +62,7 @@ const Panel = () => {
     activeStyle={ActiveLinksPanel}
     exact
     >
-        <i class="fa fa-list-alt panel-icons"></i>
+        <i className="fa fa-list-alt panel-icons"></i>
         <span className="panel-title-spans">Categories</span>
     </NavLink>
 
@@ -86,12 +86,12 @@ const Panel = () => {
     activeStyle={ActiveLinksPanel}
     exact
     >
-        <i class="fas fa-user-friends panel-icons"></i>
+        <i className="fas fa-user-friends panel-icons"></i>
         <span className="panel-title-spans">Users</span>
     </NavLink>
     
     <Dropdown className="panel-links-dropdown">
-    <i class="far fa-copy panel-icons-drp-big panel-title-spans"></i>
+    <i className="far fa-copy panel-icons-drp-big panel-title-spans"></i>
     <Dropdown.Toggle id="dropdown-basic" className="panel-link-drp-title">
     <span className="panel-title-spans">Courses</span>
     </Dropdown.Toggle>

@@ -2,6 +2,10 @@
     background-color: #232324;
     /* word-wrap: break-word; */
 }
+
+.main-cont{
+    margin-top: 3rem;
+}
   
 .course-list li:hover {
     cursor: pointer;
@@ -118,4 +122,14 @@
 .fav-c:hover{
     box-shadow: 5px 10px 20px 1px rgba(0,0,0,0.35) !important;
     transform: scale(1.0000001);
+}
+.fnt-lock{
+    margin-right: 8px;
+}
+
+.sel-style{
+    padding: '.8rem';
+    border-bottom: '2px solid #191970';
+    opacity: 1;
+    color: #191970;
 }

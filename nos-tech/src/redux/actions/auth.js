@@ -57,10 +57,14 @@ export const login = (username, password) => async (dispatch) => {
         });
 
         if(localStorage.getItem('course')) {
-                
             const course = localStorage.getItem('course')
             localStorage.removeItem('course')
             history.push(`/course/${course}`)
+        }
+        if(response.data.user.role === 'admin'){
+            history.push('/admins/users')
+        }else{
+            history.push('/');
         }
        //window.location.reload(false);
         return response;
