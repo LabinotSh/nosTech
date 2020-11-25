@@ -5,12 +5,10 @@ import loginBackground from "../../assets/images/loginBackground.png";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import Error from "../../components/error/Error.js";
-import store from '../../store';
 import { login } from '../../redux/actions/auth';
 import {history} from '../../helpers/history';
 import {connect, useSelector, useDispatch} from 'react-redux';
 import {Link, Redirect, withRouter} from 'react-router-dom';
-import jwt_decode from 'jwt-decode';
 
 const validationSchema = Yup.object().shape({
   username: Yup.string().required("(Username is required)"),
@@ -20,25 +18,15 @@ const validationSchema = Yup.object().shape({
 const Login = ({authenticated, user, err}) => {
 
   const [loading, setLoading] = useState(false);
-  const [ro, setRole] = useState("");
   const [error, setError] = useState("");
   const [unMounted, setUnmounted] = useState(false);
 
   const dispatch = useDispatch();
 
-
-  useEffect(() => {  
-    if(user && authenticated){
-      const role = user.role;
-      role==="user" ? history.push('/') : history.push('/admins/users')
-      //window.location.reload(); 
-    }
-  }, [user])
-
   useEffect(() => {
     setTimeout(() => {
       err ? setError(err) : setError('');
-    }, 800); 
+    }, 500); 
   }, [err])
 
   useEffect(() => {
@@ -46,7 +34,7 @@ const Login = ({authenticated, user, err}) => {
       if(error){
         setError('')
       }
-    }, 4000); 
+    }, 5000); 
   },[error])
 
   return (
@@ -60,26 +48,29 @@ const Login = ({authenticated, user, err}) => {
         // setLoading(true);
         //down below is where the data should be sent to the server 
         dispatch(login(values.username, values.password))
-        .then(response => {
-          setSubmitting(true);
-          setLoading(false);
-          setError('');
-          setTimeout(() => {
-            resetForm();
-            setLoading(false);
-          },500)
+        setTimeout(() => {
+          resetForm()
+        }, 1500);
+        // .then(response => {
+        //   setSubmitting(true);
+        //   setLoading(false);
+        //   setError('');
+        //   setTimeout(() => {
+        //     resetForm();
+        //     setLoading(false);
+        //   },500)
 
-        }).catch(error => {
-          setLoading(true);
-          console.log('Error: ' + error);
-          setSubmitting(false);
-          setError(err)
-          setTimeout(() => {
-            setLoading(false);
-            resetForm();
-          }, 1500)
+        // }).catch(error => {
+        //   setLoading(true);
+        //   console.log('Error: ' + error);
+        //   setSubmitting(false);
+        //   setError(err)
+        //   setTimeout(() => {
+        //     setLoading(false);
+        //     resetForm();
+        //   }, 1500)
   
-        });
+        //});
       }}
     >
       {({
@@ -177,7 +168,7 @@ const Login = ({authenticated, user, err}) => {
 const mapStateToProps = state => ({
   user: state.login.user,
   authenticated: state.login.isLoggedIn,
-   err: state.login.error
+  err: state.login.error
 });
 
 export default connect(mapStateToProps ,{login})(withRouter(Login));
