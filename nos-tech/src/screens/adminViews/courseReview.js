@@ -1,5 +1,5 @@
 import React, {useEffect,useState} from 'react'
-import { LinkContainer } from 'react-router-bootstrap'
+import {Link} from 'react-router-dom'
 import {Table, Button} from 'react-bootstrap'
 import {listCourses, approveCourse, refuseCourse} from '../../redux/actions/courseActions'
 import {useDispatch, useSelector} from 'react-redux'
@@ -62,6 +62,7 @@ const CourseReview = ({history}) => {
                 <th>DESCRIPTION</th>
                 <th>PRICE</th>
                 <th>CATEGORY</th>
+                <th>CONTENT</th>
                 <th>STATUS</th>
                 <th>APROVE</th>
                 <th>REFUSE</th>
@@ -74,7 +75,11 @@ const CourseReview = ({history}) => {
                 <td>{course.name}</td>
                 <td className="courses-table-dsc">{course.description}</td>
                 <td>{course.price}</td>
-                <td>{course.category}</td>
+                <td className="courses-table-dsc">{course.category}</td>
+                <td><Link to={`/admins/content-review/${course._id}`}>
+                    <i className="pl-3 fas fa-laptop-code course-review-icon" />
+                    </Link>
+                </td>
                 <td>{course.status === 0 
                     ? <span className="text-warning">Onhold</span>
                     : course.status === 1

@@ -1,8 +1,8 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 import { Dropdown } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 import './Panel.css';
-
+import jwt_decode from 'jwt-decode';
 
 const ActiveLinksPanel = {
     color: '#0f5d99',
@@ -10,15 +10,31 @@ const ActiveLinksPanel = {
 };
 
 const Panel = () => {
+
+    const[user,setUser] = useState({})
+    useEffect(() => {
+        try {
+            const token = localStorage.getItem('user')
+            if(token) {
+                const useri = jwt_decode(token)       
+                setUser(useri)
+            }
+        }catch(e) {
+            console.log(e)
+        }
+    },[])   
+
     return(
         <>
     <div class="admin-nav">
-
+    <p className="greetings-the-user-p">
+      Hi <span className="greetings-the-user-span"> {user.username}</span>
+    </p>
     <NavLink
     to="/"
     tag="li"
     active-class="active"
-    className="panel-links mt-5"
+    className="panel-links mt-3"
     activeStyle={ActiveLinksPanel}
     exact
     >

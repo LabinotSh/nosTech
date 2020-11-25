@@ -2,6 +2,7 @@ import React,{useState,useEffect} from 'react'
 import axios from 'axios'
 import CourseItem from '../../screens/courses/CourseItem';
 import './courseComponent.css';
+import LoadMore from '../loadMore/LoadMore';
 
 const CourseContent = () => {
     
@@ -40,9 +41,9 @@ const CourseContent = () => {
             })}
         </div>
         {visible < items.length &&
-            <button onClick={loadMore} className="load-more-but mx-auto">
-                Load More
-            </button>
+        <LoadMore 
+        loadMore={loadMore}
+        />
         }
         </>
     )
