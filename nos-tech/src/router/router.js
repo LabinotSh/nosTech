@@ -34,6 +34,7 @@ import AdminRoute from "./adminRoute";
 import PrivateRoute from "./privateRoute";
 import PublicRoute from "./publicRoutes";
 import Categories from "../components/category/PostCategories";
+import Tags from "../components/tags/PostTags";
 import { connect } from "react-redux";
 import CourseCategory from "../components/coursecategory/CourseCategory";
 import Dashboard from "../screens/adminViews/Dashboard";
@@ -60,6 +61,7 @@ function Router({auth}) {
       <PrivateRoute path="/myProfile" component={MyProfile} />
       <Route exact path="/confirm/:id" component={Confirm} />
       <Route exact path="/course/:id" component={Course}></Route>
+      <AdminRoute path="/tags" component={Tags} />
       <AdminRoute path="/categories" component={Categories} />
       <AdminRoute path="/add-course" component={AddCourse} />
       <AdminRoute path="/admins/courses" component={CoursesView}></AdminRoute>
@@ -79,7 +81,8 @@ function Router({auth}) {
       history.location.pathname !== "/add-course" &&
       history.location.pathname !== "/admins/course-review" &&
       history.location.pathname !== "/upload" &&
-      history.location.pathname !== "/admins/course/:id/videos"
+      history.location.pathname !== "/admins/course/:id/videos" &&
+      history.location.pathname !== "/tags" 
       ? (
         <Footer />
       ) : null}

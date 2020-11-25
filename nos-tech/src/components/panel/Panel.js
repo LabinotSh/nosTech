@@ -67,6 +67,18 @@ const Panel = () => {
     </NavLink>
 
     <NavLink
+    to="/tags"
+    tag="li"
+    active-class="active"
+    className="panel-links"
+    activeStyle={ActiveLinksPanel}
+    exact
+    >
+        <i class="fas fa-hashtag panel-icons"></i>
+        <span className="panel-title-spans">Tags</span>
+    </NavLink>
+    
+    <NavLink
     to="/admins/users"
     tag="li"
     active-class="active"
