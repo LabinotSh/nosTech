@@ -1,0 +1,83 @@
+.tags-form{
+    margin: 10% 0 0 0;
+    background-image: url('../../assets/images/tags.png');
+    width: 450px;
+    height: 500px;
+    overflow: hidden;
+}
+.tags-part{
+    margin-top: 8rem;
+    width: 150px;
+    margin-left: 110px;
+    background-color: transparent;
+}
+.tags-part input::placeholder{
+    font-weight: 400;
+    font-style: italic;
+    color: white;
+    padding-left: 10px;
+}
+.tags-part input{
+    border-bottom: 1px solid white;
+}
+.tags-button{
+    padding: 0.5rem;
+    padding-right: 1.5rem;
+    padding-left: 1.5rem;
+    background-color: transparent;
+    border-radius: 10px;
+    border: 1px solid white;
+    color: white;
+    margin-left: 8rem;
+    margin-top: 5rem;
+}
+.tags-button:hover{
+    background-color: white;
+    color: #193e82;
+}
+.tags-table{
+    margin: 5% 0% 10% 0%;
+    width: 400px;
+    border: 2px solid rgb(185, 185, 185)
+}
+.tags-table-th{
+    max-width: 100%;
+    padding-right: 20px;
+    display: block;
+    border-bottom: 1px solid red;
+    font-weight: 100;
+}
+.tags-trash{
+    transition: ease-in-out;
+    transition-timing-function: ease-in-out;
+    transition-duration: 0.1s;
+    cursor: pointer;
+}
+.tags-trash:hover{
+    transform: scale(1.2,1.2);
+    color: #ff4a03;
+}
+.tags-edit{
+    transition: ease-in-out;
+    transition-timing-function: ease-in-out;
+    transition-duration: 0.1s;
+    cursor: pointer;
+}
+.tags-edit:hover{
+    transform: scale(1.2,1.2);
+    color: #1a4fb3;
+}
+.unique-tag{
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 20px;
+    margin-top: 6rem;
+    color:#193e82;
+}
+
+.tags-input-error{
+    display: inline;
+    color: rgb(255, 103, 103);
+    width: 350px;
+    font-weight: 300;
+}

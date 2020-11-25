@@ -5,6 +5,7 @@ import {coursesReducer} from './courses';
 import {connectRouter }  from 'connected-react-router';
 import {history} from '../../helpers/history'; 
 import { postCategory } from "./postCategory";
+import { postTags } from "./postTags";
 import {courseListReducer, courseDeleteReducer, courseDetailsReducer,courseUpdateReducer,courseAddStudentReducer,courseCreateFeedbackReducer, courseApproveReducer, courseRefuseReducer} from './courseReducers'
 import { userDeleteReducer, userListReducer,userDetailsReducer, userUpdateReducer,userAddCourseReducer } from './userReducers';
 import {favoritesReducer} from './favorites';
@@ -27,6 +28,7 @@ const allReducers = combineReducers({
     userDelete:userDeleteReducer,
     userDetails:userDetailsReducer,
     postCategory,
+    postTags,
     userUpdate:userUpdateReducer,
     userAddCourse:userAddCourseReducer
 
