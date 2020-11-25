@@ -27,6 +27,7 @@ import Confirm from "../screens/registration/Confirm";
 import { history } from "../helpers/history";
 import CoursesView from "../screens/adminViews/coursesView";
 import CourseEditView from "../screens/adminViews/CourseEditView";
+import EditVideos from "../screens/adminViews/EditVideos"
 import UsersView from "../screens/adminViews/usersView";
 import UserEditView from "../screens/adminViews/UserEditView";
 import AdminRoute from "./adminRoute";
@@ -37,6 +38,7 @@ import { connect } from "react-redux";
 import CourseCategory from "../components/coursecategory/CourseCategory";
 import Dashboard from "../screens/adminViews/Dashboard";
 import CourseReview from "../screens/adminViews/courseReview";
+import Upload from '../screens/upload/Upload'
 
 function Router({auth}) {
   return (
@@ -51,6 +53,7 @@ function Router({auth}) {
       <Route path="/contact" component={Contact} />
       <Route path="/categories" component={Categories} />
       <Route exact path="/coursecategory/:cid" component={CourseCategory} />
+      <Route path="/upload" component={Upload}></Route>
       {/* should not be shown to the user if the user is logged in */}
       <PublicRoute path="/login" auth={auth} component={Login} />
       <PublicRoute path="/registration" auth={auth} component={Registration} />
@@ -60,6 +63,7 @@ function Router({auth}) {
       <Route exact path="/course/:id" component={Course}></Route>
       <AdminRoute path="/admins/courses" component={CoursesView}></AdminRoute>
       <AdminRoute path="/admins/course/:id/edit" component={CourseEditView}></AdminRoute>
+      <AdminRoute path="/admins/course/:id/videos" component={EditVideos}></AdminRoute>
       <AdminRoute path="/admins/users" component={UsersView}></AdminRoute>
       <AdminRoute path="/admins/user/:id/edit" component={UserEditView}></AdminRoute>
       <AdminRoute path="/admins/dashboard" component={Dashboard}></AdminRoute>
@@ -71,7 +75,9 @@ function Router({auth}) {
       history.location.pathname !== "/admins/courses" &&
       history.location.pathname !== "/categories" &&
       history.location.pathname !== "/add-course" &&
-      history.location.pathname !== "/admins/course-review"
+      history.location.pathname !== "/admins/course-review" &&
+      history.location.pathname !== "/upload" &&
+      history.location.pathname !== "/admins/course/:id/videos"
       ? (
         <Footer />
       ) : null}

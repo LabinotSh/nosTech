@@ -21,6 +21,7 @@
     "formik": "^2.2.0",
     "formik-field": "^1.6.0",
     "jwt-decode": "^3.0.0",
+    "material-design-icons": "^3.0.1",
     "ra-data-rest-client": "^1.1.1",
     "ra-data-simple-rest": "^3.9.3",
     "react": "^16.13.1",

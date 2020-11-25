@@ -6,6 +6,8 @@ import {useDispatch, useSelector} from 'react-redux'
 import './courseView.css'
 import Panel from '../../components/panel/Panel';
 import Pagination from '../../components/pagination/Pagination';
+import { USER_DELETE_RESET } from '../../redux/actions/types'
+
 
 const UsersView = () => {
     const dispatch = useDispatch();
@@ -28,6 +30,9 @@ const UsersView = () => {
     const paginate = pageNumber => setCurrentPage(pageNumber);
     
     useEffect(() => {
+        if(userDeleteSuccess) {
+            dispatch({type: USER_DELETE_RESET})
+        }
         dispatch(listUsers())
     }, [dispatch,userDeleteSuccess])
 

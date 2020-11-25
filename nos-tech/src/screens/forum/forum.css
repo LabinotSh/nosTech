@@ -1,0 +1,134 @@
+.forum-page {
+    width: 100%;
+    padding:1% 0 8% 0;
+    
+}
+/* ----------TOP---------- */
+/* ----------------------- */
+.forum-top {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.forum-top-text {
+    display: inline-grid;
+}
+
+.forum-top-text p {
+    text-align: center;
+    font-size: 40px;
+}
+.forum-top-text h1 {
+    padding-top: 0 ;
+    font-size: 46px;
+}
+
+.forum-top-btn {
+    display: flex;
+    justify-content: space-around;
+    padding-top: 5%;
+}
+
+.post-btn {
+    background-color: black;
+    color: #00132A;
+    outline-color:#00132A;
+    border-color:white;
+    margin: 20px 10px;
+    width: 200px;
+    border-radius: 10px;
+    padding: 9px 5px;
+    box-shadow: 3px 5px 14px #bebcbc;
+    font-size: 23px;
+}
+.post-btn:hover {
+    background-color: #F7A366 !important;
+    outline-color: #F7A366 !important;
+    border-color:#F7A366 !important;
+}
+
+/* ----------NEXT---------- */
+/* ------------------------- */
+
+.forum-items {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+}
+
+/* .forum-item-box {
+    display: flex;
+    flex-direction: column;
+    padding: 13px;;
+    width: 80%;
+    border-color: indigo;
+    box-shadow: inset 1px 0px 13px -8px rgba(0,0,0,0.75);
+    margin: 1.6% 0 1.6% 0;
+} */
+
+.card-header {
+    display: flex;
+    line-height: 3px;
+}
+
+.forum-button-body {
+    margin: 0;
+    padding: 0;
+}
+
+.forum-item {
+    display: flex;
+    margin: 3% 0 3% 0;
+}
+
+.forum-profile-pic {
+    width: 55px;
+    height: 55px;
+    margin-right: 1.1%;
+}
+
+.btn-primary {
+    color: gray;
+    background-color: white;
+    border: none;
+}
+
+.forum-post-button {
+    display: flex;
+    justify-content: space-between;
+}
+.share-more {
+    display: flex;
+}
+
+.btn-primary::after {
+    color: black;
+    background-color: white;
+}
+
+.upvote-button:hover {
+    color: green;
+    background-color: white;
+}
+
+.downvote-button:hover {
+    color: red;
+    background-color: white;
+}
+
+.comment-button:hover{
+    color: cadetblue;
+    background-color: white;
+}
+
+.share-button:hover {
+    color: lightblue;
+    background-color: white;
+}
+
+.more-button:hover {
+    color: black;
+    background-color: white;
+}

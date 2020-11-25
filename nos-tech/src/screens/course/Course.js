@@ -105,7 +105,7 @@ const Course = ({match, loading}) => {
                 <h2 className="text-white course-name">{course.name}</h2>
                 <div className="videoDiv">
                     <div className="embed-responsive embed-responsive-16by9 video">
-                        <video controls="controls" src={require(`./${video}`)}>
+                        <video controls="controls" src={`/${video}`}>
                             
                         </video>
                     </div>

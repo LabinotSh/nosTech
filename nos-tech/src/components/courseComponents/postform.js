@@ -1,6 +1,6 @@
 import React from 'react'
 import Modal from '../modal/addCourse-modal'
-import './postform.css'
+import './courseComponent.css'
 
 const LeftForm = () => {
     return (
