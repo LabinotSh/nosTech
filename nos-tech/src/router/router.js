@@ -38,6 +38,7 @@ import { connect } from "react-redux";
 import CourseCategory from "../components/coursecategory/CourseCategory";
 import Dashboard from "../screens/adminViews/Dashboard";
 import CourseReview from "../screens/adminViews/courseReview";
+import ContentReview from "../screens/adminViews/contentReview";
 import Upload from '../screens/upload/Upload'
 
 function Router({auth}) {
@@ -46,12 +47,10 @@ function Router({auth}) {
       <Header auth={auth}/>
       <Route path="/" component={Home} exact />
       <Route path="/courses" component={Courses} />
-      <Route path="/add-course" component={AddCourse} />
       <Route path="/articles" component={Articles} />
       <Route path="/forum" component={Forum} />
       <Route path="/about-us" component={AboutUs} />
       <Route path="/contact" component={Contact} />
-      <Route path="/categories" component={Categories} />
       <Route exact path="/coursecategory/:cid" component={CourseCategory} />
       <Route path="/upload" component={Upload}></Route>
       {/* should not be shown to the user if the user is logged in */}
@@ -61,6 +60,8 @@ function Router({auth}) {
       <PrivateRoute path="/myProfile" component={MyProfile} />
       <Route exact path="/confirm/:id" component={Confirm} />
       <Route exact path="/course/:id" component={Course}></Route>
+      <AdminRoute path="/categories" component={Categories} />
+      <AdminRoute path="/add-course" component={AddCourse} />
       <AdminRoute path="/admins/courses" component={CoursesView}></AdminRoute>
       <AdminRoute path="/admins/course/:id/edit" component={CourseEditView}></AdminRoute>
       <AdminRoute path="/admins/course/:id/videos" component={EditVideos}></AdminRoute>
@@ -68,6 +69,7 @@ function Router({auth}) {
       <AdminRoute path="/admins/user/:id/edit" component={UserEditView}></AdminRoute>
       <AdminRoute path="/admins/dashboard" component={Dashboard}></AdminRoute>
       <AdminRoute path="/admins/course-review" component={CourseReview}></AdminRoute>
+      <AdminRoute path="/admins/content-review/:id" component={ ContentReview}></AdminRoute>
       {history.location.pathname !== "/login" &&
       history.location.pathname !== "/registration" &&
       history.location.pathname !== "/admins/dashboard" &&

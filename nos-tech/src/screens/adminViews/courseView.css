@@ -21,3 +21,20 @@
 .videosTable {
   padding-left: 0;
 }
+.course-review-icon{
+  transition: ease-in-out;
+  transition-timing-function: ease-in-out;
+  transition-duration: 0.1s;
+  cursor: pointer;
+  color:black;
+}
+.course-review-icon:hover{
+  transform: scale(1.2,1.2);
+  color: #005a8f;
+}
+.content-review-image{
+  width: 700px;
+  height: 500px;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
