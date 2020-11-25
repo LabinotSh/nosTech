@@ -91,5 +91,23 @@
     .panel-links{
       padding-bottom: 2.5rem;
     }
+    .greetings-the-user-p{
+      display: none;
+    }
 
+}
+.greetings-the-user-span{
+  font-weight: 500;
+  font-style: italic;
+  margin-left: 0.3rem;
+  color: #0f5d99;
+  text-transform:capitalize;
+}
+.greetings-the-user-p{
+  margin: 5% 0 0 10%;
+  padding-top: 1rem;
+  font-weight: 500;
+  font-style: italic;
+  border-bottom: 1px solid rgb(211, 211, 211);
+  width: 113px;
 }

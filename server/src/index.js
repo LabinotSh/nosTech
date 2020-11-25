@@ -14,6 +14,7 @@ const uploadVideoRoutes = require('./api/uploadVideo')
 const orderTest = require('./api/test');
 const emailRoutes = require('./api/email');
 const favRoutes = require('./api/favorites');
+const tagsRoutes = require('./api/tags');
 const path = require('path');
 const newsletterRoutes = require('../nodemailer/newsletter')
 
@@ -44,7 +45,7 @@ app.use('/api/favorites', favRoutes)
 app.use('/api/newsletter', newsletterRoutes)
 app.use('/api/uploadVideo', uploadVideoRoutes)
 app.use('/api/post', postRoutes)
-
+app.use('/api/tags', tagsRoutes)
 
 app.use('/uploads', express.static(__dirname+'/uploads'))
 //Wake up the server before rendering
