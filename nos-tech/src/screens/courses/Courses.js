@@ -15,15 +15,14 @@ const Courses = ({ list, pending, err }) => {
 	const dispatch = useDispatch();
 
 	const isRendered = useRef('false');
-
 	const [listCourses, setCourses] = useState([]);
-	const [filterText, setFilterText] = useState('');
 
-	const [displayMessage, setDisplayMessage] = useState('');
+	// const [filterText, setFilterText] = useState('');
+	// const [displayMessage, setDisplayMessage] = useState('');
 
-	const handleChange = (e) => {
-		setFilterText(e.target.value);
-	};
+	// const handleChange = (e) => {
+	// 	setFilterText(e.target.value);
+	// };
 
 	const retrieveCourses = () => {
 		isRendered.current = true;
@@ -49,19 +48,19 @@ const Courses = ({ list, pending, err }) => {
 	}, []);
 
 	//Make the search appear after 1 seconds and not immediately as the user is typing
-	useEffect(() => {
-		const timeOutId = setTimeout(() => setDisplayMessage(filterText), 1000);
-		return () => clearTimeout(timeOutId);
-	}, [filterText]);
+	// useEffect(() => {
+	// 	const timeOutId = setTimeout(() => setDisplayMessage(filterText), 1000);
+	// 	return () => clearTimeout(timeOutId);
+	// }, [filterText]);
 
-	const results = !displayMessage
-		? listCourses
-		: listCourses.filter((course) => course.name.toLowerCase().includes(displayMessage.toLocaleLowerCase()));
+	// const results = !displayMessage
+	// 	? listCourses
+	// 	: listCourses.filter((course) => course.name.toLowerCase().includes(displayMessage.toLocaleLowerCase()));
 
 	const CourseCarousel = (props) => {
-		if (!results.length) return <div className="unmatch text-center">There is no matching searches!</div>;
+		if (!listCourses.length) return <div className="unmatch text-center">There is no matching searches!</div>;
 
-		return results.map((course) => {
+		return listCourses.map((course) => {
 			return <CourseItem course={course} key={course._id} />;
 		});
 	};
@@ -77,9 +76,9 @@ const Courses = ({ list, pending, err }) => {
 						<p className="courses-headline">Courses we offer!</p>
 						<hr />
 					</div>
-					<div className="col-sm-4 text-center">
+					{/* <div className="col-sm-4 text-center">
 						<SearchBar input={filterText} onChange={handleChange} />
-					</div>
+					</div> */}
 				</div>
 				<Carousel responsive={responsive} paddingLeft={50} disableDotsControls={true}>
 					{CourseCarousel()}
