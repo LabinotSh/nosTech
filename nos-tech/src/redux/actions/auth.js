@@ -62,10 +62,13 @@ export const login = (username, password) => async (dispatch) => {
             history.push(`/course/${course}`)
         }
         if(response.data.user.role === 'admin'){
-            history.push('/admins/users')
-        }else{
+            history.push('/admins/dashboard')
+        }else if(response.data.user.role === 'user'){
             history.push('/');
+        }else{
+            history.push('/admins/users')
         }
+
        //window.location.reload(false);
         return response;
     }).catch(error => {

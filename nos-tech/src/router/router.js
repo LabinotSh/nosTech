@@ -30,7 +30,7 @@ import CourseEditView from "../screens/adminViews/CourseEditView";
 import EditVideos from "../screens/adminViews/EditVideos"
 import UsersView from "../screens/adminViews/usersView";
 import UserEditView from "../screens/adminViews/UserEditView";
-import AdminRoute from "./adminRoute";
+import {AdminRoute, SuperAdminRoute} from "./adminRoute";
 import PrivateRoute from "./privateRoute";
 import PublicRoute from "./publicRoutes";
 import Categories from "../components/category/PostCategories";
@@ -61,17 +61,21 @@ function Router({auth}) {
       <PrivateRoute path="/myProfile" component={MyProfile} />
       <Route exact path="/confirm/:id" component={Confirm} />
       <Route exact path="/course/:id" component={Course}></Route>
-      <AdminRoute path="/tags" component={Tags} />
-      <AdminRoute path="/categories" component={Categories} />
       <AdminRoute path="/add-course" component={AddCourse} />
+      <Switch>
       <AdminRoute path="/admins/courses" component={CoursesView}></AdminRoute>
       <AdminRoute path="/admins/course/:id/edit" component={CourseEditView}></AdminRoute>
       <AdminRoute path="/admins/course/:id/videos" component={EditVideos}></AdminRoute>
-      <AdminRoute path="/admins/users" component={UsersView}></AdminRoute>
-      <AdminRoute path="/admins/user/:id/edit" component={UserEditView}></AdminRoute>
+      </Switch>
       <AdminRoute path="/admins/dashboard" component={Dashboard}></AdminRoute>
-      <AdminRoute path="/admins/course-review" component={CourseReview}></AdminRoute>
-      <AdminRoute path="/admins/content-review/:id" component={ ContentReview}></AdminRoute>
+      <SuperAdminRoute path="/tags" component={Tags} />
+      <SuperAdminRoute path="/categories" component={Categories} />
+      <Switch>
+      <SuperAdminRoute path="/admins/users" component={UsersView}></SuperAdminRoute>
+      <SuperAdminRoute path="/admins/user/:id/edit" component={UserEditView}></SuperAdminRoute>
+      <SuperAdminRoute path="/admins/course-review" component={CourseReview}></SuperAdminRoute>
+      <SuperAdminRoute path="/admins/content-review/:id" component={ ContentReview}></SuperAdminRoute>
+      </Switch>
       {history.location.pathname !== "/login" &&
       history.location.pathname !== "/registration" &&
       history.location.pathname !== "/admins/dashboard" &&
