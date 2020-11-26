@@ -11,6 +11,9 @@ h2 {
 .right {
   text-align: center;
 }
+.left {
+  padding-top: 55px;
+}
 .row-fields {
   margin: 15px auto;
   padding: 15px 0;
@@ -29,8 +32,12 @@ h2 {
   margin: 0 auto;
 }
 .submit-btn {
+  margin: 0 auto;
   align-self: center;
   vertical-align: middle;
+}
+.contactMessage {
+  margin-bottom: 15px;
 }
 
 @media only screen and (max-width: 992px) {
