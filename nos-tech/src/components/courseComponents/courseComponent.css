@@ -43,3 +43,41 @@
     color:#4D538D;
     border: 1px solid #4D538D;
 }
+
+.title-and-search-courses {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 80px;
+}
+
+.courses-headline-cont, .search-bar-div-cont{
+    width: 443px;
+}
+
+
+@media screen and (max-width: 960px) {
+    .courses-headline-cont {
+        width: 318px;
+        cursor: pointer;
+    }
+
+    .search-bar-div-cont, .search-bar-cont:hover {
+        width: 318px;
+        cursor: pointer;
+    }
+}
+
+
+@media screen and (max-width: 600px) {
+    .courses-headline-cont {
+        width: 195px;
+        cursor: pointer;
+    }
+
+    .search-bar-div-cont, .search-bar-cont:hover {
+        width: 195px;
+        cursor: pointer;
+    }
+}
