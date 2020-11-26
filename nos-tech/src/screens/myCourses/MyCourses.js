@@ -74,14 +74,14 @@ const MyCourses = () => {
 				<hr className="text-center" />
 			</div>
 			{about ? (
-				<div id="abo" className="cont abo" style={{ marginBottom: '150px' }}>
+				<div id="abo" className="cont abo">
 					{courses &&
 						courses.map((course) => {
 							return <Enrolled course={course} key={course._id} />;
 						})}
 				</div>
 			) : (
-				<div className="cont fav bg-light" id="2" style={{ marginBottom: '150px' }}>
+				<div className="cont fav bg-light">
 					{favList &&
 						favList.map((favorite) => {
 							return <Favorites favorite={favorite} key={favorite._id} />;

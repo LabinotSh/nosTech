@@ -67,6 +67,7 @@
 .cont{
     display: flex;
     flex-flow: row;
+    margin-bottom: 150px;
 }
 
 .fav{
@@ -125,11 +126,4 @@
 }
 .fnt-lock{
     margin-right: 8px;
-}
-
-.sel-style{
-    padding: '.8rem';
-    border-bottom: '2px solid #191970';
-    opacity: 1;
-    color: #191970;
 }
