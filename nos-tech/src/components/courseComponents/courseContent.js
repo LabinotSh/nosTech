@@ -23,8 +23,7 @@ const CourseContent = () => {
   }, [filterText]);
 
   const results = !displayMessage
-    ? items
-    : items.filter((course) =>
+    ? items : items.filter((course) =>
         course.name.toLowerCase().includes(displayMessage.toLocaleLowerCase())
       );
 
@@ -76,9 +75,19 @@ const CourseContent = () => {
           />
         </div>
       </div>
-
       {/* test */}
       <div className="container row mx-auto">
+        {!results.length && (
+        <div className="container-fluid mt-4 mb-5 bg-light-gray">
+        <div className="row">
+            <div className="col-sm-12">
+                <div className="text-info text-center nofav">
+                  No items match your search criteria!
+                </div>
+            </div>
+        </div>
+        </div>
+        )}
         {results.slice(0, visible).map((item, idx) => {
           return (
             <div className="course-content-items">

@@ -7,9 +7,9 @@ const selectedStyle = {
 	padding: '.8rem',
 	borderBottomWidth: '2px',
 	borderBottomStyle: 'solid',
-	borderBottomColor: '#191970',
+	borderBottomColor: '#000',
 	opacity: '1',
-	color: '#191970',
+	color: '#000',
 };
 
 const nonSelectedStyle = {

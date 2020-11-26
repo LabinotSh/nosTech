@@ -13,7 +13,6 @@ import TabFavs from '../../components/myCoursesComponents/TabFavs';
 
 const MyCourses = () => {
 	const [courses, setCourses] = useState([]);
-	const [video, setVideo] = useState('spinner.gif');
 	const [about, setAbout] = useState(true);
 	const [favList, setFavList] = useState([]);
 
@@ -39,13 +38,14 @@ const MyCourses = () => {
 	};
 
 	const getFav = (userId) => {
-    isRendered.current=true;
-		axios.get(`${API_URL}/favorites/${userId}/getAll`)
+		isRendered.current = true;
+		axios
+			.get(`${API_URL}/favorites/${userId}/getAll`)
 			.then((res) => {
-        if(isRendered){
-				console.log('fav ' + JSON.stringify(res.data));
-        setFavList(res.data.favs);
-        }
+				if (isRendered) {
+					console.log('fav ' + JSON.stringify(res.data));
+					setFavList(res.data.favs);
+				}
 			})
 			.catch((err) => {
 				console.log(err);
@@ -65,16 +65,27 @@ const MyCourses = () => {
 			<div className="main-cont">
 				<ul className="cs-nav">
 					<li className="li-col" onClick={() => setAbout(true)}>
-            <TabEnrolled about={about} />
+						<TabEnrolled about={about} />
 					</li>
 					<li className="li-col" onClick={() => setAbout(false)}>
-            <TabFavs about={about} />
+						<TabFavs about={about} />
 					</li>
 				</ul>
 				<hr className="text-center" />
 			</div>
 			{about ? (
 				<div id="abo" className="cont abo">
+          {!courses.length && (
+						<div className="container-fluid mt-4 bg-light-gray">
+							<div className="row">
+								<div className="col-sm-12">
+									<div className="text-info text-center nofav">
+										The list is empty! <br/> You have not enrolled in any course yet!
+									</div>
+								</div>
+							</div>
+						</div>
+					)}
 					{courses &&
 						courses.map((course) => {
 							return <Enrolled course={course} key={course._id} />;
@@ -82,6 +93,17 @@ const MyCourses = () => {
 				</div>
 			) : (
 				<div className="cont fav bg-light">
+					{!favList.length && (
+						<div className="container-fluid mt-4 bg-light-gray">
+							<div className="row">
+								<div className="col-sm-12">
+									<div className="text-danger text-center nofav">
+										The list is empty! <br/> You have not added any favorites yet!
+									</div>
+								</div>
+							</div>
+						</div>
+					)}
 					{favList &&
 						favList.map((favorite) => {
 							return <Favorites favorite={favorite} key={favorite._id} />;
