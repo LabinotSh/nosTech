@@ -127,3 +127,8 @@
 .fnt-lock{
     margin-right: 8px;
 }
+
+.nofav{
+    font-size: large;
+    font-style: italic !important;
+}
