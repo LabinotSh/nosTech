@@ -35,7 +35,6 @@ const Courses = ({ list, pending, err }) => {
 		retrieveCourses();
 		return () => {
       isRendered.current = false;
-      pending = false;
 		};
 	}, []);
 
