@@ -2,16 +2,22 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import LeftContent from '../../components/courseComponents/postform'
 import Panel from '../../components/panel/Panel';
+import MultiSelect from "react-multi-select-component";
 
 function AddCourse() {
+
+
   /** start states */
   const [category, setCategory] = useState([]); //Category State
+  const [tags, setTags] = useState([]); //Tags State
+  const [selected, setSelected] = useState([]);
   const [formData, setFormData] = useState('');
   const [info, setInfo] = useState({
     name: '',
     description: '',
     price: '',
     category: '',
+    tags: [''],
     image: ''
   });
   const [progressPercent, setProgressPercent] = useState(0);
@@ -29,6 +35,12 @@ function AddCourse() {
     data.set("description", document.getElementById("description").value);
     data.set("price", document.getElementById("price").value);
     data.set("category", document.getElementById("category").value);
+    /* data.set("tags", document.getElementById("tags").value); */
+    /* data.append('tags', JSON.stringify(tags)); */
+    for(let i = 0; i < selected.length; i++)
+    {
+    data.append("tags", selected[i].value);
+    }  
     setFormData(data);
   };
 
@@ -40,6 +52,7 @@ function AddCourse() {
       description: '',
       price: '',
       category: '',
+      tags: [''],
       image: '',
     });
     setProgressPercent(0);
@@ -84,9 +97,26 @@ function AddCourse() {
           setCategory(response.data);
         }
         fetchData();
-      }, [category]);
+      }, []);
 
+      // Get Tags
+      useEffect(() => {
+        const fetchData = async () => {
+        const response = await axios.get('/api/tags');
+              setTags(response.data);
+        }
+        fetchData();
+      }, []);
+     //options
+    let options = tags.map((option) => {
+        return { value: option._id, label: option.name };
+      })   
 
+      const handleChange = (event) => {
+        setSelected([...selected, event.target.value])
+        console.log(selected);
+      }
+      
   return (
     <div>
       
@@ -139,6 +169,41 @@ function AddCourse() {
         </div>
         </div>
         </div>
+
+
+
+{/*          <div className="form-group">
+            <select
+            multiple="true"
+            id="tags"
+            name="tags"
+            onChange={(e) => handleChange(e)}
+            className="form-control w-100"
+            >
+        {tags.map((item,index) => {
+            return(
+            <option
+              value={item._id}
+              key={index}
+              className="w-100"
+            >
+              {item.name}
+            </option>
+          )})}
+            </select>
+        </div>  */}
+        
+
+
+        <div className="form-group h-80">
+        <label>Select course tech</label>    
+        <MultiSelect
+          options={options}
+          value={selected}
+          onChange={setSelected}
+          labelledBy={"Select"}
+        />
+      </div>
 
         {error.found && (
         <div
