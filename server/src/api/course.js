@@ -74,6 +74,7 @@ createCourse = (req, res) => {
     let description = req.body.description
     let price = req.body.price
     let category = req.body.category
+    let tags = req.body.tags
     let image = req.file.path
     console.log(name, image)
     const course = new Course({
@@ -81,6 +82,7 @@ createCourse = (req, res) => {
         description: description,
         price: price,
         category,
+        tags,
         image: image
     })
     course.save((err, course) => {
