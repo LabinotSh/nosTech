@@ -31,7 +31,6 @@ const allReducers = combineReducers({
     postTags,
     userUpdate:userUpdateReducer,
     userAddCourse:userAddCourseReducer
-
 })
 
 export default allReducers;

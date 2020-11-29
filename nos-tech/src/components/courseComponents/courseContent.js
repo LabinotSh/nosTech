@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import CourseItem from "../../screens/courses/CourseItem";
 import "./courseComponent.css";
 import LoadMore from "../loadMore/LoadMore";
 import SearchBar from "../../components/searchBar/searchBar";
+import authHeader from "../../helpers/config";
+import { connect } from "react-redux";
 
-const CourseContent = () => {
+const CourseContent = ({list,pending}) => {
   const [items, setItems] = useState([""]);
   const [visible, setVisible] = useState(3);
 
@@ -25,10 +27,10 @@ const CourseContent = () => {
   const results = !displayMessage
     ? items : items.filter((course) =>
         course.name.toLowerCase().includes(displayMessage.toLocaleLowerCase())
-      );
+    );
 
   const fetchCourses = () => {
-    axios
+      axios
       .get("/api/course/")
       .then((response) => {
         setItems(response.data.filter((x) => x.status === 1).reverse());
@@ -44,24 +46,14 @@ const CourseContent = () => {
   };
 
   useEffect(() => {
-    fetchCourses();
-  }, []);
+    if(list){
+    setItems(list.filter((x) => x.status === 1).reverse());
+    }
+    //fetchCourses();
+  }, [list]);
 
   return (
     <>
-      {/* <div className="conatiner">
-        <div className="row title-and-search-courses">
-          <div className="col-sm-6 text-center">
-            <p className="courses-headline">NosTech All Courses</p>
-            <hr />
-          </div>
-
-          <div className="search-bar-div-cont">
-            <SearchBar input={filterText} onChange={handleChange} />
-          </div>
-        </div>
-      </div> */}
-
       <div className="title-and-search-courses">
         <div className="text-center courses-headline-cont">
           <p className="courses-headline">NosTech All Courses</p>
@@ -90,7 +82,7 @@ const CourseContent = () => {
         )}
         {results.slice(0, visible).map((item, idx) => {
           return (
-            <div className="course-content-items">
+            <div className="course-content-items" key={idx}>
               <CourseItem course={item} key={idx._id} />
             </div>
           );
@@ -101,4 +93,9 @@ const CourseContent = () => {
   );
 };
 
-export default CourseContent;
+const mapStateToProps = (state) => ({
+	pending: state.courses.pending,
+	list: state.courses.courses,
+});
+
+export default connect(mapStateToProps)(CourseContent);

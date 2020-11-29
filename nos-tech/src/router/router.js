@@ -55,8 +55,8 @@ function Router({auth}) {
       <Route exact path="/coursecategory/:cid" component={CourseCategory} />
       <Route path="/upload" component={Upload}></Route>
       {/* should not be shown to the user if the user is logged in */}
-      <PublicRoute path="/login" auth={auth} component={Login} />
-      <PublicRoute path="/registration" auth={auth} component={Registration} />
+      <PublicRoute exact path="/login" component={Login} />
+      <PublicRoute exact path="/registration" auth={auth} component={Registration} />
       <PrivateRoute path="/myCourses" component={MyCourses} />
       <PrivateRoute path="/myProfile" component={MyProfile} />
       <Route exact path="/confirm/:id" component={Confirm} />

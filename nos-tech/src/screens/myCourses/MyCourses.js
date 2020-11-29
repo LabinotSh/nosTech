@@ -75,12 +75,12 @@ const MyCourses = () => {
 			</div>
 			{about ? (
 				<div id="abo" className="cont abo">
-          {!courses.length && (
+					{!courses.length && (
 						<div className="container-fluid mt-4 bg-light-gray">
 							<div className="row">
 								<div className="col-sm-12">
 									<div className="text-info text-center nofav">
-										The list is empty! <br/> You have not enrolled in any course yet!
+										The list is empty! <br /> You have not enrolled in any course yet!
 									</div>
 								</div>
 							</div>
@@ -98,7 +98,7 @@ const MyCourses = () => {
 							<div className="row">
 								<div className="col-sm-12">
 									<div className="text-danger text-center nofav">
-										The list is empty! <br/> You have not added any favorites yet!
+										The list is empty! <br /> You have not added any favorites yet!
 									</div>
 								</div>
 							</div>
