@@ -41,6 +41,7 @@ import Dashboard from "../screens/adminViews/Dashboard";
 import CourseReview from "../screens/adminViews/courseReview";
 import ContentReview from "../screens/adminViews/contentReview";
 import Upload from '../screens/upload/Upload'
+import Checkout from '../screens/checkout/Checkout'
 
 function Router({auth}) {
   return (
@@ -59,6 +60,7 @@ function Router({auth}) {
       <PublicRoute path="/registration" auth={auth} component={Registration} />
       <PrivateRoute path="/myCourses" component={MyCourses} />
       <PrivateRoute path="/myProfile" component={MyProfile} />
+      <PrivateRoute path="/checkout/:id" component={Checkout} />
       <Route exact path="/confirm/:id" component={Confirm} />
       <Route exact path="/course/:id" component={Course}></Route>
       <AdminRoute path="/add-course" component={AddCourse} />
@@ -86,7 +88,8 @@ function Router({auth}) {
       history.location.pathname !== "/admins/course-review" &&
       history.location.pathname !== "/upload" &&
       history.location.pathname !== "/admins/course/:id/videos" &&
-      history.location.pathname !== "/tags" 
+      history.location.pathname !== "/tags"  &&
+      !history.location.pathname.startsWith("/checkout")
       ? (
         <Footer />
       ) : null}
