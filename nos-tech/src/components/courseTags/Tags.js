@@ -54,4 +54,4 @@ const CourseTags = () => {
     )
 }
 
-export default withRouter(CourseTags)
+export default CourseTags
