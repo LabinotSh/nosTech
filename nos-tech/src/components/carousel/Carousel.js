@@ -4,7 +4,6 @@ import 'react-alice-carousel/lib/alice-carousel.css';
 
 function carouselComponent(props) {
 
-
     return(
     <AliceCarousel
         mouseTracking
@@ -14,6 +13,7 @@ function carouselComponent(props) {
         autoPlayInterval = {props.autoPlayInterval}
         paddingLeft={props.paddingLeft}
         disableDotsControls={props.disableDotsControls}
+        disableButtonsControls = {props.disableButtonsControls}
     >  
     {props.children}
     </AliceCarousel>

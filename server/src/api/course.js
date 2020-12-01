@@ -7,7 +7,7 @@ const {verify} = require('../middleware/authToken');
 const {authorize} = require('../middleware/authorize');
 const uploadMulter = require('../middleware/upload.js')
 const uploadvalidation = require('../middleware/Uploadvalidation.js');
-const mongoose = require('mongoose')
+const fs = require('fs')
 
 // find all courses
 // router.get('/', asyncHandler(async (req, res) => {
@@ -66,6 +66,22 @@ router.get('/cat/:category', asyncHandler(async(req,res) => {
     }
 }));
 
+//find course by tags
+router.get('/tag/:tags', asyncHandler(async(req,res) => {
+    const tag = req.params.tags;
+    const courses = await Course.find({
+        tags :  {
+            "$in" : [tag]
+        }
+    });
+    if(courses) {
+        res.json(courses);
+    }else {
+        res.status(404);
+        throw new Error('No course with such tag found')
+    }
+}));
+
 //find courses by user
 
 //Create a new course
@@ -74,6 +90,7 @@ createCourse = (req, res) => {
     let description = req.body.description
     let price = req.body.price
     let category = req.body.category
+    let tags = req.body.tags
     let image = req.file.path
     console.log(name, image)
     const course = new Course({
@@ -81,6 +98,7 @@ createCourse = (req, res) => {
         description: description,
         price: price,
         category,
+        tags,
         image: image
     })
     course.save((err, course) => {
@@ -192,6 +210,13 @@ router.put('/:id/deleteVideo', asyncHandler(async(req, res) => {
             throw new Error("Video not found")
         }
         await course.save();
+        
+        fs.unlink(`./${JSON.parse(req.body.video) }`, err => {
+            if(err) {
+                throw new Error(err)
+            }
+        })
+        
         res.status(201).json({message:"Video deleted"})
 
     }else {

@@ -4,6 +4,7 @@ import './courseComponent.css';
 import LoadMore from '../loadMore/LoadMore';
 import SearchBar from '../../components/searchBar/searchBar';
 import { connect } from 'react-redux';
+import Tags from '../../components/courseTags/Tags';
 
 const CourseContent = ({ list }) => {
 	const [items, setItems] = useState(['']);
@@ -39,6 +40,19 @@ const CourseContent = ({ list }) => {
 
 	return (
 		<>
+			{/* <div className="conatiner">
+        <div className="row title-and-search-courses">
+          <div className="col-sm-6 text-center">
+            <p className="courses-headline">NosTech All Courses</p>
+            <hr />
+          </div>
+
+          <div className="search-bar-div-cont">
+            <SearchBar input={filterText} onChange={handleChange} />
+          </div>
+        </div>
+      </div> */}
+			<Tags />
 			<div className="title-and-search-courses">
 				<div className="text-center courses-headline-cont">
 					<p className="courses-headline">NosTech All Courses</p>
@@ -62,7 +76,7 @@ const CourseContent = ({ list }) => {
 				{results.slice(0, visible).map((item, idx) => {
 					return (
 						<div className="course-content-items" key={idx}>
-							<CourseItem course={item} key={idx._id} />
+							<CourseItem course={item} key={idx} />
 						</div>
 					);
 				})}
