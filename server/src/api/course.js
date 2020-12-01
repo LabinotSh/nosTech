@@ -66,6 +66,22 @@ router.get('/cat/:category', asyncHandler(async(req,res) => {
     }
 }));
 
+//find course by tags
+router.get('/tag/:tags', asyncHandler(async(req,res) => {
+    const tag = req.params.tags;
+    const courses = await Course.find({
+        tags :  {
+            "$in" : [tag]
+        }
+    });
+    if(courses) {
+        res.json(courses);
+    }else {
+        res.status(404);
+        throw new Error('No course with such tag found')
+    }
+}));
+
 //find courses by user
 
 //Create a new course

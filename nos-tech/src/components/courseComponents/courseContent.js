@@ -4,6 +4,7 @@ import CourseItem from "../../screens/courses/CourseItem";
 import "./courseComponent.css";
 import LoadMore from "../loadMore/LoadMore";
 import SearchBar from "../../components/searchBar/searchBar";
+import Tags from '../../components/courseTags/Tags';
 
 const CourseContent = () => {
   const [items, setItems] = useState([""]);
@@ -16,6 +17,7 @@ const CourseContent = () => {
     setFilterText(e.target.value);
   };
 
+
   //Make the search appear after 1 seconds and not immediately as the user is typing
   useEffect(() => {
     const timeOutId = setTimeout(() => setDisplayMessage(filterText), 1000);
@@ -26,6 +28,7 @@ const CourseContent = () => {
     ? items : items.filter((course) =>
         course.name.toLowerCase().includes(displayMessage.toLocaleLowerCase())
       );
+  
 
   const fetchCourses = () => {
     axios
@@ -37,6 +40,7 @@ const CourseContent = () => {
         console.log(err);
       });
   };
+
 
   // Load more function
   const loadMore = () => {
@@ -61,7 +65,7 @@ const CourseContent = () => {
           </div>
         </div>
       </div> */}
-
+     <Tags />
       <div className="title-and-search-courses">
         <div className="text-center courses-headline-cont">
           <p className="courses-headline">NosTech All Courses</p>

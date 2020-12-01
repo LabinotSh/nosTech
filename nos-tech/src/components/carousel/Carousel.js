@@ -4,7 +4,6 @@ import 'react-alice-carousel/lib/alice-carousel.css';
 
 function carouselComponent(props) {
 
-
     return(
     <AliceCarousel
         mouseTracking
