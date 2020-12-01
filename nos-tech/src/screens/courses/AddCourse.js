@@ -3,6 +3,7 @@ import axios from 'axios';
 import LeftContent from '../../components/courseComponents/postform'
 import Panel from '../../components/panel/Panel';
 import MultiSelect from "react-multi-select-component";
+import { history } from "../../helpers/history";
 
 function AddCourse() {
 
@@ -25,6 +26,7 @@ function AddCourse() {
     found: false,
     message: '',
   });
+  const [createSuccess, setCreateSuccess] = useState(false)
   /** end states */
 
   // Upload image
@@ -64,14 +66,19 @@ function AddCourse() {
         setProgressPercent(percent);
       },
     };
-    axios
+   axios
       .post('/api/course/newCourse', formData, options)
       .then((res) => {
         console.log(res.data);
+        const course = res.data.course
+        setCreateSuccess(true)
+        
         setTimeout(() => {
           setInfo(res.data.course);
           setProgressPercent(0);
-        }, 1000);
+          history.push(`/admins/course/${course._id}/videos`)
+        }, 5000);
+        
       })
       .catch((err) => {
         console.log(err.response);
@@ -129,8 +136,13 @@ function AddCourse() {
       <LeftContent />
         
       <div className="add-course-right-content">
+       
       <form id="create-course-form" className="add-course-form" onSubmit={handleSubmit} style={{ width: '359px' }}>
-        
+       {(createSuccess)?
+      <div class="alert alert-warning" role="alert">
+          Your course has been successfully submited for review. Please upload your videos after you've been redirected...
+      </div>:null
+      }
         <div className="form-group">
             <label>Name</label>
             <input type="text" id="name" name="name" className="form-control w-100"/>

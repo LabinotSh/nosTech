@@ -7,7 +7,7 @@ const {verify} = require('../middleware/authToken');
 const {authorize} = require('../middleware/authorize');
 const uploadMulter = require('../middleware/upload.js')
 const uploadvalidation = require('../middleware/Uploadvalidation.js');
-const mongoose = require('mongoose')
+const fs = require('fs')
 
 // find all courses
 // router.get('/', asyncHandler(async (req, res) => {
@@ -210,6 +210,13 @@ router.put('/:id/deleteVideo', asyncHandler(async(req, res) => {
             throw new Error("Video not found")
         }
         await course.save();
+        
+        fs.unlink(`./${JSON.parse(req.body.video) }`, err => {
+            if(err) {
+                throw new Error(err)
+            }
+        })
+        
         res.status(201).json({message:"Video deleted"})
 
     }else {
