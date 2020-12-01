@@ -5,16 +5,17 @@ import {LOGIN_SUCCESS,
     REGISTER_SUCCESS,REGISTER_REQUEST} from '../actions/types';
 
 let token = JSON.parse(localStorage.getItem('user'));
-const initialState = token
-  ? { isLoggedIn: true, token }
-  : { isLoggedIn: false, token: null
-};
+// const initialState = token
+//   ? { isLoggedIn: true, token }
+//   : { isLoggedIn: false, token: null
+// };
 
-// const initialState = {
-//     token: JSON.parse(localStorage.getItem('user')),
-//     user: [],
-//     isLoggedIn: false,
-// }
+const initialState = {
+    token: JSON.parse(localStorage.getItem('user')),
+    user: [],
+    isLoggedIn: false,
+    role: null
+}
 //ex..chef cooking = reducer
 export const loginReducer = ( state = initialState, action) => {
     //"old version" of state equals with an initialState
@@ -47,7 +48,8 @@ export const loginReducer = ( state = initialState, action) => {
                 isLoggedIn: true,
                 user: action.payload,
                 token: token,
-                error: null
+                error: null,
+                role: action.payload.role
             };
         case LOGIN_FAIL:
             return {
@@ -61,8 +63,8 @@ export const loginReducer = ( state = initialState, action) => {
             return {
                 ...state,
                 isLoggedIn: false,
-                user: null,
-                token:null
+                //user: null,
+                token: null
             };
         default: 
             return state

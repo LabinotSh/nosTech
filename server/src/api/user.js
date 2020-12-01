@@ -16,6 +16,7 @@ const User = require('../models/User')
 
 const emailTemplate = require('../templates/email')
 const { confirmEmail, contactEmail } = require('../../nodemailer/email')
+const { use } = require('./course')
 
 //Get All the users
 router.get('/', async (req, res) => {
@@ -51,6 +52,12 @@ router.post('/register', async (req, res) => {
   })
   if (emailExists) return res.status(400).send('Email already exists!')
 
+  //Check if username exists
+  const usernameExists = await User.findOne({
+    username: req.body.username,
+  })
+  if (usernameExists) return res.status(400).send('Username already exists!')
+
   //Hash the password
   const salt = await bcrypt.genSalt(10)
   const hashedPassword = await bcrypt.hash(req.body.password, salt)
@@ -65,7 +72,6 @@ router.post('/register', async (req, res) => {
       username: req.body.username,
     })
 
- 
     const savedUser = newUser
       .save()
       .then((newUser) => {
@@ -110,24 +116,20 @@ router.post('/login', async (req, res) => {
 
   const accessToken = generateAccessToken(user)
   const refreshToken = generateRefreshToken(user)
-  user.tokens = refreshTokens
-  user.tokens.push(refreshToken)
+  user.refreshtokens = refreshTokens
+  user.refreshtokens.push(refreshToken)
 
   res.cookie('jwt', accessToken, { secure: false, httpOnly: false })
-  //    res.header('auth-token', accessToken).send( {
-  //        refreshToken: refreshToken
-  //    });
-
-  //    res.header('auth-token', accessToken).send( {
-  //        refreshToken: refreshToken
-  //    });
   console.log('fav ' + user.favorites);
 
   res.send({
-    message: 'authentication done ',
     token: accessToken,
     refreshToken: refreshToken,
-    user: user,
+    user:user,
+    // id: user._id,
+    // username: user.username,
+    // email: user.email,
+    role: user.role,
     favorites: user.favorites
   })
 })
@@ -136,7 +138,7 @@ router.post('/login', async (req, res) => {
 router.post('/token', async (req, res) => {
   const refreshToken = req.body.token
   if (refreshToken == null) return res.sendStatus(401)
-  if (!tokens.includes(refreshToken)) return res.sendStatus(403)
+  if (!refreshTokens.includes(refreshToken)) return res.sendStatus(403)
   jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
     if (err) return res.sendStatus(403)
     const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET)

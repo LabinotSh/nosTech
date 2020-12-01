@@ -9,6 +9,7 @@ import {
 } from './types';
 import axios from 'axios';
 import { API_URL } from '../../constants/Constants';
+import authHeader from '../../helpers/config';
 
 export const fetchAllCourses = () => async (dispatch) => {
 	dispatch({
@@ -21,7 +22,6 @@ export const fetchAllCourses = () => async (dispatch) => {
 			if (response.error) {
 				throw response.error;
 			}
-
 			const courses = response.data;
 			console.log('Courses ' + JSON.stringify(courses));
 
@@ -29,8 +29,7 @@ export const fetchAllCourses = () => async (dispatch) => {
 				type: FETCH_COURSES_SUCCESS,
 				payload: response.data,
 			});
-
-			return response.data;
+	    	return response.data;
 		})
 		.catch((error) => {
 			dispatch({
@@ -40,7 +39,6 @@ export const fetchAllCourses = () => async (dispatch) => {
 		});
 };
 
-const config = { headers: { 'Content-Type': 'application/json' } };
 export const addToFavorites = (uId, course) => async (dispatch) => {
 	let favs = JSON.parse(localStorage.getItem('userFav'));
 	let array = [...favs];
@@ -61,7 +59,6 @@ export const addToFavorites = (uId, course) => async (dispatch) => {
 				array.push(course._id);
 				favList = [...array];
 			}
-
 			localStorage.setItem('userFav', JSON.stringify(favList));
 
 			dispatch({
@@ -82,26 +79,11 @@ export const addToFavorites = (uId, course) => async (dispatch) => {
 };
 
 export const removeFromFavorites = (uId, course) => async (dispatch) => {
-	// let favs = JSON.parse(localStorage.getItem('userFav'));
-	// let array = [...favs];
-	// let favList = [];
-	// let remove = false;
 	return axios
 		.put(`${API_URL}/favorites/remove/${uId}`, course)
 		.then((response) => {
 			console.log('Removed');
 			console.log('FAVORITES ' + JSON.stringify(response.data));
-
-			// array.map((item) => {
-			// 	if (item === course._id) {
-			// 		remove = true;
-			// 	}
-			// });
-			// if (remove) {
-			// 	array.pop(course._id);
-			// 	favList = [...array];
-			// }
-			// localStorage.setItem('userFav', JSON.stringify(favList));
 
 			dispatch({
 				type: REMOVE_FROM_FAVORITES_SUCCESS,

@@ -55,8 +55,6 @@ const ForumPost = () => {
         },
     ];
 
-
-
     const renderForumPost = (forumItem, index) => {
         return (
             <Card key={index} className="forum-item">
@@ -80,13 +78,13 @@ const ForumPost = () => {
                 <Card.Body className="forum-button-body">
                     <div className="forum-post-button">
                         <div>
-                            <Button title="UpVote" className="upvote-button"><i class="fas fa-chevron-up"></i></Button>
-                            <Button title="DownVote" className="downvote-button"><i class="fas fa-chevron-down"></i></Button>
-                            <Button title="Comment" className="comment-button"><i class="fas fa-comment"></i></Button>
+                            <Button title="UpVote" className="upvote-button"><i className="fas fa-chevron-up"></i></Button>
+                            <Button title="DownVote" className="downvote-button"><i className="fas fa-chevron-down"></i></Button>
+                            <Button title="Comment" className="comment-button"><i className="fas fa-comment"></i></Button>
                         </div>
                         <div className="share-more">
-                            <Button title="Share" className="share-button"><i class="fas fa-share"></i></Button>
-                            <Button title="More" className="more-button"><i class="fas fa-ellipsis-v"></i></Button>
+                            <Button title="Share" className="share-button"><i className="fas fa-share"></i></Button>
+                            <Button title="More" className="more-button"><i className="fas fa-ellipsis-v"></i></Button>
                         </div>
                     </div>
 

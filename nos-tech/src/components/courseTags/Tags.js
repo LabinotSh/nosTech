@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import Carousel from '../carousel/Carousel';
 import responsive from '../../constants/carouselTags';
-import {Link} from 'react-router-dom'
+import {Link, withRouter} from 'react-router-dom'
 import './Tags.css';
 
 const CourseTags = () => {
@@ -54,4 +54,4 @@ const CourseTags = () => {
     )
 }
 
-export default CourseTags
+export default withRouter(CourseTags)
