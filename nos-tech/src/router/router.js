@@ -41,6 +41,7 @@ import Dashboard from "../screens/adminViews/Dashboard";
 import CourseReview from "../screens/adminViews/courseReview";
 import ContentReview from "../screens/adminViews/contentReview";
 import Upload from '../screens/upload/Upload'
+import TagsCourse from '../screens/courses/TagsCourse';
 
 function Router({auth}) {
   return (
@@ -54,6 +55,7 @@ function Router({auth}) {
       <Route path="/contact" component={Contact} />
       <Route exact path="/coursecategory/:cid" component={CourseCategory} />
       <Route path="/upload" component={Upload}></Route>
+      <Route exact path="/topics/:Tid" component={TagsCourse}></Route>
       {/* should not be shown to the user if the user is logged in */}
       <PublicRoute path="/login" auth={auth} component={Login} />
       <PublicRoute path="/registration" auth={auth} component={Registration} />
