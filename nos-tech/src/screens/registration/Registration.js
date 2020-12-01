@@ -11,8 +11,6 @@ import { withRouter } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import Notifications, { notify } from 'react-notify-toast';
 import Spinner from '../../components/icons/Spinner';
-import Loader from '../../components/icons/Loader';
-// import SelectComp from "../../components/select/SelectComp.js";
 
 const validationSchema = Yup.object().shape({
 	name: Yup.string().required('Full name is required'),
@@ -28,12 +26,9 @@ const validationSchema = Yup.object().shape({
 		.min(5, 'Must have at least 5 characters')
 		.max(255, 'Must be shorter than 255 characters')
 		.required('Password is required'),
-	// roles: Yup.string().required("Please select an account type"),
-	// role: Yup.string().required("Please select an account type"),
-	// .oneOf(["Student", "Teacher"], "Please select an account type")
 });
 
-const Registration = ({ successRegister, err }) => {
+const Registration = ({ err }) => {
 	const dispatch = useDispatch();
 
 	const [registered, setRegister] = useState(false);
@@ -56,6 +51,7 @@ const Registration = ({ successRegister, err }) => {
 			}
 		}, 3500);
 	}, [errs]);
+
 	return (
 		<Formik
 			initialValues={{
@@ -79,7 +75,6 @@ const Registration = ({ successRegister, err }) => {
 						setSubmitting(true);
 						setRegister(true);
 						setEmailSent(false);
-
 						console.log('Data ' + JSON.stringify(response.data));
 
 						notify.show(
@@ -104,8 +99,6 @@ const Registration = ({ successRegister, err }) => {
 				if (!registered) {
 					setRegister(false);
 					//setErrors('');
-
-					//setRole('');
 					setTimeout(() => {
 						setRole('');
 						resetForm();
@@ -225,11 +218,8 @@ const Registration = ({ successRegister, err }) => {
 	);
 };
 
-function mapStateToProps(state) {
-	return {
-		successRegister: state.login.registered,
-		err: state.login.errors,
-	};
-}
+const mapStateToProps = (state) => ({
+	err: state.login.error,
+});
 
 export default connect(mapStateToProps, { register })(withRouter(Registration));

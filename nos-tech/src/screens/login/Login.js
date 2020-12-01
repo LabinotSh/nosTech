@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './login.css';
 import { Container, Row, Col, Card, Button, Form } from 'react-bootstrap';
 import loginBackground from '../../assets/images/loginBackground.png';
@@ -20,7 +20,7 @@ const validationSchema = Yup.object().shape({
 		.required('Password is required'),
 });
 
-const Login = ({ authenticated, role, err }) => {
+const Login = ({ authenticated, err }) => {
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState('');
 
@@ -48,15 +48,12 @@ const Login = ({ authenticated, role, err }) => {
 				onSubmit={(values, { setSubmitting, resetForm }) => {
 					setSubmitting(true);
 					setLoading(true);
-
-					//setTimeout(() => {
 					if (err) {
 						resetForm();
 						setTimeout(() => {
 							setError(err);
 						}, 300);
 					}
-					// }, 1000);
 					//down below is where the data should be sent to the server
 					dispatch(login(values.username, values.password))
 						.then((response) => {
@@ -142,7 +139,6 @@ const Login = ({ authenticated, role, err }) => {
 };
 
 const mapStateToProps = (state) => ({
-	role: state.login.role,
 	authenticated: state.login.isLoggedIn,
 	err: state.login.error,
 });
