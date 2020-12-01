@@ -4,10 +4,21 @@ import * as actions from "../../redux/actions/postTags";
 import PostTagsForm from "./PostTagsForm";
 import './Tags.css'
 import Panel from '../panel/Panel'; 
+import Pagination from '../pagination/Pagination';
 
 const PostTags = ({ classes, ...props }) => {
     //const {classes, ...props} = props
     const [currentId, setCurrentId] = useState(0)
+    const [currentPage, setCurrentPage] = useState(1);
+    const [postsPerPage] = useState(9);
+
+       //Pagination
+	const indexOfLastPost = currentPage * postsPerPage;
+    const indexOfFirstPost = indexOfLastPost - postsPerPage;
+    const currentPosts = props.postTagsList.slice(indexOfFirstPost, indexOfLastPost);
+
+    // Change page
+    const paginate = pageNumber => setCurrentPage(pageNumber);
 
     useEffect(() => {
         props.fetchAllPostTags()
@@ -46,7 +57,7 @@ const PostTags = ({ classes, ...props }) => {
                 </tr>
             </thead>
             <tbody>
-            {props.postTagsList.map((record, index) => {
+            {currentPosts.map((record, index) => {
             return(
             <Fragment key={index}>
             <tr>
@@ -59,6 +70,13 @@ const PostTags = ({ classes, ...props }) => {
             
             </tbody>
             </table>
+            <div className="d-flex justify-content-center">
+            <Pagination
+            postsPerPage={postsPerPage}
+            totalPosts={props.postTagsList.length}
+            paginate={paginate}
+            />
+            </div>
         </div>
         </div>
     );

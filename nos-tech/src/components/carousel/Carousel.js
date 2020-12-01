@@ -13,6 +13,7 @@ function carouselComponent(props) {
         autoPlayInterval = {props.autoPlayInterval}
         paddingLeft={props.paddingLeft}
         disableDotsControls={props.disableDotsControls}
+        disableButtonsControls = {props.disableButtonsControls}
     >  
     {props.children}
     </AliceCarousel>

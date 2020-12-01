@@ -127,5 +127,45 @@
         padding: 5px;
         margin: 0 20px 0 0;
     }
+    .courseTag-button{
+        padding: 23px;
+        margin: 0 20px 0 0;
+    }
   
   }
+
+.CourseTag-title{
+    position: relative;
+    color: white;
+    font-weight: 300;
+}
+.courseTag-button{
+    border: none;
+    padding: 15px;
+    border-radius: 0;
+    color:rgb(0, 0, 0);
+    background-color:#ffffff;
+    margin-right: 10px;
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 2.5;
+    margin-left: 25px;
+    transition: ease-in-out;
+    transition-timing-function: ease-in-out;
+    transition-duration: 0.5s;
+    margin-bottom: 20px;
+    
+}
+.courseTag-button:hover{
+    transform: scale(1.1,1.1);
+    z-index: 1;
+    background-color: black;
+    color: white;
+    text-decoration: none;
+}
+.CourseTag-Banner{
+    background-image: url('https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/https://s3.amazonaws.com/coursera_assets/browse/domain-banner/data_science.png?auto=format%2Ccompress&dpr=1');
+    background-size: cover;
+    padding: 10px;
+    padding-bottom: 3rem;
+}

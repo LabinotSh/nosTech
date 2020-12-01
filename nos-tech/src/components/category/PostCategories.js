@@ -4,10 +4,22 @@ import * as actions from "../../redux/actions/postCategory";
 import PostCategoryForm from "./PostCategoryForm";
 import './Category.css'
 import Panel from '../panel/Panel';
+import Pagination from '../pagination/Pagination';
 
 const PostCategories = ({ classes, ...props }) => {
-    //const {classes, ...props} = props
+/*     const {classes, ...props} = props */
     const [currentId, setCurrentId] = useState(0)
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const [postsPerPage] = useState(5);
+
+     //Pagination
+	const indexOfLastPost = currentPage * postsPerPage;
+    const indexOfFirstPost = indexOfLastPost - postsPerPage;
+    const currentPosts = props.postCategoryList.slice(indexOfFirstPost, indexOfLastPost);
+
+    // Change page
+    const paginate = pageNumber => setCurrentPage(pageNumber);
 
     useEffect(() => {
         props.fetchAllPostCategories()
@@ -45,7 +57,7 @@ const PostCategories = ({ classes, ...props }) => {
                 </tr>
             </thead>
             <tbody>
-            {props.postCategoryList.map((record, index) => {
+            {currentPosts.map((record, index) => {
             return(
             <Fragment key={index}>
             <tr>
@@ -58,6 +70,13 @@ const PostCategories = ({ classes, ...props }) => {
             
             </tbody>
             </table>
+            <div className="d-flex justify-content-center">
+            <Pagination
+            postsPerPage={postsPerPage}
+            totalPosts={props.postCategoryList.length}
+            paginate={paginate}
+            />
+            </div>
         </div>
         </div>
     );
