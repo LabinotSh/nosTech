@@ -4,8 +4,9 @@ import Select from 'react-select';
 const CustomSelect = ({ filtered, onChange }) => {
 	const options = [
 		// { value: '0', label: '...Filter Courses...' },
+		{ value: '0', label: 'Most Popular' },
 		{ value: '1', label: 'Oldest' },
-		{ value: '2', label: 'Newest' },
+		{ value: '2', label: 'Most Recent' },
 	];
 
 	const customStyles = {
@@ -41,7 +42,6 @@ const CustomSelect = ({ filtered, onChange }) => {
 
 	return (
 		<Select
-			//key={`my_unique_select_key__${filtered.value}`}
 			styles={customStyles}
 			className="sel-react-com"
 			placeholder={'...Filter Courses...'}

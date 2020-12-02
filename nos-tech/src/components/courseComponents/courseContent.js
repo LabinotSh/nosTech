@@ -10,11 +10,11 @@ import CustomSelect from '../../components/customSelect/customSelect';
 const CourseContent = ({ list }) => {
 	const [items, setItems] = useState(['']);
 	const [visible, setVisible] = useState(3);
-	const [filtered, setFiltered] = useState('');
-
+  const [filtered, setFiltered] = useState('');
+  
 	const [filterText, setFilterText] = useState('');
-	const [displayMessage, setDisplayMessage] = useState('');
-
+  const [displayMessage, setDisplayMessage] = useState('');
+  
 	const onSelectChange = (option) => {
 		if (!option) {
 			setFiltered('');
@@ -30,8 +30,10 @@ const CourseContent = ({ list }) => {
 				results.sort((a, b) => {
 					return new Date(b.createdAt) - new Date(a.createdAt);
 				});
-			} else {
-				return results;
+			} else if(option.value === '0'){
+        results.sort((a,b) => {
+          return b.users.length - a.users.length;
+        });
 			}
 		}
 	};
@@ -57,7 +59,7 @@ const CourseContent = ({ list }) => {
 
 	useEffect(() => {
 		if (list) {
-			setItems(list.filter((x) => x.status === 1).reverse());
+      setItems(list.filter((x) => x.status === 1).reverse());
 		}
 	}, [list]);
 
@@ -114,7 +116,7 @@ const CourseContent = ({ list }) => {
 };
 
 const mapStateToProps = (state) => ({
-	list: state.courses.courses,
+  list: state.courses.courses,
 });
 
 export default connect(mapStateToProps)(CourseContent);

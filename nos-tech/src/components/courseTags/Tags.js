@@ -28,7 +28,7 @@ const CourseTags = () => {
         return tags.map((item,idx) => {
               return(
               <div className="py-5" key={idx}>
-                <Link to = {`/topics/${item._id}`}>  
+                <Link to = {`/topics/${item.name}`}>  
                 <button className="tags-buton-carousel">
                 <i className="fa fa-hashtag pr-2" />
                     {item.name} 

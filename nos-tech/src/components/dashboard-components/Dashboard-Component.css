@@ -1,0 +1,15 @@
+.dashboard-guide-image{
+    height: 160px;
+    width: 160px;
+    padding-top: 1rem;
+}
+.dashboard-card-guide{
+    height: 15rem;
+}
+.dashboard-text-guide{
+    font-weight: 300;
+    font-size: 15px;
+}
+.recharts-default-legend{
+    margin: -15px !important;
+}

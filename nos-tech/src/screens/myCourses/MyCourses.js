@@ -4,7 +4,7 @@ import axios from 'axios';
 import MyCoursesBanner from '../../components/banner/MyCoursesBanner';
 import jwt_decode from 'jwt-decode';
 import { API_URL } from '../../constants/Constants';
-import { useDispatch } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { fetchAllCourses, getEnrolledCourses } from '../../redux/actions/courses';
 import Enrolled from '../../components/myCoursesComponents/Enrolled';
 import Favorites from '../../components/myCoursesComponents/Favorites';
@@ -42,7 +42,7 @@ const MyCourses = () => {
 		isRendered.current = true;
 		dispatch(getEnrolledCourses(userId))
 		.then((response) => {
-			console.log('enrolled ' + JSON.stringify(response));
+			console.log('enrolled ' + JSON.stringify(response.courses));
 			if(isRendered){
 				setEnrolled(response.courses)
 			}
@@ -76,7 +76,7 @@ const MyCourses = () => {
 	return (
 		<>
 			<div>
-				<MyCoursesBanner />
+				<MyCoursesBanner />			
 			</div>
 			<div className="main-cont">
 				<ul className="cs-nav">
@@ -130,4 +130,4 @@ const MyCourses = () => {
 	);
 };
 
-export default MyCourses;
+export default connect(null, {getEnrolledCourses})(MyCourses);

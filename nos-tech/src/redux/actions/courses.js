@@ -20,14 +20,11 @@ export const fetchAllCourses = () => async (dispatch) => {
 	});
 
 	return axios
-		.get(`${API_URL}/course`)
+		.get(`${API_URL}/course/getAll`)
 		.then((response) => {
 			if (response.error) {
 				throw response.error;
 			}
-			const courses = response.data;
-			//console.log('Courses ' + JSON.stringify(courses));
-
 			dispatch({
 				type: FETCH_COURSES_SUCCESS,
 				payload: response.data,
@@ -49,12 +46,12 @@ export const getEnrolledCourses = (userId) => async (dispatch) => {
 
 	return axios.get(`${API_URL}/course/enrolled/${userId}`)
 	.then(response => {
-		console.log('Enrolled courses ' + JSON.stringify(response.data));
 
 		dispatch({
 			type:FETCH_ENROLLED_COURSES_SUCCESS,
 			payload: response.data.courses
 		})
+
 		return response.data;
 	}).catch(error => {
 		dispatch({

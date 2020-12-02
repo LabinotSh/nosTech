@@ -21,7 +21,7 @@ const CourseCatBannerComponent = ({classes, ...props}) => {
                 <div style={{display: "inline"}} key={index} >
                 <Link 
                 className="courseCatBanner-button mb-5" 
-                to = {`/coursecategory/${record._id}`}>
+                to = {`/coursecategory/${record.name}`}>
                 {record.name}
                 </Link>
                 </div>

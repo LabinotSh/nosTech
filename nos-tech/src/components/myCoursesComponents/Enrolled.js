@@ -26,7 +26,7 @@ const Enrolled = (props) => {
 				</Card.Link>
 			</Card.Body>
 			<Card.Footer className="c-foot">
-				<Card.Text className="inst float-left">Instructor: {props.course._instructor}</Card.Text>
+				 <Card.Text className="inst float-left">Instructor: {props.course.price}</Card.Text>
 			</Card.Footer>
 		</Card>
 	);
