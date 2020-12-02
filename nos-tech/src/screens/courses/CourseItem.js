@@ -23,10 +23,8 @@ const CourseItem = (props) => {
 	const isRendered = useRef('false');
 
 	const setRoute = (id) => {
-		// isRendered.current = true
 		const timeOutId = setTimeout(() => {
 			isRendered && localStorage.getItem('user') ? history.push(`course/${id}`) : history.push('/login');
-			//window.location.reload();
 		}, 700);
 		return () => {
 			isRendered.current = true;
