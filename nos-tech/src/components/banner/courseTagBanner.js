@@ -19,7 +19,7 @@ const CourseTagBanner = ({classes, ...props}) => {
                 <div style={{display: "inline"}} key={index} >
                 <Link 
                 className="courseTag-button mb-5" 
-                to = {`/topics/${record._id}`}>
+                to = {`/topics/${record.name}`}>
                 <i className="fa fa-hashtag pr-1" />{record.name}
                 </Link>
                 </div>
