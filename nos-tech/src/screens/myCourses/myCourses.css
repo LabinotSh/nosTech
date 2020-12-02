@@ -147,3 +147,9 @@
     font-size: large;
     font-style: italic !important;
 }
+
+.author-name{
+    color: #000;
+    text-transform: capitalize;
+    font-style: normal !important;
+}

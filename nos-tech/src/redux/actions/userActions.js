@@ -26,6 +26,8 @@ export const listUsers = () => async (dispatch) => {
             type:USER_LIST_SUCCESS,
             payload: data
         })
+
+        return data;
     }catch(error) {
         dispatch({
             type:USER_LIST_FAIL,

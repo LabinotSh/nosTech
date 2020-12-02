@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect} from 'react';
 import CourseItem from '../../screens/courses/CourseItem';
 import './courseComponent.css';
 import LoadMore from '../loadMore/LoadMore';
@@ -76,13 +76,6 @@ const CourseContent = ({ list }) => {
 					<div className="row no-gutters">
 						<div className="col-xs-2 col-lg-4"></div>
 						<div className="col-xs-5 col-lg-3 mt-1">
-							{/* <select value={filtered} onChange={onSel} className="sele-opt">
-								{options.map((o) => (
-									<option key={o.value} value={o.value}>
-										{o.label}
-									</option>
-								))}
-							</select> */}
 							<CustomSelect filtered={filtered.value} onChange={onSelectChange} />
 						</div>
 						<div className="col-xs-5 col-lg-2">

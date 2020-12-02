@@ -18,7 +18,6 @@ const Favorites = (props) => {
 			<Card.Body className="desc">
 				<Card.Title className="title-co">{props.course.name}</Card.Title>
 				<Card.Text className="deS">{desc}</Card.Text>
-				{/* <Card.Link className="c-link float-right" href="#">Watch <FontAwesomeIcon icon={faArrowRight}/> </Card.Link> */}
 			</Card.Body>
 			<Card.Body>
 				<Card.Link className="c-link float-right" href={`course/${props.course._id}`}>
@@ -26,7 +25,7 @@ const Favorites = (props) => {
 				</Card.Link>
 			</Card.Body>
 			<Card.Footer className="c-foot">
-				<Card.Text className="inst float-left">Instructor: {props.favorite._instructor}</Card.Text>
+				{/* <Card.Text className="inst float-left">Instructor: {props.favorite._instructor}</Card.Text> */}
 			</Card.Footer>
 		</Card>
 	);

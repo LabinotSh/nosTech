@@ -259,10 +259,10 @@ router.get('/enrolled/:userId', async (req, res) => {
 	const { userId } = req.params;
 
 	try {
-		const enrolled = await Course.find({ users: { $in: userId } });
+		const enrolled = await Course.find({ users: { $in: userId } }).populate('_instructor');
 		res.send({
 			message: 'Courses user is enrolled',
-            courses: enrolled,      
+			courses: enrolled,      
 		});
 	} catch (err) {
 		console.log({

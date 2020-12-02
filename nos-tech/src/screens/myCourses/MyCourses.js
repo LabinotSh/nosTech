@@ -11,8 +11,7 @@ import Favorites from '../../components/myCoursesComponents/Favorites';
 import TabEnrolled from '../../components/myCoursesComponents/TabEnrolled';
 import TabFavs from '../../components/myCoursesComponents/TabFavs';
 
-const MyCourses = () => {
-	const [courses, setCourses] = useState([]);
+const MyCourses = ({enroll}) => {
 	const [enrolled, setEnrolled] = useState([]);
 	const [about, setAbout] = useState(true);
 	const [favList, setFavList] = useState([]);
@@ -23,20 +22,6 @@ const MyCourses = () => {
 	const user = jwt_decode(token);
 
 	const dispatch = useDispatch();
-
-	// const retrieveCourses = () => {
-	// 	isRendered.current = true;
-	// 	dispatch(fetchAllCourses())
-	// 		.then((response) => {
-	// 			if (isRendered) {
-	// 				setCourses(response);
-	// 				console.log('COURSES: ' + JSON.stringify(response));
-	// 			}
-	// 		})
-	// 		.catch((e) => {
-	// 			console.error('Error: ' + e);
-	// 		});
-	// };
 
 	const getEnrolledCo = (userId) => {
 		isRendered.current = true;
@@ -102,9 +87,9 @@ const MyCourses = () => {
 							</div>
 						</div>
 					)}
-					{enrolled &&
-						enrolled.map((course) => {
-							return <Enrolled course={course} key={course._id} />;
+					{enroll &&
+						enroll.map((course) => {
+							return <Enrolled course={course} key={course._id} author={course._instructor} />;
 						})}
 				</div>
 			) : (
@@ -130,4 +115,8 @@ const MyCourses = () => {
 	);
 };
 
-export default connect(null, {getEnrolledCourses})(MyCourses);
+const mapStateToProps = (state) => ({
+	enroll: state.courses.enrolled,
+})
+
+export default connect(mapStateToProps, {getEnrolledCourses})(MyCourses);
