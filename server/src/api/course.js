@@ -246,6 +246,54 @@ router.post('/new', async(req, res)=> {
 });
 
 
+router.get('/enrolled/:userId', async(req,res) => {
+    const {userId} = req.params;
+
+    try{
+        // const user = User.findOne({_id:userId});
+        const enrolled = await Course.find({ 'users': {$in: userId}}).populate('users');
+        res.send({
+            message: 'Courses user is enrolled',
+            courses: enrolled
+        })
+    }catch(err){
+        console.log({
+			error: err
+		});
+    }
+})
+
+router.put('/user/:cid', async(req,res) => {
+    const {cid} = req.params;
+
+    const data = {
+		$push: { users: req.body._id },
+	};
+
+    try {
+        const upd = await Course.findOneAndUpdate({_id: cid}, data, {new:true}, function (err, doc) {
+            if (err) {
+                console.log(err);
+                return res.send({
+                    success: false,
+                    message: 'Error somewhere!',
+                });
+            }
+            return res.send({
+                success: true,
+                usersFavorite: doc,
+                favoriteCourse: doc.favorites,
+                message: 'Removed from favorites!',
+            })
+        });
+        
+    } catch (error) {
+        console.log({
+            error: error
+        })
+    }
+})
+
 
 
 module.exports = router;

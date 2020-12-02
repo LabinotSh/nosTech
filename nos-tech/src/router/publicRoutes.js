@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from 'react';
+import React, { Component } from 'react';
 import { Route, Redirect, withRouter } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 import { connect } from 'react-redux';

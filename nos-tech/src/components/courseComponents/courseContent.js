@@ -5,13 +5,36 @@ import LoadMore from '../loadMore/LoadMore';
 import SearchBar from '../../components/searchBar/searchBar';
 import { connect } from 'react-redux';
 import Tags from '../../components/courseTags/Tags';
+import CustomSelect from '../../components/customSelect/customSelect';
 
 const CourseContent = ({ list }) => {
 	const [items, setItems] = useState(['']);
 	const [visible, setVisible] = useState(3);
+	const [filtered, setFiltered] = useState('');
 
 	const [filterText, setFilterText] = useState('');
 	const [displayMessage, setDisplayMessage] = useState('');
+
+	const onSelectChange = (option) => {
+		if (!option) {
+			setFiltered('');
+		} else {
+			setFiltered(option.value);
+			console.log('Selected: ' + option.value);
+
+			if (option.value === '1') {
+				results.sort((a, b) => {
+					return new Date(a.createdAt) - new Date(b.createdAt);
+				});
+			} else if (option.value === '2') {
+				results.sort((a, b) => {
+					return new Date(b.createdAt) - new Date(a.createdAt);
+				});
+			} else {
+				return results;
+			}
+		}
+	};
 
 	const handleChange = (e) => {
 		setFilterText(e.target.value);
@@ -40,26 +63,30 @@ const CourseContent = ({ list }) => {
 
 	return (
 		<>
-			{/* <div className="conatiner">
-        <div className="row title-and-search-courses">
-          <div className="col-sm-6 text-center">
-            <p className="courses-headline">NosTech All Courses</p>
-            <hr />
-          </div>
-
-          <div className="search-bar-div-cont">
-            <SearchBar input={filterText} onChange={handleChange} />
-          </div>
-        </div>
-      </div> */}
 			<Tags />
 			<div className="title-and-search-courses">
 				<div className="text-center courses-headline-cont">
 					<p className="courses-headline">NosTech All Courses</p>
 					<hr />
 				</div>
-				<div className="search-bar-div-cont">
-					<SearchBar input={filterText} onChange={handleChange} className="search-bar-cont" />
+
+				<div className="container-fluid search-bar-div-cont">
+					<div className="row no-gutters">
+						<div className="col-xs-2 col-lg-4"></div>
+						<div className="col-xs-5 col-lg-3 mt-1">
+							{/* <select value={filtered} onChange={onSel} className="sele-opt">
+								{options.map((o) => (
+									<option key={o.value} value={o.value}>
+										{o.label}
+									</option>
+								))}
+							</select> */}
+							<CustomSelect filtered={filtered.value} onChange={onSelectChange} />
+						</div>
+						<div className="col-xs-5 col-lg-2">
+							<SearchBar input={filterText} onChange={handleChange} className="search-bar-cont" />
+						</div>
+					</div>
 				</div>
 			</div>
 			{/* test */}

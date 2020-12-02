@@ -104,8 +104,22 @@
 }
 
 .desc{
-    height: 30vh;
+    height: 28vh;
+    /* white-space: initial; */
+   
 }
+.title-co{
+    text-transform: capitalize;
+}
+.deS{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: initial;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
 .enrolled-c{
     width: 20rem;
     margin:1.4rem;

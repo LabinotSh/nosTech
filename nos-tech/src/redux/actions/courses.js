@@ -6,6 +6,9 @@ import {
 	FETCH_COURSES_SUCCESS,
 	REMOVE_FROM_FAVORITES_ERROR,
 	REMOVE_FROM_FAVORITES_SUCCESS,
+	FETCH_ENROLLED_COURSES_SUCCESS,
+	FETCH_ENROLLED_COURSES_ERROR,
+	FETCH_ENROLLED_COURSES_PENDING
 } from './types';
 import axios from 'axios';
 import { API_URL } from '../../constants/Constants';
@@ -23,7 +26,7 @@ export const fetchAllCourses = () => async (dispatch) => {
 				throw response.error;
 			}
 			const courses = response.data;
-			console.log('Courses ' + JSON.stringify(courses));
+			//console.log('Courses ' + JSON.stringify(courses));
 
 			dispatch({
 				type: FETCH_COURSES_SUCCESS,
@@ -38,6 +41,28 @@ export const fetchAllCourses = () => async (dispatch) => {
 			});
 		});
 };
+
+export const getEnrolledCourses = (userId) => async (dispatch) => {
+	dispatch({
+		type: FETCH_ENROLLED_COURSES_PENDING,
+	});
+
+	return axios.get(`${API_URL}/course/enrolled/${userId}`)
+	.then(response => {
+		console.log('Enrolled courses ' + JSON.stringify(response.data));
+
+		dispatch({
+			type:FETCH_ENROLLED_COURSES_SUCCESS,
+			payload: response.data.courses
+		})
+		return response.data;
+	}).catch(error => {
+		dispatch({
+			type:FETCH_ENROLLED_COURSES_ERROR,
+			payload: error.response.data
+		})
+	})
+}
 
 export const addToFavorites = (uId, course) => async (dispatch) => {
 	let favs = JSON.parse(localStorage.getItem('userFav'));

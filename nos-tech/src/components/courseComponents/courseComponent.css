@@ -52,8 +52,12 @@
     margin-bottom: 80px;
 }
 
-.courses-headline-cont, .search-bar-div-cont{
+.courses-headline-cont{
     width: 443px;
+}
+
+.sel-react-com{
+    margin-right: 20px;
 }
 
 
