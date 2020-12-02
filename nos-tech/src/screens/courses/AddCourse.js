@@ -116,7 +116,7 @@ function AddCourse() {
       }, []);
      //options
     let options = tags.map((option) => {
-        return { value: option._id, label: option.name };
+        return { value: option.name, label: option.name };
       })   
 
       const handleChange = (event) => {
@@ -139,7 +139,7 @@ function AddCourse() {
        
       <form id="create-course-form" className="add-course-form" onSubmit={handleSubmit} style={{ width: '359px' }}>
        {(createSuccess)?
-      <div class="alert alert-warning" role="alert">
+      <div className="alert alert-warning" role="alert">
           Your course has been successfully submited for review. Please upload your videos after you've been redirected...
       </div>:null
       }
@@ -170,7 +170,7 @@ function AddCourse() {
         {category.map((item,index) => {
             return(
             <option
-              value={item._id}
+              value={item.name}
               key={index}
               className="w-100"
             >
@@ -181,31 +181,6 @@ function AddCourse() {
         </div>
         </div>
         </div>
-
-
-
-{/*          <div className="form-group">
-            <select
-            multiple="true"
-            id="tags"
-            name="tags"
-            onChange={(e) => handleChange(e)}
-            className="form-control w-100"
-            >
-        {tags.map((item,index) => {
-            return(
-            <option
-              value={item._id}
-              key={index}
-              className="w-100"
-            >
-              {item.name}
-            </option>
-          )})}
-            </select>
-        </div>  */}
-        
-
 
         <div className="form-group h-80">
         <label>Select course tech</label>    
