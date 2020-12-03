@@ -45,36 +45,31 @@ const DashboardRadar = () => {
         fetchCourse()
     }, [])
 
-/*     let Web = 0;
-    const A = course.map((item) => {
-        console.log('WEb length is: ' + JSON.stringify(item.category)) 
-        
-    }) */
 
     const SoftwareDevelopment = () => {
         return course.filter(x => x.category == 'Software Development').length;
     }
-    console.log('Soft ' + SoftwareDevelopment())
+  
 
     const WebDevelopment = () => {
         return course.filter(x => x.category == 'Mobile & Web Development').length;
     } 
-    console.log('web ' + WebDevelopment())
+
 
     const Algorithms = () => {
         return course.filter(x => x.category == 'Algorithms').length;
     } 
-    console.log('algo ' + Algorithms())
+
 
     const MachineLearning = () => {
         return course.filter(x => x.category == 'Machine Learning').length;
     } 
-    console.log('machine ' + MachineLearning())
+
 
     const Design = () => {
         return course.filter(x => x.category == 'Design and Product').length;
     } 
-    console.log('design ' + Design())
+
 
     const data = category.map(item => (
         {
@@ -89,11 +84,12 @@ const DashboardRadar = () => {
     ))
     
     return (
-        <> 
-        <RadarChart outerRadius={90} width={730} height={250} data={data}>
+        <>
+        <div className="card radar-card">
+        <RadarChart outerRadius={90} width={520} height={250} data={data}>
         <PolarGrid />
         <PolarAngleAxis dataKey="subject" />
-        <PolarRadiusAxis angle={30} margin={{bottom: 15}} domain={[0, 150]}/>
+        <PolarRadiusAxis angle={30} domain={[0, 150]}/>
         {category.filter(x => x.name == 'Software Development' ).map(item => (
         <Radar name={item.name} dataKey="Software Development" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} />
         ))
@@ -116,6 +112,7 @@ const DashboardRadar = () => {
         }
         <Legend />
         </RadarChart>
+        </div> 
         </>
     )
 }
