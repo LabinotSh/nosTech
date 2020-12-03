@@ -20,7 +20,7 @@ const CourseCategory = ({list,pending, match}) => {
     const retrieveCourses = () => {
         dispatch(fetchAllCourses())
         .then((response) => {
-        setRepos(response.filter(x => x.category == params.cid && x.status === 0).sort(x => x.updated_date).reverse());
+        setRepos(response.filter(x => x.category == params.cid && x.status === 1).sort(x => x.updated_date).reverse());
         })
         .catch((e) => {
             console.error("Error: " + e);
