@@ -5,7 +5,7 @@ import MyCoursesBanner from '../../components/banner/MyCoursesBanner';
 import jwt_decode from 'jwt-decode';
 import { API_URL } from '../../constants/Constants';
 import { connect, useDispatch } from 'react-redux';
-import { fetchAllCourses, getEnrolledCourses } from '../../redux/actions/courses';
+import { getEnrolledCourses } from '../../redux/actions/courses';
 import Enrolled from '../../components/myCoursesComponents/Enrolled';
 import Favorites from '../../components/myCoursesComponents/Favorites';
 import TabEnrolled from '../../components/myCoursesComponents/TabEnrolled';
@@ -53,7 +53,6 @@ const MyCourses = ({enroll}) => {
 	};
 
 	useEffect(() => {
-		//retrieveCourses();
 		getFav(user._id);
 		getEnrolledCo(user._id);
 	}, []);
