@@ -9,26 +9,26 @@ const StaticArticles = () => {
       title:
         "Neuroglee gets $2.3 million to develop digital therapeutics for neurodegenerative diseases",
       authorName: "Catherine Shu",
-      articleImage: require("../../assets/images/tech-one.jpeg"),
+      articleImage: require("../../assets/images/neuroglee.PNG"),
       articlePublishedAt: "2020-12-03T01:00:53Z",
     },
     {
       title:
         "Govtech intelligence platform, The Atlas for Cities, bought by Government Executive Media Group",
       authorName: "Jonathan Shieber",
-      articleImage: require("../../assets/images/tech-one.jpeg"),
+      articleImage: require("../../assets/images/govtech.PNG"),
       articlePublishedAt: "2020-12-03T00:40:29Z",
     },
     {
       title: "Google shutting down Poly 3D content platform",
       authorName: "Lucas Matney",
-      articleImage: require("../../assets/images/tech-one.jpeg"),
+      articleImage: require("../../assets/images/poly.PNG"),
       articlePublishedAt: "2020-12-02T23:54:05Z",
     },
     {
       title: "Hulu officially launches its co-viewing feature Watch Party",
       authorName: "Sarah Perez",
-      articleImage: require("../../assets/images/tech-one.jpeg"),
+      articleImage: require("../../assets/images/hulu.PNG"),
       articlePublishedAt: "December 1st, 2020",
     },
     {
@@ -40,20 +40,20 @@ const StaticArticles = () => {
     {
       title: "Daily Crunch: Apple announces its best apps of 2020",
       authorName: "Anthony Ha",
-      articleImage: require("../../assets/images/tech-one.jpeg"),
+      articleImage: require("../../assets/images/apple.PNG"),
       articlePublishedAt: "December 1st, 2020",
     },
     {
       title: "Hulu officially launches its co-viewing feature Watch Party",
       authorName: "Sarah Perez",
-      articleImage: require("../../assets/images/tech-one.jpeg"),
+      articleImage: require("../../assets/images/hulu.PNG"),
       articlePublishedAt: "December 2nd, 2020",
     },
     {
       title:
         "Sketchy wants to replace boring textbooks with ‘Pixar-like’ videos",
       authorName: "Natasha Mascarenhas",
-      articleImage: require("../../assets/images/tech-one.jpeg"),
+      articleImage: require("../../assets/images/pixar.PNG"),
       articlePublishedAt: "December 2nd, 2020",
     },
   ];
