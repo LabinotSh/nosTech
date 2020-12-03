@@ -1,22 +1,20 @@
-import React from 'react'
-import './articles.css'
-import Banner from '../../components/banner/ArticleBanner'
-import ArticlesComp from '../../components/articlesComponent/articlesComponent'
-import ArticlesAdv from '../../components/articlesComponent/articlesAdvert'
-
+import React from "react";
+import "./articles.css";
+import Banner from "../../components/banner/ArticleBanner";
+import ArticlesComp from "../../components/articlesComponent/articlesComponent";
+import ArticlesAdv from "../../components/articlesComponent/articlesAdvert";
 
 function Articles() {
-
-    return (
-        <div >
-        <Banner/>
-        <div className="col-xl-12">
-        <h5 className="pl-3">Latest</h5>
+  return (
+    <div>
+      <Banner />
+      {/* className="col-xl-12" */}
+      <div style={{ display: "flex" }}>
         <ArticlesComp />
         <ArticlesAdv />
-        </div>
-        </div>
-    )
+      </div>
+    </div>
+  );
 }
 
-export default Articles
+export default Articles;
