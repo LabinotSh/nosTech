@@ -1,0 +1,6 @@
+.static-articles-grid {
+    display: flex;
+    flex-direction: row;
+    margin-left: 50px;
+    flex-wrap: wrap;
+}

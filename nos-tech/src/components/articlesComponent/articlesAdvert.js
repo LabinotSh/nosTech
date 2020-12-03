@@ -15,11 +15,9 @@ const ArticlesAdv = () => {
       )
       .then((response) =>
         response.data.articles.map((article) => ({
-          source: `${article.source.name}`,
           title: `${article.title}`,
           url: `${article.url}`,
           urlToImage: `${article.urlToImage}`,
-          publishedAt: `${article.publishedAt}`,
         }))
       )
       .then((articles) => {
@@ -36,60 +34,64 @@ const ArticlesAdv = () => {
     return (
       <>
         <div as="Container" className="test-adv text-center">
-          <p
-            style={{
-              margin: "35px",
-              fontSize: "21px",
-            }}
-          >
-            Latest Issues from{" "}
-            <a
-              href="https://apple.com"
+          {!isLoading ? (
+            <p
               style={{
-                color: "black",
-                fontStyle: "italic",
-                textDecoration: "underline",
+                margin: "35px",
+                fontSize: "21px",
               }}
             >
-              {" "}
-              Apple:{" "}
-            </a>
-          </p>
+              Latest Issues from &nbsp;
+              <a
+                href="https://apple.com"
+                style={{
+                  color: "black",
+                  fontStyle: "italic",
+                  textDecoration: "underline",
+                }}
+              >
+                Apple:
+              </a>
+            </p>
+          ) : null}
+
           {!isLoading ? (
-            articles.slice(0, 6).map((article) => {
+            articles.slice(0, 7).map((article) => {
               const { title, url, urlToImage } = article;
               return (
-                <div className="articles-adv-div test-adv-dy">
-                  <div className="test-adv-tre">
-                    <div className="articles-adv-parent">
-                      <a
-                        className="article-adv-title text-center"
-                        target="_blank"
-                        href="url"
-                      >
-                        "{title}"
-                      </a>
-                      <div className="articles-advert-image-main">
-                        {/* <a
+                <>
+                  <div className="articles-adv-div test-adv-dy">
+                    <div className="test-adv-tre">
+                      <div className="articles-adv-parent">
+                        <a
+                          className="article-adv-title text-center"
+                          target="_blank"
+                          href="url"
+                        >
+                          "{title}"
+                        </a>
+                        <div className="articles-advert-image-main">
+                          {/* <a
                         href={url}
                         target="_blank"
                         className="articles-adv-img-parent"
                       > */}
-                        <img
-                          href={url}
-                          src={urlToImage}
-                          class="card-img-top articles-adv-img-child articles-adv-img-parent"
-                          alt="..."
-                        />
-                        {/* </a> */}
+                          <img
+                            href={url}
+                            src={urlToImage}
+                            class="card-img-top articles-adv-img-child articles-adv-img-parent"
+                            alt="..."
+                          />
+                          {/* </a> */}
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
+                </>
               );
             })
           ) : (
-            <p>Loading...</p>
+            <div style={{ display: "none" }}></div>
           )}
         </div>
       </>

@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./articlesComponent.css";
-import { Link } from "react-router-dom";
 import { BiTimeFive } from "react-icons/bi";
-import { BiNews } from "react-icons/bi";
-import { Container, Row, Col } from "react-bootstrap";
+import { AiOutlineUser } from "react-icons/ai";
+import StaticArticles from "./StaticArticles";
 
 const ArticlesComponent = () => {
   const [articles, setArticles] = useState();
@@ -14,16 +13,18 @@ const ArticlesComponent = () => {
   const getArticles = async () => {
     axios
       .get(
-        //  "http://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=1551d11a79c64168a5b239c4e0417a1b"
-        "https://gnews.io/api/v4/search?q=example&token=c94d9e42efeca388a8cb65b03608e981"
+        "http://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=e1cbebfb007e43dca809310e34ab40e4"
       )
+
+      // "https://gnews.io/api/v4/search?q=example&token=c94d9e42efeca388a8cb65b03608e981"
       .then((response) =>
         response.data.articles.map((article) => ({
-          source: `${article.source.name}`,
+          // name: `${article.source.id}`,
           title: `${article.title}`,
           url: `${article.url}`,
-          urlToImage: `${article.image}`,
+          urlToImage: `${article.urlToImage}`,
           publishedAt: `${article.publishedAt}`,
+          author: `${article.author}`,
         }))
       )
       .then((articles) => {
@@ -41,8 +42,8 @@ const ArticlesComponent = () => {
     <>
       <div className="tech-article-card-component" as="Container">
         {!isLoading ? (
-          articles.slice(0, 9).map((article) => {
-            const { source, title, url, urlToImage, publishedAt } = article;
+          articles.slice(0, 8).map((article) => {
+            const { author, title, url, urlToImage, publishedAt } = article;
             return (
               <div className="testo-artikuj">
                 <div
@@ -50,18 +51,18 @@ const ArticlesComponent = () => {
                   key={title}
                   style={{ height: "500px", width: "360px" }}
                 >
-                  <div>
-                    <a
+                  <div className="articles-image-main">
+                    {/* <a
                       href={url}
                       target="_blank"
                       className="articles-img-parent"
-                    >
-                      <img
-                        src={urlToImage}
-                        class="card-img-top articles-img-child"
-                        alt="..."
-                      />
-                    </a>
+                    > */}
+                    <img
+                      src={urlToImage}
+                      class="card-img-top articles-img-child articles-img-parent"
+                      alt="..."
+                    />
+                    {/* </a> */}
                   </div>
                   <div className="card-body">
                     <div className="tituj-e-sene">
@@ -82,13 +83,13 @@ const ArticlesComponent = () => {
                     <div className="card-footer-articles bg-transparent">
                       <div className="article-icons">
                         <div className="card-footer-articles-icon">
-                          <BiNews
+                          <AiOutlineUser
                             style={{ margin: "0 8px", fontSize: "22px" }}
                           />
                         </div>
                         <div className="card-footer-articles-icon-text">
                           <small className="text-muted">
-                            <em>{article.source}</em>
+                            <em>{author}</em>
                           </small>
                         </div>
                       </div>
@@ -111,7 +112,7 @@ const ArticlesComponent = () => {
             );
           })
         ) : (
-          <p>Loading...</p>
+          <StaticArticles />
         )}
       </div>
     </>
