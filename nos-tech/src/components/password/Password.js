@@ -78,7 +78,7 @@ const Password = ({ user, pending, success, err }) => {
 							<Col lg={2}></Col>
 							<Col sm={6} lg={7}>
 								<Form onSubmit={handleSubmit} className="text-center">
-									<Form.Label className="req-inf spacing">
+									<Form.Label className="req-inf spacing text-center">
 										To change your password, please enter the required information below:
 									</Form.Label>
 									{error ? <div className="text-danger">{error}</div> : null}
