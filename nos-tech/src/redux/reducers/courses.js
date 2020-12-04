@@ -10,7 +10,6 @@ import {
 const initialState = {
   pending: false,
   courses: [],
-  nrOfUsers: null,
   error: null,
   enrolled: []
 };
