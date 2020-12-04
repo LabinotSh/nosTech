@@ -1,0 +1,61 @@
+.dashboard-guide-image{
+    height: 160px;
+    width: 160px;
+    padding-top: 1rem;
+}
+.dashboard-card-guide{
+    height: 15rem;
+}
+.dashboard-text-guide{
+    font-weight: 300;
+    font-size: 15px;
+}
+.recharts-default-legend{
+    margin: -15px !important;
+}
+.radar-card{
+    margin-top: 3rem;
+    height: 300px;
+    padding: 1rem;
+    width: 570px;
+}
+.radar-info-card{
+    margin-top: 5rem;
+    text-transform: capitalize;
+    font-weight: 300;
+    width: 315px;
+    padding: 1rem;
+    margin-left: -50px;
+}
+.line-info-card{
+    margin-top: 5rem;
+    text-transform: capitalize;
+    font-weight: 300;
+    width: 315px;
+    padding: 1rem;
+    margin-left: 2.4rem;
+}
+.radar-info-img{
+    width: 250px;
+    height: 50px;
+    margin-left: 1rem;
+}
+.line-info-img{
+    width: 250px;
+    height: 100px;
+    margin-left: 1rem;
+}
+.Line-chart-card{
+    padding: 1rem;
+}
+.radial-chart-card{
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    margin-left: 1rem;
+}
+
+@media (max-width: 768px) {
+    .radar-info-card{
+        margin: 15px 0 5px 0;
+    }
+}

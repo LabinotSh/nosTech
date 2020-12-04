@@ -58,6 +58,7 @@ const CoursesView = () => {
                         <th>DESCRIPTION</th>
                         <th>PRICE</th>
                         <th>CATEGORY</th>
+                        <th>TAGS</th>
                         <th>STATUS</th>
                         <th>EDIT</th>
                         <th>DELETE</th>
@@ -71,6 +72,7 @@ const CoursesView = () => {
                             <td className="courses-table-dsc">{course.description}</td>
                             <td>{course.price}</td>
                             <td>{course.category}</td>
+                            <td className="courses-table-dsc">{course.tags}</td>
                             <td>{course.status === 0 
                                 ? <span className="text-warning">Onhold</span>
                                 : course.status === 1

@@ -106,7 +106,7 @@ router.get('/:uId/getAll', async (req, res) => {
 
 	try {
 		const user = await User.findById(uId);
-		const courses = await Course.find({ _id: { $in: user.favorites } });
+		const courses = await Course.find({ _id: { $in: user.favorites } }).populate('_instructor');
 		res.send({
 			message: 'User favorites',
 			//userFavorites: user.favorites,

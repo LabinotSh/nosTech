@@ -20,9 +20,16 @@ function Home() {
             Start using our resources for developing the necessary skills to
             land your dream job!
           </p>
-          <Link to="/registration">
+          {localStorage.getItem('user') ? (
+            <Link to="/courses">
             <Button className="get-started-btn">Get Started</Button>
           </Link>
+          ) : (
+            <Link to="/registration">
+            <Button className="get-started-btn">Get Started</Button>
+          </Link>
+          )}
+          
         </div>
 
         <img

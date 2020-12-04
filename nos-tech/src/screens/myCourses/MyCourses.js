@@ -4,15 +4,15 @@ import axios from 'axios';
 import MyCoursesBanner from '../../components/banner/MyCoursesBanner';
 import jwt_decode from 'jwt-decode';
 import { API_URL } from '../../constants/Constants';
-import { useDispatch } from 'react-redux';
-import { fetchAllCourses } from '../../redux/actions/courses';
+import { connect, useDispatch } from 'react-redux';
+import { getEnrolledCourses } from '../../redux/actions/courses';
 import Enrolled from '../../components/myCoursesComponents/Enrolled';
 import Favorites from '../../components/myCoursesComponents/Favorites';
 import TabEnrolled from '../../components/myCoursesComponents/TabEnrolled';
 import TabFavs from '../../components/myCoursesComponents/TabFavs';
 
-const MyCourses = () => {
-	const [courses, setCourses] = useState([]);
+const MyCourses = ({enroll}) => {
+	const [enrolled, setEnrolled] = useState([]);
 	const [about, setAbout] = useState(true);
 	const [favList, setFavList] = useState([]);
 
@@ -23,19 +23,19 @@ const MyCourses = () => {
 
 	const dispatch = useDispatch();
 
-	const retrieveCourses = () => {
+	const getEnrolledCo = (userId) => {
 		isRendered.current = true;
-		dispatch(fetchAllCourses())
-			.then((response) => {
-				if (isRendered) {
-					setCourses(response);
-					console.log('COURSES: ' + JSON.stringify(response));
-				}
-			})
-			.catch((e) => {
-				console.error('Error: ' + e);
-			});
-	};
+		dispatch(getEnrolledCourses(userId))
+		.then((response) => {
+			console.log('enrolled ' + JSON.stringify(response.courses));
+			if(isRendered){
+				setEnrolled(response.courses)
+			}
+		})
+		.catch((err) => {
+			console.log('Err ' + err);
+		})
+	}
 
 	const getFav = (userId) => {
 		isRendered.current = true;
@@ -53,14 +53,14 @@ const MyCourses = () => {
 	};
 
 	useEffect(() => {
-		retrieveCourses();
 		getFav(user._id);
+		getEnrolledCo(user._id);
 	}, []);
 
 	return (
 		<>
 			<div>
-				<MyCoursesBanner />
+				<MyCoursesBanner />			
 			</div>
 			<div className="main-cont">
 				<ul className="cs-nav">
@@ -75,20 +75,20 @@ const MyCourses = () => {
 			</div>
 			{about ? (
 				<div id="abo" className="cont abo">
-          {!courses.length && (
+					{!enrolled.length && (
 						<div className="container-fluid mt-4 bg-light-gray">
 							<div className="row">
 								<div className="col-sm-12">
 									<div className="text-info text-center nofav">
-										The list is empty! <br/> You have not enrolled in any course yet!
+										The list is empty! <br /> You have not enrolled in any course yet!
 									</div>
 								</div>
 							</div>
 						</div>
 					)}
-					{courses &&
-						courses.map((course) => {
-							return <Enrolled course={course} key={course._id} />;
+					{enroll &&
+						enroll.map((course) => {
+							return <Enrolled course={course} key={course._id} author={course._instructor} />;
 						})}
 				</div>
 			) : (
@@ -98,7 +98,7 @@ const MyCourses = () => {
 							<div className="row">
 								<div className="col-sm-12">
 									<div className="text-danger text-center nofav">
-										The list is empty! <br/> You have not added any favorites yet!
+										The list is empty! <br /> You have not added any favorites yet!
 									</div>
 								</div>
 							</div>
@@ -114,4 +114,8 @@ const MyCourses = () => {
 	);
 };
 
-export default MyCourses;
+const mapStateToProps = (state) => ({
+	enroll: state.courses.enrolled,
+})
+
+export default connect(mapStateToProps, {getEnrolledCourses})(MyCourses);

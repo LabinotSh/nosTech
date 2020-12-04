@@ -38,6 +38,10 @@ const courseSchema = new moongose.Schema({
         type: String,
         required: false
     },
+    tags: {
+        type: [String],
+        required: false
+    },
     videos: [{
         type: String,
         required: false

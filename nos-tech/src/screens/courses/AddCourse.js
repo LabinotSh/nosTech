@@ -2,16 +2,23 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import LeftContent from '../../components/courseComponents/postform'
 import Panel from '../../components/panel/Panel';
+import MultiSelect from "react-multi-select-component";
+import { history } from "../../helpers/history";
 
 function AddCourse() {
+
+
   /** start states */
   const [category, setCategory] = useState([]); //Category State
+  const [tags, setTags] = useState([]); //Tags State
+  const [selected, setSelected] = useState([]);
   const [formData, setFormData] = useState('');
   const [info, setInfo] = useState({
     name: '',
     description: '',
     price: '',
     category: '',
+    tags: [''],
     image: ''
   });
   const [progressPercent, setProgressPercent] = useState(0);
@@ -19,6 +26,7 @@ function AddCourse() {
     found: false,
     message: '',
   });
+  const [createSuccess, setCreateSuccess] = useState(false)
   /** end states */
 
   // Upload image
@@ -29,6 +37,12 @@ function AddCourse() {
     data.set("description", document.getElementById("description").value);
     data.set("price", document.getElementById("price").value);
     data.set("category", document.getElementById("category").value);
+    /* data.set("tags", document.getElementById("tags").value); */
+    /* data.append('tags', JSON.stringify(tags)); */
+    for(let i = 0; i < selected.length; i++)
+    {
+    data.append("tags", selected[i].value);
+    }  
     setFormData(data);
   };
 
@@ -40,6 +54,7 @@ function AddCourse() {
       description: '',
       price: '',
       category: '',
+      tags: [''],
       image: '',
     });
     setProgressPercent(0);
@@ -51,14 +66,19 @@ function AddCourse() {
         setProgressPercent(percent);
       },
     };
-    axios
+   axios
       .post('/api/course/newCourse', formData, options)
       .then((res) => {
         console.log(res.data);
+        const course = res.data.course
+        setCreateSuccess(true)
+        
         setTimeout(() => {
           setInfo(res.data.course);
           setProgressPercent(0);
-        }, 1000);
+          history.push(`/admins/course/${course._id}/videos`)
+        }, 5000);
+        
       })
       .catch((err) => {
         console.log(err.response);
@@ -84,9 +104,26 @@ function AddCourse() {
           setCategory(response.data);
         }
         fetchData();
-      }, [category]);
+      }, []);
 
+      // Get Tags
+      useEffect(() => {
+        const fetchData = async () => {
+        const response = await axios.get('/api/tags');
+              setTags(response.data);
+        }
+        fetchData();
+      }, []);
+     //options
+    let options = tags.map((option) => {
+        return { value: option.name, label: option.name };
+      })   
 
+      const handleChange = (event) => {
+        setSelected([...selected, event.target.value])
+        console.log(selected);
+      }
+      
   return (
     <div>
       
@@ -99,8 +136,13 @@ function AddCourse() {
       <LeftContent />
         
       <div className="add-course-right-content">
+       
       <form id="create-course-form" className="add-course-form" onSubmit={handleSubmit} style={{ width: '359px' }}>
-        
+       {(createSuccess)?
+      <div className="alert alert-warning" role="alert">
+          Your course has been successfully submited for review. Please upload your videos after you've been redirected...
+      </div>:null
+      }
         <div className="form-group">
             <label>Name</label>
             <input type="text" id="name" name="name" className="form-control w-100"/>
@@ -128,7 +170,7 @@ function AddCourse() {
         {category.map((item,index) => {
             return(
             <option
-              value={item._id}
+              value={item.name}
               key={index}
               className="w-100"
             >
@@ -139,6 +181,16 @@ function AddCourse() {
         </div>
         </div>
         </div>
+
+        <div className="form-group h-80">
+        <label>Select course tech</label>    
+        <MultiSelect
+          options={options}
+          value={selected}
+          onChange={setSelected}
+          labelledBy={"Select"}
+        />
+      </div>
 
         {error.found && (
         <div

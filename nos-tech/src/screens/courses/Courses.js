@@ -62,9 +62,9 @@ const Courses = ({ list, pending, err }) => {
 				</Carousel>
 				<hr></hr>
 			</div>
-			<div className="middle-content">
-				<CourseContent />
-			</div>
+				<div className="middle-content">
+					<CourseContent  />;
+				</div>			
 		</div>
 	);
 };

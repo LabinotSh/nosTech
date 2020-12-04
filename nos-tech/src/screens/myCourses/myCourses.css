@@ -67,6 +67,7 @@
 .cont{
     display: flex;
     flex-flow: row;
+    flex-wrap: wrap;
     margin-bottom: 150px;
 }
 
@@ -103,8 +104,22 @@
 }
 
 .desc{
-    height: 30vh;
+    height: 28vh;
+    /* white-space: initial; */
+   
 }
+.title-co{
+    text-transform: capitalize;
+}
+.deS{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: initial;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
 .enrolled-c{
     width: 20rem;
     margin:1.4rem;
@@ -131,4 +146,10 @@
 .nofav{
     font-size: large;
     font-style: italic !important;
+}
+
+.author-name{
+    color: #000;
+    text-transform: capitalize;
+    font-style: normal !important;
 }

@@ -3,7 +3,7 @@ const {refreshTokens} = require('../data/refreshTokens');
 
 function generateAccessToken(user){
     return jwt.sign(user.toJSON(), process.env.ACCESS_TOKEN_SECRET, 
-    {expiresIn: '120s'});
+    {expiresIn: '7200s'});
 }
 
 function generateRefreshToken(user){
@@ -15,13 +15,10 @@ function generateRefreshToken(user){
 verify = function(req, res, next){
 
     //Getting the token either from headers or cookie
-    // const token = req.header('auth-token');
-    // if(!token) return res.status(401).send('Access Denied!');
-    let token = req.cookies.jwt;
+    const token = req.header('x-auth-token');
+    if(!token) return res.status(401).send('Access Denied!');
+    //let token = req.cookies.jwt;
     //if there is no token stored in cookies, the request is unauthorized
-    if (!token){
-        return res.status(403).send()
-    }
     try{
         //use the jwt.verify method to verify the access token
         //throws an error if the token has expired or has a invalid signature

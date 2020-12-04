@@ -1,19 +1,18 @@
-
 import {
-  ADD_TO_FAVORITES_SUCCESS,
-  ADD_TO_FAVORITES_ERROR,
   FETCH_COURSES_ERROR,
   FETCH_COURSES_PENDING,
   FETCH_COURSES_SUCCESS,
-  REMOVE_FROM_FAVORITES_SUCCESS,
-  REMOVE_FROM_FAVORITES_ERROR
+  FETCH_ENROLLED_COURSES_ERROR,
+  FETCH_ENROLLED_COURSES_SUCCESS,
+  FETCH_ENROLLED_COURSES_PENDING
 } from "../actions/types";
-
 
 const initialState = {
   pending: false,
   courses: [],
+  nrOfUsers: null,
   error: null,
+  enrolled: []
 };
 
 export const coursesReducer = (state = initialState, action) => {
@@ -29,7 +28,7 @@ export const coursesReducer = (state = initialState, action) => {
       return {
         ...state,
         pending: false,
-        courses: action.payload,
+        courses: action.payload
       };
     case FETCH_COURSES_ERROR:
       return {
@@ -37,6 +36,23 @@ export const coursesReducer = (state = initialState, action) => {
         pending: false,
         error: action.error,
       };
+    case FETCH_ENROLLED_COURSES_PENDING:
+      return {
+        ...state,
+        pending:true
+      };
+    case FETCH_ENROLLED_COURSES_SUCCESS:
+      return {
+        ...state,
+        pending:false,
+        enrolled: action.payload
+      };
+    case FETCH_ENROLLED_COURSES_ERROR:
+      return {
+        ...state,
+        pending:false,
+        error: action.error
+      }
     default:
       return state;
   }
