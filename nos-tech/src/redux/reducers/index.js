@@ -15,7 +15,6 @@ const allReducers = combineReducers({
     login: loginReducer,
     courses: coursesReducer,
     favorites: favoritesReducer,
-    router: connectRouter(history),
     courseList: courseListReducer,
     courseDelete:courseDeleteReducer,
     courseDetails:courseDetailsReducer,
@@ -30,7 +29,8 @@ const allReducers = combineReducers({
     postCategory,
     postTags,
     userUpdate:userUpdateReducer,
-    userAddCourse:userAddCourseReducer
+    userAddCourse:userAddCourseReducer,
+    router: connectRouter(history),
 })
 
 export default allReducers;
