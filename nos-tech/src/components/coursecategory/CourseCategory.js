@@ -1,4 +1,4 @@
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import React , { useState, useEffect} from 'react';
 import Banner from '../banner/coursecatBanner'
 import './CourseCategory.css';
@@ -6,6 +6,7 @@ import Pagination from '../pagination/Pagination'
 import { connect, useDispatch, useSelector } from "react-redux";
 import { fetchAllCourses } from "../../redux/actions/courses";
 import Loader from "../icons/Loader";
+import SpinnerC from '../../components/courseTags/Spinner-Course';
 
 const CourseCategory = ({list,pending, match}) => {
     
@@ -49,14 +50,18 @@ const CourseCategory = ({list,pending, match}) => {
     <Banner />
     <div className="container">
     <div className=" row row-cols-1 row-cols-md-3">
-    { currentPosts.map((item,index) => {
+    {currentPosts.length == 0 ? 
+    <SpinnerC />                         
+    : currentPosts.map((item,index) => {
     return(
         <div key={index} className="col my-5">
         <div className="card h-100">
+        <Link to={`/course/${item._id}`}>
         <img src={`/${item.image}`}
             className="card-img-top coursecat-img"
             alt="..." 
         /> 
+        </Link>
         <div className="card-body">
         <h6 className="card-title courseCat-title">{item.name}</h6>
         <p className="card-text courseCat-desc">{item.description}</p>

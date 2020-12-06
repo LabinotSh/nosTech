@@ -36,11 +36,28 @@
   transform: scale(1.2, 1.2);
   color: #005a8f;
 }
+.content-items-review-part{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
 .content-review-image {
   width: 700px;
-  height: 500px;
+  height: 400px;
   margin-top: 3rem;
   margin-bottom: 3rem;
+  margin: 0 auto;
+}
+.content-review-video {
+  margin-bottom: 5rem;
+}
+@media (max-width: 768px) {
+  .content-review-image {
+    margin-top: 2rem;
+    width: 350px;
+    height: 200px;
+  }
+
 }
 
 .videoUpload {
