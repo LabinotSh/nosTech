@@ -119,3 +119,8 @@ span.hover:hover{
 .go2646822163{
     z-index: 5;
 }
+.error-add-course{
+    color: red;
+    font-weight: 300;
+    font-size: 0.9em;
+}
