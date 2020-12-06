@@ -16,6 +16,10 @@
 
 .addVideo {
   color: black;
+  font-weight: 400;
+  font-size: 1.5em;
+  margin: 0 auto;
+  color: #005a8f;
 }
 
 .addVideoContainer {
@@ -74,4 +78,26 @@
   margin-left: 12rem;
   padding-top: 1rem;
   color: #005a8f;
+}
+.edit-video-done-buton{
+  width: 20rem;
+  border: 1px solid black;
+  padding: 10px;
+  padding-right: 10rem;
+  padding-left: 10rem;
+  border-radius: 0;
+  color:white;
+  background-color:#1d6cff;
+  margin-right: 10px;
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 2;
+  transition: ease-in-out;
+  transition-timing-function: ease-in-out;
+  transition-duration: 0.5s;
+}
+.edit-video-done-buton:hover{
+  text-decoration: none;
+  color: white;
+  box-shadow: 2px 2px 2px #1d6cff;
 }
