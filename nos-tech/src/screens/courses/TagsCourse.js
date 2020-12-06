@@ -4,6 +4,7 @@ import Banner from '../../components/banner/courseTagBanner'
 import Pagination from '../../components/pagination/Pagination'
 import Loader from "../../components/icons/Loader";
 import axios from 'axios';
+import SpinnerC from '../../components/courseTags/Spinner-Course';
 
 const CourseTags = ({pending, match}) => {
     const history = useHistory();
@@ -53,7 +54,10 @@ const CourseTags = ({pending, match}) => {
     <Banner />
     <div className="container">
     <div className=" row row-cols-1 row-cols-md-3">
-    { currentPosts.map((item,index) => {
+    {currentPosts.length == 0 ? 
+    <SpinnerC /> 
+    :
+    currentPosts.map((item,index) => {
     return(
         <div key={index} className="col my-5">
         <div className="card h-100">
