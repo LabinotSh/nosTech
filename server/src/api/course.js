@@ -222,11 +222,14 @@ router.put(
 			}
 			await course.save();
 
-			fs.unlink(`./${JSON.parse(req.body.video)}`, (err) => {
-				if (err) {
-					throw new Error(err);
-				}
-			});
+			if(fs.existsSync(`./${JSON.parse(req.body.video)}`)) {
+
+				fs.unlink(`./${JSON.parse(req.body.video)}`, (err) => {
+					if (err) {
+						throw new Error(err);
+					}
+				});
+			}
 
 			res.status(201).json({ message: 'Video deleted' });
 		} else {

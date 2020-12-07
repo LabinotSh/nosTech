@@ -15,7 +15,7 @@ const orderTest = require('./api/test');
 const emailRoutes = require('./api/email');
 const favRoutes = require('./api/favorites');
 const tagsRoutes = require('./api/tags');
-const path = require('path');
+const couponRoutes = require('./api/coupon')
 const newsletterRoutes = require('../nodemailer/newsletter')
 
 require('dotenv').config() //Configure .env variables
@@ -46,6 +46,7 @@ app.use('/api/newsletter', newsletterRoutes)
 app.use('/api/uploadVideo', uploadVideoRoutes)
 app.use('/api/post', postRoutes)
 app.use('/api/tags', tagsRoutes)
+app.use('/api/coupon',couponRoutes)
 
 app.use('/uploads', express.static(__dirname+'/uploads'))
 //Wake up the server before rendering

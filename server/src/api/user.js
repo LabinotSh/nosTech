@@ -150,50 +150,76 @@ router.get('/:userId', async (req, res) => {
 });
 
 //Delete a user by id
-router.delete('/:userId', async (req, res) => {
-	const id = req.params.userId;
-	try {
-		const deletedUser = await User.deleteOne({
-			_id: id,
-		});
-		res.json('User deleted' + deletedUser);
-	} catch (error) {
-		console.error(error);
-	}
-});
+router.delete('/:userId', asyncHandler( async (req, res) => {
+  const id = req.params.userId
+  
+    const deletedUser = await User.deleteOne({
+      _id: id,
+    })
 
-router.put(
-	'/:userId',
-	asyncHandler(async (req, res) => {
-		const id = req.params.userId;
-		const updated = await User.findByIdAndUpdate(id, req.body);
-		res.json(updated);
-	})
-);
+    if(deletedUser.deletedCount == 0) {
+      res.status(404)
+      throw new Error("Course not found")
+    }
 
-router.post(
-	'/:id/addCourse',
-	asyncHandler(async (req, res) => {
-		const user = await User.findById(req.params.id);
+    console.log(deletedUser)
 
-		if (user) {
-			const alreadyEnrolled = user.courses.find((u) => u.toString() === req.body._id.toString());
-			if (alreadyEnrolled) {
-				res.status(400);
-				throw new Error('Already enrolled');
-			}
+    res.status(200).json('User deleted' + deletedUser)
+  
+  
+}))
 
-			user.courses.push(req.body._id);
-			await user.save();
-			res.status(201).json({ message: 'Enrolled Successfully!' });
-		} else {
-			res.status(404);
-			throw new Error('Course not found');
-		}
-	})
-);
 
-//Update/Change the user's password
+router.put('/:userId', asyncHandler(async (req,res) => {
+    const id = req.params.userId;
+    const user = await User.findOne({_id:id})
+
+    const emailExists = await User.findOne({
+      email: req.body.email,
+    })
+    if (emailExists) {
+      if(req.body.email !== user.email) {
+        res.status(400)
+        throw new Error("Email already exists!")
+      }
+    }
+  
+    //Check if username exists
+    const usernameExists = await User.findOne({
+      username: req.body.username,
+    })
+    if (usernameExists) {
+      if(req.body.username !== user.username) {
+        res.status(400)
+        throw new Error("Username already exists!")
+      }
+    }
+
+    const updated = await User.findByIdAndUpdate(id, req.body)
+    res.json(updated);
+}));
+
+router.post('/:id/addCourse', asyncHandler(async(req, res)=> {
+    const user = await User.findById(req.params.id);
+    
+    if(user) {
+        
+        
+        const alreadyEnrolled = user.courses.find(u => u.toString() === req.body._id.toString())
+        if(alreadyEnrolled) {
+            res.status(400)
+            throw new Error("Already enrolled")
+        }
+
+        user.courses.push(req.body._id);
+        await user.save()
+        res.status(201).json({message:"Enrolled Successfully!"})
+    }else {
+        res.status(404)
+        throw new Error("Course not found")
+    }
+}))
+
 router.put('/:uId/newPassword', verify, async (req, res) => {
 	const { uId } = req.params;
 	const newPassword = req.body.newPassword;
