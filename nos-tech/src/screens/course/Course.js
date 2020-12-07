@@ -147,9 +147,9 @@ const Course = ({match}) => {
             </div>:
             <div className="feedbacks">
                 {
-                    (course.feedback)?course.feedback.map((feedback,i) => (
+                    (course.feedback.length > 0)?course.feedback.map((feedback,i) => (
                         <React.Fragment key={i}><Feedback title={feedback.comment} name={feedback.user.name} lastname={feedback.user.surname}></Feedback> <hr></hr> </React.Fragment>))
-                        :<div className="about-majte"><p>There are no feedbacks</p></div>
+                        :<div className="about-majte"><h5 className="text-center my-5">Nothing to show here yet!</h5></div>
                 }
                 
                 {enrolled?

@@ -26,7 +26,12 @@ const Enrolled = (props) => {
 			</Card.Body>
 			<Card.Footer className="c-foot">
 				<Card.Text className="inst float-left">
-					Author: <span className="author-name">{props.author.name + ' ' + props.author.surname}</span>
+				{props.author && (
+                        <>
+                            Author:{' '}
+                            <span className="author-name">{props.author.name + ' ' + props.author.surname}</span>
+                        </>
+                    )}
 				</Card.Text>
 			</Card.Footer>
 		</Card>

@@ -20,7 +20,9 @@ const ContentReview = ({match}) => {
         <Link to="/admins/course-review"  className="btn btn-dark btn-sm my-3 mx-5" >Go Back</Link>
         <div className="container content-items-review-part">
         <img className="content-review-image" src={`/${course.image}`} />
-        <video className="content-review-video" type="video"  controls src={`/${course.videos}`} />
+        {course.videos?(course.videos.map(video =>
+            <video className="content-review-video" type="video"  controls src={`/${video}`} />
+        )):null}
         </div>
         </>
     )
