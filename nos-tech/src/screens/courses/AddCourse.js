@@ -4,11 +4,17 @@ import LeftContent from '../../components/courseComponents/postform'
 import Panel from '../../components/panel/Panel';
 import MultiSelect from "react-multi-select-component";
 import { history } from "../../helpers/history";
+import {useSelector} from 'react-redux'
 
 
 function AddCourse() {
 
 
+
+  const loggeedUser= useSelector(state => state.login)
+  const {user} = loggeedUser
+  console.log(user)
+  
   /** start states */
   const [category, setCategory] = useState([]); //Category State
   const [tags, setTags] = useState([]); //Tags State
@@ -38,6 +44,7 @@ function AddCourse() {
     data.set("description", document.getElementById("description").value);
     data.set("price", document.getElementById("price").value);
     data.set("category", document.getElementById("category").value);
+    data.set("instructor", user._id);
     /* data.set("tags", document.getElementById("tags").value); */
     /* data.append('tags', JSON.stringify(tags)); */
     for(let i = 0; i < selected.length; i++)

@@ -31,3 +31,15 @@
 .personalInformationAlert {
   margin-top: 15%;
 }
+
+.change-password-btn {
+  color: white;
+}
+
+.deleteMyAccountBtn {
+  background-color: rgb(253, 37, 37) !important;
+  outline-color: rgb(253, 37, 37) !important;
+  border: rgb(253, 37, 37) !important;
+  width: 220px;
+  color: white;
+}

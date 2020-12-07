@@ -9,7 +9,7 @@ import CustomSelect from '../../components/customSelect/customSelect';
 
 const CourseContent = ({ list }) => {
 	const [items, setItems] = useState(['']);
-	const [visible, setVisible] = useState(3);
+	const [visible, setVisible] = useState(9);
   const [filtered, setFiltered] = useState('');
   
 	const [filterText, setFilterText] = useState('');

@@ -81,7 +81,7 @@ function PersonalInfo() {
         
         {/* <ProfilePicture /> */}
         {/* <Image src="holder.js/171x180" roundedCircle> */}
-        <AiOutlineUserAdd roundedCircle className="aioutlineuseradd spacing" />
+        {/* <AiOutlineUserAdd roundedCircle className="aioutlineuseradd spacing" /> */}
         <Form.Group controlId="formGroupName" className="spacing">
           {/* <Form.Label>Email address</Form.Label> */}
           <Form.Control type="text" placeholder="First Name" defaultValue={user.name} onChange={(e)=> setName(e.target.value)}/>
