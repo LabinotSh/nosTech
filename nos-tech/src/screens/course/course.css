@@ -13,6 +13,10 @@ html {
   /* text-decoration: underline; */
 }
 
+.courseMain-majte {
+  margin-left: -1.3%;
+}
+
 .course-name {
   margin-left: -2%;
 }
@@ -68,7 +72,6 @@ html {
 }
 
 .course-nav {
-  margin-left: 3%;
 }
 
 .course-nav li {
@@ -87,7 +90,7 @@ html {
 
 .about-majte {
   width: 80%;
-  margin-left: 4%;
+  margin-left: 3%;
   margin-right: 2%;
 }
 
@@ -102,4 +105,10 @@ html {
 .feedbacks {
   width: 98%;
   margin-left: 1%;
+}
+
+.feedbackBtn {
+  background-color: #0262cc;
+  color: white;
+  margin-bottom: 1%;
 }
