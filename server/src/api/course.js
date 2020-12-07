@@ -96,6 +96,7 @@ createCourse = (req, res) => {
 	let category = req.body.category;
 	let tags = req.body.tags;
 	let image = req.file.path;
+	let instructor = req.body.instructor
 	console.log(name, image);
 	const course = new Course({
 		name: name,
@@ -104,6 +105,7 @@ createCourse = (req, res) => {
 		category,
 		tags,
 		image: image,
+		_instructor:instructor
 	});
 	course.save((err, course) => {
 		if (err) {
@@ -222,11 +224,14 @@ router.put(
 			}
 			await course.save();
 
-			fs.unlink(`./${JSON.parse(req.body.video)}`, (err) => {
-				if (err) {
-					throw new Error(err);
-				}
-			});
+			if(fs.existsSync(`./${JSON.parse(req.body.video)}`)) {
+
+				fs.unlink(`./${JSON.parse(req.body.video)}`, (err) => {
+					if (err) {
+						throw new Error(err);
+					}
+				});
+			}
 
 			res.status(201).json({ message: 'Video deleted' });
 		} else {
@@ -244,6 +249,7 @@ router.post('/new', async (req, res) => {
 			price: req.body.price,
 			image: req.body.image,
 			category: req.body.category,
+			
 		});
 
 		const co = await newPost.save();

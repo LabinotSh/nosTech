@@ -5,17 +5,18 @@ import { history } from "../../helpers/history";
 import {useDispatch, useSelector} from 'react-redux'
 import {listCourseDetails,addStudentToCourse,createCourseFeedback} from '../../redux/actions/courseActions'
 import {addCourseToStudent} from '../../redux/actions/userActions'
+import { COURSE_ADD_STUDENT_RESET } from '../../redux/actions/types'
 import jwt_decode from 'jwt-decode';
 
 
 
 
 
-const Course = ({match, loading}) => {
+const Course = ({match}) => {
     const courseId = match.params.id
     const [video, setVideo] = useState("spinner.gif")
     const [about, setAbout] = useState(true)
-    const[enrolled,setEnrolled]= useState(false)
+    const[enrolled,setEnrolled] = useState(false)
     
     const dispatch = useDispatch();
     const courseDetails = useSelector(state => state.courseDetails)
@@ -34,11 +35,14 @@ const Course = ({match, loading}) => {
     useEffect(() => {
         if(addStudentSuccess) {
             alert("You've enrolled successfully")
+            dispatch({type:COURSE_ADD_STUDENT_RESET })
         }
+        
         if(createFeedbackSuccess) {
             alert("Your review was successfully submited!")
         }
-        dispatch(listCourseDetails(courseId)) 
+        dispatch(listCourseDetails(courseId))
+        
     },[dispatch,addStudentSuccess,createFeedbackSuccess])
 
 
@@ -79,8 +83,7 @@ const Course = ({match, loading}) => {
             localStorage.setItem('course', courseId);
             history.push('/login')
         }else {
-            dispatch(addStudentToCourse(courseId,user))
-            dispatch(addCourseToStudent(user._id,course))
+            history.push(`/checkout/${course._id}`)
         }
     } 
 
@@ -101,28 +104,30 @@ const Course = ({match, loading}) => {
     return (
         <>
             <div className="mx-2 mt-3 py-3 mainContent">
-                <h6>Category &gt; <a href="#">{course.category}</a></h6>
-                <h2 className="text-white course-name">{course.name}</h2>
-                <div className="videoDiv">
-                    <div className="embed-responsive embed-responsive-16by9 video">
-                        <video controls="controls" src={`/${video}`}>
-                            
-                        </video>
+                <div className="courseMain-majte">
+                    <h6>Category &gt; <a href="#">{course.category}</a></h6>
+                    <h2 className="text-white course-name">{course.name}</h2>
+                    <div className="videoDiv">
+                        <div className="embed-responsive embed-responsive-16by9 video">
+                            <video controls="controls" src={`/${video}`}>
+                                
+                            </video>
+                        </div>
+                        {(!enrolled)?
+                        <div className="text-white right-main">
+                            <button type="button" id="enrBtn" onClick={enrollCourseHandler}>Enroll Now</button> 
+                            <h2 className="text-white">${course.price}</h2>
+                        </div>:
+                        <ul class="list-group course-list w-25">
+                            {(course.videos)?(<>{course.videos.map((courseVideo, index) =>
+                            <li  class="list-group-item" key={index} onClick={() => videoChangeHandler(courseVideo)}>{`${index +1}. ${courseVideo}`}</li>) }           
+                            </>):null}
+                        </ul>
+                        }
                     </div>
-                    {(!enrolled)?
-                    <div className="text-white right-main">
-                        <button type="button" id="enrBtn" onClick={enrollCourseHandler}>Enroll Now</button> 
-                        <h2 className="text-white">${course.price}</h2>
-                    </div>:
-                    <ul class="list-group course-list w-25">
-                        {(course.videos)?(<>{course.videos.map((courseVideo, index) =>
-                        <li  class="list-group-item" key={index} onClick={() => videoChangeHandler(courseVideo)}>{`${index +1}. ${courseVideo}`}</li>) }           
-                        </>):null}
-                    </ul>
-                    }
-                </div>
+                </div>    
             </div>
-            <div className="mx-1 mt-4">
+            <div className="mt-4">
                 <ul className="course-nav">
                     <li onClick={() => setAbout(true)} >About</li>
                     <li onClick={() => setAbout(false)}>Reviews</li>
@@ -142,14 +147,14 @@ const Course = ({match, loading}) => {
             </div>:
             <div className="feedbacks">
                 {
-                    (course.feedback)?course.feedback.map((feedback,i) => (
+                    (course.feedback.length > 0)?course.feedback.map((feedback,i) => (
                         <React.Fragment key={i}><Feedback title={feedback.comment} name={feedback.user.name} lastname={feedback.user.surname}></Feedback> <hr></hr> </React.Fragment>))
-                        :<div className="about-majte"><p>There are no feedbacks</p></div>
+                        :<div className="about-majte"><h5 className="text-center my-5">Nothing to show here yet!</h5></div>
                 }
                 
                 {enrolled?
                 
-                <form onSubmit={feedbackSubmitHandler}>
+                <form className="ml-3" onSubmit={feedbackSubmitHandler}>
                     <h4 className="mt-5 mb-3">Leave a Review</h4>
                     {(createFeedbackError)?
                     <div className="alert alert-danger">{createFeedbackError}</div>:null
@@ -157,7 +162,7 @@ const Course = ({match, loading}) => {
                     <div className="form-group">
                         <textarea class="form-control border border-secondary"  rows="4" value={comment} placeholder="Your comment..." onChange={(e)=>setComment(e.target.value)}></textarea>
                     </div>
-                    <button type="submit" className="btn btn-primary">Submit</button>
+                    <button type="submit" className="btn btn-primary feedbackBtn">Submit</button>
                 </form>:null
                 }
             </div>
