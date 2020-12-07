@@ -6,7 +6,7 @@
     overflow: hidden;
 }
 .tags-part{
-    margin-top: 8rem;
+    margin-top: 10rem;
     width: 150px;
     margin-left: 110px;
     background-color: transparent;
@@ -29,7 +29,7 @@
     border: 1px solid white;
     color: white;
     margin-left: 8rem;
-    margin-top: 5rem;
+    margin-top: 1rem;
 }
 .tags-button:hover{
     background-color: white;

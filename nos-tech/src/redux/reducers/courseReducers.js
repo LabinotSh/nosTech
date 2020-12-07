@@ -15,6 +15,7 @@ import {
     COURSE_ADD_STUDENT_REQUEST,
     COURSE_ADD_STUDENT_FAIL,
     COURSE_ADD_STUDENT_SUCCESS,
+    COURSE_ADD_STUDENT_RESET,
     COURSE_CREATE_FEEDBACK_REQUEST,
     COURSE_CREATE_FEEDBACK_FAIL,
     COURSE_CREATE_FEEDBACK_SUCCESS,
@@ -115,6 +116,8 @@ export const courseAddStudentReducer = (state = {}, action) => {
             return {loading: false,success:true}  
         case COURSE_ADD_STUDENT_FAIL:
             return {loading: false, error: action.payload};
+        case COURSE_ADD_STUDENT_RESET:
+            return state = {} 
             default:
                 return state    
     }

@@ -16,11 +16,11 @@ const Favorites = (props) => {
 				<Card.Img variant="top" className="c-image img-fluid" src={props.favorite.image} />
 			</div>
 			<Card.Body className="desc">
-				<Card.Title className="title-co">{props.course.name}</Card.Title>
+				<Card.Title className="title-co">{props.favorite.name}</Card.Title>
 				<Card.Text className="deS">{desc}</Card.Text>
 			</Card.Body>
 			<Card.Body>
-				<Card.Link className="c-link float-right" href={`course/${props.course._id}`}>
+				<Card.Link className="c-link float-right" href={`course/${props.favorite._id}`}>
 					Go to course <FontAwesomeIcon icon={faArrowRight} />
 				</Card.Link>
 			</Card.Body>

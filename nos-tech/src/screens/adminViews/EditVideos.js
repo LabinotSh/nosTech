@@ -1,11 +1,12 @@
 import React, {useState, useEffect} from 'react'
-//import { Link } from 'react-router-bootstrap'
 import {useDispatch, useSelector} from 'react-redux'
 import {listCourseDetails} from '../../redux/actions/courseActions'
 import {Table, Alert} from 'react-bootstrap'
 import LeftContent from '../../components/courseComponents/postform'
 import axios from 'axios'
 import './courseView.css'
+import Panel from '../../components/panel/Panel';
+import { Link } from 'react-router-dom'
 
 const EditVideos = ({match}) => {
     const courseId = match.params.id
@@ -81,23 +82,25 @@ const EditVideos = ({match}) => {
     console.log(successUpdate)
     
     return (
+        <>
+        <Panel />
         <div className="mx-auto mb-5 mt-2 videoForm-container">
-            <h3 className="addVideo">Add Videos</h3>
+            
             {(successUpdate === true)?
                 <Alert variant="success">He</Alert>:null
             }
             <div className="d-flex" >
                 <LeftContent  />
-                <div className="d-flex flex-column w-50">
-                    <div className="input-group mt-3 mb-5 w-75 ml-3">
-                        
+                <div className="d-flex justify-content-center flex-column w-50">
+                <p className="addVideo">Submit your videos for the course</p>
+                    <div className="input-group mt-3 mx-auto mb-5 w-75 ml-3">
                         <div className="custom-file">
                             <input type="file" accept=".mp4, .webm" multiple onChange={uploadFileHandler} className="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01"></input>
                             
                             <label className="custom-file-label" htmlFor="inputGroupFile01">{text}</label>
                         </div>
                     </div>
-                    <div className="smaller videosTable ml-3 w-75">
+                    <div className="smaller videosTable mx-auto w-75">
                         <Table striped bordered hover className="">
                             <thead>
                                 <tr>
@@ -112,11 +115,16 @@ const EditVideos = ({match}) => {
                                 ))}
                             </thead>
                         </Table>
-                    </div>    
+                    </div>  
+                <div className="mx-auto mt-3">
+                <Link to="/admins/dashboard" className="edit-video-done-buton">
+                    Done
+                </Link> 
                 </div>    
+                </div>
             </div>    
-            
         </div>
+        </>
     )
 }
 

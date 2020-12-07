@@ -8,3 +8,9 @@
     background-color: #4D538D;
     color: white;
 }
+.noCourseAlert{
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    display: block;
+}
