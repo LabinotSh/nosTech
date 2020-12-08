@@ -1,7 +1,7 @@
 //importimi i krejt reducers
 import {loginReducer} from './auth';
 import {combineReducers} from 'redux';
-import {coursesReducer} from './courses';
+import {coursesReducer, adminCoursesReducer} from './courses';
 import {connectRouter }  from 'connected-react-router';
 import {history} from '../../helpers/history'; 
 import { postCategory } from "./postCategory";
@@ -30,6 +30,7 @@ const allReducers = combineReducers({
     postTags,
     userUpdate:userUpdateReducer,
     userAddCourse:userAddCourseReducer,
+    adminCourses: adminCoursesReducer,
     router: connectRouter(history),
 })
 

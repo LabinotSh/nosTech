@@ -163,10 +163,7 @@ router.delete('/:userId', asyncHandler( async (req, res) => {
     }
 
     console.log(deletedUser)
-
     res.status(200).json('User deleted' + deletedUser)
-  
-  
 }))
 
 
@@ -247,5 +244,16 @@ router.put('/:uId/newPassword', verify, async (req, res) => {
 	});
 
 });
+
+//Get all the user's courses
+router.get('/courses/:uId', async(req, res) => {
+	const {uId} = req.params;
+	
+	User.findById(uId).populate('courses')
+	.then(admin => {
+		res.json({courses: admin.courses})
+	}).catch(error => console.log(error));
+});
+
 
 module.exports = router;
