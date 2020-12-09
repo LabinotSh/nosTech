@@ -36,6 +36,7 @@ import Upload from '../screens/upload/Upload';
 import TagsCourse from '../screens/courses/TagsCourse';
 import Checkout from '../screens/checkout/Checkout';
 import NotFound from '../screens/notFound/notFound';
+import InstructorCourse from '../components/myCoursesComponents/InstructorMyCourses';
 
 function Router({ auth }) {
 	return (
@@ -64,7 +65,7 @@ function Router({ auth }) {
 				<AdminRoute path="/admins/courses" component={CoursesView}></AdminRoute>
 				<AdminRoute path="/admins/course/:id/edit" component={CourseEditView}></AdminRoute>
 				<AdminRoute path="/admins/course/:id/videos" component={EditVideos}></AdminRoute>
-				{/* </Switch> */}
+				<AdminRoute path="/admins/my-courses" component={InstructorCourse}></AdminRoute>
 				<AdminRoute path="/admins/dashboard" component={Dashboard}></AdminRoute>
 				<SuperAdminRoute path="/tags" component={Tags} />
 				<SuperAdminRoute path="/categories" component={Categories} />
@@ -85,7 +86,7 @@ function Router({ auth }) {
 			history.location.pathname !== '/admins/course-review' &&
 			history.location.pathname !== '/upload' &&
 			history.location.pathname !== '/admins/course/:id/videos' &&
-			history.location.pathname !== '/tags' &&	
+			history.location.pathname !== '/tags' &&
 			!history.location.pathname.startsWith('/checkout') ? (
 				<Footer />
 			) : null}

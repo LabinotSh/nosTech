@@ -30,6 +30,7 @@ const Login = ({ authenticated, err }) => {
 		setTimeout(() => {
 			err ? setError(err) : setError('');
 		}, 100);
+		
 	}, [err]);
 
 	useEffect(() => {
@@ -48,12 +49,12 @@ const Login = ({ authenticated, err }) => {
 				onSubmit={(values, { setSubmitting, resetForm }) => {
 					setSubmitting(true);
 					setLoading(true);
-					if (err) {
-						resetForm();
-						setTimeout(() => {
-							setError(err);
-						}, 300);
-					}
+					// if (err) {
+					// 	resetForm();
+					// 	setTimeout(() => {
+					// 		setError(err);
+					// 	}, 300);
+					// }
 					//down below is where the data should be sent to the server
 					dispatch(login(values.username, values.password))
 						.then((response) => {
@@ -65,9 +66,13 @@ const Login = ({ authenticated, err }) => {
 						.catch((error) => {
 							console.log('Error: ' + error);
 							setSubmitting(false);
-							setError(err);
-							resetForm();
 							setLoading(false);
+							if(err){
+							setError(err);
+							}	
+							setTimeout(() => {
+								resetForm();
+							}, 1500);		
 						});
 				}}
 			>

@@ -7,7 +7,8 @@ import {
 	REGISTER_SUCCESS,
 	CHANGE_PASSWORD_REQUEST,
     CHANGE_PASSWORD_SUCCESS,
-    CHANGE_PASSWORD_ERROR
+    CHANGE_PASSWORD_ERROR,
+	LOGIN_REQUEST
 } from './types';
 import axios from 'axios';
 import { history } from '../../helpers/history';
@@ -46,7 +47,12 @@ export const register = (name, surname, email, password, role, username) => (dis
 };
 
 export const login = (username, password) => async (dispatch) => {
-	return axios
+
+	dispatch({
+		type: LOGIN_REQUEST
+	})
+
+    axios
 		.post(API_URL + '/user/login', { username, password })
 		.then((response) => {
 			if (response.data.token) {

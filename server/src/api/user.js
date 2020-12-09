@@ -101,9 +101,9 @@ router.post('/login', async (req, res) => {
 	if (!validPassword) return res.status(400).send('Invalid Password!');
 
 	//Check if the suer has confirmed his email!
-	   if(!user.confirmed){
-	       res.status(400).send('Please confirm your email first!');
-	   }
+	//    if(!user.confirmed){
+	//        res.status(400).send('Please confirm your email first!');
+	//    }
 
 	const accessToken = generateAccessToken(user);
 	const refreshToken = generateRefreshToken(user);
