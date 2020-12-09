@@ -74,11 +74,11 @@ const DashboardRadar = () => {
     const data = category.map(item => (
         {
             "subject": item.name,
-            "WebDevelopment": WebDevelopment() * 20,
-            "Software Development": SoftwareDevelopment() * 20,
-            "Algorithms": Algorithms() * 40,
-            "MachineLearning": MachineLearning() * 80,
-            "Design and Product": Design() *50,
+            "WebDevelopment": WebDevelopment() * 10,
+            "Software Development": SoftwareDevelopment() * 10,
+            "Algorithms": Algorithms() * 10,
+            "MachineLearning": MachineLearning() * 10,
+            "Design and Product": Design() * 20,
             "fullMark": 150
         }
     ))

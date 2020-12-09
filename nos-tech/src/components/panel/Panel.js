@@ -99,6 +99,7 @@ const Panel = () => {
 					<Dropdown.Menu>
 						<Dropdown.Item className="drp-i">
 							{user.role === 'admin' && (
+								<>
 								<NavLink
 									to="/add-course"
 									tag="li"
@@ -110,6 +111,19 @@ const Panel = () => {
 									<i className="fa fa-plus panel-icons-drp-small" />
 									<span>Add Course</span>
 								</NavLink>
+								
+								<NavLink
+								to="/admins/my-courses"
+								tag="li"
+								active-class="active"
+								className="panel-links-drp-item"
+								activeStyle={ActiveLinksPanel}
+								exact
+								>
+								<i className="fa fa-briefcase panel-icons-drp-small" />
+								<span>My Courses</span>
+								</NavLink>	
+								</>							
 							)}
 
 							{user.role === 'superadmin' && (
