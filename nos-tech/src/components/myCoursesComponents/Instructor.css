@@ -1,0 +1,26 @@
+.courseInstructor-img{
+    height: 11rem;
+}
+.courseInstructor-title{
+    font-size: 18px;
+    height: 40%;
+    width: 100%;
+    margin: 1% 0 0 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden; 
+}
+.courseInstructor-desc{
+    font-size: 15px;
+    color:rgb(105, 105, 105);
+    width: 15rem;
+    height: 40%;
+    margin: 5% 0 1% 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.courseInstructor-footer{
+    border: none;
+    background-color: transparent;
+}

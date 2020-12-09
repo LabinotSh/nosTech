@@ -35,6 +35,7 @@ import ContentReview from '../screens/adminViews/contentReview';
 import Upload from '../screens/upload/Upload';
 import TagsCourse from '../screens/courses/TagsCourse';
 import Checkout from '../screens/checkout/Checkout';
+import InstructorCourse from '../components/myCoursesComponents/InstructorMyCourses';
 
 function Router({ auth }) {
 	return (
@@ -62,6 +63,7 @@ function Router({ auth }) {
 				<AdminRoute path="/admins/courses" component={CoursesView}></AdminRoute>
 				<AdminRoute path="/admins/course/:id/edit" component={CourseEditView}></AdminRoute>
 				<AdminRoute path="/admins/course/:id/videos" component={EditVideos}></AdminRoute>
+				<AdminRoute path="/admins/my-courses" component={InstructorCourse}></AdminRoute>
 			</Switch>
 			<AdminRoute path="/admins/dashboard" component={Dashboard}></AdminRoute>
 			<SuperAdminRoute path="/tags" component={Tags} />
