@@ -101,9 +101,9 @@ router.post('/login', async (req, res) => {
 	if (!validPassword) return res.status(400).send('Invalid Password!');
 
 	//Check if the suer has confirmed his email!
-	//    if(!user.confirmed){
-	//        res.status(400).send('Please confirm your email first!');
-	//    }
+	   if(!user.confirmed){
+	       res.status(400).send('Please confirm your email first!');
+	   }
 
 	const accessToken = generateAccessToken(user);
 	const refreshToken = generateRefreshToken(user);
@@ -156,12 +156,10 @@ router.delete('/:userId', asyncHandler( async (req, res) => {
     const deletedUser = await User.deleteOne({
       _id: id,
     })
-
     if(deletedUser.deletedCount == 0) {
       res.status(404)
       throw new Error("Course not found")
     }
-
     console.log(deletedUser)
     res.status(200).json('User deleted' + deletedUser)
 }))
@@ -180,7 +178,6 @@ router.put('/:userId', asyncHandler(async (req,res) => {
         throw new Error("Email already exists!")
       }
     }
-  
     //Check if username exists
     const usernameExists = await User.findOne({
       username: req.body.username,
@@ -199,15 +196,12 @@ router.put('/:userId', asyncHandler(async (req,res) => {
 router.post('/:id/addCourse', asyncHandler(async(req, res)=> {
     const user = await User.findById(req.params.id);
     
-    if(user) {
-        
-        
+    if(user) { 
         const alreadyEnrolled = user.courses.find(u => u.toString() === req.body._id.toString())
         if(alreadyEnrolled) {
             res.status(400)
             throw new Error("Already enrolled")
         }
-
         user.courses.push(req.body._id);
         await user.save()
         res.status(201).json({message:"Enrolled Successfully!"})

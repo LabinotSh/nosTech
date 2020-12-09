@@ -68,7 +68,6 @@ const Registration = ({ err }) => {
 				var name = values.name.substring(0, fullname);
 				var surname = values.name.substring(fullname + 1);
 				setEmailSent(true);
-
 				//down below is where the data should be sent to the server
 				dispatch(register(name, surname, values.email, values.password, role, values.username))
 					.then((response) => {
@@ -76,7 +75,6 @@ const Registration = ({ err }) => {
 						setRegister(true);
 						setEmailSent(false);
 						console.log('Data ' + JSON.stringify(response.data));
-
 						notify.show(
 							<div>
 								{response.data.msg}
@@ -103,7 +101,7 @@ const Registration = ({ err }) => {
 						setRole('');
 						resetForm();
 						setSubmitting(false);
-					}, 1500);
+					}, 2500);
 				} else {
 					resetForm();
 					setRole('');
