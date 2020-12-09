@@ -151,5 +151,6 @@
 .author-name{
     color: #000;
     text-transform: capitalize;
-    font-style: normal !important;
+    font-style: italic !important;
+    margin-left: .5rem;
 }

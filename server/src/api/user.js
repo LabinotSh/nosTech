@@ -156,17 +156,12 @@ router.delete('/:userId', asyncHandler( async (req, res) => {
     const deletedUser = await User.deleteOne({
       _id: id,
     })
-
     if(deletedUser.deletedCount == 0) {
       res.status(404)
       throw new Error("Course not found")
     }
-
     console.log(deletedUser)
-
     res.status(200).json('User deleted' + deletedUser)
-  
-  
 }))
 
 
@@ -183,7 +178,6 @@ router.put('/:userId', asyncHandler(async (req,res) => {
         throw new Error("Email already exists!")
       }
     }
-  
     //Check if username exists
     const usernameExists = await User.findOne({
       username: req.body.username,
@@ -202,15 +196,12 @@ router.put('/:userId', asyncHandler(async (req,res) => {
 router.post('/:id/addCourse', asyncHandler(async(req, res)=> {
     const user = await User.findById(req.params.id);
     
-    if(user) {
-        
-        
+    if(user) { 
         const alreadyEnrolled = user.courses.find(u => u.toString() === req.body._id.toString())
         if(alreadyEnrolled) {
             res.status(400)
             throw new Error("Already enrolled")
         }
-
         user.courses.push(req.body._id);
         await user.save()
         res.status(201).json({message:"Enrolled Successfully!"})
@@ -247,5 +238,16 @@ router.put('/:uId/newPassword', verify, async (req, res) => {
 	});
 
 });
+
+//Get all the user's courses
+router.get('/courses/:uId', async(req, res) => {
+	const {uId} = req.params;
+	
+	User.findById(uId).populate('courses')
+	.then(admin => {
+		res.json({courses: admin.courses})
+	}).catch(error => console.log(error));
+});
+
 
 module.exports = router;

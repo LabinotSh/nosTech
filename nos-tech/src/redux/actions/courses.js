@@ -8,7 +8,10 @@ import {
 	REMOVE_FROM_FAVORITES_SUCCESS,
 	FETCH_ENROLLED_COURSES_SUCCESS,
 	FETCH_ENROLLED_COURSES_ERROR,
-	FETCH_ENROLLED_COURSES_PENDING
+	FETCH_ENROLLED_COURSES_PENDING,
+	GET_ADMIN_COURSES_REQUEST,
+	GET_ADMIN_COURSES_ERROR,
+	GET_ADMIN_COURSES_SUCCESS
 } from './types';
 import axios from 'axios';
 import { API_URL } from '../../constants/Constants';
@@ -124,3 +127,26 @@ export const removeFromFavorites = (uId, course) => async (dispatch) => {
 			return error.response.data;
 		});
 };
+
+export const getAdminCourses = (uId) => async(dispatch) => {
+	dispatch({
+		type: GET_ADMIN_COURSES_REQUEST
+	})
+
+	axios.get(`${API_URL}/user/courses/${uId}`)
+	.then(response => {
+		console.log("Admin's courses: " + JSON.stringify(response.data))
+		dispatch({
+			type: GET_ADMIN_COURSES_SUCCESS,
+			payload: response.data.courses
+		})
+		return response.data.courses;
+	})
+	.catch(error => {
+		dispatch({
+			type: GET_ADMIN_COURSES_ERROR,
+			payload: error.response.data
+		})
+		return error.response.data;
+	})
+}

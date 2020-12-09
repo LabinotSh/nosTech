@@ -8,6 +8,7 @@ import {
 	CHANGE_PASSWORD_REQUEST,
 	CHANGE_PASSWORD_ERROR,
 	CHANGE_PASSWORD_SUCCESS,
+	LOGIN_REQUEST,
 } from '../actions/types';
 import jwt_decode from 'jwt-decode';
 
@@ -39,6 +40,11 @@ export const loginReducer = (state = initialState, action) => {
 				registered: false,
 				isLoggedIn: false,
 				errors: action.payload,
+			};
+		case LOGIN_REQUEST:
+			return {
+				...state,
+				isLoggedIn: false
 			};
 		case LOGIN_SUCCESS:
 			return {
