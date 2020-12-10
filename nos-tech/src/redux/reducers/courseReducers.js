@@ -12,6 +12,7 @@ import {
     COURSE_UPDATE_REQUEST,
     COURSE_UPDATE_SUCCESS,
     COURSE_UPDATE_FAIL,
+    COURSE_UPDATE_RESET,
     COURSE_ADD_STUDENT_REQUEST,
     COURSE_ADD_STUDENT_FAIL,
     COURSE_ADD_STUDENT_SUCCESS,
@@ -24,7 +25,8 @@ import {
     COURSE_APPROVE_FAIL,
     COURSE_REFUSE_REQUEST,
     COURSE_REFUSE_SUCCESS,
-    COURSE_REFUSE_FAIL
+    COURSE_REFUSE_FAIL,
+
 } from '../actions/types'
 
 
@@ -103,8 +105,10 @@ export const courseUpdateReducer = (state = {course:{videos: [], users:[]}}, act
             return {...state,loading: false,success:true, course: action.payload}  
         case COURSE_UPDATE_FAIL:
             return {...state,loading: false, error: action.payload};
-            default:
-                return state    
+        case COURSE_UPDATE_RESET:
+            return state = {course:{ videos: []}}  
+        default:
+            return state    
     }
 }
 
