@@ -1,5 +1,5 @@
 .courseImg{
-    width: 300px;
+    width: 320px;
     height: 150px;
     cursor: pointer;
 }
@@ -66,7 +66,6 @@ span.hover:hover{
 .buy{
     /* margin-left:'3px';  */
     margin-bottom: 10px;
-    padding:.55rem;
     background-color: #fff;
     color:#4169E1;
     /* border-color: #4169E1; */
