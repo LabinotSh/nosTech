@@ -13,7 +13,7 @@ const Favorites = (props) => {
 	return (
 		<Card className="fav-c" key={props.favorite._id}>
 			<div className="ovf">
-				<Card.Img variant="top" className="c-image img-fluid" src={props.favorite.image} />
+				<Card.Img variant="top" className="c-image img-fluid" src={`/${props.favorite.image}`} />
 			</div>
 			<Card.Body className="desc">
 				<Card.Title className="title-co">{props.favorite.name}</Card.Title>

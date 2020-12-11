@@ -89,7 +89,7 @@ router.get(
 );
 
 //Create a new course
-createCourse = (req, res) => {
+createCourse = async (req, res) => {
 	let name = req.body.name;
 	let description = req.body.description;
 	let price = req.body.price;
@@ -98,7 +98,7 @@ createCourse = (req, res) => {
 	let image = req.file.path;
 	let instructor = req.body.instructor
 	console.log(name, image);
-	const course = new Course({
+	const course = await new Course({
 		name: name,
 		description: description,
 		price: price,
@@ -107,6 +107,13 @@ createCourse = (req, res) => {
 		image: image,
 		_instructor:instructor
 	});
+
+	const profa = await User.findById(instructor)
+
+	profa.courses.push(course._id)
+	await profa.save();
+
+
 	course.save((err, course) => {
 		if (err) {
 			console.log(err);
@@ -119,6 +126,8 @@ createCourse = (req, res) => {
 			course,
 		});
 	});
+
+	
 };
 router.post('/newCourse', uploadMulter, uploadvalidation, createCourse);
 

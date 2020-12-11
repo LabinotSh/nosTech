@@ -13,7 +13,7 @@ const Enrolled = (props) => {
 	return (
 		<Card className="enrolled-c" key={props.course._id}>
 			<div className="ovf">
-				<Card.Img variant="top" className="c-image img-fluid" src={props.course.image} />
+				<Card.Img variant="top" className="c-image img-fluid" src={`/${props.course.image}`} />
 			</div>
 			<Card.Body className="desc">
 				<Card.Title className="title-co">{props.course.name}</Card.Title>

@@ -35,7 +35,7 @@ const InstructorCourse = ({ courses, user }) => {
 							<div key={item} className="col my-5">
 								<div className="card h-100">
 									<img
-										src={item.image}
+										src={`/${item.image}`}
 										className="img-fluid card-img-top courseInstructor-img"
 										alt="..."
 									/>

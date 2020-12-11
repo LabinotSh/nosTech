@@ -1,9 +1,10 @@
 module.exports = (req, res, next) => {
-    if (typeof (req.file) === 'undefined' || typeof (req.body) === 'undefined') {
-        return res.status(400).json({
-            errors: 'You didn\'t choose any of the required files!'
-        })
-    }
+    // if (typeof (req.file) === 'undefined' || typeof (req.body) === 'undefined') {
+    //     console.log(req.file + req.body)
+    //     return res.status(400).json({
+    //         errors: 'You didn\'t choose any of the required files!'
+    //     })
+    // }
     console.log(req.body.name)
     let image = req.file.path
 

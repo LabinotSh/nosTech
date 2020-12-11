@@ -35,11 +35,10 @@ html {
 }
 
 #enrBtn {
-  width: 100px;
   background-color: #ffbb32;
   border: none;
   color: #232324;
-  width: 150px;
+  width: 80%;
   padding: 15px;
 }
 
