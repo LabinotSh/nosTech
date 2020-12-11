@@ -16,7 +16,7 @@ import { API_URL } from '../../constants/Constants';
 import authHeader from '../../helpers/config';
 import jwt_decode from 'jwt-decode';
 
-export const register = (name, surname, email, password, role, username) => (dispatch) => {
+export const register = (name, surname, email, password, role, username) => async (dispatch) => {
 	dispatch({
 		type: REGISTER_REQUEST,
 	});
@@ -32,6 +32,7 @@ export const register = (name, surname, email, password, role, username) => (dis
 
 			dispatch({
 				type: REGISTER_SUCCESS,
+				payload:response.data.msg
 			});
 			return response;
 		})
@@ -52,7 +53,7 @@ export const login = (username, password) => async (dispatch) => {
 		type: LOGIN_REQUEST
 	})
 
-    axios
+    await axios
 		.post(API_URL + '/user/login', { username, password })
 		.then((response) => {
 			if (response.data.token) {
@@ -67,6 +68,12 @@ export const login = (username, password) => async (dispatch) => {
 				payload: response.data.user,
 			});
 
+			if (localStorage.getItem('course')) {
+				const course = localStorage.getItem('course');
+				localStorage.removeItem('course');
+				history.push(`/course/${course}`);
+			}
+
 			setTimeout(() => {
 				if (response.data.user.role === 'admin') {
 					history.push('/admins/dashboard');
@@ -75,13 +82,8 @@ export const login = (username, password) => async (dispatch) => {
 				} else {
 					history.push('/admins/users');
 				}
-			}, 800);
+			}, 300);
 
-			if (localStorage.getItem('course')) {
-				const course = localStorage.getItem('course');
-				localStorage.removeItem('course');
-				history.push(`/course/${course}`);
-			}
 			return response.data;
 		})
 		.catch((error) => {
@@ -92,9 +94,10 @@ export const login = (username, password) => async (dispatch) => {
 			});
 			return error.response.data;
 		});
+	
 };
 
-export const logout = () => (dispatch) => {
+export const logout = () => async (dispatch) => {
 	localStorage.removeItem('user');
 	localStorage.removeItem('refresh');
 	localStorage.removeItem('userFav');
@@ -107,7 +110,7 @@ export const logout = () => (dispatch) => {
 	window.location.reload(false);
 };
 
-export const changePassword = (userId, currentPassword, newPassword) => (dispatch) => {
+export const changePassword = (userId, currentPassword, newPassword) => async (dispatch) => {
 	dispatch({
 		type: CHANGE_PASSWORD_REQUEST,
 	});

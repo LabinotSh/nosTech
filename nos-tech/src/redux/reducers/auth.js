@@ -14,7 +14,9 @@ import jwt_decode from 'jwt-decode';
 
 let token = JSON.parse(localStorage.getItem('user'));
 const initialState = token
-	? { isLoggedIn: true, token: token, user: jwt_decode(token) }
+	? { isLoggedIn: true, token: token, 
+		user: jwt_decode(token) 
+	}
 	: { isLoggedIn: false, token: null, user: [] };
 
 export const loginReducer = (state = initialState, action) => {
@@ -31,6 +33,7 @@ export const loginReducer = (state = initialState, action) => {
 			return {
 				...state,
 				registered: true,
+				msg:action.payload,
 				isLoggedIn: false,
 				errors: null,
 			};
@@ -50,7 +53,7 @@ export const loginReducer = (state = initialState, action) => {
 			return {
 				...state,
 				isLoggedIn: true,
-				user: action.payload,
+				user:action.payload ,
 				token: token,
 				error: null,
 			};
@@ -89,7 +92,6 @@ export const loginReducer = (state = initialState, action) => {
 				pending: false,
 				updateSuccess: false,
 			};
-
 		default:
 			return state;
 	}

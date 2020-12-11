@@ -1,12 +1,10 @@
 import React from 'react';
-import {Route, Redirect} from 'react-router-dom';
+import {Route, Redirect, withRouter} from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 
-const checkAuth = () => {
+const checkAuth = (...rest) => {
     const token = localStorage.getItem('user');
     const refreshToken = localStorage.getItem('refresh');
-    // console.log(token)
-    // console.log(refreshToken)
     if(!token || !refreshToken){
         return false;
     }
@@ -23,8 +21,7 @@ const checkAuth = () => {
       return true;
 };
 
-const PrivateRoute = ({component:Component, ...rest}) => {
-    // const user = localStorage.getItem('user');
+const PrivateRoute = ({component:Component,...rest}) => {
     return(
         <Route {...rest} render={(props) => (
             (checkAuth()) 
@@ -34,4 +31,4 @@ const PrivateRoute = ({component:Component, ...rest}) => {
     )
 }
 
-export default PrivateRoute;
+export default withRouter(PrivateRoute);

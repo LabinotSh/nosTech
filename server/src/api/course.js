@@ -243,16 +243,15 @@ router.put(
 
 router.post('/new', async (req, res) => {
 	try {
-		const newPost = await new Course({
+		const newCourse = await new Course({
 			name: req.body.name,
 			description: req.body.description,
 			price: req.body.price,
 			image: req.body.image,
-			category: req.body.category,
-			
+			category: req.body.category,			
 		});
 
-		const co = await newPost.save();
+		const co = await newCourse.save();
 		res.send(co);
 		console.log(co);
 	} catch (err) {

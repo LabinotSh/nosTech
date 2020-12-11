@@ -100,7 +100,7 @@ router.post('/login', async (req, res) => {
 	const validPassword = await bcrypt.compare(req.body.password, user.password);
 	if (!validPassword) return res.status(400).send('Invalid Password!');
 
-	//Check if the suer has confirmed his email!
+	//Check if the user has confirmed his email!
 	//    if(!user.confirmed){
 	//        res.status(400).send('Please confirm your email first!');
 	//    }

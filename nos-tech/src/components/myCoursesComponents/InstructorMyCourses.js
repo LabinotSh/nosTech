@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import Panel from '../panel/Panel';
-import axios from 'axios';
 import './Instructor.css';
 import { connect, useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';

@@ -6,9 +6,9 @@ import { logout } from '../../redux/actions/auth';
 import { connect, useDispatch } from 'react-redux';
 // import DropdownItems from "../dropdown-items/DropdownItems";
 
-function DropdownItems() {
+function DropdownItems({usr}) {
 	const dispatch = useDispatch();
-	const user = localStorage.getItem('user');
+	const [role, setRole] = useState('');
 
 	const [act, setAct] = useState(false);
 
@@ -16,6 +16,12 @@ function DropdownItems() {
 		e.preventDefault();
 		dispatch(logout());
 	};
+
+	useEffect(() => {
+		if(usr){
+			setRole(usr.role);
+		}
+	},[usr])
 
 	return (
 		<Dropdown>
@@ -30,7 +36,8 @@ function DropdownItems() {
 				>
 					Profile
 				</Dropdown.Item>
-				<Dropdown.Item
+				{(role !== 'admin') && (
+					<Dropdown.Item
 					active={act}
 					href="/myCourses"
 					tag="li"
@@ -39,7 +46,9 @@ function DropdownItems() {
 				>
 					Courses
 				</Dropdown.Item>
-				<Dropdown.Item
+				)}
+				{(role !== 'user') && (
+					<Dropdown.Item
 					active={act}
 					href="/admins/dashboard"
 					tag="li"
@@ -48,6 +57,7 @@ function DropdownItems() {
 				>
 					Dashboard
 				</Dropdown.Item>
+				)}	
 				<Dropdown.Divider />
 				<Dropdown.Item
 					active={act}
@@ -64,4 +74,8 @@ function DropdownItems() {
 	);
 }
 
-export default connect(null, { logout })(withRouter(DropdownItems));
+const mapStateToProps = (state) => ({
+	usr: state.login.user
+})
+
+export default connect(mapStateToProps, { logout })(withRouter(DropdownItems));

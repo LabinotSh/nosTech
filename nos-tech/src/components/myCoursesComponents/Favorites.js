@@ -1,6 +1,6 @@
 import React, { Component, useEffect, useState } from 'react';
 import { Card } from 'react-bootstrap';
-import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRight, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Favorites = (props) => {
@@ -25,7 +25,12 @@ const Favorites = (props) => {
 				</Card.Link>
 			</Card.Body>
 			<Card.Footer className="c-foot">
-				{/* <Card.Text className="inst float-left">Instructor: {props.favorite._instructor}</Card.Text> */}
+				<Card.Text className="inst float-left">
+					<FontAwesomeIcon icon={faUser} />
+					{props.author && (
+						<span className="author-name">{props.author.name + ' ' + props.author.surname}</span>
+					)}
+				</Card.Text>
 			</Card.Footer>
 		</Card>
 	);
