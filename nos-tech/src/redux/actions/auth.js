@@ -82,7 +82,7 @@ export const login = (username, password) => async (dispatch) => {
 				} else {
 					history.push('/admins/users');
 				}
-			}, 500);
+			}, 300);
 
 			return response.data;
 		})
