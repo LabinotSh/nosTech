@@ -18,7 +18,7 @@ const ContentReview = ({match}) => {
     return (
         <>  
         <Link to="/admins/course-review"  className="btn btn-dark btn-sm my-3 mx-5" >Go Back</Link>
-        <div className="container content-items-review-part">
+        <div className="container content-items-review-part" style={{marginTop:'5rem', marginBottom:'5rem'}}>
         <img className="content-review-image" src={`/${course.image}`} />
         {course.videos?(course.videos.map(video =>
             <video className="content-review-video" type="video"  controls src={`/${video}`} />

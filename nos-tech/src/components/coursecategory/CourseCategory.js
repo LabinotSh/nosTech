@@ -70,10 +70,7 @@ const CourseCategory = ({list,pending, match}) => {
         <div className="d-flex justify-content-between">
         <strong style={{ fontSize: "18px", marginTop: "6px" }}>
                 <i className="fa fa-eur" /> {item.price}
-              </strong>
-        <strong style={{ fontSize: "18px", marginTop: "6px" }}>
-                <i className="fa fa-shopping-cart" />
-        </strong>     
+              </strong>   
         </div>
         </div>
         </div>
