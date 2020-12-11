@@ -12,6 +12,7 @@ import {
     USER_UPDATE_REQUEST,
     USER_UPDATE_SUCCESS,
     USER_UPDATE_FAIL,
+    USER_UPDATE_RESET,
     USER_ADD_COURSE_REQUEST,
     USER_ADD_COURSE_SUCCESS,
     USER_ADD_COURSE_FAIL
@@ -68,7 +69,7 @@ export const userUpdateReducer = (state = {user:{}}, action) => {
             return {...state,loading: false,success:true, user: action.payload}  
         case USER_UPDATE_FAIL:
             return {...state,loading: false, error: action.payload};
-        case USER_UPDATE_SUCCESS:
+        case USER_UPDATE_RESET:
             return {user:{}}    
             default:
                 return state    

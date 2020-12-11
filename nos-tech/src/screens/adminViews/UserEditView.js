@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Form, Button, Alert } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { listUserDetails, updateUser } from '../../redux/actions/userActions';
+import {USER_UPDATE_RESET} from '../../redux/actions/types'
 import './courseView.css';
 
 const UserEditView = ({ match }) => {
@@ -37,11 +38,9 @@ const UserEditView = ({ match }) => {
 
 	useEffect(() => {
 		if (userUpdateSuccess) {
-			setTimeout(() => {
-				setVisible(false);
-			}, 2000);
+			dispatch({type:USER_UPDATE_RESET})
 		}
-	}, [userUpdateSuccess]);
+	}, []);
 
 	const submitHandler = (e) => {
 		e.preventDefault();
@@ -109,7 +108,7 @@ const UserEditView = ({ match }) => {
 						onChange={(e) => setEmail(e.target.value)}
 					></Form.Control>
 				</Form.Group>
-				<Button type="submit" variant="primary">
+				<Button type="submit" variant="primary" className="butoniKalter">
 					Submit
 				</Button>
 			</Form>
