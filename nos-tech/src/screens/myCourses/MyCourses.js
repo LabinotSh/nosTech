@@ -32,9 +32,7 @@ const MyCourses = ({enroll}) => {
 				setEnrolled(response.courses)
 			}
 		})
-		.catch((err) => {
-			console.log('Err ' + err);
-		})
+		.catch((err) => console.log('Err ' + err))
 	}
 
 	const getFav = (userId) => {
@@ -47,9 +45,7 @@ const MyCourses = ({enroll}) => {
 					setFavList(res.data.favs);
 				}
 			})
-			.catch((err) => {
-				console.log(err);
-			});
+			.catch((err) => console.log(err));
 	};
 
 	useEffect(() => {
@@ -106,7 +102,7 @@ const MyCourses = ({enroll}) => {
 					)}
 					{favList &&
 						favList.map((favorite) => {
-							return <Favorites favorite={favorite} key={favorite._id} />;
+							return <Favorites favorite={favorite} key={favorite._id} author={favorite._instructor} />;
 						})}
 				</div>
 			)}

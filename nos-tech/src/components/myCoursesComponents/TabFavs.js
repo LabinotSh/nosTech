@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { NavLink } from 'react-router-dom';
 import { faLock, faLockOpen } from '@fortawesome/free-solid-svg-icons';
+import { faHeart, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faHeart as farHeart } from "@fortawesome/free-regular-svg-icons";
 
 const selectedStyle = {
 	padding: '.8rem',
 	borderBottomWidth: '2px',
 	borderBottomStyle: 'solid',
-	borderBottomColor: '#000',
+	borderBottomColor: '#fc4563',
 	opacity: '1',
 	color: '#000',
 };
@@ -26,7 +28,7 @@ const nonSelectedStyle = {
 const TabFavs = (props) => {
 	return (
 		<NavLink to="#favorites" style={nonSelectedStyle} activeStyle={!props.about ? selectedStyle : null}>
-			<FontAwesomeIcon icon={!props.about ? faLockOpen : faLock} className="fnt-lock" />
+			<FontAwesomeIcon icon={!props.about ? faHeart : farHeart} className="fnt-lock" />
 			Favorites
 		</NavLink>
 	);

@@ -29,7 +29,7 @@ const Login = ({ authenticated, err }) => {
 	useEffect(() => {
 		setTimeout(() => {
 			err ? setError(err) : setError('');
-		}, 100);
+		}, 50);
 		
 	}, [err]);
 
@@ -49,19 +49,14 @@ const Login = ({ authenticated, err }) => {
 				onSubmit={(values, { setSubmitting, resetForm }) => {
 					setSubmitting(true);
 					setLoading(true);
-					// if (err) {
-					// 	resetForm();
-					// 	setTimeout(() => {
-					// 		setError(err);
-					// 	}, 300);
-					// }
+					// if()
 					//down below is where the data should be sent to the server
 					dispatch(login(values.username, values.password))
 						.then((response) => {
+							setError('');
 							console.log('alaa ' + JSON.stringify(response.user));
 							setSubmitting(true);
-							setLoading(false);
-							setError('');
+							setLoading(false);			
 						})
 						.catch((error) => {
 							console.log('Error: ' + error);
@@ -94,9 +89,6 @@ const Login = ({ authenticated, err }) => {
 												name="username"
 												// id="name"
 												placeholder="Username"
-												onClick={() => {
-													if (error) setError('');
-												}}
 												onChange={handleChange}
 												value={values.username}
 												onBlur={handleBlur}

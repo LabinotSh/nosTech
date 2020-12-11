@@ -27,12 +27,9 @@ const Enrolled = (props) => {
 			<Card.Footer className="c-foot">
 				<Card.Text className="inst float-left">
 					<FontAwesomeIcon icon={faUser} />
-				{props.author && (
-                        <>
-                            {/* Author:{' '} */}
-                            <span className="author-name">{props.author.name + ' ' + props.author.surname}</span>
-                        </>
-                    )}
+					{props.author && (
+						<span className="author-name">{props.author.name + ' ' + props.author.surname}</span>
+					)}
 				</Card.Text>
 			</Card.Footer>
 		</Card>

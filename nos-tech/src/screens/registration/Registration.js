@@ -28,7 +28,7 @@ const validationSchema = Yup.object().shape({
 		.required('Password is required'),
 });
 
-const Registration = ({ err }) => {
+const Registration = ({ err, msg }) => {
 	const dispatch = useDispatch();
 
 	const [registered, setRegister] = useState(false);
@@ -74,7 +74,6 @@ const Registration = ({ err }) => {
 						setSubmitting(true);
 						setRegister(true);
 						setEmailSent(false);
-						console.log('Data ' + JSON.stringify(response.data));
 						notify.show(
 							<div>
 								{response.data.msg}
@@ -130,7 +129,6 @@ const Registration = ({ err }) => {
 										<Form.Control
 											type="text"
 											name="name"
-											// id="name"
 											placeholder="Full Name"
 											onChange={handleChange}
 											value={values.name}
@@ -139,12 +137,10 @@ const Registration = ({ err }) => {
 										/>
 										<Error touched={touched.name} message={errors.name} />
 									</Form.Group>
-
 									<Form.Group controlId="formBasicUsername">
 										<Form.Control
 											type="text"
 											name="username"
-											//id="username"
 											placeholder="Username"
 											onChange={handleChange}
 											value={values.username}
@@ -157,7 +153,6 @@ const Registration = ({ err }) => {
 										<Form.Control
 											type="text"
 											name="email"
-											//id="email"
 											placeholder="Email"
 											onChange={handleChange}
 											value={values.email}
@@ -170,7 +165,6 @@ const Registration = ({ err }) => {
 										<Form.Control
 											type="password"
 											name="password"
-											//id="password"
 											placeholder="Password"
 											onChange={handleChange}
 											value={values.password}
@@ -217,7 +211,8 @@ const Registration = ({ err }) => {
 };
 
 const mapStateToProps = (state) => ({
-	err: state.login.error,
+	err: state.login.errors,
+	msg: state.login.msg,
 });
 
 export default connect(mapStateToProps, { register })(withRouter(Registration));
